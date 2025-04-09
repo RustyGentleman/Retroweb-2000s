@@ -1,11 +1,33 @@
+@-webkit-keyframes ras-bgscroll {
+  0% {
+    background-position-y: 0%;
+  }
+  100% {
+    background-position-y: 100%;
+  }
+}
+@keyframes ras-bgscroll {
+  0% {
+    background-position-y: 0%;
+  }
+  100% {
+    background-position-y: 100%;
+  }
+}
 body {
   padding: 0;
   margin: 0;
 }
 
 .fullpage {
+  position: fixed;
   height: 100vh;
   width: 100vw;
+  overflow-y: auto;
+}
+.fullpage .content {
+  max-width: 1000px;
+  margin-inline: auto;
 }
 
 .hidden {
@@ -21,6 +43,7 @@ body {
   display: flex;
   flex-direction: row;
   align-items: center;
+  z-index: 100;
 }
 #kowabi #msg {
   height: -webkit-fit-content;
@@ -38,10 +61,32 @@ body {
   gap: 2px;
   margin-top: 0.5rem;
 }
-#kowabi > img {
+#kowabi #icon {
+  height: 100%;
+}
+#kowabi #icon img {
   height: 100%;
   width: auto;
-  cursor: pointer;
+}
+#kowabi #icon #expression {
+  height: 100%;
+  width: 100%;
+  margin-top: -200%;
+}
+
+#ras .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-block: 5rem;
+}
+#ras .bust {
+  margin-bottom: -13rem;
+}
+#ras .header {
+  height: 189px;
+  width: 604px;
 }
 
 body {
@@ -51,7 +96,7 @@ body {
 }
 
 #kowabi #msg {
-  transition: opacity 0.5s ease;
+  transition: opacity 0.3s ease;
   border: solid black 2px;
   border-radius: 1rem 1rem 0 1rem;
 }
@@ -70,5 +115,69 @@ body {
 }
 #kowabi #msg #options button:focus-visible, #kowabi #msg #options button:focus {
   outline: 1px solid #000000;
+}
+#kowabi #icon {
+  cursor: pointer;
+}
+#kowabi #icon #expression {
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 0 0.3rem hsl(199deg, 100%, 50%)) drop-shadow(0 0 0.1rem hsl(199deg, 100%, 50%));
+  background-image: url("assets/kowabi-expressions.png");
+  background-repeat: no-repeat;
+  background-position: -1.6rem 8rem;
+  -webkit-clip-path: inset(19% 0 0 0);
+          clip-path: inset(19% 0 0 0);
+}
+#kowabi #icon #expression.col-1 {
+  background-position-x: -1.6rem;
+}
+#kowabi #icon #expression.col-2 {
+  background-position-x: -8.4rem;
+}
+#kowabi #icon #expression.col-3 {
+  background-position-x: -15.1rem;
+}
+#kowabi #icon #expression.col-4 {
+  background-position-x: -21.9rem;
+}
+#kowabi #icon #expression.col-5 {
+  background-position-x: -28.6rem;
+}
+#kowabi #icon #expression.col-6 {
+  background-position-x: -35.5rem;
+}
+#kowabi #icon #expression.row-1 {
+  background-position-y: 1.5rem;
+}
+#kowabi #icon #expression.row-2 {
+  background-position-y: -7rem;
+}
+#kowabi #icon #expression.row-3 {
+  background-position-y: -15rem;
+}
+#kowabi #icon #expression.row-4 {
+  background-position-y: -22.6rem;
+}
+
+#ras {
+  font-family: "Comic Sans MS";
+  color: white;
+  background-image: url("assets/ras/star-bg.gif");
+  -webkit-animation: ras-bgscroll 60s linear infinite;
+          animation: ras-bgscroll 60s linear infinite;
+  text-shadow: 0 0 0.5rem #0044ff, 0 0 0.5rem #0044ff, 0 0 0.7rem #ff004c;
+}
+#ras .content {
+  filter: drop-shadow(0 0 3rem rgba(0, 68, 255, 0.4)) drop-shadow(0 0 15rem rgba(255, 0, 76, 0.1));
+}
+#ras .vbig {
+  font-size: 4rem;
+}
+#ras .big {
+  font-size: 2rem;
+}
+#ras .header {
+  filter: drop-shadow(0 0 0.2rem #ff004c) drop-shadow(0 0 0.2rem #0011ff) drop-shadow(0 1rem 0.5rem black);
 }
 /*# sourceMappingURL=app.css.map */

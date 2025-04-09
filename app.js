@@ -11,6 +11,7 @@ Kowabi.toggle = () => {
 Kowabi.text = Kowabi.querySelector('#text')
 Steptext.element = Kowabi.text
 Kowabi.options = Kowabi.querySelector('#options')
+Kowabi.expression = Kowabi.querySelector('#expression')
 Kowabi.setText = (string) => {
 	// Kowabi.text.textContent = string
 	Kowabi.text.textContent = ''
@@ -47,35 +48,39 @@ Kowabi.playNode = (key) => {
 	const node = Kowabi.dialogueNodes[key]
 	if (!node) return console.warn(`Dialogue node "${key}" not found.`)
 
+	Steptext.queue = ''
+	Steptext.close = []
 	Kowabi.setText(node.text)
 	Kowabi.resetOptions()
 	Kowabi.addOptions(...node.options)
 }
+Kowabi.setExpression = (col, row) => Kowabi.expression.className = `col-${col} row-${row}`
 
 Kowabi.addNodes([
 	['assistance', 'Would your _~stupid~_ self like some assistance?', [
-			['Yes', 'assistance1-0'],
-			['Of course', 'assistance1-1'],
+			['Yes', 'assistance1-0', () => Kowabi.setExpression(4, 2)],
+			['Of course', 'assistance1-1', () => Kowabi.setExpression(6, 2)],
 		]],
 	['assistance1-0', 'Of course. What do you need help with?', [
-			['Life', 'life'],
-			['Navigation', 'navigation'],
+			['Life', 'life', () => Kowabi.setExpression(1, 4)],
+			['Navigation', 'navigation', () => Kowabi.setExpression(4, 3)],
 		]],
 	['assistance1-1', '_Of !!course!!..._ Of _course_. What do you need help with?', [
-			['Life', 'life'],
-			['Navigation', 'navigation'],
+			['Life', 'life', () => Kowabi.setExpression(1, 4)],
+			['Navigation', 'navigation', () => Kowabi.setExpression(4, 3)],
 		]],
 	['life', "_~Don't we all...~_", [
-			['Life', 'life'],
-			['Navigation', 'navigation'],
+			['Life', 'life', () => Kowabi.setExpression(1, 4)],
+			['Navigation', 'navigation', () => Kowabi.setExpression(4, 3)],
 		]],
 	['navigation', "Well, there's not much to navigate for now, but I'm sure this place will be full of life in no time.", [
-			['Life', 'life'],
-			['Navigation', 'navigation'],
+			['Life', 'life', () => Kowabi.setExpression(1, 4)],
+			['Navigation', 'navigation', () => Kowabi.setExpression(4, 3)],
 		]],
 ])
 
 Kowabi.playNode('assistance')
+Kowabi.setExpression(3, 1)
 
 // let count = 1
 // Kowabi.addOption('Add another', () => Kowabi.addOption(`Opt ${count++}`, () => {

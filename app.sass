@@ -1,3 +1,10 @@
+//# Keyframes
+@keyframes ras-bgscroll
+	0%
+		background-position-y: 0%
+	100%
+		background-position-y: 100%
+
 //# Overrides
 // *
 // 	outline: solid 1px magenta
@@ -8,8 +15,13 @@ body
 
 //# Classes
 .fullpage
+	position: fixed
 	height: 100vh
 	width: 100vw
+	overflow-y: auto
+	.content
+		max-width: 1000px
+		margin-inline: auto
 .hidden
 	opacity: 0
 	pointer-events: none
@@ -23,6 +35,7 @@ body
 	display: flex
 	flex-direction: row
 	align-items: center
+	z-index: 100
 	#msg
 		height: fit-content
 		min-width: 15rem
@@ -35,28 +48,91 @@ body
 			justify-content: center
 			gap: 2px
 			margin-top: .5rem
-	> img
+	#icon
 		height: 100%
-		width: auto
-		cursor: pointer
+		img
+			height: 100%
+			width: auto
+		#expression
+			height: 100%
+			width: 100%
+			margin-top: -200%
+#ras
+	.content
+		display: flex
+		flex-direction: column
+		align-items: center
+		text-align: center
+		margin-block: 5rem
+	.bust
+		margin-bottom: -13rem
+	.header
+		height: 189px
+		width: 604px
 
 //# Colors, Text & Appearance
 body
 	background: #111
 	font-family: Tahoma
 	text-rendering: optimizeSpeed
-#kowabi #msg
-	transition: opacity .5s ease
-	border: solid black 2px
-	border-radius: 1rem 1rem 0 1rem
-	&:not(:empty)
-		background-color: #fcfacf
-	#options button
-		appearance: none
-		background: #C0C0C0
-		color: black
-		border: solid 1px
-		border-color:#FFFFFF #808080 #808080 #FFFFFF
+#kowabi
+	#msg
+		transition: opacity .3s ease
+		border: solid black 2px
+		border-radius: 1rem 1rem 0 1rem
+		&:not(:empty)
+			background-color: #fcfacf
+		#options button
+			appearance: none
+			background: #C0C0C0
+			color: black
+			border: solid 1px
+			border-color:#FFFFFF #808080 #808080 #FFFFFF
+			cursor: pointer
+			&:focus-visible, &:focus
+				outline: 1px solid #000000
+	#icon
 		cursor: pointer
-		&:focus-visible, &:focus
-			outline: 1px solid #000000
+		#expression
+			position: relative
+			z-index: 1
+			filter: drop-shadow(0 0 .3rem hsl(199, 100%, 50%)) drop-shadow(0 0 .1rem hsl(199, 100%, 50%))
+			background-image: url('assets/kowabi-expressions.png')
+			background-repeat: no-repeat
+			background-position: -1.6rem 8rem
+			clip-path: inset(19% 0 0 0)
+			// background-position: -1.7rem 1.5rem
+			&.col-1
+				background-position-x: -1.6rem
+			&.col-2
+				background-position-x: -8.4rem
+			&.col-3
+				background-position-x: -15.1rem
+			&.col-4
+				background-position-x: -21.9rem
+			&.col-5
+				background-position-x: -28.6rem
+			&.col-6
+				background-position-x: -35.5rem
+			&.row-1
+				background-position-y: 1.5rem
+			&.row-2
+				background-position-y: -7rem
+			&.row-3
+				background-position-y: -15rem
+			&.row-4
+				background-position-y: -22.6rem
+#ras
+	font-family: 'Comic Sans MS'
+	color: white
+	background-image: url('assets/ras/star-bg.gif')
+	animation: ras-bgscroll 60s linear infinite
+	text-shadow: 0 0 .5rem #0044ff, 0 0 .5rem #0044ff, 0 0 .7rem #ff004c
+	.content
+		filter: drop-shadow(0 0 3rem rgb(0 68 255 / 40%)) drop-shadow(0 0 15rem rgb(255 0 76 / 10%))
+	.vbig
+		font-size: 4rem
+	.big
+		font-size: 2rem
+	.header
+		filter: drop-shadow(0 0 .2rem #ff004c) drop-shadow(0 0 .2rem #0011ff) drop-shadow(0 1rem .5rem black)
