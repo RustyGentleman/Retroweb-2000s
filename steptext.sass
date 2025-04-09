@@ -1,0 +1,47 @@
+@keyframes wave
+	$amp: .15rem
+	30%
+		transform: translateY(-$amp)
+	60%
+		transform: translateY($amp)
+	90%, 100%, 0%
+		transform: translateY(0)
+@keyframes jitter
+	@for $i from 0 to 20
+		#{$i * 5%}
+			$randx: random()
+			$randy: random()
+			transform: translate(calc(var(--amp) * $randx), calc(var(--amp) * $randy))
+@keyframes glow
+	0%, 10%
+		--glow: 0
+	90%, 100%
+		--glow: 1
+
+jitter
+	white-space: nowrap
+	animation-play-state: inherit
+	span
+		--amp: .1rem
+		display: inline-block
+		will-change: transform
+		animation: jitter 1s linear infinite
+		animation-play-state: inherit
+		@for $i from 1 through 10
+			&:nth-of-type(10n+#{$i})
+				animation-delay: #{$i * .2s - 1s}
+wave
+	white-space: nowrap
+	animation-play-state: inherit
+	span
+		display: inline-block
+		will-change: transform
+		animation: wave 3s ease-in-out infinite
+		animation-play-state: inherit
+		@for $i from 1 through 10
+			&:nth-of-type(10n+#{$i})
+				animation-delay: #{$i * .3s - 3s}
+glow
+	--glow: 1
+	animation: glow 4s ease infinite alternate
+	animation-play-state: inherit

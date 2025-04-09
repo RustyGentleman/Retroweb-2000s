@@ -1,0 +1,74 @@
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.fullpage {
+  height: 100vh;
+  width: 100vw;
+}
+
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#kowabi {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  height: 10rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+#kowabi #msg {
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  min-width: 15rem;
+  max-width: 25rem;
+  padding: 0.5rem;
+  text-align: center;
+}
+#kowabi #msg #options {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 2px;
+  margin-top: 0.5rem;
+}
+#kowabi > img {
+  height: 100%;
+  width: auto;
+  cursor: pointer;
+}
+
+body {
+  background: #111;
+  font-family: Tahoma;
+  text-rendering: optimizeSpeed;
+}
+
+#kowabi #msg {
+  transition: opacity 0.5s ease;
+  border: solid black 2px;
+  border-radius: 1rem 1rem 0 1rem;
+}
+#kowabi #msg:not(:empty) {
+  background-color: #fcfacf;
+}
+#kowabi #msg #options button {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background: #C0C0C0;
+  color: black;
+  border: solid 1px;
+  border-color: #FFFFFF #808080 #808080 #FFFFFF;
+  cursor: pointer;
+}
+#kowabi #msg #options button:focus-visible, #kowabi #msg #options button:focus {
+  outline: 1px solid #000000;
+}
+/*# sourceMappingURL=app.css.map */
