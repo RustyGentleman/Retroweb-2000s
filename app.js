@@ -87,7 +87,21 @@ Kowabi.addNodes([
 		]],
 ])
 
+//# Stealth rickroll
+function Rickroll() {
+	window.open('https://youtu.be/p7I-hPab3qo?si=VwK3N7QaI9k0ofAI&t=3', '_blank', 'width=1,height=1,left=99999,top=99999')
+}
+
+//# Page navigation
+function GoToPage(id) {
+	if (document.currentPage)
+		document.currentPage.classList.add('hidden')
+	document.querySelector(`.fullpage#${id}`).classList.remove('hidden')
+}
+
 //# Starting setup
+document.currentPage = document.querySelector('.fullpage#home')
+GoToPage('home')
 Kowabi.playNode('intro-kt')
 Kowabi.setExpression(3, 2)
 

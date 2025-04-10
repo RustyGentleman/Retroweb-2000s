@@ -9,10 +9,18 @@
 	<script src="howler.min.js"></script>
 	<link rel="stylesheet" href="app.css">
 	<link rel="stylesheet" href="steptext.css">
+	<script>
+		setTimeout(() => document.getElementById('retroModal').style.display = 'block', 1000)
+	</script>
+	<link rel="prefetch" href="https://youtu.be/p7I-hPab3qo?si=VwK3N7QaI9k0ofAI&t=3" as="document">
 </head>
 <body>
-	<div class="fullpage" id="home"></div>
-	<div class="fullpage" id="ras">
+	<div id="retroModal">
+		<img width="400" src="assets/number1visitor.gif" alt="OHMYGODDD!! YOU'RE OUR NUMBER 1 VISITOR!!!!!">
+		<button class="win95-btn" onclick="Rickroll(); this.setAttribute('onclick', `document.getElementById('retroModal').style.display = 'none'`)">YAY!!!!</button>
+  </div>
+	<div class="fullpage hidden" id="home"></div>
+	<div class="fullpage hidden" id="ras">
 		<div class="content">
 			<img class="enterprise" src="assets/ras/enterprise-blast.gif" alt="USS Enterprise-C phaser firing." style="margin-block: 6rem -17rem;margin-right: -39rem;" onclick="document.h_Phaser.play()">
 			<img class="bust" src="assets/ras/ras-nobg.png" alt="Rasutei, the Gentle Kitsune">

@@ -4,6 +4,20 @@
 		background-position-y: 0%
 	100%
 		background-position-y: 100%
+@keyframes vis1-borderflash
+	0%
+		border-color: yellow
+	50%
+		border-color: lime
+	100%
+		border-color: yellow
+@keyframes vis1-flash
+	0%
+		opacity: 1
+	50%
+		opacity: 0
+	100%
+		opacity: 1
 
 //# Overrides
 // *
@@ -26,6 +40,15 @@ body
 .hidden
 	opacity: 0
 	pointer-events: none
+.win95-btn
+	appearance: none
+	background: #C0C0C0
+	color: black
+	border: solid 1px
+	border-color:#FFFFFF #808080 #808080 #FFFFFF
+	cursor: pointer
+	&:focus-visible, &:focus
+		outline: 1px solid #000000
 
 //# Layout
 #kowabi
@@ -84,14 +107,7 @@ body
 		&:not(:empty)
 			background-color: #fcfacf
 		#options button
-			appearance: none
-			background: #C0C0C0
-			color: black
-			border: solid 1px
-			border-color:#FFFFFF #808080 #808080 #FFFFFF
-			cursor: pointer
-			&:focus-visible, &:focus
-				outline: 1px solid #000000
+			@extend .win95-btn
 	#icon
 		cursor: pointer
 		#expression
@@ -137,3 +153,27 @@ body
 		font-size: 2rem
 	.header
 		filter: drop-shadow(0 0 .2rem #ff004c) drop-shadow(0 0 .2rem #0011ff) drop-shadow(0 1rem .5rem black)
+
+//# Specific stuff
+#retroModal
+	display: none
+	position: fixed
+	z-index: 9999
+	left: 50%
+	top: 50%
+	transform: translate(-50%, -50%)
+	width: 400px
+	padding: 20px
+	background: linear-gradient(to bottom, #ff00ff, #00ffff)
+	border: 5px dashed yellow
+	box-shadow: 0 0 20px red
+	font-family: "Comic Sans MS", cursive, sans-serif
+	text-align: center
+	animation: vis1-borderflash 1s infinite
+	.flashing-text
+		font-size: 32px
+		font-weight: bold
+		color: red
+		animation: vis1-flash 0.5s infinite
+	span
+		color: gold
