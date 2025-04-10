@@ -28,6 +28,7 @@ body {
 .fullpage .content {
   max-width: 1000px;
   margin-inline: auto;
+  overflow-y: hidden;
 }
 
 .hidden {

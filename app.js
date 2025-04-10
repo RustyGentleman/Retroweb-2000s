@@ -1,4 +1,4 @@
-const when = condition => condition
+//# Kowabi
 const Kowabi = document.getElementById('kowabi')
 Kowabi.toggle = () => {
 	const msg = Kowabi.querySelector('#msg')
@@ -56,7 +56,16 @@ Kowabi.playNode = (key) => {
 }
 Kowabi.setExpression = (col, row) => Kowabi.expression.className = `col-${col} row-${row}`
 
+//# Kowabi dialogues
+//* Main page
 Kowabi.addNodes([
+	['intro-kt', `~Haine!~ _**Kowabi**_ maibe made, done maiyunama miremoyekai madeda!`, [
+			['What?', 'intro-en', () => Kowabi.setExpression(3, 1)],
+		]],
+	['intro-en', `~Greetings...~ I am _**Kowabi**_, and I will be your guide.`, [
+			['Yes', 'assistance1-0', () => Kowabi.setExpression(4, 2)],
+			['Of course', 'assistance1-1', () => Kowabi.setExpression(6, 2)],
+		]],
 	['assistance', 'Would your _~stupid~_ self like some assistance?', [
 			['Yes', 'assistance1-0', () => Kowabi.setExpression(4, 2)],
 			['Of course', 'assistance1-1', () => Kowabi.setExpression(6, 2)],
@@ -79,8 +88,11 @@ Kowabi.addNodes([
 		]],
 ])
 
-Kowabi.playNode('assistance')
-Kowabi.setExpression(3, 1)
+//# Starting setup
+Kowabi.playNode('intro-kt')
+Kowabi.setExpression(3, 2)
+
+document.h_Phaser = new Howl({src: ['assets/ras/phaser.mp3']})
 
 // let count = 1
 // Kowabi.addOption('Add another', () => Kowabi.addOption(`Opt ${count++}`, () => {
