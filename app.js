@@ -63,8 +63,7 @@ Kowabi.addNodes([
 			['What?', 'intro-en', () => Kowabi.setExpression(3, 1)],
 		]],
 	['intro-en', `~Greetings...~ I am _**Kowabi**_, and I will be your guide.`, [
-			['Yes', 'assistance1-0', () => Kowabi.setExpression(4, 2)],
-			['Of course', 'assistance1-1', () => Kowabi.setExpression(6, 2)],
+			['Oh, okay', 'assistance', () => Kowabi.setExpression(1, 1)],
 		]],
 	['assistance', 'Would your _~stupid~_ self like some assistance?', [
 			['Yes', 'assistance1-0', () => Kowabi.setExpression(4, 2)],
