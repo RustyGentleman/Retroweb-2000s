@@ -9,17 +9,25 @@
 	<script src="howler.min.js"></script>
 	<link rel="stylesheet" href="app.css">
 	<link rel="stylesheet" href="steptext.css">
-	<script>
-		setTimeout(() => document.getElementById('retroModal').style.display = 'block', 1000)
-	</script>
-	<link rel="prefetch" href="https://youtu.be/p7I-hPab3qo?si=VwK3N7QaI9k0ofAI&t=3" as="document">
 </head>
 <body>
 	<div id="retroModal">
-		<img width="400" src="assets/number1visitor.gif" alt="OHMYGODDD!! YOU'RE OUR NUMBER 1 VISITOR!!!!!">
-		<button class="win95-btn" onclick="Rickroll(); this.setAttribute('onclick', `document.getElementById('retroModal').style.display = 'none'`)">YAY!!!!</button>
+		<img width="400" src="assets/home/number1visitor.gif" alt="OHMYGODDD!! YOU'RE OUR NUMBER 1 VISITOR!!!!!">
+		<button class="win95-btn" onclick="document.getElementById('retroModal').style.display = 'none'">YAY!!!!</button>
   </div>
-	<div class="fullpage hidden" id="home"></div>
+	<div class="fullpage hidden" id="home">
+		<div id="window">
+			<img src="assets/home/window.png" alt="Window to a starry sky."/>
+		</div>
+		<div class="bookshelf" id="bookshelf-left" style="left: calc(50% - 50rem)">
+			<img src="assets/home/bookshelf.png" alt="Left bookshelf."/>
+		</div>
+		<div class="bookshelf" id="bookshelf-right" style="right: calc(50% - 50rem);">
+			<img src="assets/home/bookshelf.png" alt="Right bookshelf."/>
+		</div>
+		<img src="assets/home/balloons.png" alt="Party balloons in black, white and red." id="balloons"/>
+		<div id="floor"></div>
+	</div>
 	<div class="fullpage hidden" id="ras">
 		<div class="content">
 			<img class="enterprise" src="assets/ras/enterprise-blast.gif" alt="USS Enterprise-C phaser firing." style="margin-block: 6rem -17rem;margin-right: -39rem;" onclick="document.h_Phaser.play()">
@@ -68,6 +76,9 @@
 				</figure>
 			</div>
 		</div>
+	</div>
+	<div class="fullpage hidden" id="pal">
+		<img src="assets/home/cauldron1.gif" alt="Boiling cauldron" id="cauldron">
 	</div>
 	<div id="kowabi">
 		<div id="msg" class="hidden">

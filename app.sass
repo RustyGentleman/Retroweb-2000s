@@ -81,6 +81,34 @@ body
 			height: 100%
 			width: 100%
 			margin-top: -200%
+#home
+	#window
+		position: absolute
+		left: 50%
+		bottom: 12rem
+		height: 40rem
+		width: fit-content
+		transform: translateX(-50%) translateZ(-10rem)
+		>img
+			height: 100%
+			width: auto
+		&::before
+			position: absolute
+			inset: 0
+			z-index: -1
+	.bookshelf
+		position: absolute
+		bottom: -1rem
+		>img
+			width: 30rem
+	#floor
+		z-index: -1
+	#balloons
+		width: 180rem
+		position: absolute
+		left: 50%
+		bottom: -3rem
+		transform: translateX(-50%) translateZ(-10rem)
 #ras
 	.content
 		display: flex
@@ -93,6 +121,12 @@ body
 	.header
 		height: 189px
 		width: 604px
+#pal
+	#cauldron
+		position: absolute
+		left: 50%
+		bottom: 20%
+		transform: translateX(-50%)
 
 //# Colors, Text & Appearance
 body
@@ -139,6 +173,40 @@ body
 				background-position-y: -15rem
 			&.row-4
 				background-position-y: -22.6rem
+#home
+	background-image: linear-gradient(to top, rgb(0 0 0 / 50%) 10rem, transparent 16rem), url('assets/home/castlebricks.jpg')
+	background-size: 10rem auto
+	background-position: 50% 50%
+	perspective: 20rem
+	overflow: hidden
+	#window
+		filter: drop-shadow(0rem 1rem 2rem rgb(0 0 0 / 50%))
+		&::before
+			content: ''
+			position: absolute
+			inset: 0
+			clip-path: polygon(10% 95%, 12% 23%, 24% 7%, 51% 0%, 74% 8%, 87% 23%, 88% 95%)
+			background-image: url('assets/ras/star-bg.gif')
+			background-repeat: no-repeat
+			background-size: 98% 98%
+			background-position-x: 30%
+			z-index: -1
+	.bookshelf
+		transform: translateZ(-10rem)
+		box-shadow: 0.3rem 0.5rem 2rem rgb(0 0 0 / 50%)
+		&#bookshelf-right
+			transform: translateZ(-10rem) rotateY(180deg)
+	#floor
+		position: absolute
+		bottom: -8rem
+		left: -25vw
+		height: 20rem
+		width: 150vw
+		display: flex
+		background-image: linear-gradient(to bottom, rgb(0 0 0 / 50%), transparent), url('assets/home/woodfloor.jpg')
+		background-size: 100% 100%, auto 10rem
+		background-position: top center, 50% 50%
+		transform: rotateX(90deg)
 #ras
 	font-family: 'Comic Sans MS'
 	color: white
