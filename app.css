@@ -314,6 +314,10 @@ dialog::backdrop {
   transform: translate(-50%, -50%);
 }
 
+#lef .content {
+  padding-top: 5rem;
+}
+
 #letter, #notice {
   cursor: pointer;
 }
@@ -500,6 +504,15 @@ body {
   color: black;
   border: none;
   text-shadow: 0 0 0.5rem white;
+}
+
+#lef {
+  background-image: url("assets/lef/pokemon-bg.jpg");
+  background-size: cover;
+  background-position: center;
+}
+#lef #leafeon {
+  filter: drop-shadow(0 -4px 0 black);
 }
 
 #retroModal {

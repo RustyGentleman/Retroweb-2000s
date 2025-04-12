@@ -108,7 +108,7 @@ function GoToPage(id) {
 //# Starting setup
 // setTimeout(() => document.getElementById('retroModal').style.display = 'block', 3000)
 document.currentPage = document.querySelector('.fullpage#home')
-GoToPage('pal')
+GoToPage('lef')
 Kowabi.playNode('intro-kt')
 Kowabi.setExpression(3, 2)
 
