@@ -111,3 +111,12 @@ document.currentPage = document.querySelector('.fullpage#home')
 GoToPage('pal')
 Kowabi.playNode('intro-kt')
 Kowabi.setExpression(3, 2)
+
+//# Debug
+const nav = document.getElementById('debug-nav')
+for (const page of Array.from(document.querySelectorAll('.fullpage'))) {
+	const button = document.createElement('button')
+	button.textContent = page.id
+	button.addEventListener('click', function(){GoToPage(this.textContent)})
+	nav.append(button)
+}

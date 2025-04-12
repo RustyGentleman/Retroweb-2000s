@@ -58,6 +58,18 @@
     opacity: 1;
   }
 }
+#debug-nav {
+  position: fixed;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+}
+#debug-nav button {
+  background: black;
+  color: white;
+  border: solid 1px white;
+}
+
 body {
   padding: 0;
   margin: 0;
