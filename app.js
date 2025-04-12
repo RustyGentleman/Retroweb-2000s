@@ -87,10 +87,15 @@ Kowabi.addNodes([
 		]],
 ])
 
-//# Stealth rickroll
+//# Effects
+//? Stealth Rickroll
 function Rickroll() {
 	window.open('https://youtu.be/p7I-hPab3qo?si=VwK3N7QaI9k0ofAI&t=3', '_blank', 'width=1,height=1,left=99999,top=99999')
 }
+//? Sound effects
+document.h_phaser = new Howl({src: ['assets/ras/phaser.mp3']})
+document.h_paper = new Howl({src: ['assets/pal/paper.mp3']})
+document.h_write = new Howl({src: ['assets/pal/write.mp3']})
 
 //# Page navigation
 function GoToPage(id) {
@@ -103,8 +108,6 @@ function GoToPage(id) {
 //# Starting setup
 // setTimeout(() => document.getElementById('retroModal').style.display = 'block', 3000)
 document.currentPage = document.querySelector('.fullpage#home')
-GoToPage('home')
+GoToPage('pal')
 Kowabi.playNode('intro-kt')
 Kowabi.setExpression(3, 2)
-
-document.h_Phaser = new Howl({src: ['assets/ras/phaser.mp3']})

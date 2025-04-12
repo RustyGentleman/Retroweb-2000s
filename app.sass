@@ -27,7 +27,7 @@ body
 	padding: 0
 	margin: 0
 
-//# Classes
+//# Classes & Defaults
 .fullpage
 	position: fixed
 	height: 100vh
@@ -37,6 +37,7 @@ body
 		max-width: 1000px
 		margin-inline: auto
 		overflow-y: hidden
+		text-align: center
 .hidden
 	opacity: 0
 	pointer-events: none
@@ -49,6 +50,28 @@ body
 	cursor: pointer
 	&:focus-visible, &:focus
 		outline: 1px solid #000000
+.hastooltip
+	position: relative
+	&:hover .tooltip
+		opacity: 1
+	.tooltip
+		position: absolute
+		bottom: calc(100% + .5rem)
+		left: 50%
+		transform: translateX(-50%)
+		transition: opacity .3s ease
+		border: solid black 1px
+		border-radius: 0rem
+		background-color: #fcfacf
+		color: black
+		padding: .1rem .3rem
+		font-size: .7rem
+		white-space: nowrap
+		opacity: 0
+		transition: opacity .1s ease
+		pointer-events: none
+dialog::backdrop
+		background: rgb(0 0 0 / 50%)
 
 //# Layout
 #kowabi
@@ -122,17 +145,91 @@ body
 		height: 189px
 		width: 604px
 #pal
-	#cauldron
-		position: absolute
-		left: 50%
-		bottom: 20%
-		transform: translateX(-50%)
+	.content
+		display: flex
+		flex-direction: column
+		align-items: center
+		text-align: center
+		// padding-block: 5rem
+		.room
+			position: relative
+			width: 100%
+			height: 34.9rem
+			display: flex
+			flex-direction: column
+			align-items: center
+			text-align: center
+			perspective: 20rem
+		//? Top room
+		#header
+			h1
+				margin: 0
+		//? Alchemy room
+		#cauldron
+			position: absolute
+			bottom: 0
+			left: 50%
+			transform: translateX(-50%)
+		//? Writing room
+		#desk
+			position: absolute
+			bottom: 0
+			width: 15rem
+		#psych
+			position: absolute
+			bottom: 10.6rem
+			left: calc(50% - 6rem)
+			img
+				width: 3rem
+		#letter
+			position: absolute
+			bottom: 7.5rem
+			left: 50%
+			transform: translateX(-50%)
+			img
+				width: 3rem
+		#drawer
+			position: absolute
+			bottom: 3.7rem
+			right: 24.8rem
+			img
+				width: 2.8rem
+		//? Library
+		#wiz-2
+			position: absolute
+			bottom: 0
+			right: 4rem
+			height: 20rem
+		.empty-bookshelf
+			position: absolute
+			bottom: 1.5rem
+			left: 7rem
+			width: 11.5rem
+			filter: saturate(.6) brightness(.9) contrast(1.1) drop-shadow(0 1rem .5rem rgb(0 0 0 / 70%))
+		#notice
+			position: absolute
+			top: 50%
+			left: 50%
+			height: 15rem
+			width: 10rem
+			display: flex
+			flex-direction: column
+			justify-content: center
+			transition: transform .2s ease
+			transform: scale(.2) translate(-71rem, -30rem)
+			&.open
+				transform: translate(-50%, -50%)
+
 
 //# Colors, Text & Appearance
+//? Clickables
+#letter, #notice
+	cursor: pointer
 body
 	background: #111
 	font-family: Tahoma
 	text-rendering: optimizeSpeed
+	image-rendering: pixelated
 #kowabi
 	#msg
 		transition: opacity .3s ease
@@ -221,7 +318,57 @@ body
 		font-size: 2rem
 	.header
 		filter: drop-shadow(0 0 .2rem #ff004c) drop-shadow(0 0 .2rem #0011ff) drop-shadow(0 1rem .5rem black)
-
+#pal
+	background-color: #2e58ae
+	background-image: url('assets/pal/sky_bg_top.jpg'), url('assets/pal/sky_bg_bottom.jpg')
+	background-repeat: repeat-x
+	background-position: top center, bottom center
+	background-size: auto 6rem, auto 6rem
+	.content
+		color: white
+		.room
+			background-image: url('assets/pal/wall.png')
+			background-size: 100% auto
+			&.windowed
+				background-image: url('assets/pal/wall_windowed.png')
+		//? Top room
+		#header
+			font-size: 1.5rem
+			small
+				font-size: .8rem
+		#wiz-1
+			position: relative
+			&::before
+				content: ''
+				display: block
+				position: absolute
+				bottom: 0
+				right: 4rem
+				width: 10rem
+				height: 3rem
+				border-radius: 100%
+				background: radial-gradient(closest-side, black, transparent)
+				transform: rotate(-10deg)
+			img
+				position: relative
+				z-index: 2
+		//? Alchemy room
+		//? Writing room
+		#drawer
+			opacity: 0
+			&:hover
+				opacity: 1
+		//? Library
+		#notice
+			background: url('assets/pal/notice.png') no-repeat
+			background-size: 100% 100%
+			color: black
+			text-shadow: 0 0 .5rem white
+		dialog#lettertogob
+			background-image: url('assets/pal/letter-bg.jpg')
+			color: black
+			border: none
+			text-shadow: 0 0 .5rem white
 //# Specific stuff
 #retroModal
 	display: none

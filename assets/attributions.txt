@@ -1,10 +1,17 @@
+# GIFs and Images
 neurons.gif - https://theworldofghibli.tumblr.com/post/161705821335 (from Spirited Away)
 blueflowers.gif - https://imgur.com/gallery/blue-flowers-qHPerPC (from When the Promised Flower Blooms)
 star-bg.gif - https://gifer.com/en/WBVk
 enterprise-blast.gif - https://gifer.com/pt/EJhX
-phaser.mp3 - https://www.trekcore.com/audio/ (TNG Phaser 11)
 castlebricks.jpg - https://www.filterforge.com/filters/2897.html
 woodfloor.jpg - https://www.filterforge.com/filters/13205.html
 owl-rocker.gif - https://www.woo-uk.com/Woo-Mid/advertising.html
 window.png - https://pngimg.com/image/17659
 balloons.png - https://gallery.yopriceville.com/Free-Clipart-Pictures/Balloons-PNG/Balloons_Decoration_Transparent_PNG_Clip_Art_Image
+book.png - https://pngimg.com/image/51108
+letter.png - https://clipart-library.com/clipart/LTdoy7jAc.htm
+
+# Sound Effects
+phaser.mp3 - https://www.trekcore.com/audio/ (TNG Phaser 11)
+paper.mp3 - https://pixabay.com/sound-effects/paper-flutter-5933/
+write.mp3 - https://pixabay.com/sound-effects/pencil-writing-32447/

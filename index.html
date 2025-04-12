@@ -30,7 +30,7 @@
 	</div>
 	<div class="fullpage hidden" id="ras">
 		<div class="content">
-			<img class="enterprise" src="assets/ras/enterprise-blast.gif" alt="USS Enterprise-C phaser firing." style="margin-block: 6rem -17rem;margin-right: -39rem;" onclick="document.h_Phaser.play()">
+			<img class="enterprise" src="assets/ras/enterprise-blast.gif" alt="USS Enterprise-C phaser firing." style="margin-block: 6rem -17rem;margin-right: -39rem;" onclick="document.h_phaser.play()">
 			<img class="bust" src="assets/ras/ras-nobg.png" alt="Rasutei, the Gentle Kitsune">
 			<img class="header" src="assets/ras/header.gif" alt="Ras, the Royal Enchanter">
 			<br>
@@ -78,7 +78,59 @@
 		</div>
 	</div>
 	<div class="fullpage hidden" id="pal">
-		<img src="assets/home/cauldron1.gif" alt="Boiling cauldron" id="cauldron">
+		<div class="content">
+			<div class="room windowed"> <!-- Top-->
+				<div id="header" style="margin-top: 5rem">
+					<h1>Pal's Wizard Tower</h1>
+					<!-- <small>Maybe he had a change of profession, so what?</small> --->
+				</div>
+				<div id="wiz-1">
+					<img src="assets/pal/wizard_pew.gif" alt="Wizard shooting magic in multiple directions." id="cauldron" style="margin-top: 4rem;">
+				</div>
+			</div>
+			<div class="room"> <!-- Alchemy-->
+				<img src="assets/pal/cauldron1.gif" alt="Boiling cauldron" id="cauldron">
+			</div>
+			<div class="room"> <!-- Writing-->
+				<img src="assets/pal/desk.png" alt="A desk." id="desk" style="filter: drop-shadow(0 2rem 1rem rgb(0 0 0 / 70%))">
+				<a href="https://oldgoogle.neocities.org/1998/" target="_blank" onclick="document.h_paper.play()">
+					<div class="hastooltip" id="psych">
+						<img src="assets/pal/book.png" alt="Compendium of Pal's Knowledge of Psychology">
+						<span class="tooltip">Compendium of Pal's<br>Knowledge of Psychology</span>
+					</div>
+				</a>
+				<div class="hastooltip" id="drawer">
+					<img src="assets/pal/desk_drawer.png" alt="Open drawer">
+					<span class="tooltip">Many photos of muscular goth babes</span>
+				</div>
+				<div class="hastooltip" id="letter" onclick="document.getElementById('lettertogob').showModal();document.h_paper.play()">
+					<img src="assets/pal/letter.png">
+					<span class="tooltip">A letter to the Goblin Queen</span>
+				</div>
+			</div>
+			<div class="room windowed"> <!-- Library-->
+				<img src="assets/pal/wizard_pc.gif" alt="Wizard browsing the web." id="wiz-2">
+				<img src="assets/home/bookshelf.png" alt="Empty bookshelf." class="empty-bookshelf">
+				<img src="assets/home/bookshelf.png" alt="Empty bookshelf." class="empty-bookshelf" style="left: 25.5rem">
+				<div id="notice" onclick="this.classList.toggle('open'); document.h_paper.play()">
+					<span>Collection</span>
+					<span>en-route to</span>
+					<span>the kingdom's</span>
+					<span>central library</span>
+					<span>by order of the</span>
+					<span>Royal Enchanter.</span>
+				</div>
+			</div>
+			<dialog id="lettertogob">
+				Letter of appreciation written in overly strategic language.<br>
+				It feels like it can be translated.<br>
+				<br>
+				<button class="win95-btn" onclick="const t = document.createElement('span'); t.textContent = 'Short and sweet language i.e. “I love you”'; this.after(t); this.remove(); document.h_write.play()">Translate</button>
+				<br>
+				<br>
+				<button class="win95-btn" onclick="this.parentElement.close()">Close</button>
+			</dialog>
+		</div>
 	</div>
 	<div id="kowabi">
 		<div id="msg" class="hidden">

@@ -73,6 +73,7 @@ body {
   max-width: 1000px;
   margin-inline: auto;
   overflow-y: hidden;
+  text-align: center;
 }
 
 .hidden {
@@ -92,6 +93,38 @@ body {
 }
 .win95-btn:focus-visible, #kowabi #msg #options button:focus-visible, .win95-btn:focus, #kowabi #msg #options button:focus {
   outline: 1px solid #000000;
+}
+
+.hastooltip {
+  position: relative;
+}
+.hastooltip:hover .tooltip {
+  opacity: 1;
+}
+.hastooltip .tooltip {
+  position: absolute;
+  bottom: calc(100% + 0.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  transition: opacity 0.3s ease;
+  border: solid black 1px;
+  border-radius: 0rem;
+  background-color: #fcfacf;
+  color: black;
+  padding: 0.1rem 0.3rem;
+  font-size: 0.7rem;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.1s ease;
+  pointer-events: none;
+}
+
+dialog::-webkit-backdrop {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.5);
 }
 
 #kowabi {
@@ -185,17 +218,100 @@ body {
   width: 604px;
 }
 
-#pal #cauldron {
+#pal .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+#pal .content .room {
+  position: relative;
+  width: 100%;
+  height: 34.9rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  perspective: 20rem;
+}
+#pal .content #header h1 {
+  margin: 0;
+}
+#pal .content #cauldron {
   position: absolute;
+  bottom: 0;
   left: 50%;
-  bottom: 20%;
   transform: translateX(-50%);
+}
+#pal .content #desk {
+  position: absolute;
+  bottom: 0;
+  width: 15rem;
+}
+#pal .content #psych {
+  position: absolute;
+  bottom: 10.6rem;
+  left: calc(50% - 6rem);
+}
+#pal .content #psych img {
+  width: 3rem;
+}
+#pal .content #letter {
+  position: absolute;
+  bottom: 7.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+#pal .content #letter img {
+  width: 3rem;
+}
+#pal .content #drawer {
+  position: absolute;
+  bottom: 3.7rem;
+  right: 24.8rem;
+}
+#pal .content #drawer img {
+  width: 2.8rem;
+}
+#pal .content #wiz-2 {
+  position: absolute;
+  bottom: 0;
+  right: 4rem;
+  height: 20rem;
+}
+#pal .content .empty-bookshelf {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 7rem;
+  width: 11.5rem;
+  filter: saturate(0.6) brightness(0.9) contrast(1.1) drop-shadow(0 1rem 0.5rem rgba(0, 0, 0, 0.7));
+}
+#pal .content #notice {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 15rem;
+  width: 10rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: transform 0.2s ease;
+  transform: scale(0.2) translate(-71rem, -30rem);
+}
+#pal .content #notice.open {
+  transform: translate(-50%, -50%);
+}
+
+#letter, #notice {
+  cursor: pointer;
 }
 
 body {
   background: #111;
   font-family: Tahoma;
   text-rendering: optimizeSpeed;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
 }
 
 #kowabi #msg {
@@ -311,6 +427,67 @@ body {
 }
 #ras .header {
   filter: drop-shadow(0 0 0.2rem #ff004c) drop-shadow(0 0 0.2rem #0011ff) drop-shadow(0 1rem 0.5rem black);
+}
+
+#pal {
+  background-color: #2e58ae;
+  background-image: url("assets/pal/sky_bg_top.jpg"), url("assets/pal/sky_bg_bottom.jpg");
+  background-repeat: repeat-x;
+  background-position: top center, bottom center;
+  background-size: auto 6rem, auto 6rem;
+}
+#pal .content {
+  color: white;
+}
+#pal .content .room {
+  background-image: url("assets/pal/wall.png");
+  background-size: 100% auto;
+}
+#pal .content .room.windowed {
+  background-image: url("assets/pal/wall_windowed.png");
+}
+#pal .content #header {
+  font-size: 1.5rem;
+}
+#pal .content #header small {
+  font-size: 0.8rem;
+}
+#pal .content #wiz-1 {
+  position: relative;
+}
+#pal .content #wiz-1::before {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0;
+  right: 4rem;
+  width: 10rem;
+  height: 3rem;
+  border-radius: 100%;
+  background: radial-gradient(closest-side, black, transparent);
+  transform: rotate(-10deg);
+}
+#pal .content #wiz-1 img {
+  position: relative;
+  z-index: 2;
+}
+#pal .content #drawer {
+  opacity: 0;
+}
+#pal .content #drawer:hover {
+  opacity: 1;
+}
+#pal .content #notice {
+  background: url("assets/pal/notice.png") no-repeat;
+  background-size: 100% 100%;
+  color: black;
+  text-shadow: 0 0 0.5rem white;
+}
+#pal .content dialog#lettertogob {
+  background-image: url("assets/pal/letter-bg.jpg");
+  color: black;
+  border: none;
+  text-shadow: 0 0 0.5rem white;
 }
 
 #retroModal {
