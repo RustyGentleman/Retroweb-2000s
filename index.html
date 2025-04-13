@@ -17,14 +17,14 @@
 		<button class="win95-btn" onclick="document.getElementById('retroModal').style.display = 'none'">YAY!!!!</button>
   </div>
 	<div class="fullpage hidden" id="home">
-		<div id="floor"></div>
-		<div id="window">
+		<div class="floor"></div>
+		<div class="window">
 			<img src="assets/home/window.png" alt="Window to a starry sky."/>
 		</div>
-		<div class="bookshelf" id="bookshelf-left" style="left: calc(50% - 35rem)">
+		<div class="bookshelf" id="bookshelf-left" style="left: calc(50% - 25rem)">
 			<img src="assets/home/bookshelf.png" alt="Left bookshelf."/>
 		</div>
-		<div class="bookshelf" id="bookshelf-right" style="right: calc(50% - 35rem);">
+		<div class="bookshelf" id="bookshelf-right" style="right: calc(50% - 25rem);">
 			<img src="assets/home/bookshelf.png" alt="Right bookshelf."/>
 			<div class="hastooltip" id="universal-translator">
 				<img src="assets/home/universal-translator.png" alt="Universal translator." onclick="addCollectible('an Universal Translator'); this.parentElement.remove(); Kowabi.playNode('intro-en')">
@@ -32,6 +32,9 @@
 			</div>
 		</div>
 		<img src="assets/home/balloons.png" alt="Party balloons in black, white and red." id="balloons"/>
+		<!--# Basement level -->
+		<div class="basement floor"></div>
+		<div class="floor ceiling"></div>
 	</div>
 	<div class="fullpage hidden" id="ras">
 		<div class="content">

@@ -11,6 +11,7 @@ balloons.png - https://gallery.yopriceville.com/Free-Clipart-Pictures/Balloons-P
 book.png - https://pngimg.com/image/51108
 letter.png - https://clipart-library.com/clipart/LTdoy7jAc.htm
 universal-translator.jpg - https://memory-alpha.fandom.com/wiki/Universal_translator
+ceiling.jpg - https://www.filterforge.com/filters/9241-v1.html
 
 # Sound Effects
 phaser.mp3 - https://www.trekcore.com/audio/ (TNG Phaser 11)

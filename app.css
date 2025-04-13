@@ -73,6 +73,7 @@
 body {
   padding: 0;
   margin: 0;
+  height: 100vh;
 }
 
 .fullpage {
@@ -178,34 +179,63 @@ dialog::backdrop {
   margin-top: -200%;
 }
 
-#home #window {
+#home {
+  overflow-x: hidden;
+}
+#home::before {
+  content: "";
+  position: absolute;
+  inset: -2rem;
+  bottom: initial;
+  height: 190vh;
+  transform: translateZ(-1rem);
+  transform-origin: top center;
+  z-index: -10;
+}
+#home .window {
   position: absolute;
   left: 50%;
-  bottom: 12rem;
-  height: 40rem;
+  top: 20rem;
+  height: 20rem;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
-  transform: translateX(-50%) translateZ(-10rem);
+  transform: translateX(-50%) translateZ(-0.8rem);
 }
-#home #window > img {
+#home .window > img {
   height: 100%;
   width: auto;
 }
-#home #window::before {
+#home .window::before {
   position: absolute;
   inset: 0;
   z-index: -1;
 }
 #home .bookshelf {
   position: absolute;
-  bottom: 8rem;
+  top: 21.2rem;
 }
 #home .bookshelf > img {
-  width: 20rem;
+  width: 15rem;
 }
-#home #floor {
+#home .floor {
+  position: absolute;
+  top: 45rem;
+  left: -25vw;
+  height: 10rem;
+  width: 150vw;
+  display: flex;
+  transform: rotateX(34deg) translateZ(2rem);
   z-index: -1;
+}
+#home .floor.basement {
+  top: calc(80vh + 47rem);
+  transform: rotateX(80deg) translateZ(2rem);
+}
+#home .floor.ceiling {
+  top: 51rem;
+  transform: rotateX(100deg) translateZ(2rem);
+  z-index: -2;
 }
 #home #balloons {
   width: 120rem;
@@ -217,11 +247,11 @@ dialog::backdrop {
 }
 #home #universal-translator {
   position: absolute;
-  bottom: 7.8rem;
+  bottom: 6rem;
   left: 1rem;
 }
 #home #universal-translator img {
-  height: 5rem;
+  height: 4rem;
   transform: rotate(-20deg);
 }
 
@@ -394,16 +424,17 @@ body {
 }
 
 #home {
-  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.5) 10rem, transparent 16rem), url("assets/home/castlebricks.jpg");
+  perspective: 20rem;
+}
+#home::before {
+  background-image: linear-gradient(to bottom, transparent 43rem, rgba(0, 0, 0, 0.5) 80vh), url("assets/home/castlebricks.jpg");
   background-size: 10rem auto;
   background-position: 50% 50%;
-  perspective: 20rem;
-  overflow: hidden;
 }
-#home #window {
+#home .window {
   filter: drop-shadow(0rem 1rem 2rem rgba(0, 0, 0, 0.5));
 }
-#home #window::before {
+#home .window::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -416,22 +447,21 @@ body {
   z-index: -1;
 }
 #home .bookshelf {
-  box-shadow: 0.3rem 0.5rem 2rem rgba(0, 0, 0, 0.5);
+  filter: drop-shadow(0.3rem 0.5rem 2rem rgba(0, 0, 0, 0.5));
 }
 #home .bookshelf#bookshelf-right > img {
   transform: rotateY(180deg);
 }
-#home #floor {
-  position: absolute;
-  bottom: -8rem;
-  left: -25vw;
-  height: 20rem;
-  width: 150vw;
-  display: flex;
+#home .floor {
   background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), transparent), url("assets/home/woodfloor.jpg");
   background-size: 100% 100%, auto 10rem;
   background-position: top center, 50% 50%;
-  transform: rotateX(90deg);
+}
+#home .floor.basement {
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), transparent), url("assets/home/basementfloor.jpg");
+}
+#home .floor.ceiling {
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), transparent), url("assets/home/ceiling.jpg");
 }
 
 #ras {

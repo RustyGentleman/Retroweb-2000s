@@ -37,6 +37,7 @@
 body
 	padding: 0
 	margin: 0
+	height: 100vh
 
 //# Classes & Defaults
 .fullpage
@@ -116,13 +117,23 @@ dialog::backdrop
 			width: 100%
 			margin-top: -200%
 #home
-	#window
+	overflow-x: hidden
+	&::before
+		content: ''
+		position: absolute
+		inset: -2rem
+		bottom: initial
+		height: 190vh
+		transform: translateZ(-1rem)
+		transform-origin: top center
+		z-index: -10
+	.window
 		position: absolute
 		left: 50%
-		bottom: 12rem
-		height: 40rem
+		top: 20rem
+		height: 20rem
 		width: fit-content
-		transform: translateX(-50%) translateZ(-10rem)
+		transform: translateX(-50%) translateZ(-.8rem)
 		>img
 			height: 100%
 			width: auto
@@ -132,11 +143,25 @@ dialog::backdrop
 			z-index: -1
 	.bookshelf
 		position: absolute
-		bottom: 8rem
+		top: 21.2rem
 		>img
-			width: 20rem
-	#floor
+			width: 15rem
+	.floor
+		position: absolute
+		top: 45rem
+		left: -25vw
+		height: 10rem
+		width: 150vw
+		display: flex
+		transform: rotateX(34deg) translateZ(2rem)
 		z-index: -1
+		&.basement
+			top: calc(80vh + 47rem)
+			transform: rotateX(80deg) translateZ(2rem)
+		&.ceiling
+			top: 51rem
+			transform: rotateX(100deg) translateZ(2rem)
+			z-index: -2
 	#balloons
 		width: 120rem
 		position: absolute
@@ -146,10 +171,10 @@ dialog::backdrop
 		pointer-events: none
 	#universal-translator
 		position: absolute
-		bottom: 7.8rem
+		bottom: 6rem
 		left: 1rem
 		img
-			height: 5rem
+			height: 4rem
 			transform: rotate(-20deg)
 #ras
 	.content
@@ -293,12 +318,12 @@ body
 			&.row-4
 				background-position-y: -22.6rem
 #home
-	background-image: linear-gradient(to top, rgb(0 0 0 / 50%) 10rem, transparent 16rem), url('assets/home/castlebricks.jpg')
-	background-size: 10rem auto
-	background-position: 50% 50%
 	perspective: 20rem
-	overflow: hidden
-	#window
+	&::before
+		background-image: linear-gradient(to bottom, transparent 43rem, rgb(0 0 0 / 50%) 80vh), url('assets/home/castlebricks.jpg')
+		background-size: 10rem auto
+		background-position: 50% 50%
+	.window
 		filter: drop-shadow(0rem 1rem 2rem rgb(0 0 0 / 50%))
 		&::before
 			content: ''
@@ -311,20 +336,17 @@ body
 			background-position-x: 30%
 			z-index: -1
 	.bookshelf
-		box-shadow: 0.3rem 0.5rem 2rem rgb(0 0 0 / 50%)
+		filter: drop-shadow(0.3rem 0.5rem 2rem rgb(0 0 0 / 50%))
 		&#bookshelf-right > img
 			transform: rotateY(180deg)
-	#floor
-		position: absolute
-		bottom: -8rem
-		left: -25vw
-		height: 20rem
-		width: 150vw
-		display: flex
+	.floor
 		background-image: linear-gradient(to bottom, rgb(0 0 0 / 50%), transparent), url('assets/home/woodfloor.jpg')
 		background-size: 100% 100%, auto 10rem
 		background-position: top center, 50% 50%
-		transform: rotateX(90deg)
+		&.basement
+			background-image: linear-gradient(to bottom, rgb(0 0 0 / 50%), transparent), url('assets/home/basementfloor.jpg')
+		&.ceiling
+			background-image: linear-gradient(to bottom, rgb(0 0 0 / 50%), transparent), url('assets/home/ceiling.jpg')
 #ras
 	font-family: 'Comic Sans MS'
 	color: white
