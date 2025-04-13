@@ -17,17 +17,21 @@
 		<button class="win95-btn" onclick="document.getElementById('retroModal').style.display = 'none'">YAY!!!!</button>
   </div>
 	<div class="fullpage hidden" id="home">
+		<div id="floor"></div>
 		<div id="window">
 			<img src="assets/home/window.png" alt="Window to a starry sky."/>
 		</div>
-		<div class="bookshelf" id="bookshelf-left" style="left: calc(50% - 50rem)">
+		<div class="bookshelf" id="bookshelf-left" style="left: calc(50% - 35rem)">
 			<img src="assets/home/bookshelf.png" alt="Left bookshelf."/>
 		</div>
-		<div class="bookshelf" id="bookshelf-right" style="right: calc(50% - 50rem);">
+		<div class="bookshelf" id="bookshelf-right" style="right: calc(50% - 35rem);">
 			<img src="assets/home/bookshelf.png" alt="Right bookshelf."/>
+			<div class="hastooltip" id="universal-translator">
+				<img src="assets/home/universal-translator.png" alt="Universal translator." onclick="addCollectible('an Universal Translator'); this.parentElement.remove(); Kowabi.playNode('intro-en')">
+				<span class="tooltip">A Starfleet-issue Universal Translator</span>
+			</div>
 		</div>
 		<img src="assets/home/balloons.png" alt="Party balloons in black, white and red." id="balloons"/>
-		<div id="floor"></div>
 	</div>
 	<div class="fullpage hidden" id="ras">
 		<div class="content">
@@ -86,7 +90,7 @@
 					<!-- <small>Maybe he had a change of profession, so what?</small> --->
 				</div>
 				<div id="wiz-1">
-					<img src="assets/pal/wizard_pew.gif" alt="Wizard shooting magic in multiple directions." id="cauldron" style="margin-top: 4rem;">
+					<img src="assets/pal/wizard-pew.gif" alt="Wizard shooting magic in multiple directions." id="cauldron" style="margin-top: 4rem;">
 				</div>
 			</div>
 			<div class="room"> <!-- Alchemy-->
@@ -101,7 +105,7 @@
 					</div>
 				</a>
 				<div class="hastooltip" id="drawer">
-					<img src="assets/pal/desk_drawer.png" alt="Open drawer">
+					<img src="assets/pal/desk-drawer.png" alt="Open drawer">
 					<span class="tooltip">Many photos of muscular goth babes</span>
 				</div>
 				<div class="hastooltip" id="letter" onclick="document.getElementById('lettertogob').showModal();document.h_paper.play()">
@@ -110,7 +114,7 @@
 				</div>
 			</div>
 			<div class="room windowed"> <!-- Library-->
-				<img src="assets/pal/wizard_pc.gif" alt="Wizard browsing the web." id="wiz-2">
+				<img src="assets/pal/wizard-pc.gif" alt="Wizard browsing the web." id="wiz-2">
 				<img src="assets/home/bookshelf.png" alt="Empty bookshelf." class="empty-bookshelf">
 				<img src="assets/home/bookshelf.png" alt="Empty bookshelf." class="empty-bookshelf" style="left: 25.5rem">
 				<div id="notice" onclick="this.classList.toggle('open'); document.h_paper.play()">

@@ -199,20 +199,30 @@ dialog::backdrop {
 }
 #home .bookshelf {
   position: absolute;
-  bottom: -1rem;
+  bottom: 8rem;
 }
 #home .bookshelf > img {
-  width: 30rem;
+  width: 20rem;
 }
 #home #floor {
   z-index: -1;
 }
 #home #balloons {
-  width: 180rem;
+  width: 120rem;
   position: absolute;
   left: 50%;
-  bottom: -3rem;
-  transform: translateX(-50%) translateZ(-10rem);
+  bottom: 5rem;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+#home #universal-translator {
+  position: absolute;
+  bottom: 7.8rem;
+  left: 1rem;
+}
+#home #universal-translator img {
+  height: 5rem;
+  transform: rotate(-20deg);
 }
 
 #ras .content {
@@ -334,9 +344,10 @@ body {
   transition: opacity 0.3s ease;
   border: solid black 2px;
   border-radius: 1rem 1rem 0 1rem;
-}
-#kowabi #msg:not(:empty) {
   background-color: #fcfacf;
+}
+#kowabi #msg:has(#text:empty) {
+  display: none;
 }
 #kowabi #icon {
   cursor: pointer;
@@ -405,11 +416,10 @@ body {
   z-index: -1;
 }
 #home .bookshelf {
-  transform: translateZ(-10rem);
   box-shadow: 0.3rem 0.5rem 2rem rgba(0, 0, 0, 0.5);
 }
-#home .bookshelf#bookshelf-right {
-  transform: translateZ(-10rem) rotateY(180deg);
+#home .bookshelf#bookshelf-right > img {
+  transform: rotateY(180deg);
 }
 #home #floor {
   position: absolute;
@@ -447,7 +457,7 @@ body {
 
 #pal {
   background-color: #2e58ae;
-  background-image: url("assets/pal/sky_bg_top.jpg"), url("assets/pal/sky_bg_bottom.jpg");
+  background-image: url("assets/pal/sky-bg-top.jpg"), url("assets/pal/sky-bg-bottom.jpg");
   background-repeat: repeat-x;
   background-position: top center, bottom center;
   background-size: auto 6rem, auto 6rem;
@@ -460,7 +470,7 @@ body {
   background-size: 100% auto;
 }
 #pal .content .room.windowed {
-  background-image: url("assets/pal/wall_windowed.png");
+  background-image: url("assets/pal/wall-windowed.png");
 }
 #pal .content #header {
   font-size: 1.5rem;

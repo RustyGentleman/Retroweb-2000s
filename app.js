@@ -13,9 +13,10 @@ Steptext.element = Kowabi.text
 Kowabi.options = Kowabi.querySelector('#options')
 Kowabi.expression = Kowabi.querySelector('#expression')
 Kowabi.setText = (string) => {
-	// Kowabi.text.textContent = string
 	Kowabi.text.textContent = ''
 	Steptext.queue = string
+	if (Kowabi.querySelector('#msg').classList.contains('hidden'))
+		Kowabi.toggle()
 }
 Kowabi.resetOptions = () => Array.from(Kowabi.options.children).forEach(e => e.remove())
 Kowabi.addOption = (text, nextKey=null, callback=null, condition=null) => {
@@ -36,13 +37,13 @@ Kowabi.addOptions = (...options) => {
 			Kowabi.addOption(text, nextKey, callback, condition)
 }
 Kowabi.dialogueNodes = {}
-Kowabi.addNode = (key, text, ...options) => {
-	Kowabi.dialogueNodes[key] = {text, options}
+Kowabi.addNode = (key, text, expression, ...options) => {
+	Kowabi.dialogueNodes[key] = {text, expression, options}
 }
 Kowabi.addNodes = (...nodes) => {
 	for (const node of nodes)
-		for (const [key, text, options] of node)
-			Kowabi.addNode(key, text, options)
+		for (const [key, text, expression, options] of node)
+			Kowabi.addNode(key, text, expression, options)
 }
 Kowabi.playNode = (key) => {
 	const node = Kowabi.dialogueNodes[key]
@@ -51,6 +52,7 @@ Kowabi.playNode = (key) => {
 	Steptext.queue = ''
 	Steptext.close = []
 	Kowabi.setText(node.text)
+	Kowabi.setExpression(...node.expression)
 	Kowabi.resetOptions()
 	Kowabi.addOptions(...node.options)
 }
@@ -59,31 +61,35 @@ Kowabi.setExpression = (col, row) => Kowabi.expression.className = `col-${col} r
 //# Kowabi dialogues
 //* Main page
 Kowabi.addNodes([
-	['intro-kt', `~Haine!~ _**Kowabi**_ maibe made, done maiyunama miremoyekai madeda!`, [
-			['What?', 'intro-en', () => Kowabi.setExpression(3, 1)],
+	['intro-kt', `~Haine!~ _**Kowabi**_ maibe made, done maiyunama miremoyekai madeda!`, [3, 2], [
+			['What?', null, () => {
+				Kowabi.setText('')
+				Kowabi.resetOptions()
+				Kowabi.setExpression(5, 3)
+			}]
 		]],
-	['intro-en', `~Greetings...~ I am _**Kowabi**_, and I will be your guide.`, [
-			['Oh, okay', 'assistance', () => Kowabi.setExpression(1, 1)],
+	['intro-en', `I said... ~Greetings...~ I am _**Kowabi**_, and I will be your guide.`, [3, 1], [
+			['Oh, okay', 'assistance'],
 		]],
-	['assistance', 'Would your _~stupid~_ self like some assistance?', [
-			['Yes', 'assistance1-0', () => Kowabi.setExpression(4, 2)],
-			['Of course', 'assistance1-1', () => Kowabi.setExpression(6, 2)],
+	['assistance', 'Would your _~stupid~_ self like some assistance?', [1, 1], [
+			['Yes', 'assistance1-0'],
+			['Of course', 'assistance1-1'],
 		]],
-	['assistance1-0', 'Of course. What do you need help with?', [
-			['Life', 'life', () => Kowabi.setExpression(1, 4)],
-			['Navigation', 'navigation', () => Kowabi.setExpression(4, 3)],
+	['assistance1-0', 'Of course. What do you need help with?', [4, 2], [
+			['Life', 'life'],
+			['Navigation', 'navigation'],
 		]],
-	['assistance1-1', '_Of !!course!!..._ Of _course_. What do you need help with?', [
-			['Life', 'life', () => Kowabi.setExpression(1, 4)],
-			['Navigation', 'navigation', () => Kowabi.setExpression(4, 3)],
+	['assistance1-1', '_Of !!course!!..._ Of _course_. What do you need help with?', [6, 2], [
+			['Life', 'life'],
+			['Navigation', 'navigation'],
 		]],
-	['life', "_~Don't we all...~_", [
-			['Life', 'life', () => Kowabi.setExpression(1, 4)],
-			['Navigation', 'navigation', () => Kowabi.setExpression(4, 3)],
+	['life', "_~Don't we all...~_", [1, 4], [
+			['Life', 'life'],
+			['Navigation', 'navigation'],
 		]],
-	['navigation', "Well, there's not much to navigate for now, but I'm sure this place will be full of life in no time.", [
-			['Life', 'life', () => Kowabi.setExpression(1, 4)],
-			['Navigation', 'navigation', () => Kowabi.setExpression(4, 3)],
+	['navigation', "Well, there's not much to navigate for now, but I'm sure this place will be fu, [4, 3]ll of life in no time.", [
+			['Life', 'life'],
+			['Navigation', 'navigation'],
 		]],
 ])
 
@@ -97,18 +103,29 @@ document.h_phaser = new Howl({src: ['assets/ras/phaser.mp3']})
 document.h_paper = new Howl({src: ['assets/pal/paper.mp3']})
 document.h_write = new Howl({src: ['assets/pal/write.mp3']})
 
-//# Page navigation
-function GoToPage(id) {
+//# Functions
+function goToPage(id) {
 	if (document.currentPage)
 		document.currentPage.classList.add('hidden')
 	document.currentPage = document.querySelector(`.fullpage#${id}`)
 	document.currentPage.classList.remove('hidden')
 }
+function addCollectible(key) {
+	let collectibles = window.localStorage.getItem('collectibles')
+	if (collectibles == null)
+		collectibles = []
+	else if (typeof(collectibles) == 'string')
+		collectibles = collectibles.split(';')
+	if (collectibles.includes(key))
+		return
+	collectibles.push(key)
+	window.localStorage.setItem('collectibles', collectibles.join(';'))
+}
 
 //# Starting setup
 // setTimeout(() => document.getElementById('retroModal').style.display = 'block', 3000)
 document.currentPage = document.querySelector('.fullpage#home')
-GoToPage('lef')
+goToPage('home')
 Kowabi.playNode('intro-kt')
 Kowabi.setExpression(3, 2)
 
@@ -117,6 +134,6 @@ const nav = document.getElementById('debug-nav')
 for (const page of Array.from(document.querySelectorAll('.fullpage'))) {
 	const button = document.createElement('button')
 	button.textContent = page.id
-	button.addEventListener('click', function(){GoToPage(this.textContent)})
+	button.addEventListener('click', function(){goToPage(this.textContent)})
 	nav.append(button)
 }

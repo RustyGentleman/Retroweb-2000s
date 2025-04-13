@@ -10,6 +10,7 @@ window.png - https://pngimg.com/image/17659
 balloons.png - https://gallery.yopriceville.com/Free-Clipart-Pictures/Balloons-PNG/Balloons_Decoration_Transparent_PNG_Clip_Art_Image
 book.png - https://pngimg.com/image/51108
 letter.png - https://clipart-library.com/clipart/LTdoy7jAc.htm
+universal-translator.jpg - https://memory-alpha.fandom.com/wiki/Universal_translator
 
 # Sound Effects
 phaser.mp3 - https://www.trekcore.com/audio/ (TNG Phaser 11)
