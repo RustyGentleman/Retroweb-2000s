@@ -58,6 +58,76 @@ Kowabi.playNode = (key) => {
 }
 Kowabi.setExpression = (col, row) => Kowabi.expression.className = `col-${col} row-${row}`
 
+//# Music player
+const player = document.getElementById('music-player')
+player.iconOn = player.querySelector('#icon img:first-of-type')
+player.iconOff = player.querySelector('#icon img:last-of-type')
+player.panel = player.querySelector('#panel')
+player.title = player.panel.querySelector('#title')
+player.playlist = player.panel.querySelector('#playlist #list')
+player.setTitle = (string) => player.title.textContent = string
+player.toggleIcon = () => {
+	player.iconOn.classList.toggle('hidden')
+	player.iconOff.classList.toggle('hidden')
+}
+player.togglePanel = () => player.panel.classList.toggle('hidden')
+player.togglePlaylist = () => player.playlist.parentElement.classList.toggle('open')
+player.updatePlaylist = () => {
+	Array.from(player.playlist.children).forEach(e => e.remove())
+	for (const song of Playlist.playlist.filter(e => e.unlocked)) {
+		const listing = document.createElement('div')
+		// listing.textContent = song.title
+		listing.innerHTML = `<div>${song.title}</div><div>${(song.howl.duration()/60).toFixed()}:${(song.howl.duration()%60).toFixed()}</div>`
+		listing.addEventListener('click', () => Playlist.playSong(song.key))
+		player.playlist.append(listing)
+	}
+}
+
+class Playlist {
+	static playlist = []
+	static songs = new Map()
+	static current
+
+	static addSong(filename, title) {
+		const howl = new Howl({src: [`assets/songs/${filename}.mp3`]})
+		const song = {key: filename, title, unlocked: false, howl}
+		this.playlist.push(song)
+		this.songs.set(filename, song)
+	}
+	static addSongs(...songinfo) {
+		for (const song of songinfo)
+			for (const [filename, title] of song)
+				this.addSong(filename, title)
+	}
+	static playSong(key, unlock=false) {
+		const song = this.songs.get(key)
+		if (!song)
+			return console.warn(`Song with key "${key}" not found.`)
+		this.current?.howl.stop()
+		if (this.current)
+			player.playlist.querySelector('.'+this.current.key).classList.remove('playing')
+		if (unlock) {
+			song.unlocked = true
+			player.updatePlaylist()
+		}
+		this.current = song
+		this.current.howl.play()
+		player.playlist.querySelector('.'+key)?.classList.add('playing')
+		player.setTitle(song.title)
+	}
+	static toggle() {
+		if (this.current.playing())
+			this.current.pause()
+		else this.current.play()
+	}
+	static back() {
+		this.current.seek(this.current.seek() - 5)
+	}
+	static forward() {
+		this.current.seek(this.current.seek() + 5)
+	}
+}
+
 //# Kowabi dialogues
 //* Main page
 Kowabi.addNodes([
@@ -91,6 +161,11 @@ Kowabi.addNodes([
 			['Life', 'life'],
 			['Navigation', 'navigation'],
 		]],
+])
+
+//# Songs
+Playlist.addSongs([
+	['kaboom', 'Terraria OST - Day']
 ])
 
 //# Effects
