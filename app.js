@@ -89,6 +89,7 @@ player.togglePlaylist = () => {
 		player.playlist.parentElement.style.top = ''
 }
 player.updatePlaylist = () => {
+	let addedNew = false
 	for (const song of Playlist.playlist/*.filter(e => e.unlocked)*/) {
 		const existing = player.playlist.querySelector('.'+song.key)
 		if (existing) continue
@@ -101,6 +102,12 @@ player.updatePlaylist = () => {
 		player.playlist.append(listing)
 		if (listing.scrollWidth > listing.clientWidth)
 			listing.firstChild.outerHTML = listing.firstChild.outerHTML.replaceAll('div>', 'marquee>')
+		addedNew = true
+	}
+	debugger
+	if (addedNew) {
+		player.togglePlaylist()
+		player.togglePlaylist()
 	}
 }
 
