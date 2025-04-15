@@ -2,11 +2,15 @@
 const Kowabi = document.getElementById('kowabi')
 Kowabi.toggle = () => {
 	const msg = Kowabi.querySelector('#msg')
-	msg.classList.toggle('hidden')
-	if (msg.classList.contains('hidden'))
+	if (!msg.classList.contains('hidden')) {
 		clearTimeout(Steptext.timeout)
-	else
+		msg.classList.toggle('hidden')
+		setTimeout(() => Kowabi.querySelector('#msg').style.display = 'none', 300)
+	} else {
+		Kowabi.querySelector('#msg').style.display = ''
+		setTimeout(() => msg.classList.toggle('hidden'))
 		Steptext.step()
+	}
 }
 Kowabi.text = Kowabi.querySelector('#text')
 Steptext.element = Kowabi.text
