@@ -12,6 +12,57 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+	<style>
+		/*********** Baseline, reset styles ***********/
+		input[type="range"] {
+			-webkit-appearance: none;
+			appearance: none;
+			background: transparent;
+			cursor: pointer;
+		}
+		/* Removes default focus */
+		input[type="range"]:focus {
+			outline: none;
+		}
+		/******** Chrome, Safari, Opera and Edge Chromium styles ********/
+		/* slider track */
+		input[type="range"]::-webkit-slider-runnable-track {
+			background-color: #080808;
+			border-radius: 0.5rem;
+			height: 0.2rem;
+		}
+		/* slider thumb */
+		input[type="range"]::-webkit-slider-thumb {
+			-webkit-appearance: none; /* Override default look */
+			appearance: none;
+			margin-top: -4px; /* Centers thumb on the track */
+			background-image: linear-gradient(to bottom, hsl(220deg, 15%, 85%), transparent, transparent, hsl(220deg, 15%, 50%)), repeating-linear-gradient(to right,  hsl(220deg, 15%, 60%), hsl(220deg, 15%, 80%) 10%,  hsl(220deg, 15%, 60%) 20%);
+			border-radius: 0rem;
+			height: .8rem;
+			width: 1.5rem;
+		}
+		input[type="range"]:focus::-webkit-slider-thumb {
+			outline: none
+		}
+		/*********** Firefox styles ***********/
+		/* slider track */
+		input[type="range"]::-moz-range-track {
+			background-color: #000000;
+			border-radius: 0.5rem;
+			height: 0.2rem;
+		}
+		/* slider thumb */
+		input[type="range"]::-moz-range-thumb {
+			background-image: linear-gradient(to left,  #626d84, hsl(220deg, 15%, 80%),  #626d84);
+			border: none; /*Removes extra border that FF applies*/
+			border-radius: 0rem;
+			height: .8rem;
+			width: 1.5rem;
+		}
+		input[type="range"]:focus::-moz-range-thumb{
+			outline: none
+		}
+	</style>
 </head>
 <body>
 	<div id="debug-nav"></div>
@@ -160,22 +211,22 @@
 	</div>
 	<div id="music-player">
 		<div id="icon" onclick="player.togglePanel()">
-			<img src="assets/radio.gif" alt="Radio playing music."/>
-			<img src="assets/radio.png" alt="Radio turned off." class="hidden"/>
+			<img src="assets/radio.gif" alt="Radio playing music." class="hidden"/>
+			<img src="assets/radio.png" alt="Radio turned off."/>
 		</div>
 		<div id="panel" class="">
-			<div id="playlist" class="open">
+			<div id="playlist">
 				<div id="toggle" onclick="player.togglePlaylist()"><span>▲</span></div>
 				<div id="list"></div>
 			</div>
-			<marquee id="title">start collecting songs now!!!</marquee>
+			<div id="title"><marquee>start collecting songs now!!!</marquee><span></span></div>
 			<div id="controls">
-				<div id="prev"><img src="assets/home/media-previous.png" alt="⏮"></div>
-				<div id="back"><img src="assets/home/media-back.png" alt="⏪"></div>
-				<div id="play"><img src="assets/home/media-playpause.png" alt="⏯"></div>
-				<div id="fwrd"><img src="assets/home/media-forward.png" alt="⏩"></div>
-				<div id="next"><img src="assets/home/media-next.png" alt="⏭"></div>
-				<div id="volume">🔈</div>
+				<div id="prev" onclick="Playlist.prev()"><img src="assets/home/media-previous.png" alt="⏮"></div>
+				<div id="back" onclick="Playlist.back()"><img src="assets/home/media-back.png" alt="⏪"></div>
+				<div id="play" onclick="Playlist.play()"><img src="assets/home/media-playpause.png" alt="⏯"></div>
+				<div id="fwrd" onclick="Playlist.fwrd()"><img src="assets/home/media-forward.png" alt="⏩"></div>
+				<div id="next" onclick="Playlist.next()"><img src="assets/home/media-next.png" alt="⏭"></div>
+				<input type="range" id="volume" min="0" max="1" step=".01" value="100" oninput="Playlist.setVolume(this.value)">
 			</div>
 		</div>
 	</div>

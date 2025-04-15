@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @-webkit-keyframes ras-bgscroll {
   0% {
     background-position-y: 0%;
@@ -56,6 +57,22 @@
   }
   100% {
     opacity: 1;
+  }
+}
+@-webkit-keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }
 #debug-nav {
@@ -199,7 +216,7 @@ dialog::backdrop {
 }
 #music-player #panel {
   position: relative;
-  width: 15rem;
+  width: 17rem;
   display: flex;
   flex-direction: column;
   z-index: 100;
@@ -207,34 +224,33 @@ dialog::backdrop {
 #music-player #panel, #music-player #panel #controls {
   gap: 0.3rem;
 }
-#music-player #panel #title, #music-player #panel #controls > div {
+#music-player #panel #title, #music-player #panel #controls > * {
   padding: 0.2rem;
 }
-#music-player #panel #controls > div {
+#music-player #panel #controls > * {
   display: flex;
 }
+#music-player #panel #title, #music-player #panel #title > * {
+  line-height: 1rem;
+}
 #music-player #panel #title {
-  line-height: 0.5rem;
+  display: flex;
 }
 #music-player #panel #controls {
   display: flex;
 }
 #music-player #panel #volume {
+  width: 100%;
   flex-grow: 1;
 }
 #music-player #panel #playlist {
   position: absolute;
+  top: 0;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   z-index: -3;
-}
-#music-player #panel #playlist:not(.open) {
-  top: 0;
-}
-#music-player #panel #playlist.open {
-  bottom: 100%;
 }
 #music-player #panel #playlist #toggle {
   position: relative;
@@ -248,11 +264,12 @@ dialog::backdrop {
   min-height: 3.5rem;
   padding-inline: 0.3rem;
 }
-#music-player #panel #playlist #list > div {
+#music-player #panel #playlist #list > * {
+  height: 1rem;
   display: flex;
   justify-content: space-between;
 }
-#music-player #panel #playlist #list > div > div:first-child {
+#music-player #panel #playlist #list > * > :first-child {
   flex-grow: 1;
 }
 
@@ -512,13 +529,17 @@ body {
   border-radius: 5px;
   font-family: "VT323", monospace;
 }
-#music-player #panel #controls > div {
+#music-player #panel #controls > * {
+  height: 1.5rem;
   background: linear-gradient(to bottom, hsl(220deg, 15%, 70%) 0%, hsl(220deg, 15%, 70%) 5px, #4c5567 calc(100% - 5px), #4c5567 100%);
 }
-#music-player #panel #controls > div img {
-  height: 1.5rem;
+#music-player #panel #controls > * img {
+  height: 100%;
   width: auto;
   image-rendering: auto;
+}
+#music-player #panel #volume {
+  margin: 0;
 }
 #music-player #panel #title {
   background-color: #00aaff;
@@ -528,6 +549,13 @@ body {
   border-image-slice: 1;
   outline: solid 1px hsl(220deg, 15%, 50%);
   outline-offset: -0.4rem;
+  text-align: center;
+}
+#music-player #panel #title :last-child {
+  text-wrap: nowrap;
+}
+#music-player #panel #playlist {
+  transition: top 0.2s ease, bottom 0.2s ease;
 }
 #music-player #panel #playlist.open #toggle span {
   transform: scaleX(4) rotate(180deg);
@@ -546,6 +574,8 @@ body {
   transform: scaleX(4);
 }
 #music-player #panel #playlist #list {
+  display: flex;
+  flex-direction: column;
   border: solid 1rem hsl(220deg, 10%, 60%);
   border-width: 0.5rem 1rem;
   -o-border-image: linear-gradient(to bottom, hsl(220deg, 15%, 70%) 0%, hsl(220deg, 15%, 70%) 5px, #7b879d calc(100% - 5px), #7b879d 100%);
@@ -556,9 +586,21 @@ body {
   outline: solid 2px hsl(220deg, 10%, 30%);
   background: linear-gradient(to right, hsl(220deg, 15%, 50%), hsl(220deg, 15%, 50%) 1px, transparent 1px, transparent calc(100% - 1px), hsl(220deg, 15%, 50%) calc(100% - 1px), hsl(220deg, 15%, 50%) 100%), linear-gradient(to bottom, hsl(220deg, 15%, 50%), hsl(220deg, 15%, 50%) 1px, transparent 1px, transparent calc(100% - 1px), hsl(220deg, 15%, 50%) calc(100% - 1px), hsl(220deg, 15%, 50%) 100%), repeating-linear-gradient(to bottom, #00aaff, #00aaff 1rem, #0077aa 1rem, #0077aa 2rem);
 }
-#music-player #panel #playlist #list > div {
+#music-player #panel #playlist #list > * {
+  display: flex;
   cursor: pointer;
+  text-wrap: nowrap;
 }
+#music-player #panel #playlist #list > * > :first-child {
+  margin-inline: 0.3rem;
+}
+#music-player #panel #playlist #list > *.playing::before {
+  content: "●";
+  transform: translateY(-2px);
+  -webkit-animation: blink 0.4s linear infinite alternate;
+          animation: blink 0.4s linear infinite alternate;
+}
+
 #home {
   perspective: 20rem;
 }

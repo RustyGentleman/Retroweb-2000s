@@ -63,23 +63,40 @@ const player = document.getElementById('music-player')
 player.iconOn = player.querySelector('#icon img:first-of-type')
 player.iconOff = player.querySelector('#icon img:last-of-type')
 player.panel = player.querySelector('#panel')
-player.title = player.panel.querySelector('#title')
+player.songinfo = player.panel.querySelector('#title')
 player.playlist = player.panel.querySelector('#playlist #list')
-player.setTitle = (string) => player.title.textContent = string
-player.toggleIcon = () => {
-	player.iconOn.classList.toggle('hidden')
-	player.iconOff.classList.toggle('hidden')
+player.setTitle = (string) => player.songinfo.firstChild.textContent = string
+player.setPlaytime = (string) => player.songinfo.lastChild.textContent = string
+player.toggleIcon = (state=true) => {
+	if (state) {
+		player.iconOn.classList.remove('hidden')
+		player.iconOff.classList.add('hidden')
+	} else {
+		player.iconOn.classList.add('hidden')
+		player.iconOff.classList.remove('hidden')
+	}
 }
 player.togglePanel = () => player.panel.classList.toggle('hidden')
-player.togglePlaylist = () => player.playlist.parentElement.classList.toggle('open')
+player.togglePlaylist = () => {
+	player.playlist.parentElement.classList.toggle('open')
+	if (player.playlist.parentElement.classList.contains('open'))
+		player.playlist.parentElement.style.top = `calc(-.5rem - 1rem * ${Math.max(player.playlist.children.length,3)})`
+	else
+		player.playlist.parentElement.style.top = ''
+}
 player.updatePlaylist = () => {
-	Array.from(player.playlist.children).forEach(e => e.remove())
-	for (const song of Playlist.playlist.filter(e => e.unlocked)) {
+	for (const song of Playlist.playlist/*.filter(e => e.unlocked)*/) {
+		const existing = player.playlist.querySelector('.'+song.key)
+		if (existing) continue
 		const listing = document.createElement('div')
-		// listing.textContent = song.title
-		listing.innerHTML = `<div>${song.title}</div><div>${(song.howl.duration()/60).toFixed()}:${(song.howl.duration()%60).toFixed()}</div>`
+		listing.setAttribute('data-key', song.key)
+		listing.classList.add(song.key)
+		listing.style.order = Playlist.playlist.indexOf(song)+1
+		listing.innerHTML = `<div>${song === Playlist.current? '→':''}${song.title}</div><div>?:??</div>`
 		listing.addEventListener('click', () => Playlist.playSong(song.key))
 		player.playlist.append(listing)
+		if (listing.scrollWidth > listing.clientWidth)
+			listing.firstChild.outerHTML = listing.firstChild.outerHTML.replaceAll('div>', 'marquee>')
 	}
 }
 
@@ -87,9 +104,16 @@ class Playlist {
 	static playlist = []
 	static songs = new Map()
 	static current
+	static playtimeUpdateInterval
 
 	static addSong(filename, title) {
-		const howl = new Howl({src: [`assets/songs/${filename}.mp3`]})
+		const howl = new Howl({
+			src: [`assets/songs/${filename}.mp3`],
+			loop: true,
+			onload: () => {
+				player.playlist.querySelector('.'+filename).children[1].textContent = secondsToTime(song.howl.duration())
+			}
+		})
 		const song = {key: filename, title, unlocked: false, howl}
 		this.playlist.push(song)
 		this.songs.set(filename, song)
@@ -106,25 +130,59 @@ class Playlist {
 		this.current?.howl.stop()
 		if (this.current)
 			player.playlist.querySelector('.'+this.current.key).classList.remove('playing')
-		if (unlock) {
+		if (unlock)
 			song.unlocked = true
-			player.updatePlaylist()
-		}
 		this.current = song
 		this.current.howl.play()
 		player.playlist.querySelector('.'+key)?.classList.add('playing')
 		player.setTitle(song.title)
+		if (this.playtimeUpdateInterval)
+			clearInterval(this.playtimeUpdateInterval)
+		this.playtimeUpdateInterval = setInterval(() => 
+			player.setPlaytime(' | '+secondsToTime(song.howl.seek())+' / '+secondsToTime(song.howl.duration())
+		))
+		player.updatePlaylist()
+		player.toggleIcon(true)
 	}
-	static toggle() {
-		if (this.current.playing())
-			this.current.pause()
-		else this.current.play()
+	static setVolume(volume) {
+		this.playlist.forEach(e => e.howl.volume(volume))
+	}
+	static play() {
+		if (!this.current) {
+			const unlocked = this.playlist.filter(e => e.unlocked = true)
+			if (unlocked.length === 0) return
+			this.playSong(unlocked[0].key)
+			return
+		}
+		if (this.current.howl.playing()) {
+			this.current.howl.pause()
+			player.toggleIcon(false)
+		} else {
+			this.current.howl.play()
+			player.toggleIcon(true)
+		}
 	}
 	static back() {
-		this.current.seek(this.current.seek() - 5)
+		this.current.howl.seek(this.current.howl.seek() - 5)
 	}
-	static forward() {
-		this.current.seek(this.current.seek() + 5)
+	static fwrd() {
+		this.current.howl.seek(this.current.howl.seek() + 5)
+	}
+	static prev() {
+		const unlocked = this.playlist.filter(e => e.unlocked = true)
+		const curIndex = unlocked.indexOf(this.current)
+		if (curIndex == 0)
+			this.playSong(unlocked.at(-1).key)
+		else
+			this.playSong(unlocked[curIndex-1].key)
+	}
+	static next() {
+		const unlocked = this.playlist.filter(e => e.unlocked = true)
+		const curIndex = unlocked.indexOf(this.current)
+		if (curIndex == unlocked.length-1)
+			this.playSong(unlocked[0].key)
+		else
+			this.playSong(unlocked[curIndex+1].key)
 	}
 }
 
@@ -165,7 +223,9 @@ Kowabi.addNodes([
 
 //# Songs
 Playlist.addSongs([
-	['kaboom', 'Terraria OST - Day']
+	['kaboom', 'Terraria OST - Day'],
+	['leafy', 'Pokemon Blue/Red OST - Celadon City'],
+	['pal', 'Jonah Senzel - The Temple of Magicks'],
 ])
 
 //# Effects
@@ -174,9 +234,9 @@ function Rickroll() {
 	window.open('https://youtu.be/p7I-hPab3qo?si=VwK3N7QaI9k0ofAI&t=3', '_blank', 'width=1,height=1,left=99999,top=99999')
 }
 //? Sound effects
-document.h_phaser = new Howl({src: ['assets/ras/phaser.mp3']})
-document.h_paper = new Howl({src: ['assets/pal/paper.mp3']})
-document.h_write = new Howl({src: ['assets/pal/write.mp3']})
+document.h_phaser = new Howl({src: ['assets/ras/phaser.mp3'], onload: player.updatePlaylist})
+document.h_paper = new Howl({src: ['assets/pal/paper.mp3'], onload: player.updatePlaylist})
+document.h_write = new Howl({src: ['assets/pal/write.mp3'], onload: player.updatePlaylist})
 
 //# Functions
 function goToPage(id) {
@@ -196,6 +256,9 @@ function addCollectible(key) {
 	collectibles.push(key)
 	window.localStorage.setItem('collectibles', collectibles.join(';'))
 }
+function secondsToTime(seconds) {
+	return Math.floor(seconds/60) + ':' + (''+Math.floor(seconds%60)).padStart(2, '0')
+}
 
 //# Starting setup
 // setTimeout(() => document.getElementById('retroModal').style.display = 'block', 3000)
@@ -203,6 +266,7 @@ document.currentPage = document.querySelector('.fullpage#home')
 goToPage('home')
 Kowabi.playNode('intro-kt')
 Kowabi.setExpression(3, 2)
+setTimeout(() => player.updatePlaylist(), 1000)
 
 //# Debug
 const nav = document.getElementById('debug-nav')
