@@ -215,7 +215,7 @@ Kowabi.addNodes([
 			['Life', 'life'],
 			['Navigation', 'navigation'],
 		]],
-	['navigation', "Well, there's not much to navigate for now, but I'm sure this place will be fu, [4, 3]ll of life in no time.", [
+	['navigation', "Well, there's not much to navigate for now, but I'm sure this place will be full of life in no time.", [
 			['Life', 'life'],
 			['Navigation', 'navigation'],
 		]],
