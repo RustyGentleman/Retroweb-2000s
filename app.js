@@ -61,6 +61,11 @@ Kowabi.playNode = (key) => {
 	Kowabi.addOptions(...node.options)
 }
 Kowabi.setExpression = (col, row) => Kowabi.expression.className = `col-${col} row-${row}`
+Kowabi.setToNeutral = () => {
+	Kowabi.setText('')
+	Kowabi.resetOptions()
+	Kowabi.setExpression(4, 3)
+}
 
 //# Music player
 const player = document.getElementById('music-player')
@@ -104,13 +109,13 @@ player.updatePlaylist = () => {
 			listing.firstChild.outerHTML = listing.firstChild.outerHTML.replaceAll('div>', 'marquee>')
 		addedNew = true
 	}
-	debugger
 	if (addedNew) {
 		player.togglePlaylist()
 		player.togglePlaylist()
 	}
 }
 
+//# Playlist
 class Playlist {
 	static playlist = []
 	static songs = new Map()
@@ -200,35 +205,51 @@ class Playlist {
 //# Kowabi dialogues
 //* Main page
 Kowabi.addNodes([
+	//* Kitsunish intro
 	['intro-kt', `~Haine!~ _**Kowabi**_ maibe made, done maiyunama miremoyekai madeda!`, [3, 2], [
 			['What?', null, () => {
-				Kowabi.setText('')
-				Kowabi.resetOptions()
+				Kowabi.setToNeutral()
 				Kowabi.setExpression(5, 3)
 			}]
 		]],
+	//* After universal translator
 	['intro-en', `I said... ~Greetings...~ I am _**Kowabi**_, and I will be your guide.`, [3, 1], [
 			['Oh, okay', 'assistance'],
 		]],
 	['assistance', 'Would your _~stupid~_ self like some assistance?', [1, 1], [
-			['Yes', 'assistance1-0'],
-			['Of course', 'assistance1-1'],
+			['Yes', 'assistance1'],
+			['Of course', 'assistance2'],
 		]],
-	['assistance1-0', 'Of course. What do you need help with?', [4, 2], [
+	['assistance1', 'Of course. What do you need help with?', [4, 2], [
 			['Life', 'life'],
 			['Navigation', 'navigation'],
 		]],
-	['assistance1-1', '_Of !!course!!..._ Of _course_. What do you need help with?', [6, 2], [
+	['assistance2', '_Of !!course!!..._ Of _course_. What do you need help with?', [6, 2], [
+			['Life', 'life'],
+			['Navigation', 'navigation'],
+		]],
+	['assistance3', 'Anything else?', [1, 1], [
 			['Life', 'life'],
 			['Navigation', 'navigation'],
 		]],
 	['life', "_~Don't we all...~_", [1, 4], [
-			['Life', 'life'],
-			['Navigation', 'navigation'],
+			['Back', 'assistance0'],
 		]],
-	['navigation', "Well, there's not much to navigate for now, but I'm sure this place will be full of life in no time.", [
-			['Life', 'life'],
-			['Navigation', 'navigation'],
+	['navigation', "Well, there's not much to navigate for now, but I'm sure this place will be full of life in no time.", [4, 2], [
+			['Back', 'assistance0'],
+		]],
+		//* Kaboom page intro
+	['kaboom-intro', "This is the field outside the wizard's tower.\n~Check out that sunset!~", [6, 3], [
+			['Slimes!', 'kaboom-slimes-0'],
+		]],
+	['kaboom-slimes-0', "These... !!strange!! creatures seem _fairly_ dumb.", [5, 1], [
+			['Continue', 'kaboom-slimes-1'],
+		]],
+	['kaboom-slimes-1', "But at least they're all friendly.", [2, 2], [
+			['Continue', 'kaboom-slimes-2'],
+		]],
+	['kaboom-slimes-2', "Reminds me of ~someone...~", [4, 2], [
+			['End', null, () => Kowabi.setToEmpty()],
 		]],
 ])
 
@@ -239,15 +260,97 @@ Playlist.addSongs([
 	['pal', 'Jonah Senzel - The Temple of Magicks'],
 ])
 
+//# Slime setup
+function DropTempText(element, string, seconds=5, post) {
+	const text = document.createElement('div')
+	text.textContent = string
+	text.className = 'temptext'
+	text.style.top = element.style.top
+	text.style.left = element.style.left
+	text.style.setProperty('--angle', Math.random()*40-20+'deg')
+	element.parentElement.append(text)
+	if (post)
+		post(text)
+	setTimeout(() => text.remove(), seconds*1000)
+}
+document.querySelectorAll('#kaboom #field .slime').forEach((slime) => {
+	//* Click interaction
+	slime.addEventListener('click', () => {
+		if (slime.classList.contains('boing')) return
+		DropTempText(slime, 'Boing!', 1, (text) => {
+			const inner = document.createElement('div')
+			inner.textContent = text.textContent
+			text.textContent = ''
+			text.append(inner)
+		})
+		document.h_boing.play()
+		slime.classList.add('boing')
+		setTimeout(() => slime.classList.remove('boing'), 800)
+	})
+
+	//* Motion
+	const field = slime.parentElement
+	const fieldRect = field.getBoundingClientRect()
+	const slimeSize = 70
+
+	let x = Math.random() * (fieldRect.width - slimeSize)
+	let y = Math.random() * (fieldRect.height - slimeSize)
+
+	slime.style.left = x+'px'
+	slime.style.top = y+'px'
+
+	const stepSize = 20
+	const updateInterval = 300
+	const parentWidth = fieldRect.width
+	const parentHeight = fieldRect.height
+
+	let currentAngle = Math.random() * 2 * Math.PI
+	const maxTurn = 20 * Math.PI / 180
+
+	setInterval(() => {
+		if (document.querySelector('#kaboom').classList.contains('hidden')) return
+		currentAngle += (Math.random() * 2 * maxTurn) - maxTurn
+
+		let newX = x + stepSize * Math.cos(currentAngle)
+		let newY = y + stepSize * Math.sin(currentAngle)
+
+		if (newX < 0) {
+			newX = -newX
+			currentAngle = Math.PI - currentAngle
+		}
+		else if (newX > parentWidth - slimeSize) {
+			newX = (parentWidth - slimeSize) - (newX - (parentWidth - slimeSize))
+			currentAngle = Math.PI - currentAngle
+		}
+
+		if (newY < 0) {
+			newY = -newY
+			currentAngle = -currentAngle
+		}
+		else if (newY > parentHeight - slimeSize) {
+			newY = (parentHeight - slimeSize) - (newY - (parentHeight - slimeSize))
+			currentAngle = -currentAngle
+		}
+
+		x = newX
+		y = newY
+
+		slime.style.left = `${x}px`
+		slime.style.top = `${y}px`
+		slime.style.zIndex = Math.ceil(y)
+	}, updateInterval)
+})
+
 //# Effects
 //? Stealth Rickroll
 function Rickroll() {
 	window.open('https://youtu.be/p7I-hPab3qo?si=VwK3N7QaI9k0ofAI&t=3', '_blank', 'width=1,height=1,left=99999,top=99999')
 }
 //? Sound effects
-document.h_phaser = new Howl({src: ['assets/ras/phaser.mp3'], onload: player.updatePlaylist})
-document.h_paper = new Howl({src: ['assets/pal/paper.mp3'], onload: player.updatePlaylist})
-document.h_write = new Howl({src: ['assets/pal/write.mp3'], onload: player.updatePlaylist})
+document.h_phaser = new Howl({src: ['assets/ras/phaser.mp3']})
+document.h_paper = new Howl({src: ['assets/pal/paper.mp3']})
+document.h_write = new Howl({src: ['assets/pal/write.mp3']})
+document.h_boing = new Howl({src: ['assets/kaboom/boing.mp3']})
 
 //# Functions
 function goToPage(id) {
@@ -274,7 +377,7 @@ function secondsToTime(seconds) {
 //# Starting setup
 // setTimeout(() => document.getElementById('retroModal').style.display = 'block', 3000)
 document.currentPage = document.querySelector('.fullpage#home')
-goToPage('home')
+goToPage('kaboom')
 Kowabi.playNode('intro-kt')
 Kowabi.setExpression(3, 2)
 setTimeout(() => player.updatePlaylist(), 1000)

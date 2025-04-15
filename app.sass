@@ -23,6 +23,32 @@
 		opacity: 1
 	100%
 		opacity: 0
+@keyframes boing
+	0%, 60%
+		transform: translateY(0) scale(.6, 1.2)
+		animation-timing-function: ease-out
+	30%
+		transform: translateY(-5rem) scale(1.2, .6)
+		animation-timing-function: ease-in
+	80%
+		transform: translateY(0) scale(1.2, .6)
+		animation-timing-function: ease-in
+	100%
+		transform: translateY(0) scale(1)
+@keyframes boingShadow
+	0%, 60%
+		opacity: .8
+		transform: translateX(-50%) scale(1)
+	30%
+		opacity: .2
+		transform: translateX(-50%) scale(.7)
+@keyframes boingText
+	0%
+		transform: translateY(0)
+		opacity: 1
+	100%
+		transform: translateY(-3rem)
+		opacity: 0
 
 //# Debugging
 // *
@@ -332,6 +358,33 @@ dialog::backdrop
 #lef
 	.content
 		padding-top: 5rem
+#kaboom
+	overflow: hidden
+	#field
+		position: relative
+		width: 100vw
+		height: 25vh
+		margin-top: 75vh
+		overflow: visible
+		.slime
+			position: absolute
+			transition: top .5s linear, left .5s linear
+			transform-origin: bottom center
+			img
+				height: 70px
+				width: 70px
+			&::before
+				display: block
+				content: ''
+				position: absolute
+				left: 50%
+				bottom: .7rem
+				height: 1.5rem
+				width: 5rem
+				transform: translateX(-50%)
+				z-index: -1
+		.temptext
+			position: absolute
 
 //# Colors, Text & Appearance
 //? Clickables
@@ -549,6 +602,27 @@ body
 	background-position: center
 	#leafeon
 		filter: drop-shadow(0 -4px 0 black)
+#kaboom
+	background-image: url('assets/kaboom/field-bg.png')
+	background-size: cover
+	background-position: center center
+	.slime
+		&::before
+			background-image: radial-gradient(closest-side, black, transparent)
+			z-index: -1
+		&.boing
+			img
+				animation: boing .8s ease
+			&::before
+				animation: boingShadow .8s ease
+	.temptext
+		--angle: 0deg
+		color: white
+		font-weight: bold
+		transform: rotate(var(--angle))
+		transform-origin: bottom center
+		>div
+			animation: boingText 1s ease-in-out
 
 //# Specific stuff
 #retroModal

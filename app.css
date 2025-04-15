@@ -75,6 +75,86 @@
     opacity: 0;
   }
 }
+@-webkit-keyframes boing {
+  0%, 60% {
+    transform: translateY(0) scale(0.6, 1.2);
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+  }
+  30% {
+    transform: translateY(-5rem) scale(1.2, 0.6);
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+  }
+  80% {
+    transform: translateY(0) scale(1.2, 0.6);
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes boing {
+  0%, 60% {
+    transform: translateY(0) scale(0.6, 1.2);
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+  }
+  30% {
+    transform: translateY(-5rem) scale(1.2, 0.6);
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+  }
+  80% {
+    transform: translateY(0) scale(1.2, 0.6);
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+@-webkit-keyframes boingShadow {
+  0%, 60% {
+    opacity: 0.8;
+    transform: translateX(-50%) scale(1);
+  }
+  30% {
+    opacity: 0.2;
+    transform: translateX(-50%) scale(0.7);
+  }
+}
+@keyframes boingShadow {
+  0%, 60% {
+    opacity: 0.8;
+    transform: translateX(-50%) scale(1);
+  }
+  30% {
+    opacity: 0.2;
+    transform: translateX(-50%) scale(0.7);
+  }
+}
+@-webkit-keyframes boingText {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-3rem);
+    opacity: 0;
+  }
+}
+@keyframes boingText {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-3rem);
+    opacity: 0;
+  }
+}
 #debug-nav {
   position: fixed;
   z-index: 100;
@@ -159,15 +239,15 @@ dialog::backdrop {
 
 #kowabi, #music-player {
   position: fixed;
-  bottom: 1rem;
+  bottom: 0.3rem;
   display: flex;
   flex-direction: row;
   align-items: center;
-  z-index: 100;
+  z-index: 10000;
 }
 
 #kowabi {
-  right: 1rem;
+  right: 0.3rem;
   height: 10rem;
 }
 #kowabi #msg {
@@ -200,7 +280,7 @@ dialog::backdrop {
 }
 
 #music-player {
-  left: 1rem;
+  left: 0.3rem;
 }
 #music-player #icon {
   position: relative;
@@ -211,8 +291,8 @@ dialog::backdrop {
   position: absolute;
   bottom: 0;
   left: -1rem;
-  height: 10rem;
-  width: auto;
+  width: 11rem;
+  height: auto;
 }
 #music-player #panel {
   position: relative;
@@ -450,6 +530,40 @@ dialog::backdrop {
 
 #lef .content {
   padding-top: 5rem;
+}
+
+#kaboom {
+  overflow: hidden;
+}
+#kaboom #field {
+  position: relative;
+  width: 100vw;
+  height: 25vh;
+  margin-top: 75vh;
+  overflow: visible;
+}
+#kaboom #field .slime {
+  position: absolute;
+  transition: top 0.5s linear, left 0.5s linear;
+  transform-origin: bottom center;
+}
+#kaboom #field .slime img {
+  height: 70px;
+  width: 70px;
+}
+#kaboom #field .slime::before {
+  display: block;
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0.7rem;
+  height: 1.5rem;
+  width: 5rem;
+  transform: translateX(-50%);
+  z-index: -1;
+}
+#kaboom #field .temptext {
+  position: absolute;
 }
 
 #letter, #notice {
@@ -731,6 +845,35 @@ body {
 }
 #lef #leafeon {
   filter: drop-shadow(0 -4px 0 black);
+}
+
+#kaboom {
+  background-image: url("assets/kaboom/field-bg.png");
+  background-size: cover;
+  background-position: center center;
+}
+#kaboom .slime::before {
+  background-image: radial-gradient(closest-side, black, transparent);
+  z-index: -1;
+}
+#kaboom .slime.boing img {
+  -webkit-animation: boing 0.8s ease;
+          animation: boing 0.8s ease;
+}
+#kaboom .slime.boing::before {
+  -webkit-animation: boingShadow 0.8s ease;
+          animation: boingShadow 0.8s ease;
+}
+#kaboom .temptext {
+  --angle: 0deg;
+  color: white;
+  font-weight: bold;
+  transform: rotate(var(--angle));
+  transform-origin: bottom center;
+}
+#kaboom .temptext > div {
+  -webkit-animation: boingText 1s ease-in-out;
+          animation: boingText 1s ease-in-out;
 }
 
 #retroModal {
