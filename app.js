@@ -233,10 +233,10 @@ Kowabi.addNodes([
 			['Navigation', 'navigation'],
 		]],
 	['life', "_~Don't we all...~_", [1, 4], [
-			['Back', 'assistance0'],
+			['Back', 'assistance3'],
 		]],
 	['navigation', "Well, there's not much to navigate for now, but I'm sure this place will be full of life in no time.", [4, 2], [
-			['Back', 'assistance0'],
+			['Back', 'assistance3'],
 		]],
 		//* Kaboom page intro
 	['kaboom-intro', "This is the field outside the wizard's tower.\n~Check out that sunset!~", [6, 3], [
