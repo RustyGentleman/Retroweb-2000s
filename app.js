@@ -3,22 +3,22 @@ const Kowabi = document.getElementById('kowabi')
 Kowabi.toggle = () => {
 	const msg = Kowabi.querySelector('#msg')
 	if (!msg.classList.contains('hidden')) {
-		clearTimeout(Steptext.timeout)
+		Kowabi.steptext.pause()
 		msg.classList.toggle('hidden')
 		setTimeout(() => Kowabi.querySelector('#msg').style.display = 'none', 300)
 	} else {
 		Kowabi.querySelector('#msg').style.display = ''
 		setTimeout(() => msg.classList.toggle('hidden'))
-		Steptext.step()
+		Kowabi.steptext.step()
 	}
 }
 Kowabi.text = Kowabi.querySelector('#text')
-Steptext.element = Kowabi.text
+Kowabi.steptext = new Steptext(Kowabi.text)
 Kowabi.options = Kowabi.querySelector('#options')
 Kowabi.expression = Kowabi.querySelector('#expression')
 Kowabi.setText = (string) => {
 	Kowabi.text.textContent = ''
-	Steptext.queue = string
+	Kowabi.steptext.textQueue = string
 	if (Kowabi.querySelector('#msg').classList.contains('hidden'))
 		Kowabi.toggle()
 }
@@ -53,8 +53,7 @@ Kowabi.playNode = (key) => {
 	const node = Kowabi.dialogueNodes[key]
 	if (!node) return console.warn(`Dialogue node "${key}" not found.`)
 
-	Steptext.queue = ''
-	Steptext.close = []
+	Kowabi.steptext.reset()
 	Kowabi.setText(node.text)
 	Kowabi.setExpression(...node.expression)
 	Kowabi.resetOptions()
