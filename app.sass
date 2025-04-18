@@ -1,4 +1,4 @@
-//# Keyframes
+//# Keyframes & Fonts
 @keyframes ras-bgscroll
 	0%
 		background-position-y: 0%
@@ -49,7 +49,26 @@
 	100%
 		transform: translateY(-3rem)
 		opacity: 0
-
+@font-face
+	font-family: 'Andy'
+	src: url('assets/kaboom/AndyRegular.OTF')
+	font-weight: normal
+	font-style: normal
+@font-face
+	font-family: 'Andy'
+	src: url('assets/kaboom/AndyItalic.OTF')
+	font-weight: normal
+	font-style: italic
+@font-face
+	font-family: 'Andy'
+	src: url('assets/kaboom/AndyBold.OTF')
+	font-weight: bold
+	font-style: normal
+@font-face
+	font-family: 'Andy'
+	src: url('assets/kaboom/AndyBoldIT.OTF')
+	font-weight: bold
+	font-style: italic
 //# Debugging
 // *
 // 	outline: solid 1px magenta
@@ -69,6 +88,8 @@ body
 	padding: 0
 	margin: 0
 	height: 100vh
+[onclick]
+	cursor: pointer
 
 //# Classes & Defaults
 .fullpage
@@ -82,7 +103,7 @@ body
 		overflow-y: hidden
 		text-align: center
 .hidden
-	opacity: 0
+	opacity: 0 !important
 	pointer-events: none
 .win95-btn
 	appearance: none
@@ -119,6 +140,10 @@ dialog::backdrop
 	$spread: 5px
 	@return linear-gradient(to $direction, #{$color} 0%, #{$color} $spread, #{darken($color, $darken)} calc(100% - $spread), #{darken($color, $darken)} 100%)
 
+//# Cauldron ingredients
+[alt*="orange slime"]
+	filter: hue-rotate(28deg) contrast(0.9) brightness(3.5) contrast(1.3)
+
 //# Layout
 #kowabi, #music-player
 	position: fixed
@@ -130,12 +155,14 @@ dialog::backdrop
 #kowabi
 	right: .3rem
 	height: 10rem
+	pointer-events: none
 	#msg
 		height: fit-content
 		min-width: 15rem
 		max-width: 25rem
 		padding: .5rem
 		text-align: center
+		pointer-events: auto
 		#options
 			display: flex
 			flex-direction: row
@@ -143,6 +170,7 @@ dialog::backdrop
 			gap: 2px
 			margin-top: .5rem
 	#icon
+		pointer-events: auto
 		height: 100%
 		img
 			height: 100%
@@ -169,6 +197,8 @@ dialog::backdrop
 		display: flex
 		flex-direction: column
 		z-index: 100
+		&.hidden
+			display: none
 		&, #controls
 			gap: .3rem
 		#title, #controls > *
@@ -360,6 +390,21 @@ dialog::backdrop
 		padding-top: 5rem
 #kaboom
 	overflow: hidden
+	.slime
+		position: relative
+		&::before
+			display: block
+			content: ''
+			position: absolute
+			left: 50%
+			bottom: 15%
+			height: 30%
+			width: 120%
+			transform: translateX(-55%)
+			z-index: 1
+		img
+			position: relative
+			z-index: 2
 	#field
 		position: relative
 		width: 100vw
@@ -373,18 +418,41 @@ dialog::backdrop
 			img
 				height: 70px
 				width: 70px
-			&::before
-				display: block
-				content: ''
-				position: absolute
-				left: 50%
-				bottom: .7rem
-				height: 1.5rem
-				width: 5rem
-				transform: translateX(-50%)
-				z-index: -1
 		.temptext
 			position: absolute
+	#dialogue
+		display: flex
+		position: absolute
+		left: 50%
+		top: 50%
+		transform: translate(-50%, -50%)
+		overflow: hidden
+		&::before
+			$border: 4px
+			content: ''
+			position: absolute
+			inset: -$border
+			z-index: 3
+			pointer-events: none
+		.slime
+			img
+				height: 15rem
+				width: 15rem
+				transform: translateX(5%)
+			&::before
+				transform: translateX(-50%)
+		.message
+			display: flex
+			flex-direction: column
+			justify-content: center
+			align-items: center
+			width: 25rem
+			padding-inline: 2rem
+			padding-right: 3rem
+		.hastooltip img
+			height: 2rem
+		button, .hastooltip
+			margin-top: 1rem
 
 //# Colors, Text & Appearance
 //? Clickables
@@ -606,10 +674,11 @@ body
 	background-image: url('assets/kaboom/field-bg.png')
 	background-size: cover
 	background-position: center center
+	font-family: 'Andy'
+	font-size: 1.2rem
 	.slime
 		&::before
 			background-image: radial-gradient(closest-side, black, transparent)
-			z-index: -1
 		&.boing
 			img
 				animation: boing .8s ease
@@ -623,6 +692,25 @@ body
 		transform-origin: bottom center
 		>div
 			animation: boingText 1s ease-in-out
+	#dialogue
+		backdrop-filter: blur(10px)
+		background-image: url('assets/kaboom/dialogue-bg.png'), url('assets/kaboom/notice.png')
+		background-size: 100% 100%, 100% 100%
+		background-color: #947845
+		text-align: center
+		&::before
+			$border: 4px
+			border: solid $border*12
+			border-image: url('assets/kaboom/terraria-minimap-border.png')
+			border-image-slice: 12 12 12
+			border-image-repeat: stretch
+		.hastooltip, button
+			opacity: 1
+			transition: opacity .5s ease
+		button.hidden
+			transition: none
+		.hastooltip + button
+			display: none
 
 //# Specific stuff
 #retroModal

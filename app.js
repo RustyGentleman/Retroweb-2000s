@@ -126,7 +126,12 @@ class Playlist {
 			src: [`assets/songs/${filename}.mp3`],
 			loop: true,
 			onload: () => {
-				player.playlist.querySelector('.'+filename).children[1].textContent = secondsToTime(song.howl.duration())
+				let interval = setInterval(() => {
+					try {
+						player.playlist.querySelector('.'+filename).children[1].textContent = secondsToTime(song.howl.duration())
+						clearInterval(interval)
+					} catch(e) {}
+				}, 100)
 			}
 		})
 		const song = {key: filename, title, unlocked: false, howl}
@@ -260,22 +265,48 @@ Playlist.addSongs([
 ])
 
 //# Slime setup
-function DropTempText(element, string, seconds=5, post) {
-	const text = document.createElement('div')
-	text.textContent = string
-	text.className = 'temptext'
-	text.style.top = element.style.top
-	text.style.left = element.style.left
-	text.style.setProperty('--angle', Math.random()*40-20+'deg')
-	element.parentElement.append(text)
-	if (post)
-		post(text)
-	setTimeout(() => text.remove(), seconds*1000)
+const slimeSteptext = new Steptext(document.querySelector('#kaboom #dialogue .text'), {onFinished: (st, target) => {
+	target.nextElementSibling.classList.remove('hidden')
+	st.pause()
+}})
+const slimeInfo = {
+	jerome	: {cur: 0, trig: 1, color: 'red', dialogue: [
+		`Y-Y-Y... Uhm... Y...`,
+		`Y-.. You're very pretty!! BYE!`,
+		`_Jerome lobs **a blob of red slime** at you before quickly wobbling away, seeming flustered._`]},
+	roosevelt: {cur: 0, trig: 1, color: 'orange', dialogue: [
+		`Howdy there, pardner... How goes yer travels?\nWell, I hope...`,
+		`I don't much know what you might use it for, friend, but uh...`,
+		`Here, take some slime for the road. I suppose you never know, huh?`,
+		`_Roosevelt passes you a **blob of orange slime**._`]},
+	samantha	: {cur: 0, trig: 1, color: 'yellow', dialogue: [
+		`Hi hi hI HI HI!!!!`]},
+	jared		: {cur: 0, trig: 1, color: '', dialogue: [
+		``]},
+	jeremy	: {cur: 0, trig: 1, color: '', dialogue: [
+		``]},
+	michael	: {cur: 0, trig: 1, color: '', dialogue: [
+		``]},
+	aurora	: {cur: 0, trig: 1, color: '', dialogue: [
+		``]},
+	salt		: {cur: 0, trig: 1, color: '', dialogue: [
+		``]},
+	flint		: {cur: 0, trig: 1, color: '', dialogue: [
+		``]},
+	pepper	: {cur: 0, trig: 1, color: '', dialogue: [
+		``]},
 }
 document.querySelectorAll('#kaboom #field .slime').forEach((slime) => {
+	//* Set up counter
+	const savedCounter = window.localStorage.getItem('slimeCounter-'+slime.id)
+	if (savedCounter)
+		slimeInfo[slime.id].cur = +savedCounter
+
 	//* Click interaction
 	slime.addEventListener('click', () => {
 		if (slime.classList.contains('boing')) return
+
+		//? Boing
 		DropTempText(slime, 'Boing!', 1, (text) => {
 			const inner = document.createElement('div')
 			inner.textContent = text.textContent
@@ -285,6 +316,24 @@ document.querySelectorAll('#kaboom #field .slime').forEach((slime) => {
 		document.h_boing.play()
 		slime.classList.add('boing')
 		setTimeout(() => slime.classList.remove('boing'), 800)
+
+		//? Counter increase
+		slimeInfo[slime.id].cur += 1
+		window.localStorage.setItem('slimeCounter-'+slime.id, slimeInfo[slime.id].cur)
+
+		//? Trigger dialogue
+		const dialogue = document.querySelector('#kaboom #dialogue')
+		if (slimeInfo[slime.id] != -1 && dialogue.classList.contains('hidden'))
+			if (slimeInfo[slime.id].cur >= slimeInfo[slime.id].trig) {
+				const clone = slime.cloneNode(true)
+				clone.style.cssText = ''
+				clone.classList.remove('boing')
+				dialogue.prepend(clone)
+				dialogue.classList.remove('hidden')
+				const button = dialogue.querySelector('.message button')
+				button.dataset.dialogue = slimeInfo[slime.id].dialogue.join('|')
+				button.click()
+			}
 	})
 
 	//* Motion
@@ -340,6 +389,42 @@ document.querySelectorAll('#kaboom #field .slime').forEach((slime) => {
 	}, updateInterval)
 })
 
+function DropTempText(element, string, seconds=5, post) {
+	const text = document.createElement('div')
+	text.textContent = string
+	text.className = 'temptext'
+	text.style.top = element.style.top
+	text.style.left = element.style.left
+	text.style.setProperty('--angle', Math.random()*40-20+'deg')
+	element.parentElement.append(text)
+	if (post)
+		post(text)
+	setTimeout(() => text.remove(), seconds*1000)
+}
+function kaboomDialogueAdvance(button) {
+	button.previousElementSibling.innerHTML = ''
+	const info = slimeInfo[button.parentElement.previousElementSibling.id]
+	const dialogue = button.dataset.dialogue.split('|')
+	slimeSteptext.reset()
+	slimeSteptext.queue(dialogue.shift())
+	button.classList.add('hidden')
+	// button.previousElementSibling.innerHTML = dialogue.shift()
+	// 	.replaceAll('\n','<br>')
+	// 	.replaceAll(/\*\*(.*?)\*\*/g,'<b>$1</b>')
+	// 	.replaceAll(/\_(.*?)\_/g,'<i>$1</i>')
+	if (dialogue.length == 0) {
+		const blob = document.createElement('div')
+		blob.classList.add('hastooltip')
+		blob.classList.add('hidden')
+		blob.innerHTML = `<img src="assets/kaboom/slime-droplet.png" alt="A blob of ${info.color} slime" class="slime-${info.color}" onclick="addCollectible('a blob of ${info.color} slime');const dialogue=document.querySelector('#kaboom #dialogue');dialogue.classList.add('hidden');dialogue.firstElementChild.remove();this.parentElement.remove()"><span class="tooltip">A blob of ${info.color} slime</span></div>`
+		button.before(blob)
+	} else button.dataset.dialogue=dialogue.join('|')
+}
+function resetSlimes() {
+	for (const slime of Object.keys(slimeInfo))
+		window.localStorage.removeItem('slimeCounter-'+slime)
+}
+
 //# Effects
 //? Stealth Rickroll
 function Rickroll() {
@@ -349,7 +434,7 @@ function Rickroll() {
 document.h_phaser = new Howl({src: ['assets/ras/phaser.mp3']})
 document.h_paper = new Howl({src: ['assets/pal/paper.mp3']})
 document.h_write = new Howl({src: ['assets/pal/write.mp3']})
-document.h_boing = new Howl({src: ['assets/kaboom/boing.mp3']})
+document.h_boing = new Howl({src: ['assets/kaboom/boing.mp3'], volume: .4})
 
 //# Functions
 function goToPage(id) {

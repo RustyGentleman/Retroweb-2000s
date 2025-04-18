@@ -17,7 +17,7 @@ class Steptext {
 		['!!', ['jitter', 2]],
 		['##', ['glow', 2]],
 	])
-	static ind_wrap = [
+	static tagsWithWrappedChars = [
 		'wave',
 		'jitter',
 	]
@@ -66,7 +66,7 @@ class Steptext {
 		}
 
 		// Handle regular text or individually wrapped characters:
-		if (Steptext.close.length && Steptext.close.filter(e => Steptext.ind_wrap.includes(e.match(/\w+/)[0])).length) {
+		if (Steptext.close.length && Steptext.close.filter(e => Steptext.tagsWithWrappedChars.includes(e.match(/\w+/)[0])).length) {
 			const span = document.createElement('span')
 			const withSpaces = Steptext.queue.match(/^[^ ] */)
 			if (withSpaces) {
