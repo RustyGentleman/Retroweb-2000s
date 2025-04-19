@@ -267,7 +267,7 @@ Playlist.addSongs([
 ])
 
 //# Slimes
-const slimeSteptext = new Steptext(document.querySelector('#kaboom #dialogue .text'), {onFinished: (st, target) => {
+const slimeSteptext = new Steptext(document.querySelector('#kaboom #slime-dialogue .text'), {onFinished: (st, target) => {
 	target.nextElementSibling.classList.remove('hidden')
 	st.pause()
 }})
@@ -347,7 +347,7 @@ document.querySelectorAll('#kaboom #field .slime').forEach((slime) => {
 		window.localStorage.setItem('slimeCounter-'+slime.id, slimeInfo[slime.id].cur)
 
 		//? Trigger dialogue
-		const dialogue = document.querySelector('#kaboom #dialogue')
+		const dialogue = document.querySelector('#kaboom #slime-dialogue')
 		if (slimeInfo[slime.id] != -1 && dialogue.classList.contains('hidden'))
 			if (slimeInfo[slime.id].cur >= slimeInfo[slime.id].trig) {
 				const clone = slime.cloneNode(true)
@@ -420,16 +420,20 @@ function kaboomDialogueAdvance(button) {
 	slimeSteptext.reset()
 	slimeSteptext.queue(dialogue.shift())
 	button.classList.add('hidden')
-	// button.previousElementSibling.innerHTML = dialogue.shift()
-	// 	.replaceAll('\n','<br>')
-	// 	.replaceAll(/\*\*(.*?)\*\*/g,'<b>$1</b>')
-	// 	.replaceAll(/\_(.*?)\_/g,'<i>$1</i>')
 	if (dialogue.length == 0) {
-		const blob = document.createElement('div')
-		blob.classList.add('hastooltip')
-		blob.classList.add('hidden')
-		blob.innerHTML = `<img src="assets/kaboom/slime-droplet.png" alt="A blob of ${info.color} slime" class="slime-${info.color}" onclick="addCollectible(this,'a blob of ${info.color} slime');const dialogue=document.querySelector('#kaboom #dialogue');dialogue.classList.add('hidden');dialogue.firstElementChild.remove();this.parentElement.remove()"><span class="tooltip">A blob of ${info.color} slime</span>`
-		button.before(blob)
+		if (!info) {
+			const key = document.createElement('div')
+			key.classList.add('hastooltip')
+			key.classList.add('hidden')
+			key.innerHTML = `<img src="assets/key-kaboom.png" alt="A key-shaped blob of chromatic slime" onclick="addCollectible(this,'a key-shaped blob of chromatic slime');slimeSteptext.targetElement=document.querySelector('#kaboom #slime-dialogue .text');document.querySelector('#pal #slime-dialogue').remove()"><span class="tooltip">A key-shaped blob of chromatic slime</span>`
+			button.before(key)
+		} else {
+			const blob = document.createElement('div')
+			blob.classList.add('hastooltip')
+			blob.classList.add('hidden')
+			blob.innerHTML = `<img src="assets/kaboom/slime-droplet.png" alt="A blob of ${info.color} slime" onclick="addCollectible(this,'a blob of ${info.color} slime');const dialogue=document.querySelector('#kaboom #slime-dialogue');dialogue.classList.add('hidden');dialogue.firstElementChild.remove();this.parentElement.remove()"><span class="tooltip">A blob of ${info.color} slime</span>`
+			button.before(blob)
+		}
 	} else button.dataset.dialogue=dialogue.join('|')
 }
 function resetSlimes() {
@@ -443,10 +447,41 @@ class Alchemy {
 	static cauldron = document.querySelector('#pal #cauldron')
 	static picked = []
 	static recipes = [
-		{ingredients: [
+		{ingredients: [ //? Chroma
 			'A blob of red slime',
-			'A blob of orange slime'
-			], result: () => console.log('Brew successful')},
+			'A blob of orange slime',
+			'A blob of yellow slime',
+			'A blob of green slime',
+			'A blob of blue slime',
+			'A blob of purple slime',
+			'A blob of pink slime',
+			'A blob of white slime',
+			'A blob of grey slime',
+			'A blob of black slime',
+			], result: () => {
+				//* Set up dialogue box
+				const dialogue = document.querySelector('#kaboom #slime-dialogue').cloneNode(true)
+				document.getElementById('pal').append(dialogue)
+				//* Chroma gif
+				const chroma = document.createElement('div')
+				chroma.id = 'chroma'
+				chroma.className = 'slime'
+				chroma.innerHTML = `<img src="assets/kaboom/chroma.gif"/>`
+				dialogue.prepend(chroma)
+				dialogue.classList.remove('hidden')
+				//* Steptext redirection
+				slimeSteptext.targetElement = dialogue.querySelector('.text')
+				//* Button
+				const button = dialogue.querySelector('.message button')
+				button.dataset.dialogue = [
+					`<span style="font-size:1.2rem">~Woah..!~</span>\nI uh....\nI _~exist~_ now...?`,
+					`Uhm... neat...\nThat's...... neat...`,
+					`Thank you, I think... Uhhh....`,
+					`H-Here, have this as thanks...\nI think it used to be some key that was stuck in the bottom of the cauldron...`,
+					`_Chroma hands you **a key-shaped blob of ~CHROMATIC SLIME~**._`
+				].join('|')
+				button.click()
+		}},
 	]
 	static matchedRecipe
 
@@ -464,15 +499,19 @@ class Alchemy {
 		this.validate()
 	}
 	static brew() {
+		if (this.picked.length <= 0)
+			return
 		const puff = document.createElement('div')
 		puff.classList.add('puff')
-		this.ingredients.nextElementSibling.after(puff)
+		this.cauldron.after(puff)
 		setTimeout(() => puff.remove(), 1000)
-		document.h_puff.play
+		document.h_puff.play()
 
 		if (this.matchedRecipe) {
 			this.matchedRecipe.result()
+			this.matchedRecipe = undefined
 		} else {
+			puff.classList.add('black')
 			for (const ingredient of this.picked)
 				this.ingredients.querySelector(`[alt="${ingredient}"]`).parentElement.style.display = ''
 		}
@@ -481,6 +520,8 @@ class Alchemy {
 		this.cauldron.classList.remove('invalid')
 	}
 	static validate() {
+		this.cauldron.classList.remove('valid')
+		this.cauldron.classList.remove('invalid')
 		for (const recipe of this.recipes)
 			if (
 				recipe.ingredients.every(ing => this.picked.includes(ing))
@@ -527,6 +568,7 @@ for (const page of Array.from(document.querySelectorAll('.fullpage'))) {
 	button.addEventListener('click', function(){goToPage(this.textContent)})
 	nav.append(button)
 }
+Steptext.instances.forEach(st => st.stepInterval = 1)
 
 //# Functions
 function goToPage(id) {
