@@ -639,6 +639,12 @@ dialog::backdrop {
   text-align: center;
   perspective: 20rem;
 }
+#pal .content .portal {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+}
 #pal .content #header {
   height: 25%;
 }
@@ -767,13 +773,13 @@ dialog::backdrop {
   position: absolute;
   top: 50%;
   left: 50%;
-  height: 15rem;
-  width: 10rem;
+  height: 40%;
+  width: 20%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   transition: transform 0.2s ease;
-  transform: scale(0.2) translate(-71rem, -30rem);
+  transform: scale(0.2) translate(-620%, -190%);
 }
 #pal .content #notice.open {
   transform: translate(-50%, -50%);
