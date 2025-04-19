@@ -416,7 +416,7 @@ function kaboomDialogueAdvance(button) {
 		const blob = document.createElement('div')
 		blob.classList.add('hastooltip')
 		blob.classList.add('hidden')
-		blob.innerHTML = `<img src="assets/kaboom/slime-droplet.png" alt="A blob of ${info.color} slime" class="slime-${info.color}" onclick="addCollectible('a blob of ${info.color} slime');const dialogue=document.querySelector('#kaboom #dialogue');dialogue.classList.add('hidden');dialogue.firstElementChild.remove();this.parentElement.remove()"><span class="tooltip">A blob of ${info.color} slime</span></div>`
+		blob.innerHTML = `<img src="assets/kaboom/slime-droplet.png" alt="A blob of ${info.color} slime" class="slime-${info.color}" onclick="addCollectible(this,'a blob of ${info.color} slime');const dialogue=document.querySelector('#kaboom #dialogue');dialogue.classList.add('hidden');dialogue.firstElementChild.remove();this.parentElement.remove()"><span class="tooltip">A blob of ${info.color} slime</span></div>`
 		button.before(blob)
 	} else button.dataset.dialogue=dialogue.join('|')
 }
@@ -443,7 +443,8 @@ function goToPage(id) {
 	document.currentPage = document.querySelector(`.fullpage#${id}`)
 	document.currentPage.classList.remove('hidden')
 }
-function addCollectible(key) {
+function addCollectible(element, key) {
+	toScreenCenter(element)
 	let collectibles = window.localStorage.getItem('collectibles')
 	if (collectibles == null)
 		collectibles = []
@@ -457,6 +458,30 @@ function addCollectible(key) {
 function secondsToTime(seconds) {
 	return Math.floor(seconds/60) + ':' + (''+Math.floor(seconds%60)).padStart(2, '0')
 }
+async function toScreenCenter(element) {
+	const rect = element.getBoundingClientRect()
+	const clone = element.cloneNode(true)
+	const div = document.createElement('div')
+	div.style.position = 'absolute'
+	div.style.top = rect.top+'px'
+	div.style.left = rect.left+'px'
+	clone.style.height = element.clientHeight+'px'
+	clone.style.width = element.clientWidth+'px'
+	clone.style.transform = getComputedStyle(element).transform
+	div.append(clone)
+	document.body.append(div)
+	await new Promise(r => setTimeout(r, 10))
+	div.classList.add('toscreencenter')
+	const ratio = (window.visualViewport.height * .3) / clone.clientHeight
+	await new Promise(r => setTimeout(r, 10))
+	clone.style.height = (window.visualViewport.height * .3)+'px'
+	clone.style.width = (clone.clientWidth * ratio)+'px'
+	await new Promise(r => setTimeout(r, 2000))
+	div.classList.add('hidden')
+	await new Promise(r => setTimeout(r, 1000))
+	div.remove()
+}
+// setTimeout(() => toScreenCenter(document.querySelector('#kowabi #icon').firstElementChild), 1000)
 
 //# Starting setup
 // setTimeout(() => document.getElementById('retroModal').style.display = 'block', 3000)

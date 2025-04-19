@@ -49,6 +49,13 @@
 	100%
 		transform: translateY(-3rem)
 		opacity: 0
+@keyframes woah
+	0%
+		transform: translateX(-50%) scale(2) rotate(0deg)
+	50%
+		transform: translateX(-50%) scale(2) rotate(180deg)
+	100%
+		transform: translateX(-50%) scale(2) rotate(360deg)
 @font-face
 	font-family: 'Andy'
 	src: url('assets/kaboom/AndyRegular.OTF')
@@ -88,6 +95,7 @@ body
 	padding: 0
 	margin: 0
 	height: 100vh
+	overflow: hidden
 [onclick]
 	cursor: pointer
 
@@ -134,6 +142,29 @@ body
 		opacity: 0
 		transition: opacity .1s ease
 		pointer-events: none
+.toscreencenter
+	top: 50% !important
+	left: 50% !important
+	transform: translate(-50%, -50%) !important
+	transition: 1s linear
+	transition-property: top, left, transform, opacity
+	pointer-events: none
+	> *
+		transition: 1s linear
+		transform: initial !important
+		transition-property: height, width, transform
+	&::before
+		content: ''
+		position: absolute
+		left: 50%
+		height: 100%
+		aspect-ratio: 1
+		background: repeating-conic-gradient(gold 0deg 10deg, transparent 10deg 20deg)
+		background-size: cover
+		border-radius: 50%
+		mask-image: radial-gradient(circle, black 0%, transparent 70%)
+		animation: woah 10s linear infinite
+		z-index: -1
 dialog::backdrop
 		background: rgb(0 0 0 / 50%)
 @function gradBG($color, $darken: 30%, $direction: bottom)
