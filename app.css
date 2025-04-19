@@ -325,6 +325,34 @@ dialog::backdrop {
   filter: hue-rotate(62deg) brightness(3.5);
 }
 
+[alt*="green slime"] {
+  filter: hue-rotate(120deg) brightness(3.5);
+}
+
+[alt*="blue slime"] {
+  filter: hue-rotate(220deg) brightness(2.5);
+}
+
+[alt*="purple slime"] {
+  filter: brightness(1.7) hue-rotate(277deg);
+}
+
+[alt*="pink slime"] {
+  filter: hue-rotate(331deg) saturate(0.4) brightness(4);
+}
+
+[alt*="white slime"] {
+  filter: saturate(0) brightness(4);
+}
+
+[alt*="grey slime"] {
+  filter: saturate(0) brightness(1.3);
+}
+
+[alt*="black slime"] {
+  filter: saturate(0) brightness(0.7);
+}
+
 #kowabi, #music-player {
   position: fixed;
   bottom: 0.3rem;

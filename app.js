@@ -299,12 +299,12 @@ const slimeInfo = {
 		]},
 	aurora	: {cur: 0, trig: 1, color: 'pink', dialogue: [
 		`~Oh my!~ Another royal! It's ~ever so wonderful~ to make your acquaintance at last!`,
-		`Here, as a welcome to my fairqueendom, have a gift.`,
-		`_Aurora holds out **a blob of pink slime**...\nAs you lean down to grab it, you see her ~crown~ is... a cardboard burger king crown. <span style="font-size:.8rem">~~she might not actually be a queen...~~</span>_`]},
+		`Here, as a welcome to my fair queendom, have a gift.`,
+		`_Aurora holds out **a blob of pink slime**...\nAs you lean down to grab it, you see her ~crown~ is...\na cardboard burger king crown.\n<span style="font-size:.8rem">~~she might not actually be a queen...~~</span>_`]},
 	salt		: {cur: 0, trig: 1, color: 'white', dialogue: [
 		`<span style="font-size:.8rem">Hi.</span>`,
 		`<span style="font-size:.8rem">Welcome to our field.</span>`,
-		`_Salt seems happy to see you... but also not big on conversation...\nYou sit with them for a short bit and they hand you **~a blob of white slime...~**\n<span style="font-size:.8rem">You feel like you should wash your hands after this one...</span>_`]},
+		`_Salt seems happy to see you... but also not big on conversation...\nYou sit with them for a short bit and they hand you **a blob of white slime...**\n<span style="font-size:.8rem">You feel like you should wash your hands after this one...</span>_`]},
 	flint		: {cur: 0, trig: 1, color: 'grey', dialogue: [
 		`Hello, I'd love to talk but I have ~so much to do...~`,
 		`I've got to negotiate a deal with the Royal Wizard, ask for continued permission to consume the foliage surrounding his tower, and then.. ugh... I have to do our Slime Taxes...`,
