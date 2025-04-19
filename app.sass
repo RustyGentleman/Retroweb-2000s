@@ -56,6 +56,16 @@
 		transform: translateX(-50%) scale(2) rotate(180deg)
 	100%
 		transform: translateX(-50%) scale(2) rotate(360deg)
+@keyframes splash
+	0%
+		background-position: 0 0
+	100%
+		background-position: -3400% 0
+@keyframes puff
+	0%
+		background-position: 0 0
+	100%
+		background-position: -900% 0
 @font-face
 	font-family: 'Andy'
 	src: url('assets/kaboom/AndyRegular.OTF')
@@ -363,11 +373,11 @@ dialog::backdrop
 		flex-direction: column
 		align-items: center
 		text-align: center
-		// padding-block: 5rem
 		.room
 			position: relative
 			width: 100%
-			height: 34.9rem
+			// height: 34.9rem
+			aspect-ratio: 467/260
 			display: flex
 			flex-direction: column
 			align-items: center
@@ -375,32 +385,93 @@ dialog::backdrop
 			perspective: 20rem
 		//? Top room
 		#header
-			h1
-				margin: 0
+			height: 25%
+			img
+				height: 100%
+		#wiz-1
+			position: absolute
+			height: 70%
+			bottom: 0
+			left: -2%
+			&::before
+				content: ''
+				display: block
+				position: absolute
+				bottom: 0
+				right: 20%
+				width: 50%
+				height: 10%
+			img
+				position: relative
+				height: 100%
+				z-index: 2
 		//? Alchemy room
 		#cauldron
 			position: absolute
 			bottom: 0
 			left: 50%
+			height: 50%
 			transform: translateX(-50%)
+		.splash
+			position: absolute
+			left: 50%
+			bottom: 31%
+			width: 74px
+			height: 47px
+			transform: translateX(-50%) scale(2)
+			transform-origin: bottom center
+			z-index: 2
+		.puff
+			position: absolute
+			left: 50%
+			bottom: 28%
+			width: 243px
+			height: 152px
+			transform-origin: bottom center
+			transform: translateX(-55%) scale(1.5)
+			z-index: 3
+		#cauldron-clickbox
+			position: absolute
+			left: 50%
+			bottom: 8%
+			transform: translateX(-50%)
+			height: 50%
+			width: 25%
+			border-radius: 50%
+		#ingredients
+			display: flex
+			flex-wrap: wrap
+			justify-content: center
+			align-items: center
+			gap: .3rem
+			padding: .3rem
+			position: absolute
+			top: 20%
+			max-width: 75%
+			.hastooltip
+				height: 2rem
+				img
+					height: 100%
 		//? Writing room
 		#desk
 			position: absolute
 			bottom: 0
-			width: 15rem
+			width: 24%
 		#psych
 			position: absolute
-			bottom: 10.6rem
-			left: calc(50% - 6rem)
+			bottom: 30%
+			left: 40%
+			width: 5%
 			img
-				width: 3rem
+				width: 100%
 		#letter
 			position: absolute
-			bottom: 7.5rem
+			bottom: 21%
 			left: 50%
+			width: 5%
 			transform: translateX(-50%)
 			img
-				width: 3rem
+				width: 100%
 		#drawer
 			position: absolute
 			bottom: 3.7rem
@@ -411,13 +482,13 @@ dialog::backdrop
 		#wiz-2
 			position: absolute
 			bottom: 0
-			right: 4rem
-			height: 20rem
+			right: 7%
+			height: 50%
 		.empty-bookshelf
 			position: absolute
-			bottom: 1.5rem
-			left: 7rem
-			width: 11.5rem
+			bottom: 3%
+			left: 11.1%
+			width: 18.6%
 			filter: saturate(.6) brightness(.9) contrast(1.1) drop-shadow(0 1rem .5rem rgb(0 0 0 / 70%))
 		#notice
 			position: absolute
@@ -681,22 +752,28 @@ body
 			small
 				font-size: .8rem
 		#wiz-1
-			position: relative
 			&::before
-				content: ''
-				display: block
-				position: absolute
-				bottom: 0
-				right: 4rem
-				width: 10rem
-				height: 3rem
 				border-radius: 100%
 				background: radial-gradient(closest-side, black, transparent)
 				transform: rotate(-10deg)
-			img
-				position: relative
-				z-index: 2
 		//? Alchemy room
+		#cauldron
+			mask-image: linear-gradient(to bottom, transparent 10%, white 20%)
+			filter: drop-shadow(0 0 2px var(--color)) drop-shadow(0 0 2px var(--color))
+			&.invalid
+				--color: red
+			&.valid
+				--color: green
+		#ingredients
+			background-color: purple
+		.splash
+			background-image: url('assets/pal/splash.png')
+			background-size: auto 100%
+			animation: splash 1s steps(34)
+		.puff
+			background-image: url('assets/pal/puff.png')
+			background-size: auto 100%
+			animation: puff 1s steps(9)
 		//? Writing room
 		#drawer
 			opacity: 0

@@ -177,6 +177,38 @@
     transform: translateX(-50%) scale(2) rotate(360deg);
   }
 }
+@-webkit-keyframes splash {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -3400% 0;
+  }
+}
+@keyframes splash {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -3400% 0;
+  }
+}
+@-webkit-keyframes puff {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -900% 0;
+  }
+}
+@keyframes puff {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -900% 0;
+  }
+}
 @font-face {
   font-family: "Andy";
   src: url("assets/kaboom/AndyRegular.OTF");
@@ -575,43 +607,115 @@ dialog::backdrop {
 #pal .content .room {
   position: relative;
   width: 100%;
-  height: 34.9rem;
+  aspect-ratio: 467/260;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   perspective: 20rem;
 }
-#pal .content #header h1 {
-  margin: 0;
+#pal .content #header {
+  height: 25%;
+}
+#pal .content #header img {
+  height: 100%;
+}
+#pal .content #wiz-1 {
+  position: absolute;
+  height: 70%;
+  bottom: 0;
+  left: -2%;
+}
+#pal .content #wiz-1::before {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0;
+  right: 20%;
+  width: 50%;
+  height: 10%;
+}
+#pal .content #wiz-1 img {
+  position: relative;
+  height: 100%;
+  z-index: 2;
 }
 #pal .content #cauldron {
   position: absolute;
   bottom: 0;
   left: 50%;
+  height: 50%;
   transform: translateX(-50%);
+}
+#pal .content .splash {
+  position: absolute;
+  left: 50%;
+  bottom: 31%;
+  width: 74px;
+  height: 47px;
+  transform: translateX(-50%) scale(2);
+  transform-origin: bottom center;
+  z-index: 2;
+}
+#pal .content .puff {
+  position: absolute;
+  left: 50%;
+  bottom: 28%;
+  width: 243px;
+  height: 152px;
+  transform-origin: bottom center;
+  transform: translateX(-55%) scale(1.5);
+  z-index: 3;
+}
+#pal .content #cauldron-clickbox {
+  position: absolute;
+  left: 50%;
+  bottom: 8%;
+  transform: translateX(-50%);
+  height: 50%;
+  width: 25%;
+  border-radius: 50%;
+}
+#pal .content #ingredients {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem;
+  position: absolute;
+  top: 20%;
+  max-width: 75%;
+}
+#pal .content #ingredients .hastooltip {
+  height: 2rem;
+}
+#pal .content #ingredients .hastooltip img {
+  height: 100%;
 }
 #pal .content #desk {
   position: absolute;
   bottom: 0;
-  width: 15rem;
+  width: 24%;
 }
 #pal .content #psych {
   position: absolute;
-  bottom: 10.6rem;
-  left: calc(50% - 6rem);
+  bottom: 30%;
+  left: 40%;
+  width: 5%;
 }
 #pal .content #psych img {
-  width: 3rem;
+  width: 100%;
 }
 #pal .content #letter {
   position: absolute;
-  bottom: 7.5rem;
+  bottom: 21%;
   left: 50%;
+  width: 5%;
   transform: translateX(-50%);
 }
 #pal .content #letter img {
-  width: 3rem;
+  width: 100%;
 }
 #pal .content #drawer {
   position: absolute;
@@ -624,14 +728,14 @@ dialog::backdrop {
 #pal .content #wiz-2 {
   position: absolute;
   bottom: 0;
-  right: 4rem;
-  height: 20rem;
+  right: 7%;
+  height: 50%;
 }
 #pal .content .empty-bookshelf {
   position: absolute;
-  bottom: 1.5rem;
-  left: 7rem;
-  width: 11.5rem;
+  bottom: 3%;
+  left: 11.1%;
+  width: 18.6%;
   filter: saturate(0.6) brightness(0.9) contrast(1.1) drop-shadow(0 1rem 0.5rem rgba(0, 0, 0, 0.7));
 }
 #pal .content #notice {
@@ -971,24 +1075,36 @@ body {
 #pal .content #header small {
   font-size: 0.8rem;
 }
-#pal .content #wiz-1 {
-  position: relative;
-}
 #pal .content #wiz-1::before {
-  content: "";
-  display: block;
-  position: absolute;
-  bottom: 0;
-  right: 4rem;
-  width: 10rem;
-  height: 3rem;
   border-radius: 100%;
   background: radial-gradient(closest-side, black, transparent);
   transform: rotate(-10deg);
 }
-#pal .content #wiz-1 img {
-  position: relative;
-  z-index: 2;
+#pal .content #cauldron {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 10%, white 20%);
+          mask-image: linear-gradient(to bottom, transparent 10%, white 20%);
+  filter: drop-shadow(0 0 2px var(--color)) drop-shadow(0 0 2px var(--color));
+}
+#pal .content #cauldron.invalid {
+  --color: red;
+}
+#pal .content #cauldron.valid {
+  --color: green;
+}
+#pal .content #ingredients {
+  background-color: purple;
+}
+#pal .content .splash {
+  background-image: url("assets/pal/splash.png");
+  background-size: auto 100%;
+  -webkit-animation: splash 1s steps(34);
+          animation: splash 1s steps(34);
+}
+#pal .content .puff {
+  background-image: url("assets/pal/puff.png");
+  background-size: auto 100%;
+  -webkit-animation: puff 1s steps(9);
+          animation: puff 1s steps(9);
 }
 #pal .content #drawer {
   opacity: 0;

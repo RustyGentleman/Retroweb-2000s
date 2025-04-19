@@ -138,16 +138,59 @@
 	<div class="fullpage hidden" id="pal">
 		<div class="content">
 			<div class="room windowed"> <!-- Top-->
-				<div id="header" style="margin-top: 5rem">
-					<h1>Pal's Wizard Tower</h1>
+				<div id="header" style="margin-top: 2%">
+					<img src="assets/pal/header.png" alt="Pal's Tower">
 					<!-- <small>Maybe he had a change of profession, so what?</small> --->
 				</div>
 				<div id="wiz-1">
-					<img src="assets/pal/wizard-pew.gif" alt="Wizard shooting magic in multiple directions." id="cauldron" style="margin-top: 4rem;">
+					<img src="assets/pal/wizard-pew.gif" alt="Wizard shooting magic in multiple directions." style="margin-top: 0rem;">
 				</div>
 			</div>
-			<div class="room"> <!-- Alchemy-->
+			<div class="room windowed"> <!-- Alchemy-->
+				<div id="ingredients">
+					<div class="hastooltip">
+						<img src="assets/kaboom/slime-droplet.png" onclick="Alchemy.add(this)" alt="A blob of red slime" class="slime-red">
+						<span class="tooltip">A blob of red slime</span>
+					</div>
+					<div class="hastooltip">
+						<img src="assets/kaboom/slime-droplet.png" onclick="Alchemy.add(this)" alt="A blob of orange slime" class="slime-orange">
+						<span class="tooltip">A blob of orange slime</span>
+					</div>
+					<div class="hastooltip">
+						<img src="assets/kaboom/slime-droplet.png" onclick="Alchemy.add(this)" alt="A blob of yellow slime" class="slime-yellow">
+						<span class="tooltip">A blob of yellow slime</span>
+					</div>
+					<div class="hastooltip">
+						<img src="assets/kaboom/slime-droplet.png" onclick="Alchemy.add(this)" alt="A blob of green slime" class="slime-green">
+						<span class="tooltip">A blob of green slime</span>
+					</div>
+					<div class="hastooltip">
+						<img src="assets/kaboom/slime-droplet.png" onclick="Alchemy.add(this)" alt="A blob of blue slime" class="slime-blue">
+						<span class="tooltip">A blob of blue slime</span>
+					</div>
+					<div class="hastooltip">
+						<img src="assets/kaboom/slime-droplet.png" onclick="Alchemy.add(this)" alt="A blob of purple slime" class="slime-purple">
+						<span class="tooltip">A blob of purple slime</span>
+					</div>
+					<div class="hastooltip">
+						<img src="assets/kaboom/slime-droplet.png" onclick="Alchemy.add(this)" alt="A blob of pink slime" class="slime-pink">
+						<span class="tooltip">A blob of pink slime</span>
+					</div>
+					<div class="hastooltip">
+						<img src="assets/kaboom/slime-droplet.png" onclick="Alchemy.add(this)" alt="A blob of white slime" class="slime-white">
+						<span class="tooltip">A blob of white slime</span>
+					</div>
+					<div class="hastooltip">
+						<img src="assets/kaboom/slime-droplet.png" onclick="Alchemy.add(this)" alt="A blob of grey slime" class="slime-grey">
+						<span class="tooltip">A blob of grey slime</span>
+					</div>
+					<div class="hastooltip">
+						<img src="assets/kaboom/slime-droplet.png" onclick="Alchemy.add(this)" alt="A blob of black slime" class="slime-black">
+						<span class="tooltip">A blob of black slime</span>
+					</div>
+				</div>
 				<img src="assets/pal/cauldron1.gif" alt="Boiling cauldron" id="cauldron">
+				<div id="cauldron-clickbox" onclick="Alchemy.brew()"></div>
 			</div>
 			<div class="room"> <!-- Writing-->
 				<img src="assets/pal/desk.png" alt="A desk." id="desk" style="filter: drop-shadow(0 2rem 1rem rgb(0 0 0 / 70%))">
@@ -166,10 +209,10 @@
 					<span class="tooltip">A letter to the Goblin Queen</span>
 				</div>
 			</div>
-			<div class="room windowed"> <!-- Library-->
+			<div class="room"> <!-- Library-->
 				<img src="assets/pal/wizard-pc.gif" alt="Wizard browsing the web." id="wiz-2">
 				<img src="assets/home/bookshelf.png" alt="Empty bookshelf." class="empty-bookshelf">
-				<img src="assets/home/bookshelf.png" alt="Empty bookshelf." class="empty-bookshelf" style="left: 25.5rem">
+				<img src="assets/home/bookshelf.png" alt="Empty bookshelf." class="empty-bookshelf" style="left: 40.8%">
 				<div id="notice" onclick="this.classList.toggle('open'); document.h_paper.play()">
 					<span>Collection</span>
 					<span>en-route to</span>
@@ -208,7 +251,7 @@
 			<div class="slime" id="flint"><img src="assets/kaboom/flint.gif"/></div>
 			<div class="slime" id="pepper"><img src="assets/kaboom/pepper.gif"/></div>
 		</div>
-		<div id="dialogue" class="hidden">
+		<div id="slime-dialogue" class="hidden">
 			<div class="message">
 				<div class="text"></div>
 				<button class="win95-btn" onclick="kaboomDialogueAdvance(this)">Continue</button>

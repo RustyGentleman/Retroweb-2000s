@@ -1,3 +1,4 @@
+//! Systems
 //# Kowabi
 const Kowabi = document.getElementById('kowabi')
 Kowabi.toggle = () => {
@@ -206,6 +207,7 @@ class Playlist {
 	}
 }
 
+//! Systems setup
 //# Kowabi dialogues
 //* Main page
 Kowabi.addNodes([
@@ -257,14 +259,14 @@ Kowabi.addNodes([
 		]],
 ])
 
-//# Songs
+//# Playlist songs
 Playlist.addSongs([
 	['kaboom', 'Terraria OST - Day'],
 	['leafy', 'Pokemon Blue/Red OST - Celadon City'],
 	['pal', 'Jonah Senzel - The Temple of Magicks'],
 ])
 
-//# Slime setup
+//# Slimes
 const slimeSteptext = new Steptext(document.querySelector('#kaboom #dialogue .text'), {onFinished: (st, target) => {
 	target.nextElementSibling.classList.remove('hidden')
 	st.pause()
@@ -411,19 +413,6 @@ document.querySelectorAll('#kaboom #field .slime').forEach((slime) => {
 		slime.style.zIndex = Math.ceil(y)
 	}, updateInterval)
 })
-
-function DropTempText(element, string, seconds=5, post) {
-	const text = document.createElement('div')
-	text.textContent = string
-	text.className = 'temptext'
-	text.style.top = element.style.top
-	text.style.left = element.style.left
-	text.style.setProperty('--angle', Math.random()*40-20+'deg')
-	element.parentElement.append(text)
-	if (post)
-		post(text)
-	setTimeout(() => text.remove(), seconds*1000)
-}
 function kaboomDialogueAdvance(button) {
 	button.previousElementSibling.innerHTML = ''
 	const info = slimeInfo[button.parentElement.previousElementSibling.id]
@@ -439,7 +428,7 @@ function kaboomDialogueAdvance(button) {
 		const blob = document.createElement('div')
 		blob.classList.add('hastooltip')
 		blob.classList.add('hidden')
-		blob.innerHTML = `<img src="assets/kaboom/slime-droplet.png" alt="A blob of ${info.color} slime" class="slime-${info.color}" onclick="addCollectible(this,'a blob of ${info.color} slime');const dialogue=document.querySelector('#kaboom #dialogue');dialogue.classList.add('hidden');dialogue.firstElementChild.remove();this.parentElement.remove()"><span class="tooltip">A blob of ${info.color} slime</span></div>`
+		blob.innerHTML = `<img src="assets/kaboom/slime-droplet.png" alt="A blob of ${info.color} slime" class="slime-${info.color}" onclick="addCollectible(this,'a blob of ${info.color} slime');const dialogue=document.querySelector('#kaboom #dialogue');dialogue.classList.add('hidden');dialogue.firstElementChild.remove();this.parentElement.remove()"><span class="tooltip">A blob of ${info.color} slime</span>`
 		button.before(blob)
 	} else button.dataset.dialogue=dialogue.join('|')
 }
@@ -448,8 +437,69 @@ function resetSlimes() {
 		window.localStorage.removeItem('slimeCounter-'+slime)
 }
 
-//# Effects
-//? Stealth Rickroll
+//# Cauldron
+class Alchemy {
+	static ingredients = document.querySelector('#pal #ingredients')
+	static cauldron = document.querySelector('#pal #cauldron')
+	static picked = []
+	static recipes = [
+		{ingredients: [
+			'A blob of red slime',
+			'A blob of orange slime'
+			], result: () => console.log('Brew successful')},
+	]
+	static matchedRecipe
+
+	static add(ingredient) {
+		this.picked.push(ingredient.nextElementSibling.textContent)
+		ingredient.parentElement.style.display = 'none'
+		document.h_sploop.play()
+
+		//* Splash
+		const splash = document.createElement('div')
+		splash.classList.add('splash')
+		splash.style.transform = `translateX(${Math.random() * 100 - 90}%) scale(1.5)`
+		this.ingredients.nextElementSibling.after(splash)
+		setTimeout(() => splash.remove(), 1000)
+		this.validate()
+	}
+	static brew() {
+		const puff = document.createElement('div')
+		puff.classList.add('puff')
+		this.ingredients.nextElementSibling.after(puff)
+		setTimeout(() => puff.remove(), 1000)
+		document.h_puff.play
+
+		if (this.matchedRecipe) {
+			this.matchedRecipe.result()
+		} else {
+			for (const ingredient of this.picked)
+				this.ingredients.querySelector(`[alt="${ingredient}"]`).parentElement.style.display = ''
+		}
+		this.picked = []
+		this.cauldron.classList.remove('valid')
+		this.cauldron.classList.remove('invalid')
+	}
+	static validate() {
+		for (const recipe of this.recipes)
+			if (
+				recipe.ingredients.every(ing => this.picked.includes(ing))
+				&& recipe.ingredients.length === this.picked.length
+			) {
+				this.cauldron.classList.add('valid')
+				this.matchedRecipe = this.recipes.find(recipe =>
+					recipe.ingredients.length === this.picked.length &&
+					recipe.ingredients.every(ing => this.picked.includes(ing))
+				)
+				return
+			}
+		this.cauldron.classList.add('invalid')
+		this.matchedRecipe = undefined
+	}
+}
+
+//! Effects setup
+//# Stealth Rickroll
 function Rickroll() {
 	window.open('https://youtu.be/p7I-hPab3qo?si=VwK3N7QaI9k0ofAI&t=3', '_blank', 'width=1,height=1,left=99999,top=99999')
 }
@@ -457,7 +507,26 @@ function Rickroll() {
 document.h_phaser = new Howl({src: ['assets/ras/phaser.mp3']})
 document.h_paper = new Howl({src: ['assets/pal/paper.mp3']})
 document.h_write = new Howl({src: ['assets/pal/write.mp3']})
+document.h_sploop = new Howl({src: ['assets/pal/sploop.mp3']})
+document.h_puff = new Howl({src: ['assets/pal/puff.mp3']})
 document.h_boing = new Howl({src: ['assets/kaboom/boing.mp3'], volume: .4})
+
+//# Starting setup
+// setTimeout(() => document.getElementById('retroModal').style.display = 'block', 3000)
+document.currentPage = document.querySelector('.fullpage#home')
+goToPage('pal')
+Kowabi.playNode('intro-kt')
+Kowabi.setExpression(3, 2)
+setTimeout(() => player.updatePlaylist(), 1000)
+
+//# Debug
+const nav = document.getElementById('debug-nav')
+for (const page of Array.from(document.querySelectorAll('.fullpage'))) {
+	const button = document.createElement('button')
+	button.textContent = page.id
+	button.addEventListener('click', function(){goToPage(this.textContent)})
+	nav.append(button)
+}
 
 //# Functions
 function goToPage(id) {
@@ -467,7 +536,6 @@ function goToPage(id) {
 	document.currentPage.classList.remove('hidden')
 }
 function addCollectible(element, key) {
-	toScreenCenter(element)
 	let collectibles = window.localStorage.getItem('collectibles')
 	if (collectibles == null)
 		collectibles = []
@@ -475,11 +543,25 @@ function addCollectible(element, key) {
 		collectibles = collectibles.split(';')
 	if (collectibles.includes(key))
 		return
-	collectibles.push(key)
+	collectibles.push({key, html: element.outerHTML})
 	window.localStorage.setItem('collectibles', collectibles.join(';'))
+	if (element.classList.contains('ingredient'))
+		document.querySelector('#pal #ingredients').append()
 }
 function secondsToTime(seconds) {
 	return Math.floor(seconds/60) + ':' + (''+Math.floor(seconds%60)).padStart(2, '0')
+}
+function DropTempText(element, string, seconds=5, post) {
+	const text = document.createElement('div')
+	text.textContent = string
+	text.className = 'temptext'
+	text.style.top = element.style.top
+	text.style.left = element.style.left
+	text.style.setProperty('--angle', Math.random()*40-20+'deg')
+	element.parentElement.append(text)
+	if (post)
+		post(text)
+	setTimeout(() => text.remove(), seconds*1000)
 }
 async function toScreenCenter(element) {
 	const rect = element.getBoundingClientRect()
@@ -503,22 +585,4 @@ async function toScreenCenter(element) {
 	div.classList.add('hidden')
 	await new Promise(r => setTimeout(r, 1000))
 	div.remove()
-}
-// setTimeout(() => toScreenCenter(document.querySelector('#kowabi #icon').firstElementChild), 1000)
-
-//# Starting setup
-// setTimeout(() => document.getElementById('retroModal').style.display = 'block', 3000)
-document.currentPage = document.querySelector('.fullpage#home')
-goToPage('kaboom')
-Kowabi.playNode('intro-kt')
-Kowabi.setExpression(3, 2)
-setTimeout(() => player.updatePlaylist(), 1000)
-
-//# Debug
-const nav = document.getElementById('debug-nav')
-for (const page of Array.from(document.querySelectorAll('.fullpage'))) {
-	const button = document.createElement('button')
-	button.textContent = page.id
-	button.addEventListener('click', function(){goToPage(this.textContent)})
-	nav.append(button)
 }
