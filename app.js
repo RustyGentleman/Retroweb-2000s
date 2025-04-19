@@ -272,29 +272,52 @@ const slimeSteptext = new Steptext(document.querySelector('#kaboom #dialogue .te
 const slimeInfo = {
 	jerome	: {cur: 0, trig: 1, color: 'red', dialogue: [
 		`Y-Y-Y... Uhm... Y...`,
-		`Y-.. You're very pretty!! BYE!`,
+		`!!Y-.. You're very pretty\\!\\! BYE\\!!!`,
 		`_Jerome lobs **a blob of red slime** at you before quickly wobbling away, seeming flustered._`]},
 	roosevelt: {cur: 0, trig: 1, color: 'orange', dialogue: [
-		`Howdy there, pardner... How goes yer travels?\nWell, I hope...`,
+		`~Howdy there~, pardner... How goes yer travels?\nWell, I hope...`,
 		`I don't much know what you might use it for, friend, but uh...`,
-		`Here, take some slime for the road. I suppose you never know, huh?`,
+		`Here, take some slime for the road. I suppose you _never_ know, huh?`,
 		`_Roosevelt passes you a **blob of orange slime**._`]},
 	samantha	: {cur: 0, trig: 1, color: 'yellow', dialogue: [
-		`Hi hi hI HI HI!!!!`]},
-	jared		: {cur: 0, trig: 1, color: '', dialogue: [
-		``]},
-	jeremy	: {cur: 0, trig: 1, color: '', dialogue: [
-		``]},
-	michael	: {cur: 0, trig: 1, color: '', dialogue: [
-		``]},
-	aurora	: {cur: 0, trig: 1, color: '', dialogue: [
-		``]},
-	salt		: {cur: 0, trig: 1, color: '', dialogue: [
-		``]},
-	flint		: {cur: 0, trig: 1, color: '', dialogue: [
-		``]},
-	pepper	: {cur: 0, trig: 1, color: '', dialogue: [
-		``]},
+		`**Hi hi hI HI HI!!!!** How's it going? _~Good?~_ I hope good! It's so nice to meet you, do you want some ~sliiiime~? Here here here, !!HAVE SOME SLIME\\!\\!\\!\\!\\!!!"\n_Before you even get a chance to say anything, Samantha passes you **a blob of yellow slime** and wobbles off to do... something.._`]},
+	jared		: {cur: 0, trig: 1, color: 'green', dialogue: [
+		`Hi there, you're ~green~.`,
+		`I'm _also_ ~green...~ We're !!best friends!!, now.`,
+		`Here, have a !!best friend!! gift.`,
+		`_Jared hands you... **a ~gift-wrapped~ blob of green slime**..._\n<span style="font-size:.8rem">_When did they have a chance to..?... Nevermind._</span>`]},
+	jeremy	: {cur: 0, trig: 1, color: 'blue', dialogue: [
+		`Hi! You're **Gob**, right..?\nKaboom has told all of us so much about you!`,
+		`~All~ of us slimes have been looking forward to meeting you for !!AGES!!, so go introduce yourself!`,
+		`Oh, and here's ~some slime~, as a welcoming gift!`,
+		`_Jeremy gives you **a blob of blue slime** - and ~a beaming smile!~_`]},
+	michael	: {cur: 0, trig: 1, color: 'purple', dialogue: [
+		`Hey there, lady...\nDo you have any snacks..?`,
+		`_Awww..._ you don't?`,
+		`Nobody should go without snacks...\nHere...`,
+		`_Michael gives you a piece of ~the chocolate bar~ sticking out of them...\nIt's... buried in **a blob of purple slime**._`,
+		]},
+	aurora	: {cur: 0, trig: 1, color: 'pink', dialogue: [
+		`~Oh my!~ Another royal! It's ~ever so wonderful~ to make your acquaintance at last!`,
+		`Here, as a welcome to my fairqueendom, have a gift.`,
+		`_Aurora holds out **a blob of pink slime**...\nAs you lean down to grab it, you see her ~crown~ is... a cardboard burger king crown. <span style="font-size:.8rem">~~she might not actually be a queen...~~</span>_`]},
+	salt		: {cur: 0, trig: 1, color: 'white', dialogue: [
+		`<span style="font-size:.8rem">Hi.</span>`,
+		`<span style="font-size:.8rem">Welcome to our field.</span>`,
+		`_Salt seems happy to see you... but also not big on conversation...\nYou sit with them for a short bit and they hand you **~a blob of white slime...~**\n<span style="font-size:.8rem">You feel like you should wash your hands after this one...</span>_`]},
+	flint		: {cur: 0, trig: 1, color: 'grey', dialogue: [
+		`Hello, I'd love to talk but I have ~so much to do...~`,
+		`I've got to negotiate a deal with the Royal Wizard, ask for continued permission to consume the foliage surrounding his tower, and then.. ugh... I have to do our Slime Taxes...`,
+		`Nobody else here is serious enough to do it... so much to do... !!so much to do...!!`,
+		`_You see Flint sweat intensely...\nPossibly from the fire, possibly from the stress...\nAs he wobbles away to get to work on the Slime 1040s and Slime W-2s, his sweat coalesces into **a alob of grey slime**._`]},
+	pepper	: {cur: 0, trig: 1, color: 'black', dialogue: [
+		`U-u-uhm... h.. _h-hi there..._ goblin lady...`,
+		`I-It's.. uhm... uhh... a-a pleasure to m-meet you...`,
+		`Y-Y.. Y-You aren't... gonna e-eat me are you..? I... I heard people put _!!Pepper!!_... o-on their food...`,
+		`I don't w-want to get put on food...`,
+		`Y-You won't..? Y.. You ~promise~..?`,
+		`Uhm... t-then.. h-here, have some slime... W-We're friends now...`,
+		`_Pepper nervously hands you **a blob of black slime**._`]},
 }
 document.querySelectorAll('#kaboom #field .slime').forEach((slime) => {
 	//* Set up counter
