@@ -536,6 +536,7 @@ function goToPage(id) {
 	document.currentPage.classList.remove('hidden')
 }
 function addCollectible(element, key) {
+	toScreenCenter(element)
 	let collectibles = window.localStorage.getItem('collectibles')
 	if (collectibles == null)
 		collectibles = []
