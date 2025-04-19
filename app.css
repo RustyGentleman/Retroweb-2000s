@@ -582,13 +582,22 @@ dialog::backdrop {
   z-index: -1;
 }
 #home .floor.basement {
-  top: calc(80vh + 47rem);
-  transform: rotateX(80deg) translateZ(2rem);
+  top: calc(80vh + 50rem);
+  transform: rotateX(100deg) translateZ(2rem);
 }
 #home .floor.ceiling {
   top: 51rem;
   transform: rotateX(100deg) translateZ(2rem);
   z-index: -2;
+}
+#home .basement-wall {
+  position: absolute;
+  left: -10rem;
+  right: -10rem;
+  top: 94vh;
+  height: 80vh;
+  z-index: -10;
+  transform: translateZ(-5rem);
 }
 #home #balloons {
   width: 120rem;
@@ -1061,6 +1070,11 @@ body {
 }
 #home .floor.ceiling {
   background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), transparent), url("assets/home/ceiling.jpg");
+}
+#home .basement-wall {
+  background-image: url("assets/home/basementwall.jpg");
+  background-size: 30vh 30vh;
+  filter: brightness(0.3);
 }
 
 #ras {

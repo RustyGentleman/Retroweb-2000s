@@ -346,12 +346,20 @@ dialog::backdrop
 		transform: rotateX(34deg) translateZ(2rem)
 		z-index: -1
 		&.basement
-			top: calc(80vh + 47rem)
-			transform: rotateX(80deg) translateZ(2rem)
+			top: calc(80vh + 50rem)
+			transform: rotateX(100deg) translateZ(2rem)
 		&.ceiling
 			top: 51rem
 			transform: rotateX(100deg) translateZ(2rem)
 			z-index: -2
+	.basement-wall
+		position: absolute
+		left: -10rem
+		right: -10rem
+		top: 94vh
+		height: 80vh
+		z-index: -10
+		transform: translateZ(-5rem)
 	#balloons
 		width: 120rem
 		position: absolute
@@ -735,6 +743,10 @@ body
 			background-image: linear-gradient(to bottom, rgb(0 0 0 / 50%), transparent), url('assets/home/basementfloor.jpg')
 		&.ceiling
 			background-image: linear-gradient(to bottom, rgb(0 0 0 / 50%), transparent), url('assets/home/ceiling.jpg')
+	.basement-wall
+		background-image: url('assets/home/basementwall.jpg')
+		background-size: 30vh 30vh
+		filter: brightness(0.3)
 #ras
 	font-family: 'Comic Sans MS'
 	color: white

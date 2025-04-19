@@ -555,7 +555,7 @@ document.h_boing = new Howl({src: ['assets/kaboom/boing.mp3'], volume: .4})
 //# Starting setup
 // setTimeout(() => document.getElementById('retroModal').style.display = 'block', 3000)
 document.currentPage = document.querySelector('.fullpage#home')
-goToPage('pal')
+goToPage('home')
 Kowabi.playNode('intro-kt')
 Kowabi.setExpression(3, 2)
 setTimeout(() => player.updatePlaylist(), 1000)
