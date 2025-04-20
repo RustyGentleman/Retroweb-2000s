@@ -574,6 +574,48 @@ class Alchemy {
 	}
 }
 
+//# Pokémon
+(function(){
+	const numberOfTallGrasses = 30
+	const tilesX = 10
+	const tilesY = 5
+	const tileSize = 10
+
+	const coordSet = new Set()
+	const lef = document.getElementById('lef')
+	while (coordSet.size < numberOfTallGrasses) {
+		const x = Math.floor(Math.random() * tilesX)
+		const y = Math.floor(Math.random() * tilesY)
+		coordSet.add(`${x},${y}`)
+	}
+	Array.from(coordSet).map(str => {
+		const [x, y] = str.split(',')
+		return {x: +x, y: +y}
+	}).forEach(e => {
+		const grass = document.createElement('div')
+		grass.className = 'tall-grass'
+		grass.style.zIndex = e.y+5
+		grass.style.transform = `translate(${(e.x-5)*tileSize+(e.y*(e.x-5))}vmin, ${(e.y)*tileSize}vmin) translateZ(${e.y}rem) scale(${1 + e.y*.08})`
+		const img = document.createElement('img')
+		img.src = 'assets/lef/tallgrass.png'
+		grass.append(img)
+		lef.append(grass)
+	})
+})()
+const tallgrasses = document.getElementById('lef').querySelectorAll('.tall-grass')
+function spawnPokemon() {
+	const picked = tallgrasses[Math.floor(Math.random()*tallgrasses.length)]
+	const pokemon = document.createElement('div')
+	pokemon.className = 'pokemon'
+	picked.append(pokemon)
+	setTimeout(() => pokemon.classList.add('popup'), 10)
+	setTimeout(() => {
+		pokemon.classList.remove('popup')
+		setTimeout(() => pokemon.remove(), 600)
+	}, 3000)
+	return pokemon
+}
+
 //! Effects setup
 //# Stealth Rickroll
 function Rickroll() {
@@ -612,7 +654,7 @@ document.getElementById('home').addEventListener('scroll', () => {
 //? Trigger first visitor popup
 // setTimeout(() => document.getElementById('retroModal').style.display = 'block', 3000)
 //? Start on home page
-goToPage('pal')
+goToPage('lef')
 //? Trigger Kowabi's intro
 Kowabi.playNode('intro-kt')
 Kowabi.setExpression(3, 2)
