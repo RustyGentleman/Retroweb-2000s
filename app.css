@@ -728,8 +728,9 @@ dialog::backdrop {
 }
 #pal .content .portal {
   position: absolute;
-  left: 50%;
+  left: 51%;
   bottom: 0;
+  height: 70%;
   transform: translateX(-50%);
 }
 #pal .content #header {
