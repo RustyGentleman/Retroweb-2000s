@@ -85,15 +85,7 @@ player.toggleIcon = (state=true) => {
 		player.iconOff.classList.remove('hidden')
 	}
 }
-let panelOpenedEver = false
-player.togglePanel = () => {
-	player.panel.classList.toggle('hidden')
-	if (!panelOpenedEver) {
-		//! Fuck marquees. Jesus fucking christ.
-		document.querySelectorAll('marquee').forEach(e => e.start())
-		panelOpenedEver = true
-	}
-}
+player.togglePanel = () => player.panel.classList.toggle('hidden')
 player.togglePlaylist = () => {
 	player.playlist.parentElement.classList.toggle('open')
 	if (player.playlist.parentElement.classList.contains('open'))
@@ -112,8 +104,8 @@ player.updatePlaylist = () => {
 		listing.style.order = Playlist.playlist.indexOf(song)+1
 		listing.innerHTML = `<div>${song === Playlist.current? '→':''}${song.title}</div><div>?:??</div>`
 		listing.addEventListener('click', () => Playlist.playSong(song.key))
-		//! Fucking thank GOD this goddamn font is monospace
-		if (song.title.length > 30)
+		player.playlist.append(listing)
+		if (listing.scrollWidth > listing.clientWidth)
 			listing.firstChild.outerHTML = listing.firstChild.outerHTML.replaceAll('div>', 'marquee>')
 		player.playlist.append(listing)
 		addedNew = true
