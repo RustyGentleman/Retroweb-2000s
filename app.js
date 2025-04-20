@@ -460,10 +460,6 @@ function kaboomDialogueAdvance(button) {
 		}
 	} else button.dataset.dialogue=dialogue.join('|')
 }
-function resetSlimes() {
-	for (const slime of Object.keys(slimeInfo))
-		window.localStorage.removeItem('slimeCounter-'+slime)
-}
 
 //# Cauldron
 class Alchemy {
@@ -688,6 +684,16 @@ async function toScreenCenter(element) {
 	div.classList.add('hidden')
 	await new Promise(r => setTimeout(r, 1000))
 	div.remove()
+}
+function resetUnlockedSongs() {
+	window.localStorage.removeItem('songsUnlocked')
+}
+function resetSlimes() {
+	for (const slime of Object.keys(slimeInfo))
+		window.localStorage.removeItem('slimeCounter-'+slime)
+}
+function resetCollectibles() {
+	window.localStorage.removeItem('collectibles')
 }
 function logVolume(x) {
 	x = Math.min(Math.max(x, 0), 1)

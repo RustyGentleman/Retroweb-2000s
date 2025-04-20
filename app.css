@@ -423,6 +423,7 @@ body {
   transform: translateX(-50%);
   transform-origin: top center;
   z-index: 1000000;
+  pointer-events: none;
 }
 
 dialog::-webkit-backdrop {
@@ -651,12 +652,30 @@ dialog::backdrop {
 }
 #home .basement-wall {
   position: absolute;
-  left: -10rem;
-  right: -10rem;
+  left: -15rem;
+  right: -15rem;
   top: 94vh;
   height: 80vh;
   z-index: -10;
   transform: translateZ(-5rem);
+}
+#home .ground {
+  position: absolute;
+  top: 168.8vh;
+  width: 100vw;
+  height: 700vh;
+}
+#home .ground::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 50%;
+}
+#home .gobs {
+  position: absolute;
+  top: 700vh;
+  width: 100vw;
+  height: 100vh;
 }
 #home #balloons {
   width: 120rem;
@@ -1096,6 +1115,8 @@ body {
 
 #home {
   perspective: 20rem;
+  background-image: url("assets/home/emperor-dark.jpg");
+  background-size: 10rem;
 }
 #home::before {
   background-image: linear-gradient(to bottom, transparent 43rem, rgba(0, 0, 0, 0.5) 80vh), url("assets/home/castlebricks.jpg");
@@ -1138,6 +1159,33 @@ body {
   background-image: url("assets/home/basementwall.jpg");
   background-size: 30vh 30vh;
   filter: brightness(0.3);
+}
+#home .ground {
+  background-image: url("assets/home/emperor-dark.jpg");
+  background-size: 10rem;
+  transform: translateZ(4.8rem);
+  filter: brightness(0.7);
+}
+#home .ground::before {
+  background-image: url("assets/home/dirt.jpg");
+  background-size: 10rem;
+  -webkit-mask-image: linear-gradient(to bottom, black, black 50%, transparent);
+          mask-image: linear-gradient(to bottom, black, black 50%, transparent);
+}
+#home .singular-gob {
+  position: absolute;
+  top: 600vh;
+  right: calc(50% - 30rem);
+  height: 30vh;
+  aspect-ratio: 334/371;
+  background: url("assets/home/gob-back.png") no-repeat;
+  background-size: cover;
+  transform: translateZ(4.8rem);
+}
+#home .gobs {
+  background: url("assets/home/gobdance.gif") no-repeat;
+  background-size: contain;
+  background-position: center center;
 }
 
 #ras {
