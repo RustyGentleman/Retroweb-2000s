@@ -335,7 +335,7 @@ const slimeInfo = {
 		`Hello, I'd love to talk but I have ~so much to do...~`,
 		`I've got to negotiate a deal with the Royal Wizard, ask for continued permission to consume the foliage surrounding his tower, and then.. ugh... I have to do our Slime Taxes...`,
 		`Nobody else here is serious enough to do it... so much to do... !!so much to do...!!`,
-		`_You see Flint sweat intensely...\nPossibly from the fire, possibly from the stress...\nAs he wobbles away to get to work on the Slime 1040s and Slime W-2s, his sweat coalesces into **a alob of grey slime**._`]},
+		`_You see Flint sweat intensely...\nPossibly from the fire, possibly from the stress...\nAs he wobbles away to get to work on the Slime 1040s and Slime W-2s, his sweat coalesces into **a blob of grey slime**._`]},
 	pepper	: {cur: 0, trig: 1, color: 'black', dialogue: [
 		`U-u-uhm... h.. _h-hi there..._ goblin lady...`,
 		`I-It's.. uhm... uhh... a-a pleasure to m-meet you...`,
