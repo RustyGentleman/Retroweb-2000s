@@ -62,10 +62,8 @@ class Steptext {
 		if (skipPrevious)
 			this.skip()
 		this.textQueue = string
-		if (!this.stepTimeoutID) {
-			this.stepTimeoutID = undefined
-			this.step()
-		}
+		this.stepTimeoutID = undefined
+		this.step()
 	}
 	step(dis=null) {
 		if (dis === null)
@@ -85,7 +83,7 @@ class Steptext {
 		else {
 			if (dis.onFinished)
 				dis.onFinished(dis, dis.targetElement)
-			dis.pause()
+			// dis.pause()
 		}
 		if (dis.stepTimeoutID !== null)
 			dis.stepTimeoutID = setTimeout(() => dis.step(dis), dis.stepInterval * (dis.fastEnabled? 1/3 : 1))
