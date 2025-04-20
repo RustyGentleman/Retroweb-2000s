@@ -512,8 +512,19 @@ class Alchemy {
 			this.matchedRecipe = undefined
 		} else {
 			puff.classList.add('black')
-			for (const ingredient of this.picked)
+			let hasNonSlime = false
+			for (const ingredient of this.picked) {
 				this.ingredients.querySelector(`[alt="${ingredient}"]`).parentElement.style.display = ''
+				if (!ingredient.match('slime'))
+					hasNonSlime = true
+			}
+			if (!hasNonSlime) {
+				const splat = document.createElement('div')
+				splat.className = 'splat'
+				document.body.prepend(splat)
+				setTimeout(() => document.h_splat.play(), 50)
+				setTimeout(() => splat.remove(), 3000)
+			}
 		}
 		this.picked = []
 		this.cauldron.classList.remove('valid')
@@ -548,14 +559,14 @@ function Rickroll() {
 document.h_phaser = new Howl({src: ['assets/ras/phaser.mp3']})
 document.h_paper = new Howl({src: ['assets/pal/paper.mp3']})
 document.h_write = new Howl({src: ['assets/pal/write.mp3']})
+document.h_boing = new Howl({src: ['assets/kaboom/boing.mp3'], volume: .4})
 document.h_sploop = new Howl({src: ['assets/pal/sploop.mp3']})
 document.h_puff = new Howl({src: ['assets/pal/puff.mp3']})
-document.h_boing = new Howl({src: ['assets/kaboom/boing.mp3'], volume: .4})
+document.h_splat = new Howl({src: ['assets/pal/splat.mp3']})
 
 //# Starting setup
 // setTimeout(() => document.getElementById('retroModal').style.display = 'block', 3000)
-document.currentPage = document.querySelector('.fullpage#home')
-goToPage('home')
+goToPage('pal')
 Kowabi.playNode('intro-kt')
 Kowabi.setExpression(3, 2)
 setTimeout(() => player.updatePlaylist(), 1000)
@@ -573,7 +584,7 @@ Steptext.instances.forEach(st => st.stepInterval = 1)
 //# Functions
 function goToPage(id) {
 	if (document.currentPage)
-		document.currentPage.classList.add('hidden')
+		document.currentPage?.classList.add('hidden')
 	document.currentPage = document.querySelector(`.fullpage#${id}`)
 	document.currentPage.classList.remove('hidden')
 }

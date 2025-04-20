@@ -66,6 +66,21 @@
 		background-position: 0 0
 	100%
 		background-position: -900% 0
+@keyframes splat
+	0%
+		background-position: 0 0
+	100%
+		background-position: -4200% 0
+	20%
+		transform: translateX(-50%) scaleY(1)
+	60%
+		transform: translateX(-50%) scaleY(1.5)
+	80%
+		transform: translateX(-50%) translateY(10%) scaleY(1.5)
+		opacity: 1
+	100%
+		transform: translateX(-50%) translateY(30%) scaleY(1.5)
+		opacity: 0
 @keyframes chroma-scroll
 	0%
 		background-position: 0ch
@@ -186,6 +201,18 @@ body
 	background-clip: text
 	-webkit-text-fill-color: transparent
 	animation: chroma-scroll 2s linear infinite
+.splat
+	position: absolute
+	top: -20vh
+	left: 50%
+	height: 150vh
+	aspect-ratio: 1
+	background-image: url('assets/pal/splat.png')
+	background-size: auto 100%
+	animation: splat 3s steps(42) forwards
+	transform: translateX(-50%)
+	transform-origin: top center
+	z-index: 1000000
 dialog::backdrop
 		background: rgb(0 0 0 / 50%)
 @function gradBG($color, $darken: 30%, $direction: bottom)
@@ -564,7 +591,7 @@ dialog::backdrop
 			position: absolute
 #slime-dialogue
 	display: flex
-	position: absolute
+	position: fixed
 	left: 50%
 	top: 50%
 	transform: translate(-50%, -50%)
@@ -793,7 +820,8 @@ body
 			&.valid
 				--color: green
 		#ingredients
-			background-color: purple
+			border: inset 5px rgb(0 0 0 / 70%)
+			backdrop-filter: blur(3px)
 		.splash
 			background-image: url('assets/pal/splash.png')
 			background-size: auto 100%
