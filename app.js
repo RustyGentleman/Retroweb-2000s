@@ -625,10 +625,15 @@ Steptext.instances.forEach(st => st.stepInterval = 1)
 
 //# Functions
 function goToPage(id) {
-	if (document.currentPage)
+	if (document.currentPage) {
 		document.currentPage?.classList.add('hidden')
+		if (document.currentPage.id === 'home' && document.h_gobdance.playing())
+			document.h_gobdance.pause()
+	}
 	document.currentPage = document.querySelector(`.fullpage#${id}`)
 	document.currentPage.classList.remove('hidden')
+	if (document.currentPage.id === 'home')
+		document.currentPage.dispatchEvent(new Event('scroll'))
 }
 function addCollectible(element, key) {
 	toScreenCenter(element)
