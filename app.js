@@ -291,7 +291,11 @@ Playlist.addSongs([
 ])
 
 //# Slimes
-const slimeSteptext = new Steptext(document.querySelector('#kaboom #slime-dialogue .text'), {stepInterval: 40, onFinished: (st, target) => {
+const slimeSteptext = new Steptext(document.querySelector('#kaboom #slime-dialogue .text'), {
+	stepInterval: 40,
+	soundStepInterval: 2,
+	soundPlayFunction: () => document.h_slimespeak.play(),
+	onFinished: (st, target) => {
 	target.nextElementSibling.classList.remove('hidden')
 	st.pause()
 }})
@@ -584,6 +588,8 @@ document.h_sploop = new Howl({src: ['assets/pal/sploop.mp3']})
 document.h_puff = new Howl({src: ['assets/pal/puff.mp3']})
 document.h_splat = new Howl({src: ['assets/pal/splat.mp3']})
 document.h_gobdance = new Howl({src: ['assets/songs/gobdance.mp3'], volume: 0, loop: true})
+document.h_slimespeak = new Howl({src: ['assets/kaboom/slimespeak.mp3'], volume: .1, loop: false})
+
 //? Goblin dance
 const home = document.getElementById('home')
 const bottom = window.visualViewport.height * 7
@@ -621,7 +627,7 @@ for (const page of Array.from(document.querySelectorAll('.fullpage'))) {
 	button.addEventListener('click', function(){goToPage(this.textContent)})
 	nav.append(button)
 }
-Steptext.instances.forEach(st => st.stepInterval = 1)
+// Steptext.instances.forEach(st => st.stepInterval = 1)
 
 //# Functions
 function goToPage(id) {
