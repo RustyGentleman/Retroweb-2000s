@@ -85,7 +85,14 @@ player.toggleIcon = (state=true) => {
 		player.iconOff.classList.remove('hidden')
 	}
 }
-player.togglePanel = () => player.panel.classList.toggle('hidden')
+let panelOpened = false
+player.togglePanel = () => {
+	player.panel.classList.toggle('hidden')
+	if (!panelOpened) {
+		document.querySelectorAll('marquee').forEach(e => e.start())
+		panelOpened = true
+	}
+}
 player.togglePlaylist = () => {
 	player.playlist.parentElement.classList.toggle('open')
 	if (player.playlist.parentElement.classList.contains('open'))
@@ -105,7 +112,7 @@ player.updatePlaylist = () => {
 		listing.innerHTML = `<div>${song === Playlist.current? '→':''}${song.title}</div><div>?:??</div>`
 		listing.addEventListener('click', () => Playlist.playSong(song.key))
 		player.playlist.append(listing)
-		if (listing.scrollWidth > listing.clientWidth)
+		if (song.title.length > 30)
 			listing.firstChild.outerHTML = listing.firstChild.outerHTML.replaceAll('div>', 'marquee>')
 		player.playlist.append(listing)
 		addedNew = true
