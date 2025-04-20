@@ -101,16 +101,20 @@ player.togglePlaylist = () => {
 		player.playlist.parentElement.style.top = ''
 }
 player.updatePlaylist = () => {
+	let saved = window.localStorage.getItem('songsUnlocked')
+	if (saved === null) return
+	else saved = saved.split(';')
 	let addedNew = false
-	for (const song of Playlist.playlist/*.filter(e => e.unlocked)*/) {
-		const existing = player.playlist.querySelector('.'+song.key)
+	for (const key of saved) {
+		const song = Playlist.playlist.find(e => e.key === key)
+		const existing = player.playlist.querySelector('.'+key)
 		if (existing) continue
 		const listing = document.createElement('div')
-		listing.setAttribute('data-key', song.key)
-		listing.classList.add(song.key)
+		listing.setAttribute('data-key', key)
+		listing.classList.add(key)
 		listing.style.order = Playlist.playlist.indexOf(song)+1
-		listing.innerHTML = `<div>${song === Playlist.current? '→':''}${song.title}</div><div>?:??</div>`
-		listing.addEventListener('click', () => Playlist.playSong(song.key))
+		listing.innerHTML = `<div>${song.title}</div><div>?:??</div>`
+		listing.addEventListener('click', () => Playlist.playSong(key))
 		player.playlist.append(listing)
 		if (song.title.length > 30)
 			listing.firstChild.outerHTML = listing.firstChild.outerHTML.replaceAll('div>', 'marquee>')
@@ -160,7 +164,7 @@ class Playlist {
 		if (this.current)
 			player.playlist.querySelector('.'+this.current.key).classList.remove('playing')
 		if (unlock)
-			song.unlocked = true
+			this.unlockSong(key)
 		this.current = song
 		this.current.howl.play()
 		player.playlist.querySelector('.'+key)?.classList.add('playing')
@@ -172,6 +176,17 @@ class Playlist {
 		))
 		player.updatePlaylist()
 		player.toggleIcon(true)
+	}
+	static unlockSong(key) {
+		const song = this.songs.get(key)
+		song.unlocked = true
+		let saved = window.localStorage.getItem('songsUnlocked')
+		if (saved === null)
+			saved = []
+		else saved = saved.split(';')
+		if (!saved.includes(key))
+			saved.push(key)
+		window.localStorage.setItem('songsUnlocked', saved.join(';'))
 	}
 	static setVolume(volume) {
 		this.playlist.forEach(e => e.howl.volume(volume))
@@ -272,6 +287,7 @@ Playlist.addSongs([
 	['kaboom', 'Terraria OST - Day'],
 	['leafy', 'Pokemon Blue/Red OST - Celadon City'],
 	['pal', 'Jonah Senzel - The Temple of Magicks'],
+	['gobdance', 'Sam Westphalen - The Goblin Dance'],
 ])
 
 //# Slimes
@@ -571,6 +587,24 @@ document.h_boing = new Howl({src: ['assets/kaboom/boing.mp3'], volume: .4})
 document.h_sploop = new Howl({src: ['assets/pal/sploop.mp3']})
 document.h_puff = new Howl({src: ['assets/pal/puff.mp3']})
 document.h_splat = new Howl({src: ['assets/pal/splat.mp3']})
+document.h_gobdance = new Howl({src: ['assets/songs/gobdance.mp3'], volume: 0, loop: true})
+//? Goblin dance
+const home = document.getElementById('home')
+const bottom = window.visualViewport.height * 7
+document.getElementById('home').addEventListener('scroll', () => {
+	if (home.scrollTop / bottom < .25) {
+		document.h_gobdance.pause()
+		return
+	} else {
+		if (!document.h_gobdance.playing())
+			document.h_gobdance.play()
+		document.h_gobdance.volume(logVolume((home.scrollTop - bottom * .25) / (bottom * .75)))
+		if (document.h_gobdance.volume() > .8) {
+			Playlist.unlockSong('gobdance')
+			player.updatePlaylist()
+		}
+	}
+})
 
 //# Starting setup
 //? Trigger first visitor popup
@@ -651,4 +685,8 @@ async function toScreenCenter(element) {
 	div.classList.add('hidden')
 	await new Promise(r => setTimeout(r, 1000))
 	div.remove()
+}
+function logVolume(x) {
+	x = Math.min(Math.max(x, 0), 1)
+	return x* x * x * x
 }
