@@ -455,7 +455,7 @@ function kaboomDialogueAdvance(button) {
 			const blob = document.createElement('div')
 			blob.classList.add('hastooltip')
 			blob.classList.add('hidden')
-			blob.innerHTML = `<img src="assets/kaboom/slime-droplet.png" alt="A blob of ${info.color} slime" onclick="addCollectible(this,'a blob of ${info.color} slime');const dialogue=document.querySelector('#kaboom #slime-dialogue');dialogue.classList.add('hidden');dialogue.firstElementChild.remove();this.parentElement.remove()"><span class="tooltip">A blob of ${info.color} slime</span>`
+			blob.innerHTML = `<img src="assets/kaboom/slime-droplet.png" class="ingredient" alt="A blob of ${info.color} slime" onclick="addCollectible(this,'a blob of ${info.color} slime');const dialogue=document.querySelector('#kaboom #slime-dialogue');dialogue.classList.add('hidden');dialogue.firstElementChild.remove();this.parentElement.remove()"><span class="tooltip">A blob of ${info.color} slime</span>`
 			button.before(blob)
 		}
 	} else button.dataset.dialogue=dialogue.join('|')
@@ -639,14 +639,17 @@ function addCollectible(element, key) {
 	let collectibles = window.localStorage.getItem('collectibles')
 	if (collectibles == null)
 		collectibles = []
-	else if (typeof(collectibles) == 'string')
+	else
 		collectibles = collectibles.split(';')
 	if (collectibles.includes(key))
 		return
-	collectibles.push({key, html: element.outerHTML})
+	collectibles.push(JSON.stringify({key, html: element.outerHTML}))
 	window.localStorage.setItem('collectibles', collectibles.join(';'))
-	if (element.classList.contains('ingredient'))
-		document.querySelector('#pal #ingredients').append()
+	if (element.classList.contains('ingredient')) {
+		const clone = element.parentElement.cloneNode(true)
+		clone.firstChild.setAttribute('onclick', 'Alchemy.add(this)')
+		document.querySelector('#pal #ingredients').append(clone)
+	}
 }
 function secondsToTime(seconds) {
 	return Math.floor(seconds/60) + ':' + (''+Math.floor(seconds%60)).padStart(2, '0')
