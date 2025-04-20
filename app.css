@@ -1083,6 +1083,10 @@ body {
 #music-player #panel #playlist #list > * > :first-child {
   margin-inline: 0.3rem;
 }
+#music-player #panel #playlist #list > * > :last-child {
+  width: 2rem;
+  text-align: end;
+}
 #music-player #panel #playlist #list > *.playing::before {
   content: "●";
   transform: translateY(-2px);

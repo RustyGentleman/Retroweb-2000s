@@ -85,7 +85,15 @@ player.toggleIcon = (state=true) => {
 		player.iconOff.classList.remove('hidden')
 	}
 }
-player.togglePanel = () => player.panel.classList.toggle('hidden')
+let panelOpenedEver = false
+player.togglePanel = () => {
+	player.panel.classList.toggle('hidden')
+	if (!panelOpenedEver) {
+		//! Fuck marquees. Jesus fucking christ.
+		document.querySelectorAll('marquee').forEach(e => e.start())
+		panelOpenedEver = true
+	}
+}
 player.togglePlaylist = () => {
 	player.playlist.parentElement.classList.toggle('open')
 	if (player.playlist.parentElement.classList.contains('open'))
@@ -104,9 +112,10 @@ player.updatePlaylist = () => {
 		listing.style.order = Playlist.playlist.indexOf(song)+1
 		listing.innerHTML = `<div>${song === Playlist.current? '→':''}${song.title}</div><div>?:??</div>`
 		listing.addEventListener('click', () => Playlist.playSong(song.key))
-		player.playlist.append(listing)
-		if (listing.scrollWidth > listing.clientWidth)
+		//! Fucking thank GOD this goddamn font is monospace
+		if (song.title.length > 30)
 			listing.firstChild.outerHTML = listing.firstChild.outerHTML.replaceAll('div>', 'marquee>')
+		player.playlist.append(listing)
 		addedNew = true
 	}
 	if (addedNew) {
@@ -565,10 +574,14 @@ document.h_puff = new Howl({src: ['assets/pal/puff.mp3']})
 document.h_splat = new Howl({src: ['assets/pal/splat.mp3']})
 
 //# Starting setup
+//? Trigger first visitor popup
 // setTimeout(() => document.getElementById('retroModal').style.display = 'block', 3000)
+//? Start on home page
 goToPage('pal')
+//? Trigger Kowabi's intro
 Kowabi.playNode('intro-kt')
 Kowabi.setExpression(3, 2)
+//? First playlist update
 setTimeout(() => player.updatePlaylist(), 1000)
 
 //# Debug
