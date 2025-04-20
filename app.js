@@ -291,7 +291,7 @@ Playlist.addSongs([
 ])
 
 //# Slimes
-const slimeSteptext = new Steptext(document.querySelector('#kaboom #slime-dialogue .text'), {onFinished: (st, target) => {
+const slimeSteptext = new Steptext(document.querySelector('#kaboom #slime-dialogue .text'), {stepInterval: 40, onFinished: (st, target) => {
 	target.nextElementSibling.classList.remove('hidden')
 	st.pause()
 }})
