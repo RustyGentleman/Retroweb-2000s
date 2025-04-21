@@ -101,10 +101,8 @@ player.togglePlaylist = () => {
 		player.playlist.parentElement.style.top = ''
 }
 player.updatePlaylist = () => {
-	let saved = window.localStorage.getItem('songsUnlocked')
-	if (saved === null) return
-	else saved = saved.split(';')
-	let addedNew = false
+	let saved = getSavedData('songsUnlocked').data
+	if (saved.length <= 0) return
 	for (const key of saved) {
 		const song = Playlist.playlist.find(e => e.key === key)
 		const existing = player.playlist.querySelector('.'+key)
@@ -180,13 +178,9 @@ class Playlist {
 	static unlockSong(key) {
 		const song = this.songs.get(key)
 		song.unlocked = true
-		let saved = window.localStorage.getItem('songsUnlocked')
-		if (saved === null)
-			saved = []
-		else saved = saved.split(';')
-		if (!saved.includes(key))
-			saved.push(key)
-		window.localStorage.setItem('songsUnlocked', saved.join(';'))
+		getSavedData('songsUnlocked')
+			.push(key)
+			.save()
 	}
 	static setVolume(volume) {
 		this.playlist.forEach(e => e.howl.volume(volume))
@@ -239,15 +233,19 @@ Kowabi.addNodes([
 			['What?', null, () => {
 				Kowabi.setToNeutral()
 				Kowabi.setExpression(5, 3)
-			}]
+			}],
+			[`Sorry, I don't speak Japanese`, null, () => {
+				Kowabi.setToNeutral()
+				Kowabi.setExpression(2, 3)
+			}],
 		]],
 	//* After universal translator
 	['intro-en', `I said... ~Greetings...~ I am _**Kowabi**_, and I will be your guide.`, [3, 1], [
 			['Oh, okay', 'assistance'],
 		]],
 	['assistance', 'Would your _~stupid~_ self like some assistance?', [1, 1], [
-			['Yes', 'assistance1'],
-			['Of course', 'assistance2'],
+			['Yes', 'assistance1', () => getSavedData('Kowabi-flags').push('intro-done').save()],
+			['Of course', 'assistance2', () => getSavedData('Kowabi-flags').push('intro-done').save()],
 		]],
 	['assistance1', 'Of course. What do you need help with?', [4, 2], [
 			['Life', 'life'],
@@ -258,6 +256,10 @@ Kowabi.addNodes([
 			['Navigation', 'navigation'],
 		]],
 	['assistance3', 'Anything else?', [1, 1], [
+			['Life', 'life'],
+			['Navigation', 'navigation'],
+		]],
+	['assistance0', 'Welcome back! Need any help?', [1, 1], [
 			['Life', 'life'],
 			['Navigation', 'navigation'],
 		]],
@@ -349,98 +351,104 @@ const slimeInfo = {
 		`Uhm... t-then.. h-here, have some slime... W-We're friends now...`,
 		`_Pepper nervously hands you **a blob of black slime**._`]},
 }
-document.querySelectorAll('#kaboom #field .slime').forEach((slime) => {
-	//* Set up counter
-	const savedCounter = window.localStorage.getItem('slimeCounter-'+slime.id)
-	if (savedCounter)
-		slimeInfo[slime.id].cur = +savedCounter
-
-	//* Click interaction
-	slime.addEventListener('click', () => {
-		if (slime.classList.contains('boing')) return
-
-		//? Boing
-		DropTempText(slime, 'Boing!', 1, (text) => {
-			const inner = document.createElement('div')
-			inner.textContent = text.textContent
-			text.textContent = ''
-			text.append(inner)
-		})
-		document.h_boing.play()
-		slime.classList.add('boing')
-		setTimeout(() => slime.classList.remove('boing'), 800)
-
-		//? Counter increase
-		slimeInfo[slime.id].cur += 1
-		window.localStorage.setItem('slimeCounter-'+slime.id, slimeInfo[slime.id].cur)
-
-		//? Trigger dialogue
-		const dialogue = document.querySelector('#kaboom #slime-dialogue')
-		if (slimeInfo[slime.id] != -1 && dialogue.classList.contains('hidden'))
-			if (slimeInfo[slime.id].cur >= slimeInfo[slime.id].trig) {
-				const clone = slime.cloneNode(true)
-				clone.style.cssText = ''
-				clone.classList.remove('boing')
-				dialogue.prepend(clone)
-				dialogue.classList.remove('hidden')
-				const button = dialogue.querySelector('.message button')
-				button.dataset.dialogue = slimeInfo[slime.id].dialogue.join('|')
-				button.click()
-			}
+{
+	const save = getSavedData('slimeCounter',{
+		initial: {},
+		pack: (data) => JSON.stringify(data),
+		unpack: (data) => JSON.parse(data)
 	})
+	document.querySelectorAll('#kaboom #field .slime').forEach((slime) => {
+		//* Set up counter
+		if (save.data[slime.id])
+			slimeInfo[slime.id].cur = save.data[slime.id]
 
-	//* Motion
-	const field = slime.parentElement
-	const fieldRect = field.getBoundingClientRect()
-	const slimeSize = 70
+		//* Click interaction
+		slime.addEventListener('click', () => {
+			if (slime.classList.contains('boing')) return
 
-	let x = Math.random() * (fieldRect.width - slimeSize)
-	let y = Math.random() * (fieldRect.height - slimeSize)
+			//? Boing
+			DropTempText(slime, 'Boing!', 1, (text) => {
+				const inner = document.createElement('div')
+				inner.textContent = text.textContent
+				text.textContent = ''
+				text.append(inner)
+			})
+			document.h_boing.play()
+			slime.classList.add('boing')
+			setTimeout(() => slime.classList.remove('boing'), 800)
 
-	slime.style.left = x+'px'
-	slime.style.top = y+'px'
+			//? Counter increase
+			slimeInfo[slime.id].cur += 1
+			save.data[slime.id] = slimeInfo[slime.id].cur
 
-	const stepSize = 20
-	const updateInterval = 300
-	const parentWidth = fieldRect.width
-	const parentHeight = fieldRect.height
+			//? Trigger dialogue
+			const dialogue = document.querySelector('#kaboom #slime-dialogue')
+			if (slimeInfo[slime.id] != -1 && dialogue.classList.contains('hidden'))
+				if (slimeInfo[slime.id].cur >= slimeInfo[slime.id].trig) {
+					const clone = slime.cloneNode(true)
+					clone.style.cssText = ''
+					clone.classList.remove('boing')
+					dialogue.prepend(clone)
+					dialogue.classList.remove('hidden')
+					const button = dialogue.querySelector('.message button')
+					button.dataset.dialogue = slimeInfo[slime.id].dialogue.join('|')
+					button.click()
+				}
+		})
 
-	let currentAngle = Math.random() * 2 * Math.PI
-	const maxTurn = 20 * Math.PI / 180
+		//* Motion
+		const field = slime.parentElement
+		const fieldRect = field.getBoundingClientRect()
+		const slimeSize = 70
 
-	setInterval(() => {
-		if (document.querySelector('#kaboom').classList.contains('hidden')) return
-		currentAngle += (Math.random() * 2 * maxTurn) - maxTurn
+		let x = Math.random() * (fieldRect.width - slimeSize)
+		let y = Math.random() * (fieldRect.height - slimeSize)
 
-		let newX = x + stepSize * Math.cos(currentAngle)
-		let newY = y + stepSize * Math.sin(currentAngle)
+		slime.style.left = x+'px'
+		slime.style.top = y+'px'
 
-		if (newX < 0) {
-			newX = -newX
-			currentAngle = Math.PI - currentAngle
-		}
-		else if (newX > parentWidth - slimeSize) {
-			newX = (parentWidth - slimeSize) - (newX - (parentWidth - slimeSize))
-			currentAngle = Math.PI - currentAngle
-		}
+		const stepSize = 20
+		const updateInterval = 300
+		const parentWidth = fieldRect.width
+		const parentHeight = fieldRect.height
 
-		if (newY < 0) {
-			newY = -newY
-			currentAngle = -currentAngle
-		}
-		else if (newY > parentHeight - slimeSize) {
-			newY = (parentHeight - slimeSize) - (newY - (parentHeight - slimeSize))
-			currentAngle = -currentAngle
-		}
+		let currentAngle = Math.random() * 2 * Math.PI
+		const maxTurn = 20 * Math.PI / 180
 
-		x = newX
-		y = newY
+		setInterval(() => {
+			if (document.querySelector('#kaboom').classList.contains('hidden')) return
+			currentAngle += (Math.random() * 2 * maxTurn) - maxTurn
 
-		slime.style.left = `${x}px`
-		slime.style.top = `${y}px`
-		slime.style.zIndex = Math.ceil(y)
-	}, updateInterval)
-})
+			let newX = x + stepSize * Math.cos(currentAngle)
+			let newY = y + stepSize * Math.sin(currentAngle)
+
+			if (newX < 0) {
+				newX = -newX
+				currentAngle = Math.PI - currentAngle
+			}
+			else if (newX > parentWidth - slimeSize) {
+				newX = (parentWidth - slimeSize) - (newX - (parentWidth - slimeSize))
+				currentAngle = Math.PI - currentAngle
+			}
+
+			if (newY < 0) {
+				newY = -newY
+				currentAngle = -currentAngle
+			}
+			else if (newY > parentHeight - slimeSize) {
+				newY = (parentHeight - slimeSize) - (newY - (parentHeight - slimeSize))
+				currentAngle = -currentAngle
+			}
+
+			x = newX
+			y = newY
+
+			slime.style.left = `${x}px`
+			slime.style.top = `${y}px`
+			slime.style.zIndex = Math.ceil(y)
+		}, updateInterval)
+	})
+}
 function kaboomDialogueAdvance(button) {
 	button.previousElementSibling.innerHTML = ''
 	const info = slimeInfo[button.parentElement.previousElementSibling.id]
@@ -603,6 +611,7 @@ class Alchemy {
 	})
 })()
 const tallgrasses = document.getElementById('lef').querySelectorAll('.tall-grass')
+let pokemonTimeoutID
 function spawnPokemon() {
 	const picked = tallgrasses[Math.floor(Math.random()*tallgrasses.length)]
 	const pokemon = document.createElement('div')
@@ -613,7 +622,7 @@ function spawnPokemon() {
 		pokemon.classList.remove('popup')
 		setTimeout(() => pokemon.remove(), 600)
 	}, 3000)
-	return pokemon
+	pokemonTimeoutID = setTimeout(spawnPokemon, Math.random() * 4000 + 1000)
 }
 
 //! Effects setup
@@ -656,10 +665,28 @@ document.getElementById('home').addEventListener('scroll', () => {
 //? Start on home page
 goToPage('lef')
 //? Trigger Kowabi's intro
-Kowabi.playNode('intro-kt')
+if (getSavedData('Kowabi-flags').find('intro-done'))
+	Kowabi.playNode('assistance0')
+else
+	Kowabi.playNode('intro-kt')
 Kowabi.setExpression(3, 2)
 //? First playlist update
 setTimeout(() => player.updatePlaylist(), 1000)
+//? Retrieve saved ingredients
+{
+	const ingredients = document.querySelector('#pal #ingredients')
+	getSavedData('collectibles', {
+		pack: (data) => JSON.stringify(data),
+		unpack: (data) => JSON.parse(data)
+	}).data
+		.filter(e => !!e.html.match(/class="[^"]*?ingredient[^"]*?"/))
+		.forEach(e => {
+			const surrogate = document.createElement('div')
+			surrogate.innerHTML = e.html
+			surrogate.firstElementChild.firstElementChild.setAttribute('onclick', 'Alchemy.add(this)')
+			ingredients.append(surrogate.firstElementChild)
+		})
+}
 
 //# Debug
 const nav = document.getElementById('debug-nav')
@@ -682,18 +709,17 @@ function goToPage(id) {
 	document.currentPage.classList.remove('hidden')
 	if (document.currentPage.id === 'home')
 		document.currentPage.dispatchEvent(new Event('scroll'))
+	if (document.currentPage.id === 'lef')
+		pokemonTimeoutID = setTimeout(spawnPokemon, Math.random() * 4000 + 1000)
 }
 function addCollectible(element, key) {
 	toScreenCenter(element)
-	let collectibles = window.localStorage.getItem('collectibles')
-	if (collectibles == null)
-		collectibles = []
-	else
-		collectibles = collectibles.split(';')
-	if (collectibles.includes(key))
-		return
-	collectibles.push(JSON.stringify({key, html: element.outerHTML}))
-	window.localStorage.setItem('collectibles', collectibles.join(';'))
+	getSavedData('collectibles', {
+		pack: (data) => JSON.stringify(data),
+		unpack: (data) => JSON.parse(data)
+	})
+		.push({key: key, html: element.parentElement.outerHTML})
+		.save()
 	if (element.classList.contains('ingredient')) {
 		const clone = element.parentElement.cloneNode(true)
 		clone.firstChild.setAttribute('onclick', 'Alchemy.add(this)')
@@ -742,8 +768,7 @@ function resetUnlockedSongs() {
 	window.localStorage.removeItem('songsUnlocked')
 }
 function resetSlimes() {
-	for (const slime of Object.keys(slimeInfo))
-		window.localStorage.removeItem('slimeCounter-'+slime)
+	window.localStorage.removeItem('slimeCounter')
 }
 function resetCollectibles() {
 	window.localStorage.removeItem('collectibles')
@@ -751,4 +776,26 @@ function resetCollectibles() {
 function logVolume(x) {
 	x = Math.min(Math.max(x, 0), 1)
 	return x* x * x * x
+}
+function getSavedData(key, options={initial:[], unpack:(data)=>data.split(';'), pack:(data)=>data.join(';')}) {
+	let data = window.localStorage.getItem(key)
+	if (data == null)
+		data = options.initial || []
+	else
+		data = options.unpack? options.unpack(data) : data.split(';')
+	return {
+		key,
+		data,
+		push: function(element){if (!this.find(element)) this.data.push(element); return this},
+		find: function(element){return this.data.find(e => e === element)},
+		save: function(){
+			window.localStorage.setItem(this.key, (
+				options.pack?
+					options.pack(this.data)
+					: this.data.join(';')
+			))
+			return this
+		},
+		clear: function(){window.localStorage.removeItem(this.key); return this},
+	}
 }
