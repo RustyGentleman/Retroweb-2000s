@@ -726,6 +726,47 @@ dialog::backdrop {
   text-align: center;
   perspective: 20rem;
 }
+#pal .content .owl-container {
+  position: absolute;
+  bottom: 15%;
+  left: 15.7%;
+  right: 15.6%;
+  height: 38%;
+  border-radius: 2.6rem 2.8rem 0 0;
+  overflow: hidden;
+}
+#pal .content .owl-container .owl {
+  position: absolute;
+  bottom: 19%;
+  height: 70%;
+  aspect-ratio: 288/308;
+  background-image: url("assets/pal/owl-perched.png");
+  background-size: 100% 100%;
+  transform: translate(0%, 0%);
+  transition: transform 1s ease-out;
+  cursor: pointer;
+}
+#pal .content .owl-container .owl.flying {
+  background-image: url("assets/pal/owl-flying.png");
+  pointer-events: none;
+}
+#pal .content .owl-container .owl.flyin {
+  background-image: url("assets/pal/owl-flyin.png");
+}
+#pal .content .owl-container .owl.flyaway {
+  transform: translate(-100%, -100%);
+  transition: transform 1s ease-in;
+}
+#pal .content .owl-container .owl.left {
+  left: -4%;
+}
+#pal .content .owl-container .owl.right {
+  right: -4%;
+  transform: rotateY(180deg);
+}
+#pal .content .owl-container .owl.right.flyaway {
+  transform: rotateY(180deg) translate(-100%, -100%);
+}
 #pal .content .portal {
   position: absolute;
   left: 51%;

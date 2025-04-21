@@ -446,6 +446,40 @@ dialog::backdrop
 			align-items: center
 			text-align: center
 			perspective: 20rem
+		.owl-container
+			position: absolute
+			bottom: 15%
+			left: 15.7%
+			right: 15.6%
+			height: 38%
+			border-radius: 2.6rem 2.8rem 0 0
+			overflow: hidden
+			// background-color: rgb(255 0 255 / 50%)
+			.owl
+				position: absolute
+				bottom: 19%
+				height: 70%
+				aspect-ratio: 288/308
+				background-image: url('assets/pal/owl-perched.png')
+				background-size: 100% 100%
+				transform: translate(0%, 0%)
+				transition: transform 1s ease-out
+				cursor: pointer
+				&.flying
+					background-image: url('assets/pal/owl-flying.png')
+					pointer-events: none
+				&.flyin
+					background-image: url('assets/pal/owl-flyin.png')
+				&.flyaway
+					transform: translate(-100%, -100%)
+					transition: transform 1s ease-in
+				&.left
+					left: -4%
+				&.right
+					right: -4%
+					transform: rotateY(180deg)
+					&.flyaway
+						transform: rotateY(180deg) translate(-100%, -100%)
 		//? Top room
 		.portal
 			position: absolute

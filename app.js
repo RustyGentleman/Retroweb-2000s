@@ -582,6 +582,24 @@ class Alchemy {
 	}
 }
 
+//# Owl
+document.querySelectorAll('#pal .owl').forEach(e => {
+	e.addEventListener('click', () => {
+		e.classList.add('flying')
+		e.classList.add('flyaway')
+		setTimeout(() => owlLand(e), 2000)
+	})
+})
+function owlLand(not) {
+	console.log('Owl land')
+	const owls = Array.from(document.querySelectorAll('#pal .owl')).filter(e => e !== not)
+	const picked = owls[Math.floor(Math.random() * owls.length)]
+	picked.classList.remove('flying')
+	picked.classList.add('flyin')
+	picked.classList.remove('flyaway')
+	setTimeout(() => picked.classList.remove('flyin'), 1000)
+};
+
 //# Pokémon
 (function(){
 	const numberOfTallGrasses = 30
@@ -663,7 +681,7 @@ document.getElementById('home').addEventListener('scroll', () => {
 //? Trigger first visitor popup
 // setTimeout(() => document.getElementById('retroModal').style.display = 'block', 3000)
 //? Start on home page
-goToPage('lef')
+goToPage('pal')
 //? Trigger Kowabi's intro
 if (getSavedData('Kowabi-flags').find('intro-done'))
 	Kowabi.playNode('assistance0')
