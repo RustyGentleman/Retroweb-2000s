@@ -767,6 +767,20 @@ dialog::backdrop {
 #pal .content .owl-container .owl.right.flyaway {
   transform: rotateY(180deg) translate(-100%, -100%);
 }
+#pal .content .painting {
+  position: absolute;
+  top: 35%;
+  width: 8%;
+  z-index: -1;
+}
+#pal .content .painting img {
+  width: 100%;
+  height: auto;
+}
+#pal .content .painting::before {
+  content: "";
+  position: absolute;
+}
 #pal .content .portal {
   position: absolute;
   left: 51%;
@@ -879,11 +893,12 @@ dialog::backdrop {
 }
 #pal .content #drawer {
   position: absolute;
-  bottom: 3.7rem;
-  right: 24.8rem;
+  bottom: 10.9%;
+  right: 39.7%;
+  width: 4.5%;
 }
 #pal .content #drawer img {
-  width: 2.8rem;
+  width: 100%;
 }
 #pal .content #wiz-2 {
   position: absolute;
@@ -1298,6 +1313,14 @@ body {
 }
 #pal .content .room.windowed {
   background-image: url("assets/pal/wall-windowed.png");
+}
+#pal .content .painting {
+  border: solid 2vmin;
+  -o-border-image: url("assets/pal/picture-frame.png");
+     border-image: url("assets/pal/picture-frame.png");
+  border-image-slice: 38 38 38 38;
+  border-image-repeat: repeat;
+  filter: drop-shadow(0vmin -0.5vmin 0.5vmin rgba(0, 0, 0, 0.7));
 }
 #pal .content #header {
   font-size: 1.5rem;

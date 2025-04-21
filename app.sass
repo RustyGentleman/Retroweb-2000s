@@ -480,6 +480,17 @@ dialog::backdrop
 					transform: rotateY(180deg)
 					&.flyaway
 						transform: rotateY(180deg) translate(-100%, -100%)
+		.painting
+			position: absolute
+			top: 35%
+			width: 8%
+			z-index: -1
+			img
+				width: 100%
+				height: auto
+			&::before
+				content: ''
+				position: absolute
 		//? Top room
 		.portal
 			position: absolute
@@ -908,6 +919,12 @@ body
 			background-size: 100% auto
 			&.windowed
 				background-image: url('assets/pal/wall-windowed.png')
+		.painting
+			border: solid 2vmin
+			border-image: url('assets/pal/picture-frame.png')
+			border-image-slice: 38 38 38 38
+			border-image-repeat: repeat
+			filter: drop-shadow(0vmin -0.5vmin 0.5vmin rgb(0 0 0 / 70%))
 		//? Top room
 		#header
 			font-size: 1.5rem

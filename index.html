@@ -141,7 +141,8 @@
 	</div>
 	<div class="fullpage hidden" id="pal">
 		<div class="content">
-			<div class="room windowed"> <!-- Top-->
+			<!-- Top-->
+			<div class="room windowed">
 				<div class="owl-container">
 					<!-- <div class="owl left"></div> -->
 					<div class="owl right"></div>
@@ -154,57 +155,22 @@
 				</div>
 				<img src="assets/portal.gif" class="portal" onclick="goToPage('home', true)"></i>
 			</div>
-			<div class="room windowed"> <!-- Alchemy-->
+			<!-- Alchemy-->
+			<div class="room windowed" style="background-image:url('assets/pal/wall-101.png')">
 				<div class="owl-container">
 					<div class="owl left flying flyaway"></div>
 					<div class="owl right flying flyaway"></div>
 				</div>
-				<div id="ingredients">
-					<!-- <div class="hastooltip">
-						<img src="assets/kaboom/slime-droplet.png" onclick="Alchemy.add(this)" alt="A blob of red slime" class="slime-red">
-						<span class="tooltip">A blob of red slime</span>
-					</div>
-					<div class="hastooltip">
-						<img src="assets/kaboom/slime-droplet.png" onclick="Alchemy.add(this)" alt="A blob of orange slime" class="slime-orange">
-						<span class="tooltip">A blob of orange slime</span>
-					</div>
-					<div class="hastooltip">
-						<img src="assets/kaboom/slime-droplet.png" onclick="Alchemy.add(this)" alt="A blob of yellow slime" class="slime-yellow">
-						<span class="tooltip">A blob of yellow slime</span>
-					</div>
-					<div class="hastooltip">
-						<img src="assets/kaboom/slime-droplet.png" onclick="Alchemy.add(this)" alt="A blob of green slime" class="slime-green">
-						<span class="tooltip">A blob of green slime</span>
-					</div>
-					<div class="hastooltip">
-						<img src="assets/kaboom/slime-droplet.png" onclick="Alchemy.add(this)" alt="A blob of blue slime" class="slime-blue">
-						<span class="tooltip">A blob of blue slime</span>
-					</div>
-					<div class="hastooltip">
-						<img src="assets/kaboom/slime-droplet.png" onclick="Alchemy.add(this)" alt="A blob of purple slime" class="slime-purple">
-						<span class="tooltip">A blob of purple slime</span>
-					</div>
-					<div class="hastooltip">
-						<img src="assets/kaboom/slime-droplet.png" onclick="Alchemy.add(this)" alt="A blob of pink slime" class="slime-pink">
-						<span class="tooltip">A blob of pink slime</span>
-					</div>
-					<div class="hastooltip">
-						<img src="assets/kaboom/slime-droplet.png" onclick="Alchemy.add(this)" alt="A blob of white slime" class="slime-white">
-						<span class="tooltip">A blob of white slime</span>
-					</div>
-					<div class="hastooltip">
-						<img src="assets/kaboom/slime-droplet.png" onclick="Alchemy.add(this)" alt="A blob of grey slime" class="slime-grey">
-						<span class="tooltip">A blob of grey slime</span>
-					</div>
-					<div class="hastooltip">
-						<img src="assets/kaboom/slime-droplet.png" onclick="Alchemy.add(this)" alt="A blob of black slime" class="slime-black">
-						<span class="tooltip">A blob of black slime</span>
-					</div> -->
-				</div>
+				<div id="ingredients"></div>
 				<img src="assets/pal/cauldron1.gif" alt="Boiling cauldron" id="cauldron">
 				<div id="cauldron-clickbox" onclick="Alchemy.brew()"></div>
 			</div>
-			<div class="room"> <!-- Writing-->
+			<!-- Writing-->
+			<div class="room" style="background-image:url('assets/pal/wall-101.png')">
+				<div class="owl-container">
+					<div class="owl left flying flyaway"></div>
+					<div class="owl right flying flyaway"></div>
+				</div>
 				<img src="assets/pal/desk.png" alt="A desk." id="desk" style="filter: drop-shadow(0 2rem 1rem rgb(0 0 0 / 70%))">
 				<a href="https://oldgoogle.neocities.org/1998/" target="_blank" onclick="document.h_paper.play()">
 					<div class="hastooltip" id="psych">
@@ -220,8 +186,12 @@
 					<img src="assets/pal/letter.png">
 					<span class="tooltip">A letter to the Goblin Queen</span>
 				</div>
+				<div class="painting" style="height: 24.2%">
+					<img src="assets/pal/gob-blep.png" alt="The Goblin Queen throwing finger guns.">
+				</div>
 			</div>
-			<div class="room"> <!-- Library-->
+			<!-- Library-->
+			<div class="room">
 				<img src="assets/pal/wizard-pc.gif" alt="Wizard browsing the web." id="wiz-2">
 				<img src="assets/home/bookshelf.png" alt="Empty bookshelf." class="empty-bookshelf">
 				<img src="assets/home/bookshelf.png" alt="Empty bookshelf." class="empty-bookshelf" style="left: 40.8%">
@@ -232,6 +202,9 @@
 					<span>central library</span>
 					<span>by order of the</span>
 					<span>Royal Enchanter.</span>
+				</div>
+				<div class="painting" style="height:18.8%;right:14.3%">
+					<img src="assets/pal/gob-fingerguns.png" alt="The Goblin Queen throwing finger guns.">
 				</div>
 			</div>
 			<dialog id="lettertogob">
