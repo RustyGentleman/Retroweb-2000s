@@ -269,7 +269,7 @@ Kowabi.addNodes([
 	['navigation', "Well, there's not much to navigate for now, but I'm sure this place will be full of life in no time.", [4, 2], [
 			['Back', 'assistance3'],
 		]],
-		//* Kaboom page intro
+	//* Kaboom page intro
 	['kaboom-intro', "This is the field outside the wizard's tower.\n~Check out that sunset!~", [6, 3], [
 			['Slimes!', 'kaboom-slimes-0'],
 		]],
@@ -280,7 +280,7 @@ Kowabi.addNodes([
 			['Continue', 'kaboom-slimes-2'],
 		]],
 	['kaboom-slimes-2', "Reminds me of ~someone...~", [4, 2], [
-			['End', null, () => Kowabi.setToEmpty()],
+			['End', null, () => {Kowabi.setToEmpty(); getSavedData('Kowabi-flags').push('kaboom-intro-done').save()}],
 		]],
 ])
 
@@ -587,6 +587,7 @@ document.querySelectorAll('#pal .owl').forEach(e => {
 	e.addEventListener('click', () => {
 		e.classList.add('flying')
 		e.classList.add('flyaway')
+		document.h_takeoff.play()
 		setTimeout(() => owlLand(e), 2000)
 	})
 })
@@ -658,6 +659,7 @@ document.h_puff = new Howl({src: ['assets/pal/puff.mp3']})
 document.h_splat = new Howl({src: ['assets/pal/splat.mp3']})
 document.h_gobdance = new Howl({src: ['assets/songs/gobdance.mp3'], volume: 0, loop: true})
 document.h_slimespeak = new Howl({src: ['assets/kaboom/slimespeak.mp3'], volume: .1, loop: false})
+document.h_takeoff = new Howl({src: ['assets/pal/takeoff.mp3']})
 
 //? Goblin dance
 const home = document.getElementById('home')
@@ -729,6 +731,9 @@ function goToPage(id) {
 		document.currentPage.dispatchEvent(new Event('scroll'))
 	if (document.currentPage.id === 'lef')
 		pokemonTimeoutID = setTimeout(spawnPokemon, Math.random() * 4000 + 1000)
+	if (document.currentPage.id === 'kaboom')
+		if (!getSavedData('Kowabi-flags').find('kaboom-intro-done'))
+			Kowabi.playNode('intro-kaboom')
 }
 function addCollectible(element, key) {
 	toScreenCenter(element)
