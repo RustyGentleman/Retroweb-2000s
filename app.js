@@ -718,12 +718,14 @@ setTimeout(() => player.updatePlaylist(), 1000)
 
 //# Debug
 const nav = document.getElementById('debug-nav')
-for (const page of Array.from(document.querySelectorAll('.fullpage'))) {
-	const button = document.createElement('button')
-	button.textContent = page.id
-	button.addEventListener('click', function(){goToPage(this.textContent)})
-	nav.append(button)
-}
+setTimeout(() => {
+	for (const page of Array.from(document.querySelectorAll('.fullpage'))) {
+		const button = document.createElement('button')
+		button.textContent = page.id
+		button.addEventListener('click', function(){goToPage(this.textContent)})
+		nav.append(button)
+	}
+}, 500)
 // Steptext.instances.forEach(st => st.stepInterval = 1)
 
 //# Functions
