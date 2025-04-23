@@ -1111,6 +1111,10 @@ dialog::backdrop {
   overflow: auto hidden;
   perspective: 50rem;
 }
+#ras2 .porch img, #ras2 .garden img {
+  height: 100%;
+  width: auto;
+}
 #ras2 .porch {
   height: 100vh;
 }
@@ -1146,10 +1150,6 @@ dialog::backdrop {
   margin-top: 67vh;
   transform: translateZ(-10rem);
   z-index: -1;
-}
-#ras2 .garden img {
-  height: 100%;
-  width: auto;
 }
 #ras2 .sky {
   position: absolute;
