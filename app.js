@@ -759,14 +759,14 @@ function goToPage(id, skipAnimation=false) {
 		clearTimeout(pokemonTimeoutID)
 	//? Nav triggers
 	if (document.currentPage.id === 'kaboom') {
-		Playlist.playSong('kaboom')
+		Playlist.playSong('kaboom', true)
 		if (!getSavedData('Kowabi-flags').find('kaboom-intro-done'))
 			Kowabi.playNode('intro-kaboom')
 	}
 	if (document.currentPage.id === 'pal')
-		Playlist.playSong('pal')
+		Playlist.playSong('pal', true)
 	if (document.currentPage.id === 'lef')
-		Playlist.playSong('leafy')
+		Playlist.playSong('leafy', true)
 }
 function addCollectible(element, key) {
 	toScreenCenter(element)
