@@ -114,9 +114,6 @@
 	font-weight: bold
 	font-style: italic
 //# Debugging
-// *
-// 	outline: solid 1px magenta
-// 	outline-offset: -1px
 #debug-nav
 	position: fixed
 	z-index: 1000000
@@ -754,6 +751,7 @@ dialog::backdrop
 	display: flex
 	overflow: auto hidden
 	perspective: 50rem
+	image-rendering: auto
 	.porch, .garden
 		img
 			height: 100%
@@ -768,14 +766,24 @@ dialog::backdrop
 		right: -200vw
 		z-index: -3
 		transform: translateZ(-100rem)
-		background-image: url('assets/ras2/forest1-t.png')
+		background-image: url('assets/ras2/midground.png')
 		background-size: auto 100%
 		background-position-x: 230vh
+	.background
+		position: absolute
+		inset: 0
+		top: 100vh
+		bottom: -50vh
+		z-index: -4
+		transform: translateZ(-300rem) scale(9)
+		background-image: url('assets/ras2/background.png')
+		background-size: auto 100%
+		background-position-x: 41vw
 	.grass, .grass-2
 		position: absolute
 		left: -20vw
 		right: -100vw
-		bottom: -9vh
+		bottom: -10vh
 		height: 15vh
 		transform: translateZ(-10rem)
 		background-image: url('assets/ras2/foreground.png')
@@ -798,7 +806,7 @@ dialog::backdrop
 		transform: translateZ(-2000rem)
 		background-image: linear-gradient(to top, hsl(210.4deg 44.91% 32.75%) 40%, hsl(217.98deg 100% 50% / 24%) 55%, hsl(236.44deg 100% 50% / 18%) 60%, transparent 100%), url(assets/ras/star-bg.gif)
 		background-size: 1000vh
-		z-index: -4
+		z-index: -5
 
 //# Colors, Text & Appearance
 body

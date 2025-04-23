@@ -15,6 +15,7 @@ letter.png - https://clipart-library.com/clipart/LTdoy7jAc.htm
 universal-translator.jpg - https://memory-alpha.fandom.com/wiki/Universal_translator
 ceiling.jpg - https://www.filterforge.com/filters/9241-v1.html
 porch.jpg - https://www.artstation.com/artwork/d8NOeJ
+oak.png - https://www.cleanpng.com/png-oak-tree-drawing-digital-artwork-of-lush-oak-tree-7967513/9.html
 
 # Sound Effects
 phaser.mp3 - https://www.trekcore.com/audio/ (TNG Phaser 11)
