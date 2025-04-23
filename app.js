@@ -106,6 +106,7 @@ player.updatePlaylist = () => {
 	for (const key of saved) {
 		const song = Playlist.playlist.find(e => e.key === key)
 		const existing = player.playlist.querySelector('.'+key)
+		Playlist.unlockSong(key)
 		if (existing) continue
 		const listing = document.createElement('div')
 		listing.setAttribute('data-key', key)
@@ -187,7 +188,7 @@ class Playlist {
 	}
 	static play() {
 		if (!this.current) {
-			const unlocked = this.playlist.filter(e => e.unlocked = true)
+			const unlocked = this.playlist.filter(e => e.unlocked == true)
 			if (unlocked.length === 0) return
 			this.playSong(unlocked[0].key)
 			return
