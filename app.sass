@@ -86,6 +86,11 @@
 		background-position: 0ch
 	100%
 		background-position: 7ch
+@keyframes page-turn
+	0%
+		transform: rotateY(90deg)
+	100%
+		transform: rotateY(0deg)
 @font-face
 	font-family: 'Andy'
 	src: url('assets/kaboom/AndyRegular.OTF')
@@ -135,6 +140,9 @@ body
 	height: 100vh
 	width: 100vw
 	overflow-y: auto
+transform-origin: right center
+	&.turning
+		animation: page-turn 1s ease-in infinite forwards
 	.content
 		max-width: 1000px
 		margin-inline: auto
@@ -362,8 +370,16 @@ dialog::backdrop
 	.bookshelf
 		position: absolute
 		top: 21.2rem
+perspective: 50rem
 		>img
 			width: 15rem
+.bookshelf-item
+			position: absolute
+			image-rendering: auto
+			img
+				max-height: 4rem
+				height: 100%
+				width: auto
 	.floor
 		position: absolute
 		top: 45rem
@@ -412,12 +428,16 @@ dialog::backdrop
 		transform: translateX(-50%)
 		pointer-events: none
 	#universal-translator
-		position: absolute
+		height: 4rem
 		bottom: 6rem
 		left: 1rem
 		img
-			height: 4rem
-			transform: rotate(-20deg)
+						transform: rotate(-20deg)
+#slimepedia
+		top: 15.35rem
+		left: .2rem
+		img
+			transform: rotateY(52deg) rotateX(-3deg)
 #ras
 	.content
 		display: flex
@@ -725,6 +745,7 @@ body
 	font-family: Tahoma
 	text-rendering: optimizeSpeed
 	image-rendering: pixelated
+perspective: 50rem
 #kowabi
 	#msg
 		transition: opacity .3s ease

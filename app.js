@@ -719,14 +719,25 @@ for (const page of Array.from(document.querySelectorAll('.fullpage'))) {
 // Steptext.instances.forEach(st => st.stepInterval = 1)
 
 //# Functions
-function goToPage(id) {
-	if (document.currentPage) {
-		document.currentPage?.classList.add('hidden')
-		if (document.currentPage.id === 'home' && document.h_gobdance.playing())
-			document.h_gobdance.pause()
-	}
+function goToPage(id, skipAnimation=false) {
+	let previous
+	if (!document.currentPage)
+		document.currentPage = document.querySelector(`.fullpage#${id}`)
+	else
+		previous = document.currentPage
 	document.currentPage = document.querySelector(`.fullpage#${id}`)
 	document.currentPage.classList.remove('hidden')
+	if (skipAnimation) {
+		previous?.classList.add('hidden')
+	} else {
+		document.currentPage.classList.add('turning')
+		setTimeout(() => {
+			document.currentPage.classList.remove('turning')
+			document.currentPage.classList.remove('hidden')
+	}, 1000)
+	}
+	if (previous?.id === 'home' && document.h_gobdance.playing())
+		document.h_gobdance.pause()
 	if (document.currentPage.id === 'home')
 		document.currentPage.dispatchEvent(new Event('scroll'))
 	if (document.currentPage.id === 'lef')
