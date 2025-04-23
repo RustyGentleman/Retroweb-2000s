@@ -269,6 +269,26 @@
     background-position: 7ch;
   }
 }
+@-webkit-keyframes page-turn {
+  0% {
+    transform: rotateY(90deg);
+    filter: brightness(0);
+  }
+  100% {
+    transform: rotateY(0deg);
+    filter: brightness(1);
+  }
+}
+@keyframes page-turn {
+  0% {
+    transform: rotateY(90deg);
+    filter: brightness(0);
+  }
+  100% {
+    transform: rotateY(0deg);
+    filter: brightness(1);
+  }
+}
 @font-face {
   font-family: "Andy";
   src: url("assets/kaboom/AndyRegular.OTF");
@@ -321,6 +341,12 @@ body {
   height: 100vh;
   width: 100vw;
   overflow-y: auto;
+  transform-origin: right center;
+}
+.fullpage.turning {
+  -webkit-animation: page-turn 2s cubic-bezier(0, 0, 0, 1) forwards;
+          animation: page-turn 2s cubic-bezier(0, 0, 0, 1) forwards;
+  z-index: 1;
 }
 .fullpage .content {
   max-width: 1000px;
@@ -627,9 +653,19 @@ dialog::backdrop {
 #home .bookshelf {
   position: absolute;
   top: 21.2rem;
+  perspective: 50rem;
 }
 #home .bookshelf > img {
   width: 15rem;
+}
+#home .bookshelf .bookshelf-item {
+  position: absolute;
+  image-rendering: auto;
+}
+#home .bookshelf .bookshelf-item img {
+  max-height: 4rem;
+  height: 100%;
+  width: auto;
 }
 #home .floor {
   position: absolute;
@@ -686,21 +722,39 @@ dialog::backdrop {
   pointer-events: none;
 }
 #home #universal-translator {
-  position: absolute;
+  height: 4rem;
   bottom: 6rem;
   left: 1rem;
 }
 #home #universal-translator img {
-  height: 4rem;
   transform: rotate(-20deg);
 }
+#home #slimepedia {
+  top: 15.35rem;
+  left: 0.2rem;
+}
+#home #slimepedia img {
+  transform: rotateY(52deg) rotateX(-3deg);
+}
 
+#ras {
+  overflow-x: hidden;
+}
 #ras .content {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  margin-block: 5rem;
+  padding-block: 5rem;
+  overflow: visible;
+}
+#ras .content::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100vw;
+  z-index: -1;
 }
 #ras .bust {
   margin-bottom: -13rem;
@@ -1052,12 +1106,69 @@ dialog::backdrop {
   margin-top: 1rem;
 }
 
+#ras2 {
+  display: flex;
+  overflow: auto hidden;
+  perspective: 50rem;
+}
+#ras2 .porch {
+  height: 100vh;
+}
+#ras2 .treeline {
+  position: absolute;
+  top: -50vh;
+  bottom: -65vh;
+  left: -100vw;
+  right: -200vw;
+  z-index: -3;
+  transform: translateZ(-100rem);
+  background-image: url("assets/ras2/forest1-t.png");
+  background-size: auto 100%;
+  background-position-x: 230vh;
+}
+#ras2 .grass, #ras2 .grass-2 {
+  position: absolute;
+  left: -20vw;
+  right: -100vw;
+  bottom: -9vh;
+  height: 15vh;
+  transform: translateZ(-10rem);
+  background-image: url("assets/ras2/foreground.png");
+  background-size: auto 100%;
+  z-index: -2;
+}
+#ras2 .grass-2 {
+  bottom: -6vh;
+  background-position-x: -30vh;
+}
+#ras2 .garden {
+  height: 40vh;
+  margin-top: 67vh;
+  transform: translateZ(-10rem);
+  z-index: -1;
+}
+#ras2 .garden img {
+  height: 100%;
+  width: auto;
+}
+#ras2 .sky {
+  position: absolute;
+  inset: -2000vh;
+  right: -2200vw;
+  left: -2200vw;
+  transform: translateZ(-2000rem);
+  background-image: linear-gradient(to top, hsl(210.4deg, 44.91%, 32.75%) 40%, hsla(217.98deg, 100%, 50%, 0.24) 55%, hsla(236.44deg, 100%, 50%, 0.18) 60%, transparent 100%), url(assets/ras/star-bg.gif);
+  background-size: 1000vh;
+  z-index: -4;
+}
+
 body {
   background: #111;
   font-family: Tahoma;
   text-rendering: optimizeSpeed;
   image-rendering: -moz-crisp-edges;
   image-rendering: pixelated;
+  perspective: 50rem;
 }
 
 #kowabi #msg {
@@ -1279,13 +1390,15 @@ body {
 #ras {
   font-family: "Comic Sans MS";
   color: white;
-  background-image: url("assets/ras/star-bg.gif");
-  -webkit-animation: ras-bgscroll 60s linear infinite;
-          animation: ras-bgscroll 60s linear infinite;
   text-shadow: 0 0 0.5rem #0044ff, 0 0 0.5rem #0044ff, 0 0 0.7rem #ff004c;
 }
 #ras .content {
   filter: drop-shadow(0 0 3rem rgba(0, 68, 255, 0.4)) drop-shadow(0 0 15rem rgba(255, 0, 76, 0.1));
+}
+#ras .content::before {
+  background-image: url("assets/ras/star-bg.gif");
+  -webkit-animation: ras-bgscroll 60s linear infinite;
+          animation: ras-bgscroll 60s linear infinite;
 }
 #ras .vbig {
   font-size: 4rem;

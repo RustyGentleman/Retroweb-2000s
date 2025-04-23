@@ -73,10 +73,14 @@
 		</div>
 		<div class="bookshelf" id="bookshelf-left" style="left: calc(50% - 25rem)">
 			<img src="assets/home/bookshelf.png" alt="Left bookshelf."/>
+			<div class="hastooltip bookshelf-item" id="slimepedia">
+				<img src="assets/home/book-kaboom.png" alt="A Slimepedia." onclick="goToPage('kaboom')">
+				<span class="tooltip">A Slimepedia.</span>
+			</div>
 		</div>
 		<div class="bookshelf" id="bookshelf-right" style="right: calc(50% - 25rem);">
 			<img src="assets/home/bookshelf.png" alt="Right bookshelf."/>
-			<div class="hastooltip" id="universal-translator">
+			<div class="hastooltip bookshelf-item" id="universal-translator">
 				<img src="assets/universal-translator.png" alt="A Starfleet-issue Universal Translator" onclick="addCollectible(this, 'a Starfleet-issue Universal Translator'); this.parentElement.remove(); Kowabi.playNode('intro-en')">
 				<span class="tooltip">A Starfleet-issue Universal Translator</span>
 			</div>
@@ -139,6 +143,18 @@
 			</div>
 		</div>
 	</div>
+	<div class="fullpage hidden" id="ras2">
+		<div class="treeline"></div>
+		<div class="grass-2" style="bottom:-6vh;height:15vh;transform:translateZ(-20rem);background-position-x:-30vh;"></div>
+		<div class="grass"></div>
+		<div class="porch">
+			<img src="assets/ras2/porch-t.png" alt="">
+		</div>
+		<div class="garden">
+			<img src="assets/ras2/garden.png" alt="">
+		</div>
+		<div class="sky"></div>
+	</div>
 	<div class="fullpage hidden" id="pal">
 		<div class="content">
 			<!-- Top-->
@@ -153,7 +169,7 @@
 				<div id="wiz-1">
 					<img src="assets/pal/wizard-pew.gif" alt="Wizard shooting magic in multiple directions." style="margin-top: 0rem;">
 				</div>
-				<img src="assets/portal.gif" class="portal" onclick="goToPage('home', true)"></i>
+				<img src="assets/portal.gif" class="portal" onclick="goToPage('home')"></i>
 			</div>
 			<!-- Alchemy-->
 			<div class="room windowed" style="background-image:url('assets/pal/wall-101.png')">

@@ -599,10 +599,10 @@ function owlLand(not) {
 	picked.classList.add('flyin')
 	picked.classList.remove('flyaway')
 	setTimeout(() => picked.classList.remove('flyin'), 1000)
-};
+}
 
 //# Pokémon
-(function(){
+{
 	const numberOfTallGrasses = 30
 	const tilesX = 10
 	const tilesY = 5
@@ -628,8 +628,8 @@ function owlLand(not) {
 		grass.append(img)
 		lef.append(grass)
 	})
-})()
-const tallgrasses = document.getElementById('lef').querySelectorAll('.tall-grass')
+	const tallgrasses = document.getElementById('lef').querySelectorAll('.tall-grass')
+}
 let pokemonTimeoutID
 function spawnPokemon() {
 	const picked = tallgrasses[Math.floor(Math.random()*tallgrasses.length)]
@@ -642,6 +642,15 @@ function spawnPokemon() {
 		setTimeout(() => pokemon.remove(), 600)
 	}, 3000)
 	pokemonTimeoutID = setTimeout(spawnPokemon, Math.random() * 4000 + 1000)
+}
+
+//# Ras quest
+{
+	const ras = document.getElementById('ras2')
+	ras.addEventListener('wheel', function(e) {
+		e.preventDefault()
+		ras.scrollLeft += e.deltaY
+	})
 }
 
 //! Effects setup
@@ -660,7 +669,6 @@ document.h_splat = new Howl({src: ['assets/pal/splat.mp3']})
 document.h_gobdance = new Howl({src: ['assets/songs/gobdance.mp3'], volume: 0, loop: true})
 document.h_slimespeak = new Howl({src: ['assets/kaboom/slimespeak.mp3'], volume: .1, loop: false})
 document.h_takeoff = new Howl({src: ['assets/pal/takeoff.mp3']})
-
 //? Goblin dance
 const home = document.getElementById('home')
 const bottom = window.visualViewport.height * 7
@@ -683,7 +691,7 @@ document.getElementById('home').addEventListener('scroll', () => {
 //? Trigger first visitor popup
 // setTimeout(() => document.getElementById('retroModal').style.display = 'block', 3000)
 //? Start on home page
-goToPage('pal')
+goToPage('ras2', true)
 //? Trigger Kowabi's intro
 if (getSavedData('Kowabi-flags').find('intro-done'))
 	Kowabi.playNode('assistance0')
@@ -720,6 +728,7 @@ for (const page of Array.from(document.querySelectorAll('.fullpage'))) {
 
 //# Functions
 function goToPage(id, skipAnimation=false) {
+	const animationLength = 2
 	let previous
 	if (!document.currentPage)
 		document.currentPage = document.querySelector(`.fullpage#${id}`)
@@ -733,18 +742,28 @@ function goToPage(id, skipAnimation=false) {
 		document.currentPage.classList.add('turning')
 		setTimeout(() => {
 			document.currentPage.classList.remove('turning')
-			document.currentPage.classList.remove('hidden')
-	}, 1000)
+			previous?.classList.add('hidden')
+	}, 1000 * animationLength + 100)
 	}
+	//? State management
 	if (previous?.id === 'home' && document.h_gobdance.playing())
 		document.h_gobdance.pause()
 	if (document.currentPage.id === 'home')
 		document.currentPage.dispatchEvent(new Event('scroll'))
 	if (document.currentPage.id === 'lef')
 		pokemonTimeoutID = setTimeout(spawnPokemon, Math.random() * 4000 + 1000)
-	if (document.currentPage.id === 'kaboom')
+	else
+		clearTimeout(pokemonTimeoutID)
+	//? Nav triggers
+	if (document.currentPage.id === 'kaboom') {
+		Playlist.playSong('kaboom')
 		if (!getSavedData('Kowabi-flags').find('kaboom-intro-done'))
 			Kowabi.playNode('intro-kaboom')
+	}
+	if (document.currentPage.id === 'pal')
+		Playlist.playSong('pal')
+	if (document.currentPage.id === 'lef')
+		Playlist.playSong('leafy')
 }
 function addCollectible(element, key) {
 	toScreenCenter(element)
