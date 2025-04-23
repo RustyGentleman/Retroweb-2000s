@@ -629,8 +629,8 @@ function owlLand(not) {
 		grass.append(img)
 		lef.append(grass)
 	})
-	const tallgrasses = document.getElementById('lef').querySelectorAll('.tall-grass')
 }
+const tallgrasses = document.getElementById('lef').querySelectorAll('.tall-grass')
 let pokemonTimeoutID
 function spawnPokemon() {
 	const picked = tallgrasses[Math.floor(Math.random()*tallgrasses.length)]
