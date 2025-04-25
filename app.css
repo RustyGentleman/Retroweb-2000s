@@ -1112,7 +1112,7 @@ dialog::backdrop {
   perspective: 50rem;
   image-rendering: auto;
 }
-#ras2 .porch img, #ras2 .garden img {
+#ras2 .porch img, #ras2 .garden img, #ras2 .ras img {
   height: 100%;
   width: auto;
 }
@@ -1158,10 +1158,29 @@ dialog::backdrop {
   background-position-x: -30vh;
 }
 #ras2 .garden {
+  position: relative;
   height: 40vh;
   margin-top: 67vh;
   transform: translateZ(-10rem);
   z-index: -1;
+}
+#ras2 .garden .boulder-hitbox, #ras2 .garden .herb {
+  position: absolute;
+}
+#ras2 .garden .boulder-hitbox {
+  inset: 0;
+  -webkit-clip-path: polygon(39% 52%, 44% 17%, 56% 0, 61% 13%, 64% 36%, 60% 37%, 56% 49%, 47% 45%);
+          clip-path: polygon(39% 52%, 44% 17%, 56% 0, 61% 13%, 64% 36%, 60% 37%, 56% 49%, 47% 45%);
+}
+#ras2 .garden .herb {
+  width: 5vmin;
+}
+#ras2 .garden .herb img {
+  width: 100%;
+  height: auto;
+}
+#ras2 .garden .herb.locked {
+  pointer-events: none;
 }
 #ras2 .sky {
   position: absolute;
@@ -1172,6 +1191,82 @@ dialog::backdrop {
   background-image: linear-gradient(to top, hsl(210.4deg, 44.91%, 32.75%) 40%, hsla(217.98deg, 100%, 50%, 0.24) 55%, hsla(236.44deg, 100%, 50%, 0.18) 60%, transparent 100%), url(assets/ras/star-bg.gif);
   background-size: 1000vh;
   z-index: -5;
+}
+#ras2 .ras {
+  position: absolute;
+  top: 10vh;
+  bottom: 15vh;
+  left: 75vh;
+}
+#ras2 .ras img {
+  z-index: 1;
+}
+#ras2 .ras::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url(assets/ras2/ras-standing-lit.png);
+  background-size: 100% 100%;
+  transform: skewX(70deg) rotateX(60deg) rotate(110deg);
+  transform-origin: 38% 96%;
+  filter: brightness(0) blur(0.5rem);
+  opacity: 0.3;
+}
+
+#ras-dialogue {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+}
+#ras-dialogue .portrait {
+  position: relative;
+  height: 70vmin;
+  image-rendering: auto;
+}
+#ras-dialogue .portrait img {
+  display: none;
+  height: 100%;
+  width: auto;
+  -webkit-mask-image: linear-gradient(to top, transparent, black 30%);
+          mask-image: linear-gradient(to top, transparent, black 30%);
+}
+#ras-dialogue .portrait.laugh-closed [src*=laugh-closed] {
+  display: initial;
+}
+#ras-dialogue .portrait.smile-closed [src*=smile-closed] {
+  display: initial;
+}
+#ras-dialogue .portrait.smile-halfopen [src*=smile-halfopen] {
+  display: initial;
+}
+#ras-dialogue .portrait.smile-open [src*=smile-open] {
+  display: initial;
+}
+#ras-dialogue .portrait.smirk [src*=smirk] {
+  display: initial;
+}
+#ras-dialogue .message {
+  width: 50vmin;
+  max-height: 20vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  margin-left: -10vmin;
+  margin-top: -10vh;
+  z-index: 1;
+  border-radius: 5vmin;
+  background-image: url("assets/ras2/dialogue-bg.jpg");
+  filter: url(#WispyEdges);
+}
+#ras-dialogue button {
+  margin-top: 1rem;
 }
 
 body {

@@ -12,6 +12,7 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+	<link rel="preload" as="image" href="assets/ras2/tea.png">
 	<style>
 		/*********** Baseline, reset styles ***********/
 		input[type="range"] {
@@ -74,7 +75,7 @@
 		<div class="bookshelf" id="bookshelf-left" style="left: calc(50% - 25rem)">
 			<img src="assets/home/bookshelf.png" alt="Left bookshelf."/>
 			<div class="hastooltip bookshelf-item" id="slimepedia">
-				<img src="assets/home/book-kaboom.png" alt="A Slimepedia." onclick="goToPage('kaboom')">
+				<img src="assets/home/book-kaboom.png" alt="A Slimepedia" onclick="goToPage('kaboom')">
 				<span class="tooltip">A Slimepedia.</span>
 			</div>
 		</div>
@@ -152,9 +153,107 @@
 			<img src="assets/ras2/porch-t.png" alt="">
 		</div>
 		<div class="garden">
+			<div class="boulder-hitbox" onclick="document.h_amethyst[Math.floor(Math.random()*document.h_amethyst.length)].play()"></div>
 			<img src="assets/ras2/garden.png" alt="">
+			<div class="herb locked" style="left:6vh;top:25vh">
+				<div class="hastooltip">
+					<img src="assets/ras2/herb3.png" class="ingredient" alt="Moonlace" onclick="pickHerb(this)">
+					<span class="tooltip">Moonlace</span>
+				</div>
+			</div>
+			<div class="herb locked" style="left:22vh;top:20vh">
+				<div class="hastooltip">
+					<img src="assets/ras2/herb3.png" class="ingredient" alt="Moonlace" onclick="pickHerb(this)">
+					<span class="tooltip">Moonlace</span>
+				</div>
+			</div>
+			<div class="herb locked" style="left:36vh;top:16vh">
+				<div class="hastooltip">
+					<img src="assets/ras2/herb1.png" class="ingredient" alt="Heartgleam" onclick="pickHerb(this)">
+					<span class="tooltip">Heartgleam</span>
+				</div>
+			</div>
+			<div class="herb locked" style="left:47vh;top:11vh">
+				<div class="hastooltip">
+					<img src="assets/ras2/herb1.png" class="ingredient" alt="Heartgleam" onclick="pickHerb(this)">
+					<span class="tooltip">Heartgleam</span>
+				</div>
+			</div>
+			<div class="herb locked" style="left:40vh;top:29vh">
+				<div class="hastooltip">
+					<img src="assets/ras2/herb3.png" class="ingredient" alt="Moonlace" onclick="pickHerb(this)">
+					<span class="tooltip">Moonlace</span>
+				</div>
+			</div>
+			<div class="herb locked" style="left:55vh;top:24vh">
+				<div class="hastooltip">
+					<img src="assets/ras2/herb1.png" class="ingredient" alt="Heartgleam" onclick="pickHerb(this)">
+					<span class="tooltip">Heartgleam</span>
+				</div>
+			</div>
+			<div class="herb locked" style="left:69vh;top:20vh">
+				<div class="hastooltip">
+					<img src="assets/ras2/herb2.png" class="ingredient" alt="Crimson Regalia" onclick="pickHerb(this)">
+					<span class="tooltip">Crimson Regalia</span>
+				</div>
+			</div>
+			<div class="herb locked" style="left:89vh;top:16vh">
+				<div class="hastooltip">
+					<img src="assets/ras2/herb4.png" class="ingredient" alt="Sun's Favor" onclick="pickHerb(this)">
+					<span class="tooltip">Sun's Favor</span>
+				</div>
+			</div>
+			<div class="herb locked" style="left:83vh;top:27vh">
+				<div class="hastooltip">
+					<img src="assets/ras2/herb2.png" class="ingredient" alt="Crimson Regalia" onclick="pickHerb(this)">
+					<span class="tooltip">Crimson Regalia</span>
+				</div>
+			</div>
+			<div class="herb locked" style="left:97vh;top:26vh">
+				<div class="hastooltip">
+					<img src="assets/ras2/herb2.png" class="ingredient" alt="Crimson Regalia" onclick="pickHerb(this)">
+					<span class="tooltip">Crimson Regalia</span>
+				</div>
+			</div>
+			<div class="herb locked" style="left:110vh;top:21vh">
+				<div class="hastooltip">
+					<img src="assets/ras2/herb4.png" class="ingredient" alt="Sun's Favor" onclick="pickHerb(this)">
+					<span class="tooltip">Sun's Favor</span>
+				</div>
+			</div>
+			<div class="herb locked" style="left:126vh;top:20vh">
+				<div class="hastooltip">
+					<img src="assets/ras2/herb4.png" class="ingredient" alt="Sun's Favor" onclick="pickHerb(this)">
+					<span class="tooltip">Sun's Favor</span>
+				</div>
+			</div>
 		</div>
 		<div class="sky"></div>
+		<div class="ras">
+			<img src="assets/ras2/ras-standing-lit.png" alt="Ras">
+		</div>
+		<svg width="0" height="0" style="position: absolute;">
+			<filter id="WispyEdges" filterUnits="objectBoundingBox" x="0" y="0" width="1" height="1">
+				<!-- Step 4: Second turbulence for wobble -->
+				<feTurbulence 0type="turbulence" numOctaves="6" seed="2" result="displaceNoise">
+					<animate attributeName="baseFrequency" dur="60s" keyTimes="0;0.5;1" values=".03 .06; .06 .12; .03 .06" repeatCount="indefinite" />
+				</feTurbulence>
+				<!-- Step 3: Morphology erosion to further push in the alpha -->
+				<feMorphology in="SourceAlpha" operator="erode" radius="7" result="erodedAlpha" />
+				<!-- Step 2: Use the noise to blend with alpha for wispy edge erosion -->
+				<feDisplacementMap in="erodedAlpha" in2="displaceNoise" scale="10" xChannelSelector="R" yChannelSelector="G" result="wispyAlpha" />
+				<!-- Step 5: Apply second displacement -->
+				<feDisplacementMap in="wispyAlpha" in2="displaceNoise" scale="12" xChannelSelector="R" yChannelSelector="G" result="displacedAlpha" />
+				<!-- Step 6: Feather the final edge -->
+				<feGaussianBlur in="displacedAlpha" stdDeviation="2" result="softAlpha" />
+				<!-- Step 7: Use soft, displaced alpha as mask -->
+				<feComposite in="SourceGraphic" in2="softAlpha" operator="in" result="maskedGraphic" />
+				<!-- Output -->
+				<feMerge>
+					<feMergeNode in="maskedGraphic" />
+				</feMerge>
+			</filter>
+		</svg>
 	</div>
 	<div class="fullpage hidden" id="pal">
 		<div class="content">
@@ -257,13 +356,26 @@
 		<div id="slime-dialogue" class="hidden">
 			<div class="message">
 				<div class="text"></div>
-				<button class="win95-btn" onclick="kaboomDialogueAdvance(this)">Continue</button>
+				<button class="win95-btn" onclick="dialogueAdvance(this, 'slime')">Continue</button>
 			</div>
 		</div>
 	</div>
 	<div id="retroModal">
 		<img width="400" src="assets/home/number1visitor.gif" alt="OHMYGODDD!! YOU'RE OUR NUMBER 1 VISITOR!!!!!">
 		<button class="win95-btn" onclick="document.getElementById('retroModal').style.display = 'none'">YAY!!!!</button>
+  </div>
+  <div id="ras-dialogue" class="hidden">
+	  <div class="portrait smile-closed">
+		  <img src="assets/ras2/ras-laugh-closed.png" alt="">
+		  <img src="assets/ras2/ras-smile-closed.png" alt="">
+		  <img src="assets/ras2/ras-smile-halfopen.png" alt="">
+		  <img src="assets/ras2/ras-smile-open.png" alt="">
+		  <img src="assets/ras2/ras-smirk.png" alt="">
+	  </div>
+	  <div class="message">
+		  <div class="text">This is some sample text</div>
+		  <button class="win95-btn" onclick="dialogueAdvance(this, 'ras')">Continue</button>
+	  </div>
   </div>
 	<div id="kowabi">
 		<div id="msg" class="hidden">

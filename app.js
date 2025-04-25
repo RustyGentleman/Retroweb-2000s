@@ -227,7 +227,6 @@ class Playlist {
 
 //! Systems setup
 //# Kowabi dialogues
-//* Main page
 Kowabi.addNodes([
 	//* Kitsunish intro
 	['intro-kt', `~Haine!~ _**Kowabi**_ maibe made, done maiyunama miremoyekai madeda!`, [3, 2], [
@@ -450,29 +449,6 @@ const slimeInfo = {
 		}, updateInterval)
 	})
 }
-function kaboomDialogueAdvance(button) {
-	button.previousElementSibling.innerHTML = ''
-	const info = slimeInfo[button.parentElement.previousElementSibling.id]
-	const dialogue = button.dataset.dialogue.split('|')
-	slimeSteptext.reset()
-	slimeSteptext.queue(dialogue.shift())
-	button.classList.add('hidden')
-	if (dialogue.length == 0) {
-		if (!info) {
-			const key = document.createElement('div')
-			key.classList.add('hastooltip')
-			key.classList.add('hidden')
-			key.innerHTML = `<img src="assets/key-kaboom.png" alt="A key-shaped blob of chromatic slime" onclick="addCollectible(this,'a key-shaped blob of chromatic slime');slimeSteptext.targetElement=document.querySelector('#kaboom #slime-dialogue .text');document.querySelector('#pal #slime-dialogue').remove()"><span class="tooltip">A key-shaped blob of chromatic slime</span>`
-			button.before(key)
-		} else {
-			const blob = document.createElement('div')
-			blob.classList.add('hastooltip')
-			blob.classList.add('hidden')
-			blob.innerHTML = `<img src="assets/kaboom/slime-droplet.png" class="ingredient" alt="A blob of ${info.color} slime" onclick="addCollectible(this,'a blob of ${info.color} slime');const dialogue=document.querySelector('#kaboom #slime-dialogue');dialogue.classList.add('hidden');dialogue.firstElementChild.remove();this.parentElement.remove()"><span class="tooltip">A blob of ${info.color} slime</span>`
-			button.before(blob)
-		}
-	} else button.dataset.dialogue=dialogue.join('|')
-}
 
 //# Cauldron
 class Alchemy {
@@ -515,6 +491,10 @@ class Alchemy {
 				].join('|')
 				button.click()
 		}},
+		{ingredients: ['Heartgleam'], result: () => teaBrewed(cauldron)},
+		{ingredients: ['Crimson Regalia'], result: () => teaBrewed(cauldron)},
+		{ingredients: ['Moonlace'], result: () => teaBrewed(cauldron)},
+		{ingredients: ["Sun's Favor"], result: () => teaBrewed(cauldron)},
 	]
 	static matchedRecipe
 
@@ -542,6 +522,10 @@ class Alchemy {
 
 		if (this.matchedRecipe) {
 			this.matchedRecipe.result()
+			const spentIngredients = getSavedData('ingredients-spent')
+			for (const ingredient of this.matchedRecipe.ingredients)
+				spentIngredients.push(ingredient)
+			spentIngredients.save()
 			this.matchedRecipe = undefined
 		} else {
 			puff.classList.add('black')
@@ -646,12 +630,131 @@ function spawnPokemon() {
 }
 
 //# Ras quest
+const rasSteptext = new Steptext(document.querySelector('#ras-dialogue .text'), {
+	stepInterval: 40,
+	soundStepInterval: 2,
+	soundPlayFunction: () => document.h_slimespeak.play,
+		onFinished: (st, target) => {
+			target.nextElementSibling.classList.remove('hidden')
+			st.pause()
+}})
+const herbs = document.getElementById('ras2').querySelectorAll('.herb')
 {
-	const ras = document.getElementById('ras2')
-	ras.addEventListener('wheel', function(e) {
+	const page = document.getElementById('ras2')
+	const ras = page.querySelector('.ras')
+	const dialogue = document.getElementById('ras-dialogue')
+	const button = dialogue.querySelector('.message button')
+	const nodes = {
+		intro: {
+			lines: [
+				{expression: 'laugh-open', text: `~Ahh, my liege!~ I've been expecting you.`},
+				{expression: 'smile-open', text: `How have your travels been so far, ~mm?~ We've thrown you into _quite_ a fetch quest, have we not?`},
+				{expression: 'smile-closed', text: `You may consider your stay at my abode a brief respite, if you wish.`},
+				{expression: 'think', text: `~Although...~`},
+				{expression: 'smirk', text: `T'would be a shame to pass up the opportunity to make you do some ~chores~ for me, would it not?`},
+				{expression: 'laugh-closed', text: `That was an amusing face...`},
+				{expression: 'smile-halfopen', text: `But if you wouldn't mind _indulging_ me with your ~royal hands...~`},
+				{expression: 'smile-closed', text: `Would you pick something from my garden and brew me some tea?`},
+			], endtrigger: () => {
+				getSavedData('Ras-flags').push('intro').save()
+				document.querySelector("#ras2 .ras").setAttribute("onclick", "")
+				herbs.forEach(e => e.classList.remove('locked'))
+			}
+		}, tea1: {
+			lines: [
+				{expression: 'disgusted', text: `##Oh dear##... I'll need something else to recover from the taste of _that_... Maybe pick something else?`}
+			], endtrigger: () => {
+				getSavedData('Ras-flags').push('tea1').save()
+				document.querySelector("#ras2 .ras").setAttribute("onclick", "")
+				const herbsPicked = getSavedData('herbs-picked')
+				herbs.forEach(e => {
+					if (!herbsPicked.find(e.querySelector('img').alt))
+						e.classList.remove('locked')
+				})
+			}
+		}, tea2: {
+			lines: [
+				{expression: 'disgusted', text: `..I'm _starting_ to feel as though this might've been a mistake. Could you ##please## try to pick something nicer?`}
+			], endtrigger: () => {
+				getSavedData('Ras-flags').push('tea2').save()
+				document.querySelector("#ras2 .ras").setAttribute("onclick", "")
+				const herbsPicked = getSavedData('herbs-picked')
+				herbs.forEach(e => {
+					if (!herbsPicked.find(e.querySelector('img').alt))
+						e.classList.remove('locked')
+				})
+			}
+		}, tea3: {
+			lines: [
+				{expression: 'disgusted', text: `You've _somehow_ brewed something that tastes like ##harpy##. I'm **not** certain this is a good idea anymore, but, please, pick ~something else~, mm?\nAnd don't ask...`}
+			], endtrigger: () => {
+				getSavedData('Ras-flags').push('tea3').save()
+				document.querySelector("#ras2 .ras").setAttribute("onclick", "")
+				const herbsPicked = getSavedData('herbs-picked')
+				herbs.forEach(e => {
+					if (!herbsPicked.find(e.querySelector('img').alt))
+						e.classList.remove('locked')
+				})
+			}
+		}, goodtea: {
+			lines: [
+				{expression: 'laugh-open', text: `~Ahh...~ That's much better.`},
+				{expression: 'smile-open', text: `Thank you, sweetheart. I hope it wasn't _too_ much trouble...`},
+				{expression: 'laugh-closed', text: `For your troubles, I've hidden ~a present~ for you in the garden!`},
+				{expression: 'smirk', text: `You must only _lift_ that rock...`},
+				{expression: 'smile-closed', text: `**~Remember:~** Lift with your _legs_, not your _back!_`},
+			], endtrigger: () => {
+				getSavedData('Ras-flags').push('goodtea').save()
+			}
+		}
+	}
+	page.addEventListener('wheel', function(e) {
 		e.preventDefault()
-		ras.scrollLeft += e.deltaY
+		page.scrollLeft += e.deltaY
 	})
+	ras.setAttribute('onclick', "rasDialogue('intro')")
+	function rasDialogue(name) {
+		const lines = []
+		const expressions = []
+		const node = nodes[name]
+		for (const line of node.lines) {
+			lines.push(line.text)
+			expressions.push(line.expression)
+		}
+		button.dataset.dialogue = lines.join('|')
+		button.dataset.portrait = expressions.join('|')
+		button.dataset.endtrigger = '('+(node.endtrigger).toString()+')()'
+		dialogue.classList.remove('hidden')
+		button.click()
+	}
+	function pickHerb(herb) {
+		getSavedData('herbs-picked').push(herb.alt).save()
+		addCollectible(herb, herb.alt)
+		herbs.forEach(e => e.classList.add('locked'))
+	}
+	function teaBrewed() {
+		const cauldron = document.getElementById('pal').querySelector('#cauldron-clickbox')
+		const wrapper = document.createElement('div')
+		const tea = document.createElement('img')
+		tea.src = 'assets/ras2/tea.png'
+		tea.style.height = '100%'
+		wrapper.style.height = '20%'
+		wrapper.style.position = 'absolute'
+		wrapper.style.left = '50%'
+		wrapper.style.top = '30%'
+		wrapper.style.transform = 'translateX(-50%)'
+		wrapper.append(tea)
+		cauldron.append(wrapper)
+		setTimeout(() => {
+			toScreenCenter(tea)
+			wrapper.remove()
+		}, 10)
+		const herbsPicked = getSavedData('herbs-picked').data
+		if (herbsPicked.length >= 3)
+			ras.setAttribute('onclick', "rasDialogue('goodtea')")
+		else
+			ras.setAttribute('onclick', `rasDialogue('tea${herbsPicked.length}')`)
+	}
 }
 
 //! Effects setup
@@ -670,6 +773,22 @@ document.h_splat = new Howl({src: ['assets/pal/splat.mp3']})
 document.h_gobdance = new Howl({src: ['assets/songs/gobdance.mp3'], volume: 0, loop: true})
 document.h_slimespeak = new Howl({src: ['assets/kaboom/slimespeak.mp3'], volume: .1, loop: false})
 document.h_takeoff = new Howl({src: ['assets/pal/takeoff.mp3']})
+document.h_amethyst = [
+	new Howl({src: ['assets/ras2/Amethyst_step1.ogg']}),
+	new Howl({src: ['assets/ras2/Amethyst_step2.ogg']}),
+	new Howl({src: ['assets/ras2/Amethyst_step3.ogg']}),
+	new Howl({src: ['assets/ras2/Amethyst_step4.ogg']}),
+	new Howl({src: ['assets/ras2/Amethyst_step5.ogg']}),
+	new Howl({src: ['assets/ras2/Amethyst_step6.ogg']}),
+	new Howl({src: ['assets/ras2/Amethyst_step7.ogg']}),
+	new Howl({src: ['assets/ras2/Amethyst_step8.ogg']}),
+	new Howl({src: ['assets/ras2/Amethyst_step9.ogg']}),
+	new Howl({src: ['assets/ras2/Amethyst_step10.ogg']}),
+	new Howl({src: ['assets/ras2/Amethyst_step11.ogg']}),
+	new Howl({src: ['assets/ras2/Amethyst_step12.ogg']}),
+	new Howl({src: ['assets/ras2/Amethyst_step13.ogg']}),
+	new Howl({src: ['assets/ras2/Amethyst_step14.ogg']}),
+]
 //? Goblin dance
 const home = document.getElementById('home')
 const bottom = window.visualViewport.height * 7
@@ -703,12 +822,12 @@ Kowabi.setExpression(3, 2)
 setTimeout(() => player.updatePlaylist(), 1000)
 //? Retrieve saved ingredients
 {
-	const ingredients = document.querySelector('#pal #ingredients')
+	const spentIngredients = getSavedData('ingredients-spent')
 	getSavedData('collectibles', {
 		pack: (data) => JSON.stringify(data),
 		unpack: (data) => JSON.parse(data)
 	}).data
-		.filter(e => !!e.html.match(/class="[^"]*?ingredient[^"]*?"/))
+		.filter(e => !!e.html.match(/class="[^"]*?ingredient[^"]*?"/) && !spentIngredients.find(e.key))
 		.forEach(e => {
 			const surrogate = document.createElement('div')
 			surrogate.innerHTML = e.html
@@ -770,15 +889,17 @@ function goToPage(id, skipAnimation=false) {
 }
 function addCollectible(element, key) {
 	toScreenCenter(element)
-	getSavedData('collectibles', {
+	const collectibles = getSavedData('collectibles', {
 		pack: (data) => JSON.stringify(data),
 		unpack: (data) => JSON.parse(data)
 	})
-		.push({key: key, html: element.parentElement.outerHTML})
-		.save()
+	if (!collectibles.data.find(e => e.key == key))
+		collectibles
+			.push({key: key, html: element.parentElement.outerHTML})
+			.save()
 	if (element.classList.contains('ingredient')) {
 		const clone = element.parentElement.cloneNode(true)
-		clone.firstChild.setAttribute('onclick', 'Alchemy.add(this)')
+		clone.firstElementChild.setAttribute('onclick', 'Alchemy.add(this)')
 		document.querySelector('#pal #ingredients').append(clone)
 	}
 }
@@ -820,6 +941,59 @@ async function toScreenCenter(element) {
 	await new Promise(r => setTimeout(r, 1000))
 	div.remove()
 }
+function dialogueAdvance(button, type='slime') {
+	button.previousElementSibling.innerHTML = ''
+	let info
+	let steptext
+	if (type == 'slime') {
+		info = slimeInfo[button.parentElement.previousElementSibling.id]
+		steptext = slimeSteptext
+	} else if (type == 'ras')
+		steptext = rasSteptext
+	const dialogue = button.dataset.dialogue?.split('|')
+	steptext.reset()
+	steptext.queue(dialogue.shift())
+	button.classList.add('hidden')
+	if (dialogue?.length == 0) {
+		if (type == 'slime')
+			if (!info) {
+				const key = document.createElement('div')
+				key.classList.add('hastooltip')
+				key.classList.add('hidden')
+				key.innerHTML = `<img src="assets/key-kaboom.png" alt="A key-shaped blob of chromatic slime" onclick="addCollectible(this,'a key-shaped blob of chromatic slime');slimeSteptext.targetElement=document.querySelector('#kaboom #slime-dialogue .text');document.querySelector('#pal #slime-dialogue').remove()"><span class="tooltip">A key-shaped blob of chromatic slime</span>`
+				button.before(key)
+			} else {
+				const blob = document.createElement('div')
+				blob.classList.add('hastooltip')
+				blob.classList.add('hidden')
+				blob.innerHTML = `<img src="assets/kaboom/slime-droplet.png" class="ingredient" alt="A blob of ${info.color} slime" onclick="addCollectible(this,'a blob of ${info.color} slime');const dialogue=document.querySelector('#kaboom #slime-dialogue');dialogue.classList.add('hidden');dialogue.firstElementChild.remove();this.parentElement.remove()"><span class="tooltip">A blob of ${info.color} slime</span>`
+				button.before(blob)
+			}
+		if (type == 'ras') {
+			button.parentElement.previousElementSibling.className = 'portrait '+button.dataset.portrait
+			button.dataset.portrait = ''
+			if (!button.dataset.closing)
+				button.addEventListener('click', () => {
+					button.parentElement.parentElement.classList.add('hidden')
+					button.dataset.closing = ''
+					const triggerer = document.createElement('button')
+					triggerer.setAttribute('onclick', button.dataset.endtrigger)
+					triggerer.click()
+				}, {once: true})
+				button.dataset.closing = 1
+		}
+	} else {
+		button.dataset.dialogue=dialogue.join('|')
+		if (type == 'ras') {
+			const portraits = button.dataset.portrait.split('|')
+			button.parentElement.previousElementSibling.className = 'portrait '+portraits.shift()
+			if (portraits.length > 0)
+				button.dataset.portrait = portraits.join('|')
+			else
+				button.dataset.portrait = ''
+		}
+	}
+}
 function resetUnlockedSongs() {
 	window.localStorage.removeItem('songsUnlocked')
 }
@@ -828,6 +1002,14 @@ function resetSlimes() {
 }
 function resetCollectibles() {
 	window.localStorage.removeItem('collectibles')
+}
+function resetAlchemy() {
+	window.localStorage.removeItem('ingredients-spent')
+}
+function resetDialogues() {
+	window.localStorage.removeItem('Kowabi-flags')
+	window.localStorage.removeItem('Ras-flags')
+	window.localStorage.removeItem('herbs-picked')
 }
 function logVolume(x) {
 	x = Math.min(Math.max(x, 0), 1)
@@ -842,16 +1024,11 @@ function getSavedData(key, options={initial:[], unpack:(data)=>data.split(';'), 
 	return {
 		key,
 		data,
+		pack: options.pack || ((data) => data.join(';')),
+		unpack: options.unpack || ((data) => data.split(';')),
 		push: function(element){if (!this.find(element)) this.data.push(element); return this},
 		find: function(element){return this.data.find(e => e === element)},
-		save: function(){
-			window.localStorage.setItem(this.key, (
-				options.pack?
-					options.pack(this.data)
-					: this.data.join(';')
-			))
-			return this
-		},
+		save: function(){window.localStorage.setItem(this.key, (this.pack(this.data)));return this},
 		clear: function(){window.localStorage.removeItem(this.key); return this},
 	}
 }
