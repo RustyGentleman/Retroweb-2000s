@@ -1431,6 +1431,9 @@ dialog::backdrop {
 #ras-dialogue .portrait.smirk [src*=smirk] {
   display: initial;
 }
+#ras-dialogue .portrait.think [src*=think] {
+  display: initial;
+}
 #ras-dialogue .message {
   width: 50vmin;
   max-height: 20vh;

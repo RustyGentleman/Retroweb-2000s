@@ -944,7 +944,7 @@ dialog::backdrop
 			height: 100%
 			width: auto
 			mask-image: linear-gradient(to top, transparent, black 30%)
-		$expressions: 'laugh-closed', 'laugh-open', 'smile-closed', 'smile-halfopen', 'smile-open', 'smirk'
+		$expressions: 'laugh-closed', 'laugh-open', 'smile-closed', 'smile-halfopen', 'smile-open', 'smirk', 'think'
 		@each $expr in $expressions
 			&.#{$expr} [src*="#{$expr}"]
 				display: initial
