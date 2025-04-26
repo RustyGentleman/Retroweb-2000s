@@ -100,13 +100,14 @@ player.togglePlaylist = () => {
 	else
 		player.playlist.parentElement.style.top = ''
 }
-player.updatePlaylist = () => {
+player.updatePlaylist = (skipUnlock=false) => {
 	let saved = getSavedData('songsUnlocked').data
 	if (saved.length <= 0) return
 	for (const key of saved) {
 		const song = Playlist.playlist.find(e => e.key === key)
 		const existing = player.playlist.querySelector('.'+key)
-		Playlist.unlockSong(key)
+		if (!skipUnlock)
+			Playlist.unlockSong(key)
 		if (existing) continue
 		const listing = document.createElement('div')
 		listing.setAttribute('data-key', key)
@@ -182,7 +183,7 @@ class Playlist {
 		getSavedData('songsUnlocked')
 			.push(key)
 			.save()
-player.updatePlaylist()
+		player.updatePlaylist(true)
 	}
 	static setVolume(volume) {
 		this.playlist.forEach(e => e.howl.volume(volume))
@@ -616,8 +617,8 @@ let pokemonTimeoutID
 		grass.append(img)
 		lef.append(grass)
 	})
-const tallgrasses = document.getElementById('lef').querySelectorAll('.tall-grass')
-const catchChance = .3
+	const tallgrasses = document.getElementById('lef').querySelectorAll('.tall-grass')
+	const catchChance = .8
 	const pokemons = [
 		'ampharos',
 		'furret',
@@ -626,23 +627,23 @@ const catchChance = .3
 		'skitty',
 		'tailmon',
 	]
-function spawnPokemon() {
-	const grass = tallgrasses[Math.floor(Math.random()*tallgrasses.length)]
-	const pokemon = document.createElement('div')
-const caught = getSavedData('Pokemon-caught')
+	function spawnPokemon() {
+		const grass = tallgrasses[Math.floor(Math.random()*tallgrasses.length)]
+		const pokemon = document.createElement('div')
+		const caught = getSavedData('Pokemon-caught')
 		const notCaught = pokemons.filter(e => !caught.find(e))
 		const picked = notCaught[Math.floor(Math.random()*notCaught.length)]
-	pokemon.className = `pokemon ${picked}`
+		pokemon.className = `pokemon ${picked}`
 		pokemon.addEventListener('click', () => attemptToCatch(pokemon), {once: true})
 		pokemon.dataset.name = picked
 		grass.append(pokemon)
-	setTimeout(() => pokemon.classList.add('popup'), 10)
-	setTimeout(() => {
-		pokemon.classList.remove('popup')
-		setTimeout(() => pokemon.remove(), 600)
-	}, 3000)
-	pokemonTimeoutID = setTimeout(spawnPokemon, Math.random() * 4000 + 1000)
-}
+		setTimeout(() => pokemon.classList.add('popup'), 10)
+		setTimeout(() => {
+			pokemon.classList.remove('popup')
+			setTimeout(() => pokemon.remove(), 600)
+		}, 3000)
+		pokemonTimeoutID = setTimeout(spawnPokemon, Math.random() * 4000 + 1000)
+	}
 	async function attemptToCatch(element) {
 		const throwball = document.getElementById('throwball')
 		const rect = element.getBoundingClientRect()
@@ -655,12 +656,17 @@ const caught = getSavedData('Pokemon-caught')
 		throwball.style.left = ''
 		throwball.classList.remove('thrown')
 		element.remove()
+		let isMusicPlaying = false
+		if (Playlist.current?.howl.playing()) {
+			isMusicPlaying = true
+			Playlist.current.howl.pause()
+		}
 		const ui = document.getElementById('catch-attempt')
 		const ball = ui.querySelector('.pokeball')
 		ui.removeAttribute('onclick')
 		ui.classList.remove('hidden')
 		ball.classList.add('closed')
-		await new Promise(r => setTimeout(r, 300))
+		await new Promise(r => setTimeout(r, 500))
 		ball.classList.remove('closed')
 		if (Math.random() < catchChance) { //? Success
 			ball.classList.add('wiggle')
@@ -671,7 +677,7 @@ const caught = getSavedData('Pokemon-caught')
 			ball.classList.remove('wiggle')
 			document.h_caught.play()
 			console.log(`Click! Caught a ${element.dataset.name}`)
-			ui.setAttribute('onclick', "this.classList.add('hidden')")
+			ui.setAttribute('onclick', `this.classList.add('hidden')${isMusicPlaying?';Playlist.current.howl.play()':''}`)
 		} else { //? Fail
 			const wiggles = Math.floor(Math.random() * 3)
 			ball.classList.add('wiggle')
@@ -684,6 +690,8 @@ const caught = getSavedData('Pokemon-caught')
 			await new Promise(r => setTimeout(r, 750))
 			ball.classList.remove('open')
 			ui.classList.add('hidden')
+			if (isMusicPlaying)
+				Playlist.current.howl.play()
 		}
 	}
 }
