@@ -182,6 +182,7 @@ class Playlist {
 		getSavedData('songsUnlocked')
 			.push(key)
 			.save()
+player.updatePlaylist()
 	}
 	static setVolume(volume) {
 		this.playlist.forEach(e => e.howl.volume(volume))
