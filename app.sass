@@ -102,6 +102,32 @@
 	100%
 		transform: translateZ(-400rem) translate(250%, 150%) scale(0)
 		opacity: 0
+@keyframes pokeball
+	0%
+		background-position-x: 0
+	100%
+		background-position-x: 100%
+@keyframes pokeballWiggle
+	0%, 60%
+		transform: translateX(0) rotate(0)
+	15%
+		transform: translateX(-30%) rotate(-45deg)
+	45%
+		transform: translateX(30%) rotate(45deg)
+@keyframes throwball
+	0%
+		transform: rotate(0deg)
+	50%
+		transform: rotate(180deg)
+	100%
+		transform: rotate(360deg)
+@keyframes throwballArc
+	0%
+		transform: translateX(-50%) translateY(-50%) scale(1)
+	50%
+		transform: translateX(-50%) translateY(calc(-50% - 30vh)) scale(.6)
+	100%
+		transform: translateX(-50%) translateY(-50%) scale(.2)
 @font-face
 	font-family: 'Andy'
 	src: url('assets/kaboom/AndyRegular.OTF')
@@ -675,6 +701,8 @@ dialog::backdrop
 		img
 			height: 100%
 			width: 100%
+			mask-image: url('assets/lef/tallgrass.png')
+			mask-size: 100% 100%
 			transform: scale(1.3)
 		.pokemon
 			position: absolute
@@ -683,12 +711,46 @@ dialog::backdrop
 			height: 100%
 			transition: bottom .6s linear
 			z-index: -1
+			cursor: pointer
 			&.popup
 				bottom: 50%
 	.pokemon
 		height: 1rem
 		width: 1rem
 		background-color: purple
+	#catch-attempt
+		position: absolute
+		left: 50%
+		top: 50%
+		height: 20vh
+		transform: translate(-50%, -50%)
+		z-index: 100
+		.pokeball
+			position: relative
+			height: 20vh
+			width: 20vh
+			background-image: url('assets/lef/pokeball.png')
+			background-size: auto 100%
+			&.open
+				animation: pokeball .3s steps(2) .15s forwards
+			&.closed
+				background-position-x: 100%
+				animation: pokeball .3s steps(2) .15s reverse forwards
+			&.wiggle
+				animation: pokeballWiggle 1s ease infinite
+	#throwball
+		position: absolute
+		top: 100%
+		left: 100%
+		height: 30vh
+		z-index: 99
+		&.thrown
+			transition: top .5s ease-out
+			transition-property: top, left
+			animation: throwballArc .5s linear forwards
+		img
+			height: 100%
+			animation: throwball .6s steps(4) infinite
 #kaboom
 	overflow: hidden
 	.slime

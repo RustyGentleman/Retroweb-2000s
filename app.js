@@ -589,6 +589,7 @@ function owlLand(not) {
 }
 
 //# Pokémon
+let pokemonTimeoutID
 {
 	const numberOfTallGrasses = 30
 	const tilesX = 10
@@ -615,20 +616,76 @@ function owlLand(not) {
 		grass.append(img)
 		lef.append(grass)
 	})
-}
 const tallgrasses = document.getElementById('lef').querySelectorAll('.tall-grass')
-let pokemonTimeoutID
+const catchChance = .3
+	const pokemons = [
+		'ampharos',
+		'furret',
+		'glameow',
+		'leafeon',
+		'skitty',
+		'tailmon',
+	]
 function spawnPokemon() {
-	const picked = tallgrasses[Math.floor(Math.random()*tallgrasses.length)]
+	const grass = tallgrasses[Math.floor(Math.random()*tallgrasses.length)]
 	const pokemon = document.createElement('div')
-	pokemon.className = 'pokemon'
-	picked.append(pokemon)
+const caught = getSavedData('Pokemon-caught')
+		const notCaught = pokemons.filter(e => !caught.find(e))
+		const picked = notCaught[Math.floor(Math.random()*notCaught.length)]
+	pokemon.className = `pokemon ${picked}`
+		pokemon.addEventListener('click', () => attemptToCatch(pokemon), {once: true})
+		pokemon.dataset.name = picked
+		grass.append(pokemon)
 	setTimeout(() => pokemon.classList.add('popup'), 10)
 	setTimeout(() => {
 		pokemon.classList.remove('popup')
 		setTimeout(() => pokemon.remove(), 600)
 	}, 3000)
 	pokemonTimeoutID = setTimeout(spawnPokemon, Math.random() * 4000 + 1000)
+}
+	async function attemptToCatch(element) {
+		const throwball = document.getElementById('throwball')
+		const rect = element.getBoundingClientRect()
+		throwball.classList.add('thrown')
+		await new Promise(r => setTimeout(r, 1))
+		throwball.style.top = rect.top+'px'
+		throwball.style.left = (rect.left + rect.width/2)+'px'
+		await new Promise(r => setTimeout(r, 500))
+		throwball.style.top = ''
+		throwball.style.left = ''
+		throwball.classList.remove('thrown')
+		element.remove()
+		const ui = document.getElementById('catch-attempt')
+		const ball = ui.querySelector('.pokeball')
+		ui.removeAttribute('onclick')
+		ui.classList.remove('hidden')
+		ball.classList.add('closed')
+		await new Promise(r => setTimeout(r, 300))
+		ball.classList.remove('closed')
+		if (Math.random() < catchChance) { //? Success
+			ball.classList.add('wiggle')
+			for (let i=0; i<3; i++) {
+				document.h_wiggle.play()
+				await new Promise(r => setTimeout(r, 1000))
+			}
+			ball.classList.remove('wiggle')
+			document.h_caught.play()
+			console.log(`Click! Caught a ${element.dataset.name}`)
+			ui.setAttribute('onclick', "this.classList.add('hidden')")
+		} else { //? Fail
+			const wiggles = Math.floor(Math.random() * 3)
+			ball.classList.add('wiggle')
+			for (let i=0; i<wiggles; i++) {
+				document.h_wiggle.play()
+				await new Promise(r => setTimeout(r, 1000))
+			}
+			ball.classList.remove('wiggle')
+			ball.classList.add('open')
+			await new Promise(r => setTimeout(r, 750))
+			ball.classList.remove('open')
+			ui.classList.add('hidden')
+		}
+	}
 }
 
 //# Ras quest
@@ -804,6 +861,8 @@ document.h_amethyst = [
 	new Howl({src: ['assets/ras2/Amethyst_step14.ogg']}),
 ]
 document.h_faith = new Howl({src: ['assets/ras2/faith.mp3']})
+document.h_wiggle = new Howl({src: ['assets/lef/wiggle.mp3']})
+document.h_caught = new Howl({src: ['assets/lef/caught.mp3']})
 //? Goblin dance
 const home = document.getElementById('home')
 const bottom = window.visualViewport.height * 7
@@ -826,7 +885,7 @@ document.getElementById('home').addEventListener('scroll', () => {
 //? Trigger first visitor popup
 // setTimeout(() => document.getElementById('retroModal').style.display = 'block', 3000)
 //? Start on home page
-goToPage('ras2', true)
+goToPage('lef', true)
 //? Trigger Kowabi's intro
 if (getSavedData('Kowabi-flags').find('intro-done'))
 	Kowabi.playNode('assistance0')
