@@ -187,6 +187,8 @@ class Playlist {
 	}
 	static setVolume(volume) {
 		this.playlist.forEach(e => e.howl.volume(volume))
+		window.localStorage.setItem('player-volume', volume)
+		player.querySelector('#volume').value = volume
 	}
 	static play() {
 		if (!this.current) {
@@ -902,6 +904,8 @@ else
 Kowabi.setExpression(3, 2)
 //? First playlist update
 setTimeout(() => player.updatePlaylist(), 1000)
+//? Set player volume
+Playlist.setVolume(window.localStorage.getItem('player-volume') || 1)
 //? Retrieve saved ingredients
 {
 	const spentIngredients = getSavedData('ingredients-spent')
