@@ -289,6 +289,32 @@
     filter: brightness(1);
   }
 }
+@-webkit-keyframes nx01 {
+  0% {
+    transform: translateZ(-400rem) translate(-900%, -800%) scale(10);
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateZ(-400rem) translate(250%, 150%) scale(0);
+    opacity: 0;
+  }
+}
+@keyframes nx01 {
+  0% {
+    transform: translateZ(-400rem) translate(-900%, -800%) scale(10);
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateZ(-400rem) translate(250%, 150%) scale(0);
+    opacity: 0;
+  }
+}
 @font-face {
   font-family: "Andy";
   src: url("assets/kaboom/AndyRegular.OTF");
@@ -1118,6 +1144,7 @@ dialog::backdrop {
 }
 #ras2 .porch {
   height: 100vh;
+  pointer-events: none;
 }
 #ras2 .treeline {
   position: absolute;
@@ -1190,7 +1217,27 @@ dialog::backdrop {
   transform: translateZ(-2000rem);
   background-image: linear-gradient(to top, hsl(210.4deg, 44.91%, 32.75%) 40%, hsla(217.98deg, 100%, 50%, 0.24) 55%, hsla(236.44deg, 100%, 50%, 0.18) 60%, transparent 100%), url(assets/ras/star-bg.gif);
   background-size: 1000vh;
+  z-index: -6;
+}
+#ras2 .moon {
+  position: absolute;
+  left: calc(50% + 1000vh);
+  top: -1700vh;
+  height: 500vh;
   z-index: -5;
+  transform: translateZ(-1800rem);
+  filter: contrast(0.45) brightness(1.5) contrast(2) hue-rotate(230deg) drop-shadow(0 0 300vh #2a5076) drop-shadow(0 0 150vh #2a5076);
+  cursor: pointer;
+}
+#ras2 .nx01 {
+  position: absolute;
+  top: -200vh;
+  left: calc(50% + 200vh);
+  height: 100vh;
+  z-index: -5;
+  transform: translateZ(-400rem);
+  -webkit-animation: nx01 5s cubic-bezier(0, 1.09, 0.67, 1) forwards;
+          animation: nx01 5s cubic-bezier(0, 1.09, 0.67, 1) forwards;
 }
 #ras2 .ras {
   position: absolute;
@@ -1235,6 +1282,9 @@ dialog::backdrop {
           mask-image: linear-gradient(to top, transparent, black 30%);
 }
 #ras-dialogue .portrait.laugh-closed [src*=laugh-closed] {
+  display: initial;
+}
+#ras-dialogue .portrait.laugh-open [src*=laugh-open] {
   display: initial;
 }
 #ras-dialogue .portrait.smile-closed [src*=smile-closed] {

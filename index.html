@@ -13,6 +13,7 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 	<link rel="preload" as="image" href="assets/ras2/tea.png">
+	<link rel="preload" as="image" href="assets/ras2/nx01.png">
 	<style>
 		/*********** Baseline, reset styles ***********/
 		input[type="range"] {
@@ -229,6 +230,7 @@
 			</div>
 		</div>
 		<div class="sky"></div>
+		<img src="assets/ras2/moon.png" alt="Moon" class="moon">
 		<div class="ras">
 			<img src="assets/ras2/ras-standing-lit.png" alt="Ras">
 		</div>
@@ -363,20 +365,21 @@
 	<div id="retroModal">
 		<img width="400" src="assets/home/number1visitor.gif" alt="OHMYGODDD!! YOU'RE OUR NUMBER 1 VISITOR!!!!!">
 		<button class="win95-btn" onclick="document.getElementById('retroModal').style.display = 'none'">YAY!!!!</button>
-  </div>
-  <div id="ras-dialogue" class="hidden">
-	  <div class="portrait smile-closed">
-		  <img src="assets/ras2/ras-laugh-closed.png" alt="">
-		  <img src="assets/ras2/ras-smile-closed.png" alt="">
-		  <img src="assets/ras2/ras-smile-halfopen.png" alt="">
-		  <img src="assets/ras2/ras-smile-open.png" alt="">
-		  <img src="assets/ras2/ras-smirk.png" alt="">
-	  </div>
-	  <div class="message">
-		  <div class="text">This is some sample text</div>
-		  <button class="win95-btn" onclick="dialogueAdvance(this, 'ras')">Continue</button>
-	  </div>
-  </div>
+ 	</div>
+	<div id="ras-dialogue" class="hidden">
+		<div class="portrait smile-closed">
+			<img src="assets/ras2/ras-laugh-closed.png" alt="">
+			<img src="assets/ras2/ras-laugh-open.png" alt="">
+			<img src="assets/ras2/ras-smile-closed.png" alt="">
+			<img src="assets/ras2/ras-smile-halfopen.png" alt="">
+			<img src="assets/ras2/ras-smile-open.png" alt="">
+			<img src="assets/ras2/ras-smirk.png" alt="">
+		</div>
+		<div class="message">
+			<div class="text">This is some sample text</div>
+			<button class="win95-btn" onclick="dialogueAdvance(this, 'ras')">Continue</button>
+		</div>
+	</div>
 	<div id="kowabi">
 		<div id="msg" class="hidden">
 			<span id="text">Are you a little stupid?</span>

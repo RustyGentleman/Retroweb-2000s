@@ -290,6 +290,7 @@ Playlist.addSongs([
 	['leafy', 'Pokemon Blue/Red OST - Celadon City'],
 	['pal', 'Jonah Senzel - The Temple of Magicks'],
 	['gobdance', 'Sam Westphalen - The Goblin Dance'],
+	['ent', 'Russell Watson - Where My Heart Will Take Me'],
 ])
 
 //# Slimes
@@ -713,6 +714,7 @@ const herbs = document.getElementById('ras2').querySelectorAll('.herb')
 		page.scrollLeft += e.deltaY
 	})
 	ras.setAttribute('onclick', "rasDialogue('intro')")
+	page.querySelector('.moon').addEventListener('click', faith)
 	function rasDialogue(name) {
 		const lines = []
 		const expressions = []
@@ -755,6 +757,17 @@ const herbs = document.getElementById('ras2').querySelectorAll('.herb')
 		else
 			ras.setAttribute('onclick', `rasDialogue('tea${herbsPicked.length}')`)
 	}
+	async function faith() {
+		const nx01 = document.createElement('img')
+		nx01.src = 'assets/ras2/nx01.png'
+		nx01.className = 'nx01'
+		document.h_faith.play()
+		await new Promise(r => setTimeout(r, 2500))
+		page.append(nx01)
+		Playlist.unlockSong('ent')
+		await new Promise(r => setTimeout(r, 5000))
+		nx01.remove()
+	}
 }
 
 //! Effects setup
@@ -789,6 +802,7 @@ document.h_amethyst = [
 	new Howl({src: ['assets/ras2/Amethyst_step13.ogg']}),
 	new Howl({src: ['assets/ras2/Amethyst_step14.ogg']}),
 ]
+document.h_faith = new Howl({src: ['assets/ras2/faith.mp3']})
 //? Goblin dance
 const home = document.getElementById('home')
 const bottom = window.visualViewport.height * 7
