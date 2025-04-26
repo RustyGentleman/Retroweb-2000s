@@ -1108,7 +1108,7 @@ dialog::backdrop {
   width: 10vmin;
   transform-origin: bottom center;
 }
-#lef .tall-grass img {
+#lef .tall-grass > img {
   height: 100%;
   width: 100%;
   -webkit-mask-image: url("assets/lef/tallgrass.png");
@@ -1125,14 +1125,13 @@ dialog::backdrop {
   transition: bottom 0.6s linear;
   z-index: -1;
   cursor: pointer;
+  background-color: purple;
+}
+#lef .tall-grass .pokemon img {
+  height: 100%;
 }
 #lef .tall-grass .pokemon.popup {
   bottom: 50%;
-}
-#lef .pokemon {
-  height: 1rem;
-  width: 1rem;
-  background-color: purple;
 }
 #lef #catch-attempt {
   position: absolute;
@@ -1178,6 +1177,32 @@ dialog::backdrop {
   height: 100%;
   -webkit-animation: throwball 0.6s steps(4) infinite;
           animation: throwball 0.6s steps(4) infinite;
+}
+#lef #pokedex {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30vmin;
+}
+#lef #pokedex .overlay {
+  width: 100%;
+  image-rendering: auto;
+}
+#lef #pokedex .screen {
+  position: absolute;
+  left: 5.1vmin;
+  top: 11.7vmin;
+  right: 3.8vmin;
+  bottom: 18.7vmin;
+  background: rgb(65, 180, 142);
+  overflow-y: auto;
+}
+#lef #pokedex .screen img {
+  width: 48%;
+  filter: contrast(0) brightness(0);
+}
+#lef #pokedex .screen .caught {
+  filter: none;
 }
 
 #kaboom {

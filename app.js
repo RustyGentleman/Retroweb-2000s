@@ -620,6 +620,7 @@ let pokemonTimeoutID
 		lef.append(grass)
 	})
 	const tallgrasses = document.getElementById('lef').querySelectorAll('.tall-grass')
+	const pokedex = document.getElementById('pokedex')
 	const catchChance = .8
 	const pokemons = [
 		'ampharos',
@@ -631,18 +632,21 @@ let pokemonTimeoutID
 	]
 	function spawnPokemon() {
 		const grass = tallgrasses[Math.floor(Math.random()*tallgrasses.length)]
-		const pokemon = document.createElement('div')
+		const wrapper = document.createElement('div')
+		const img = document.createElement('img')
 		const caught = getSavedData('Pokemon-caught')
 		const notCaught = pokemons.filter(e => !caught.find(e))
 		const picked = notCaught[Math.floor(Math.random()*notCaught.length)]
-		pokemon.className = `pokemon ${picked}`
-		pokemon.addEventListener('click', () => attemptToCatch(pokemon), {once: true})
-		pokemon.dataset.name = picked
-		grass.append(pokemon)
-		setTimeout(() => pokemon.classList.add('popup'), 10)
+		img.src = 'assets/lef/'+picked+'.png'
+		wrapper.className = 'pokemon'
+		wrapper.addEventListener('click', () => attemptToCatch(wrapper), {once: true})
+		wrapper.dataset.name = picked
+		wrapper.append(img)
+		grass.append(wrapper)
+		setTimeout(() => wrapper.classList.add('popup'), 10)
 		setTimeout(() => {
-			pokemon.classList.remove('popup')
-			setTimeout(() => pokemon.remove(), 600)
+			wrapper.classList.remove('popup')
+			setTimeout(() => wrapper.remove(), 600)
 		}, 3000)
 		pokemonTimeoutID = setTimeout(spawnPokemon, Math.random() * 4000 + 1000)
 	}
@@ -679,6 +683,8 @@ let pokemonTimeoutID
 			ball.classList.remove('wiggle')
 			document.h_caught.play()
 			console.log(`Click! Caught a ${element.dataset.name}`)
+			getSavedData('Pokemon-caught').push(element.dataset.name).save()
+			pokedex.querySelector(`[src*="${element.dataset.name}"]`)?.classList.add('caught')
 			ui.setAttribute('onclick', `this.classList.add('hidden')${isMusicPlaying?';Playlist.current.howl.play()':''}`)
 		} else { //? Fail
 			const wiggles = Math.floor(Math.random() * 3)
@@ -906,7 +912,7 @@ Kowabi.setExpression(3, 2)
 setTimeout(() => player.updatePlaylist(), 1000)
 //? Set player volume
 Playlist.setVolume(window.localStorage.getItem('player-volume') || 1)
-//? Retrieve saved ingredients
+//? Load saved ingredients
 {
 	const spentIngredients = getSavedData('ingredients-spent')
 	getSavedData('collectibles', {
@@ -921,6 +927,8 @@ Playlist.setVolume(window.localStorage.getItem('player-volume') || 1)
 			ingredients.append(surrogate.firstElementChild)
 		})
 }
+//? Load caught pokemon
+getSavedData('Pokemon-caught').data.forEach(e => document.getElementById('pokedex').querySelector(`[src*="${e}"]`)?.classList.add('caught'))
 
 //# Debug
 const nav = document.getElementById('debug-nav')

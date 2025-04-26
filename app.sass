@@ -698,7 +698,7 @@ dialog::backdrop
 		height: 10vmin
 		width: 10vmin
 		transform-origin: bottom center
-		img
+		> img
 			height: 100%
 			width: 100%
 			mask-image: url('assets/lef/tallgrass.png')
@@ -712,12 +712,11 @@ dialog::backdrop
 			transition: bottom .6s linear
 			z-index: -1
 			cursor: pointer
+			background-color: purple
+			img
+				height: 100%
 			&.popup
 				bottom: 50%
-	.pokemon
-		height: 1rem
-		width: 1rem
-		background-color: purple
 	#catch-attempt
 		position: absolute
 		left: 50%
@@ -751,6 +750,27 @@ dialog::backdrop
 		img
 			height: 100%
 			animation: throwball .6s steps(4) infinite
+	#pokedex
+		position: absolute
+		top: 0
+		right: 0
+		width: 30vmin
+		.overlay
+			width: 100%
+			image-rendering: auto
+		.screen
+			position: absolute
+			left: 5.1vmin
+			top: 11.7vmin
+			right: 3.8vmin
+			bottom: 18.7vmin
+			background: rgb(65, 180, 142)
+			overflow-y: auto
+			img
+				width: 48%
+				filter: contrast(0) brightness(0)
+			.caught
+				filter: none
 #kaboom
 	overflow: hidden
 	.slime
