@@ -629,9 +629,9 @@ let pokemonTimeoutID
 		'leafeon',
 		'skitty',
 		'tailmon',
+'shinx',
 		'pigeon',
-		'goblin',
-	]
+			]
 	function spawnPokemon() {
 		const grass = tallgrasses[Math.floor(Math.random()*tallgrasses.length)]
 		const wrapper = document.createElement('div')
