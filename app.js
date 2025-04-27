@@ -570,7 +570,7 @@ class Alchemy {
 		this.matchedRecipe = undefined
 	}
 	static filterIngredients() {
-		this.ingredients.querySelectorAll('.hastooltiip').forEach(e => e.style.display = 'none')
+		this.ingredients.querySelectorAll('.hastooltip').forEach(e => e.style.display = 'none')
 		const recipesBrewed = getSavedData('recipes-brewed').data
 		const ingredientsLeft = new Set()
 		Alchemy.recipes
@@ -824,7 +824,7 @@ const herbs = document.getElementById('ras2').querySelectorAll('.herb')
 				{expression: 'smile-closed', text: `**~Remember:~** Lift with your _legs_, not your _back!_`},
 			], endtrigger: () => {
 				getSavedData('Ras-flags').push('goodtea').save()
-				page.querySelector('.boulder-hitbox').addEventListener('click', () => {
+				document.getElementById('ras2').querySelector('.boulder-hitbox').addEventListener('click', () => {
 					const key = document.createElement('div')
 					const img = document.createElement('img')
 					const tooltip = document.createElement('span')
@@ -888,7 +888,7 @@ const herbs = document.getElementById('ras2').querySelectorAll('.herb')
 			wrapper.remove()
 		}, 10)
 		const herbsPicked = getSavedData('herbs-picked').data
-		if (herbsPicked.length >= 3)
+		if (herbsPicked.length > 3)
 			ras.setAttribute('onclick', "rasDialogue('goodtea')")
 		else
 			ras.setAttribute('onclick', `rasDialogue('tea${herbsPicked.length}')`)
@@ -1049,7 +1049,7 @@ function goToPage(id, skipAnimation=false) {
 function addCollectible(element, key, toptext='', bottomtext='') {
 	element.removeAttribute('onclick')
 	toScreenCenter(element, toptext, bottomtext)
-	if (element.tagName === 'img')
+	if (element.tagName === 'IMG')
 		element.parentElement.style.cssText = ''
 	const collectibles = getSavedData('collectibles', {
 		pack: (data) => JSON.stringify(data),
