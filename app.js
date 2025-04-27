@@ -623,13 +623,14 @@ let pokemonTimeoutID
 	const pokedex = document.getElementById('pokedex')
 	const catchChance = .6
 	const pokemons = [
-		'ampharos',
-		'furret',
+				'furret',
+'ampharos',
+		'skitty',
+		'delcatty',
+		'shinx',
 		'glameow',
 		'leafeon',
-		'skitty',
-		'tailmon',
-'shinx',
+				'tailmon',
 		'pigeon',
 			]
 	function spawnPokemon() {
