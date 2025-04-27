@@ -528,7 +528,7 @@ class Alchemy {
 
 		if (this.matchedRecipe) { //? Valid recipe
 			this.matchedRecipe.result()
-			getSavedData('recipes-brewed').push(this.matchedRecipe.name)
+			getSavedData('recipes-brewed').push(this.matchedRecipe.name).save()
 			this.filterIngredients()
 			this.matchedRecipe = undefined
 		} else { //? Invalid recipe
