@@ -444,6 +444,56 @@ dialog::backdrop
 		height: 80vh
 		z-index: -10
 		transform: translateZ(-5rem)
+		&::before
+			content: ''
+			position: absolute
+			inset: 0
+		.lock
+			position: absolute
+			top: 70%
+			left: 50%
+			height: 4rem
+			$rand1: random(41) - 21
+			$rand2: random(41) - 21
+			$rand3: random(41) - 21
+			&:nth-child(2)
+				transform: translate(calc(-50% + 7.7rem), -4rem) rotate(#{$rand1}deg)
+			&:nth-child(3)
+				transform: translateX(calc(-50% - 7.7rem)) rotate(#{$rand2}deg)
+			&:nth-child(4)
+				transform: translate(calc(-50% + 7.7rem), 4rem) rotate(#{$rand3}deg)
+		.wallhook
+			position: absolute
+			top: 3rem
+			left: 50%
+			> img
+				position: absolute
+				top: 0
+				left: 0
+				height: 3rem
+				&:first-child
+					z-index: 1
+			&:nth-child(5)
+				transform: translate(-10rem, 3rem)
+			&:nth-child(7)
+				transform: translate(10rem, 3rem)
+			.hastooltip
+				transform: translateX(-50%)
+				[alt*='leaf']
+					height: 5rem
+					transform: translate(-12%, 38%) rotate(90deg) translateY(-50%) !important
+				[alt*='citrine']
+					height: 4rem
+					transform: translate(8%, 107%) rotate(90deg) !important
+				[alt*='slime']
+					height: 4rem
+					transform: translate(5%, 93%) rotate(90deg) !important
+
+		#finaldoor
+			position: absolute
+			bottom: 0
+			left: 50%
+			transform: translateX(-50%)
 	.ground
 		position: absolute
 		top: 168.8vh
@@ -475,9 +525,18 @@ dialog::backdrop
 			transform: rotate(-20deg)
 	#slimepedia
 		top: 15.35rem
-		left: .2rem
+		left: .5rem
+	#grimoire
+		top: 15.1rem
+		left: 3rem
 		img
-			transform: rotateY(52deg) rotateX(-3deg)
+			transform: rotateY(180deg)
+			max-height: 4.3rem
+	#popupbook
+		top: 7rem
+		right: .3rem
+		img
+			max-height: 3rem
 #ras
 	overflow-x: hidden
 	.content
@@ -1161,9 +1220,15 @@ body
 		&.ceiling
 			background-image: linear-gradient(to bottom, rgb(0 0 0 / 50%), transparent), url('assets/home/ceiling.jpg')
 	.basement-wall
-		background-image: url('assets/home/basementwall.jpg')
-		background-size: 30vh 30vh
-		filter: brightness(0.3)
+		&::before
+			filter: brightness(0.3)
+		#finaldoor
+			filter: brightness(0.4)
+		.lock, .wallhook > img
+			filter: brightness(0.5)
+		&::before
+			background-image: url('assets/home/basementwall.jpg')
+			background-size: 30vh 30vh
 	.ground
 		background-image: url('assets/home/emperor-dark.jpg')
 		background-size: 10rem

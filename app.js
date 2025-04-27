@@ -970,26 +970,36 @@ else {
 	Kowabi.setExpression(3, 2)
 }
 //? Start on home page
-goToPage('ras2', true)
+goToPage('home', true)
 //? First playlist update
 setTimeout(() => player.updatePlaylist(), 1000)
 //? Trigger first visitor popup
 // setTimeout(() => document.getElementById('retroModal').style.display = 'block', 3000)
 //? Load saved ingredients
-{
-	getSavedData('collectibles', {
-		pack: (data) => JSON.stringify(data),
-		unpack: (data) => JSON.parse(data)
-	}).data
-		.filter(e => !!e.html.match(/class="[^"]*?ingredient[^"]*?"/))
-		.forEach(e => {
-			const surrogate = document.createElement('div')
-			surrogate.innerHTML = e.html
-			surrogate.firstElementChild.firstElementChild.setAttribute('onclick', 'Alchemy.add(this)')
-			ingredients.append(surrogate.firstElementChild)
-		})
-	Alchemy.filterIngredients()
-}
+getSavedData('collectibles', {
+	pack: (data) => JSON.stringify(data),
+	unpack: (data) => JSON.parse(data)
+}).data
+	.filter(e => !!e.html.match(/class="[^"]*?ingredient[^"]*?"/))
+	.forEach(e => {
+		const surrogate = document.createElement('div')
+		surrogate.innerHTML = e.html
+		surrogate.firstElementChild.firstElementChild.setAttribute('onclick', 'Alchemy.add(this)')
+		ingredients.append(surrogate.firstElementChild)
+	})
+Alchemy.filterIngredients()
+//? Load keys
+
+getSavedData('collectibles', {
+	pack: (data) => JSON.stringify(data),
+	unpack: (data) => JSON.parse(data)
+}).data
+	.filter(e => !!e.html.match(/alt="[^"]*?key[^"]*?"/))
+	.forEach(e => {
+		const surrogate = document.createElement('div')
+		surrogate.innerHTML = e.html
+		hangKey(surrogate.firstElementChild)
+	})
 //? Load caught pokemon
 getSavedData('Pokemon-caught').data.forEach(e => document.getElementById('pokedex').querySelector(`[src*="${e}"]`)?.classList.add('caught'))
 //? Load Ras dialogue progress
@@ -1064,6 +1074,8 @@ function addCollectible(element, key, toptext='', bottomtext='') {
 		clone.firstElementChild.setAttribute('onclick', 'Alchemy.add(this)')
 		document.querySelector('#pal #ingredients').append(clone)
 	}
+	if (element.tagName === 'IMG' && element.src.includes('key'))
+		hangKey(element.parentElement)
 }
 function secondsToTime(seconds) {
 	return Math.floor(seconds/60) + ':' + (''+Math.floor(seconds%60)).padStart(2, '0')
@@ -1130,7 +1142,7 @@ function dialogueAdvance(button, type='slime') {
 				const key = document.createElement('div')
 				key.classList.add('hastooltip')
 				key.classList.add('hidden')
-				key.innerHTML = `<img src="assets/key-kaboom.png" alt="A key-shaped blob of chromatic slime" onclick="addCollectible(this,'a key-shaped blob of chromatic slime', "Chroma gave you a", "Key-shaped Blob of Chromatic Slime!");slimeSteptext.targetElement=document.querySelector('#kaboom #slime-dialogue .text');document.querySelector('#pal #slime-dialogue').remove()"><span class="tooltip">A key-shaped blob of chromatic slime</span>`
+				key.innerHTML = `<img src="assets/key-kaboom.png" alt="A key-shaped blob of chromatic slime" onclick="addCollectible(this,'a key-shaped blob of chromatic slime', 'Chroma gave you a', 'Key-shaped Blob of Chromatic Slime!');slimeSteptext.targetElement=document.querySelector('#kaboom #slime-dialogue .text');document.querySelector('#pal #slime-dialogue').remove()"><span class="tooltip">A key-shaped blob of chromatic slime</span>`
 				button.before(key)
 			} else {
 				const blob = document.createElement('div')
@@ -1163,6 +1175,14 @@ function dialogueAdvance(button, type='slime') {
 				button.dataset.portrait = ''
 		}
 	}
+}
+function hangKey(element) {
+	let done = false
+	document.querySelectorAll('#home .basement-wall .wallhook').forEach(e => {
+		if (done || e.childElementCount > 2) return
+		e.append(element)
+		done = true
+	})
 }
 function resetUnlockedSongs() {
 	window.localStorage.removeItem('songsUnlocked')
