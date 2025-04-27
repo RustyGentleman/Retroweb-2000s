@@ -291,7 +291,7 @@ Kowabi.addNodes([
 //# Playlist songs
 Playlist.addSongs([
 	['kaboom', 'Terraria OST - Day'],
-	['leafy', 'Pokemon Blue/Red OST - Celadon City'],
+	['leafy', 'Pokemon Diamond/Pearl/Platinum OST - Route 206 (Day)'],
 	['pal', 'Jonah Senzel - The Temple of Magicks'],
 	['gobdance', 'Sam Westphalen - The Goblin Dance'],
 	['ent', 'Russell Watson - Where My Heart Will Take Me'],
@@ -594,13 +594,13 @@ function owlLand(not) {
 //# Pokémon
 let pokemonTimeoutID
 {
-	const numberOfTallGrasses = 30
-	const tilesX = 10
-	const tilesY = 5
-	const tileSize = 10
+	const numberOfTallGrasses = 40
+	const tilesX = 20
+	const tilesY = 6
+	const tileSize = 4.9
 
 	const coordSet = new Set()
-	const lef = document.getElementById('lef')
+	const pokefield = document.getElementById('pokefield')
 	while (coordSet.size < numberOfTallGrasses) {
 		const x = Math.floor(Math.random() * tilesX)
 		const y = Math.floor(Math.random() * tilesY)
@@ -613,15 +613,15 @@ let pokemonTimeoutID
 		const grass = document.createElement('div')
 		grass.className = 'tall-grass'
 		grass.style.zIndex = e.y+5
-		grass.style.transform = `translate(${(e.x-5)*tileSize+(e.y*(e.x-5))}vmin, ${(e.y)*tileSize}vmin) translateZ(${e.y}rem) scale(${1 + e.y*.08})`
+		grass.style.transform = `translate(${(e.x-10)*tileSize}vmin, ${(e.y-5)*tileSize}vmin)`
 		const img = document.createElement('img')
 		img.src = 'assets/lef/tallgrass.png'
 		grass.append(img)
-		lef.append(grass)
+		pokefield.append(grass)
 	})
 	const tallgrasses = document.getElementById('lef').querySelectorAll('.tall-grass')
 	const pokedex = document.getElementById('pokedex')
-	const catchChance = .8
+	const catchChance = .6
 	const pokemons = [
 		'ampharos',
 		'furret',
@@ -629,6 +629,8 @@ let pokemonTimeoutID
 		'leafeon',
 		'skitty',
 		'tailmon',
+		'pigeon',
+		'goblin',
 	]
 	function spawnPokemon() {
 		const grass = tallgrasses[Math.floor(Math.random()*tallgrasses.length)]
@@ -636,7 +638,9 @@ let pokemonTimeoutID
 		const img = document.createElement('img')
 		const caught = getSavedData('Pokemon-caught')
 		const notCaught = pokemons.filter(e => !caught.find(e))
-		const picked = notCaught[Math.floor(Math.random()*notCaught.length)]
+		let picked = notCaught[Math.floor(Math.random()*notCaught.length)]
+		if (!picked)
+			picked = pokemons[Math.floor(Math.random()*pokemons.length)]
 		img.src = 'assets/lef/'+picked+'.png'
 		wrapper.className = 'pokemon'
 		wrapper.addEventListener('click', () => attemptToCatch(wrapper), {once: true})
@@ -653,6 +657,8 @@ let pokemonTimeoutID
 	async function attemptToCatch(element) {
 		const throwball = document.getElementById('throwball')
 		const rect = element.getBoundingClientRect()
+		throwball.style.display = ''
+		await new Promise(r => setTimeout(r, 1))
 		throwball.classList.add('thrown')
 		await new Promise(r => setTimeout(r, 1))
 		throwball.style.top = rect.top+'px'
@@ -661,6 +667,7 @@ let pokemonTimeoutID
 		throwball.style.top = ''
 		throwball.style.left = ''
 		throwball.classList.remove('thrown')
+		throwball.style.display = 'none'
 		element.remove()
 		let isMusicPlaying = false
 		if (Playlist.current?.howl.playing()) {
@@ -682,10 +689,29 @@ let pokemonTimeoutID
 			}
 			ball.classList.remove('wiggle')
 			document.h_caught.play()
-			console.log(`Click! Caught a ${element.dataset.name}`)
+			ui.lastElementChild.textContent = (element.dataset.name.charAt(0).toUpperCase() + element.dataset.name.slice(1)) + '!'
+			ui.classList.add('caught')
 			getSavedData('Pokemon-caught').push(element.dataset.name).save()
 			pokedex.querySelector(`[src*="${element.dataset.name}"]`)?.classList.add('caught')
-			ui.setAttribute('onclick', `this.classList.add('hidden')${isMusicPlaying?';Playlist.current.howl.play()':''}`)
+			ui.setAttribute('onclick', `this.classList.add('hidden');this.classList.remove('caught')${isMusicPlaying?';Playlist.current.howl.play()':''}`)
+
+			if (getSavedData('Pokemon-caught').data.length == pokemons.length) {
+				const key = document.createElement('div')
+				const img = document.createElement('img')
+				const tooltip = document.createElement('span')
+				key.className = 'hastooltip key'
+				key.style.cssText = "position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);"
+				img.src = 'assets/key-leafy.png'
+				img.alt = 'A key-shaped leafy stick'
+				img.style.cssText = 'transform:translateX(-12%'
+				img.setAttribute('onclick', "this.parentElement.previousElementSibling.previousElementSibling.classList.remove('hidden');this.parentElement.style.cssText='';addCollectible(this, 'a key-shaped leafy stick');this.parentElement.remove()")
+				tooltip.className = 'tooltip'
+				tooltip.textContent = 'A key-shaped leafy stick'
+				key.append(img)
+				key.append(tooltip)
+				ui.querySelector('.pokeball').classList.add('hidden')
+				ui.append(key)
+			}
 		} else { //? Fail
 			const wiggles = Math.floor(Math.random() * 3)
 			ball.classList.add('wiggle')
@@ -737,7 +763,7 @@ const herbs = document.getElementById('ras2').querySelectorAll('.herb')
 			}
 		}, tea1: {
 			lines: [
-				{expression: 'disgusted', text: `##Oh dear##... I'll need something else to recover from the taste of _that_... Maybe pick something else?`}
+				{expression: 'disgust', text: `##Oh dear##... I'll need something else to recover from the taste of _that_... Maybe pick something else?`}
 			], endtrigger: () => {
 				getSavedData('Ras-flags').push('tea1').save()
 				document.querySelector("#ras2 .ras").setAttribute("onclick", "")
@@ -749,7 +775,7 @@ const herbs = document.getElementById('ras2').querySelectorAll('.herb')
 			}
 		}, tea2: {
 			lines: [
-				{expression: 'disgusted', text: `..I'm _starting_ to feel as though this might've been a mistake. Could you ##please## try to pick something nicer?`}
+				{expression: 'disgust', text: `..I'm _starting_ to feel as though this might've been a mistake. Could you ##please## try to pick something nicer?`}
 			], endtrigger: () => {
 				getSavedData('Ras-flags').push('tea2').save()
 				document.querySelector("#ras2 .ras").setAttribute("onclick", "")
@@ -761,7 +787,7 @@ const herbs = document.getElementById('ras2').querySelectorAll('.herb')
 			}
 		}, tea3: {
 			lines: [
-				{expression: 'disgusted', text: `You've _somehow_ brewed something that tastes like ##harpy##. I'm **not** certain this is a good idea anymore, but, please, pick ~something else~, mm?\nAnd don't ask...`}
+				{expression: 'disgust', text: `You've _somehow_ brewed something that tastes like ##harpy##. I'm **not** certain this is a good idea anymore, but, please, pick ~something else~, mm?\nAnd don't ask...`}
 			], endtrigger: () => {
 				getSavedData('Ras-flags').push('tea3').save()
 				document.querySelector("#ras2 .ras").setAttribute("onclick", "")
@@ -982,6 +1008,7 @@ function goToPage(id, skipAnimation=false) {
 		Playlist.playSong('leafy', true)
 }
 function addCollectible(element, key) {
+	element.removeAttribute('onclick')
 	toScreenCenter(element)
 	const collectibles = getSavedData('collectibles', {
 		pack: (data) => JSON.stringify(data),
@@ -1104,6 +1131,9 @@ function resetDialogues() {
 	window.localStorage.removeItem('Kowabi-flags')
 	window.localStorage.removeItem('Ras-flags')
 	window.localStorage.removeItem('herbs-picked')
+}
+function resetPokedex() {
+	getSavedData('Pokemon-caught').clear()
 }
 function logVolume(x) {
 	x = Math.min(Math.max(x, 0), 1)

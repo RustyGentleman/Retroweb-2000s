@@ -1094,18 +1094,35 @@ dialog::backdrop {
 #lef {
   display: flex;
   justify-content: center;
-  align-items: center;
   overflow: hidden;
+  overflow-y: auto;
 }
 #lef .content {
+  position: relative;
+  min-width: 100vmin;
   padding-top: 5rem;
+}
+#lef .content .header {
+  width: 100%;
+}
+#lef .content #leafeon {
+  position: absolute;
+  left: 50%;
+  top: 30vmin;
+  transform: translate(-50%, -50%);
+}
+#lef #pokefield {
+  position: relative;
+  min-width: 100vmin;
+  aspect-ratio: 2;
+  overflow: visible;
 }
 #lef .tall-grass {
   position: absolute;
   left: 50%;
   top: 50%;
-  height: 10vmin;
-  width: 10vmin;
+  height: 5vmin;
+  width: 5vmin;
   transform-origin: bottom center;
 }
 #lef .tall-grass > img {
@@ -1125,13 +1142,12 @@ dialog::backdrop {
   transition: bottom 0.6s linear;
   z-index: -1;
   cursor: pointer;
-  background-color: purple;
 }
 #lef .tall-grass .pokemon img {
   height: 100%;
 }
 #lef .tall-grass .pokemon.popup {
-  bottom: 50%;
+  bottom: 70%;
 }
 #lef #catch-attempt {
   position: absolute;
@@ -1140,6 +1156,16 @@ dialog::backdrop {
   height: 20vh;
   transform: translate(-50%, -50%);
   z-index: 100;
+  text-align: center;
+}
+#lef #catch-attempt > span {
+  font-size: 2rem;
+  color: white;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  opacity: 0;
+}
+#lef #catch-attempt.caught > span {
+  opacity: 1;
 }
 #lef #catch-attempt .pokeball {
   position: relative;
@@ -1147,6 +1173,7 @@ dialog::backdrop {
   width: 20vh;
   background-image: url("assets/lef/pokeball.png");
   background-size: auto 100%;
+  margin-block: -2rem;
 }
 #lef #catch-attempt .pokeball.open {
   -webkit-animation: pokeball 0.3s steps(2) 0.15s forwards;
@@ -1457,6 +1484,9 @@ dialog::backdrop {
   display: initial;
 }
 #ras-dialogue .portrait.think [src*=think] {
+  display: initial;
+}
+#ras-dialogue .portrait.disgust [src*=disgust] {
   display: initial;
 }
 #ras-dialogue .message {
@@ -1814,9 +1844,13 @@ body {
 }
 
 #lef {
+  background-image: url("assets/lef/bg.png");
+  background-size: 10vmin;
+}
+#lef #pokefield {
   background-image: url("assets/lef/pokemon-bg.jpg");
   background-size: cover;
-  background-position: center;
+  background-position: right center;
 }
 #lef #leafeon {
   filter: drop-shadow(0 -4px 0 black);

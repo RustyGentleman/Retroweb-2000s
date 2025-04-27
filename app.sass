@@ -685,18 +685,30 @@ dialog::backdrop
 #lef
 	display: flex
 	justify-content: center
-	align-items: center
 	overflow: hidden
-	// perspective: 15rem
-	// perspective-origin: bottom center
+	overflow-y: auto
 	.content
+		position: relative
+		min-width: 100vmin
 		padding-top: 5rem
+		.header
+			width: 100%
+		#leafeon
+			position: absolute
+			left: 50%
+			top: 30vmin
+			transform: translate(-50%, -50%)
+	#pokefield
+		position: relative
+		min-width: 100vmin
+		aspect-ratio: 2
+		overflow: visible
 	.tall-grass
 		position: absolute
 		left: 50%
 		top: 50%
-		height: 10vmin
-		width: 10vmin
+		height: 5vmin
+		width: 5vmin
 		transform-origin: bottom center
 		> img
 			height: 100%
@@ -712,11 +724,11 @@ dialog::backdrop
 			transition: bottom .6s linear
 			z-index: -1
 			cursor: pointer
-			background-color: purple
+			// background-color: purple
 			img
 				height: 100%
 			&.popup
-				bottom: 50%
+				bottom: 70%
 	#catch-attempt
 		position: absolute
 		left: 50%
@@ -724,12 +736,21 @@ dialog::backdrop
 		height: 20vh
 		transform: translate(-50%, -50%)
 		z-index: 100
+		text-align: center
+		> span
+			font-size: 2rem
+			color: white
+			text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000
+			opacity: 0
+		&.caught > span
+			opacity: 1
 		.pokeball
 			position: relative
 			height: 20vh
 			width: 20vh
 			background-image: url('assets/lef/pokeball.png')
 			background-size: auto 100%
+			margin-block: -2rem
 			&.open
 				animation: pokeball .3s steps(2) .15s forwards
 			&.closed
@@ -964,7 +985,7 @@ dialog::backdrop
 			height: 100%
 			width: auto
 			mask-image: linear-gradient(to top, transparent, black 30%)
-		$expressions: 'laugh-closed', 'laugh-open', 'smile-closed', 'smile-halfopen', 'smile-open', 'smirk', 'think'
+		$expressions: 'laugh-closed', 'laugh-open', 'smile-closed', 'smile-halfopen', 'smile-open', 'smirk', 'think', 'disgust'
 		@each $expr in $expressions
 			&.#{$expr} [src*="#{$expr}"]
 				display: initial
@@ -1242,9 +1263,12 @@ body
 			border: none
 			text-shadow: 0 0 .5rem white
 #lef
-	background-image: url('assets/lef/pokemon-bg.jpg')
-	background-size: cover
-	background-position: center
+	background-image: url('assets/lef/bg.png')
+	background-size: 10vmin
+	#pokefield
+		background-image: url('assets/lef/pokemon-bg.jpg')
+		background-size: cover
+		background-position: right center
 	#leafeon
 		filter: drop-shadow(0 -4px 0 black)
 #kaboom
