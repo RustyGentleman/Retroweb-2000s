@@ -771,6 +771,8 @@ const herbs = document.getElementById('ras2').querySelectorAll('.herb')
 				herbs.forEach(e => {
 					if (!herbsPicked.find(e.querySelector('img').alt))
 						e.classList.remove('locked')
+					else
+						e.classList.add('locked')
 				})
 			}
 		}, tea2: {
@@ -783,6 +785,8 @@ const herbs = document.getElementById('ras2').querySelectorAll('.herb')
 				herbs.forEach(e => {
 					if (!herbsPicked.find(e.querySelector('img').alt))
 						e.classList.remove('locked')
+					else
+						e.classList.add('locked')
 				})
 			}
 		}, tea3: {
@@ -795,6 +799,8 @@ const herbs = document.getElementById('ras2').querySelectorAll('.herb')
 				herbs.forEach(e => {
 					if (!herbsPicked.find(e.querySelector('img').alt))
 						e.classList.remove('locked')
+					else
+						e.classList.add('locked')
 				})
 			}
 		}, goodtea: {
@@ -806,9 +812,27 @@ const herbs = document.getElementById('ras2').querySelectorAll('.herb')
 				{expression: 'smile-closed', text: `**~Remember:~** Lift with your _legs_, not your _back!_`},
 			], endtrigger: () => {
 				getSavedData('Ras-flags').push('goodtea').save()
+				page.querySelector('.boulder-hitbox').addEventListener('click', () => {
+					const key = document.createElement('div')
+					const img = document.createElement('img')
+					const tooltip = document.createElement('span')
+					key.className = 'hastooltip key'
+					key.style.cssText = "position:absolute;top:50%;left:50%;height:5vh;"
+					img.src = 'assets/key-ras.png'
+					img.alt = 'A key-shaped chunk of citrine'
+					img.style.cssText = 'transform:translateX(-12%'
+					img.setAttribute('onclick', "addCollectible(this, 'a key-shaped chunk of citrine');this.parentElement.remove()")
+					tooltip.className = 'tooltip'
+					tooltip.textContent = 'A key-shaped chunk of citrine'
+					key.append(img)
+					key.append(tooltip)
+					document.getElementById('ras2').querySelector('.boulder-hitbox').append(key)
+					setTimeout(() => img.click())
+				}, {once: true})
 			}
 		}
 	}
+	document.rasDialogueNodes = nodes
 	page.addEventListener('wheel', function(e) {
 		e.preventDefault()
 		page.scrollLeft += e.deltaY
@@ -924,20 +948,21 @@ document.getElementById('home').addEventListener('scroll', () => {
 })
 
 //# Starting setup
-//? Trigger first visitor popup
-// setTimeout(() => document.getElementById('retroModal').style.display = 'block', 3000)
-//? Start on home page
-goToPage('lef', true)
+//? Set player volume
+Playlist.setVolume(window.localStorage.getItem('player-volume') || 1)
 //? Trigger Kowabi's intro
 if (getSavedData('Kowabi-flags').find('intro-done'))
 	Kowabi.playNode('assistance0')
-else
+else {
 	Kowabi.playNode('intro-kt')
-Kowabi.setExpression(3, 2)
+	Kowabi.setExpression(3, 2)
+}
+//? Start on home page
+goToPage('ras2', true)
 //? First playlist update
 setTimeout(() => player.updatePlaylist(), 1000)
-//? Set player volume
-Playlist.setVolume(window.localStorage.getItem('player-volume') || 1)
+//? Trigger first visitor popup
+// setTimeout(() => document.getElementById('retroModal').style.display = 'block', 3000)
 //? Load saved ingredients
 {
 	const spentIngredients = getSavedData('ingredients-spent')
@@ -955,6 +980,8 @@ Playlist.setVolume(window.localStorage.getItem('player-volume') || 1)
 }
 //? Load caught pokemon
 getSavedData('Pokemon-caught').data.forEach(e => document.getElementById('pokedex').querySelector(`[src*="${e}"]`)?.classList.add('caught'))
+//? Load Ras dialogue progress
+getSavedData('Ras-flags').data.forEach(e => document.rasDialogueNodes[e].endtrigger())
 
 //# Debug
 const nav = document.getElementById('debug-nav')
@@ -1010,6 +1037,8 @@ function goToPage(id, skipAnimation=false) {
 function addCollectible(element, key) {
 	element.removeAttribute('onclick')
 	toScreenCenter(element)
+	if (element.tagName === 'img')
+		element.parentElement.style.cssText = ''
 	const collectibles = getSavedData('collectibles', {
 		pack: (data) => JSON.stringify(data),
 		unpack: (data) => JSON.parse(data)
