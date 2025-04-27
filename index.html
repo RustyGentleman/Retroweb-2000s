@@ -13,6 +13,7 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 	<link rel="preload" as="image" href="assets/ras2/tea.png">
+	<link rel="preload" as="image" href="assets/key-ras.png">
 	<link rel="preload" as="image" href="assets/ras2/nx01.png">
 	<style>
 		/*********** Baseline, reset styles ***********/
@@ -83,7 +84,7 @@
 		<div class="bookshelf" id="bookshelf-right" style="right: calc(50% - 25rem);">
 			<img src="assets/home/bookshelf.png" alt="Right bookshelf."/>
 			<div class="hastooltip bookshelf-item" id="universal-translator">
-				<img src="assets/universal-translator.png" alt="A Starfleet-issue Universal Translator" onclick="addCollectible(this, 'a Starfleet-issue Universal Translator'); this.parentElement.remove(); Kowabi.playNode('intro-en')">
+				<img src="assets/universal-translator.png" alt="A Starfleet-issue Universal Translator" onclick="addCollectible(this, 'a Starfleet-issue Universal Translator', `You've found a`, `Starfleet-issue Universal Translator!`); this.parentElement.remove(); Kowabi.playNode('intro-en')">
 				<span class="tooltip">A Starfleet-issue Universal Translator</span>
 			</div>
 		</div>
@@ -354,14 +355,14 @@
 			<img src="assets/lef/pokedex.png" alt="Pokedex" class="overlay">
 			<div class="screen">
 				<img class="" src="assets/lef/furret.png">
-<img class="" src="assets/lef/ampharos.png">
+				<img class="" src="assets/lef/ampharos.png">
 				<img class="" src="assets/lef/skitty.png">
 				<img class="" src="assets/lef/delcatty.png">
 				<img class="" src="assets/lef/shinx.png">
 				<img class="" src="assets/lef/glameow.png">
 				<img class="" src="assets/lef/leafeon.png">
-								<img class="" src="assets/lef/tailmon.png">
-								<img class="" src="assets/lef/pigeon.png">
+				<img class="" src="assets/lef/tailmon.png">
+				<img class="" src="assets/lef/pigeon.png">
 			</div>
 		</div>
 	</div>

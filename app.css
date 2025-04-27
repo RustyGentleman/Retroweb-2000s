@@ -513,6 +513,12 @@ body {
   transition: 1s linear;
   transition-property: top, left, transform, opacity;
   pointer-events: none;
+  text-align: center;
+}
+.toscreencenter div {
+  font-size: 2rem;
+  color: white;
+  text-shadow: 2px 2px 0 black, -2px 2px 0 black, -2px -2px 0 black, 2px -2px 0 black;
 }
 .toscreencenter > * {
   transition: 1s linear;

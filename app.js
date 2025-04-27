@@ -455,13 +455,14 @@ const slimeInfo = {
 	})
 }
 
-//# Cauldron
+//# Alchemy
 class Alchemy {
 	static ingredients = document.querySelector('#pal #ingredients')
+	static room = document.querySelector('#pal .room:nth-child(2)')
 	static cauldron = document.querySelector('#pal #cauldron')
 	static picked = []
 	static recipes = [
-		{ingredients: [ //? Chroma
+		{name: 'Chroma', ingredients: [ //? Chroma
 			'A blob of red slime',
 			'A blob of orange slime',
 			'A blob of yellow slime',
@@ -496,10 +497,10 @@ class Alchemy {
 				].join('|')
 				button.click()
 		}},
-		{ingredients: ['Heartgleam'], result: () => teaBrewed(cauldron)},
-		{ingredients: ['Crimson Regalia'], result: () => teaBrewed(cauldron)},
-		{ingredients: ['Moonlace'], result: () => teaBrewed(cauldron)},
-		{ingredients: ["Sun's Favor"], result: () => teaBrewed(cauldron)},
+		{name: 'Heartgleam Tea', ingredients: ['Heartgleam'], result: () => teaBrewed("Heartgleam Tea")},
+		{name: 'Crimson Regalia Tea', ingredients: ['Crimson Regalia'], result: () => teaBrewed("Crimson Regalia Tea")},
+		{name: 'Moonlace Tea', ingredients: ['Moonlace'], result: () => teaBrewed("Moonlace Tea")},
+		{name: "Sun's Favor Tea", ingredients: ["Sun's Favor"], result: () => teaBrewed("Sun's Favor Tea")},
 	]
 	static matchedRecipe
 
@@ -525,14 +526,12 @@ class Alchemy {
 		setTimeout(() => puff.remove(), 1000)
 		document.h_puff.play()
 
-		if (this.matchedRecipe) {
+		if (this.matchedRecipe) { //? Valid recipe
 			this.matchedRecipe.result()
-			const spentIngredients = getSavedData('ingredients-spent')
-			for (const ingredient of this.matchedRecipe.ingredients)
-				spentIngredients.push(ingredient)
-			spentIngredients.save()
+			getSavedData('recipes-brewed').push(this.matchedRecipe.name)
+			this.filterIngredients()
 			this.matchedRecipe = undefined
-		} else {
+		} else { //? Invalid recipe
 			puff.classList.add('black')
 			let hasNonSlime = false
 			for (const ingredient of this.picked) {
@@ -569,6 +568,18 @@ class Alchemy {
 			}
 		this.cauldron.classList.add('invalid')
 		this.matchedRecipe = undefined
+	}
+	static filterIngredients() {
+		this.ingredients.querySelectorAll('.hastooltiip').forEach(e => e.style.display = 'none')
+		const recipesBrewed = getSavedData('recipes-brewed').data
+		const ingredientsLeft = new Set()
+		Alchemy.recipes
+			.filter(e => !recipesBrewed.includes(e.name))
+			.forEach(unusedRecipe => unusedRecipe.ingredients.forEach(ingredient => ingredientsLeft.add(ingredient)))
+		ingredientsLeft.forEach(e => {
+			const ingredient = this.ingredients.querySelector(`[alt*="${e}"]`)
+			if (ingredient) ingredient.style.display = ''
+		})
 	}
 }
 
@@ -623,16 +634,16 @@ let pokemonTimeoutID
 	const pokedex = document.getElementById('pokedex')
 	const catchChance = .6
 	const pokemons = [
-				'furret',
-'ampharos',
+		'furret',
+		'ampharos',
 		'skitty',
 		'delcatty',
 		'shinx',
 		'glameow',
 		'leafeon',
-				'tailmon',
+		'tailmon',
 		'pigeon',
-			]
+	]
 	function spawnPokemon() {
 		const grass = tallgrasses[Math.floor(Math.random()*tallgrasses.length)]
 		const wrapper = document.createElement('div')
@@ -705,7 +716,7 @@ let pokemonTimeoutID
 				img.src = 'assets/key-leafy.png'
 				img.alt = 'A key-shaped leafy stick'
 				img.style.cssText = 'transform:translateX(-12%'
-				img.setAttribute('onclick', "this.parentElement.previousElementSibling.previousElementSibling.classList.remove('hidden');this.parentElement.style.cssText='';addCollectible(this, 'a key-shaped leafy stick');this.parentElement.remove()")
+				img.setAttribute('onclick', "this.parentElement.previousElementSibling.previousElementSibling.classList.remove('hidden');this.parentElement.style.cssText='';addCollectible(this, 'a key-shaped leafy stick', `You've earned a`, `Key-shaped Leafy Stick!`);this.parentElement.remove()")
 				tooltip.className = 'tooltip'
 				tooltip.textContent = 'A key-shaped leafy stick'
 				key.append(img)
@@ -822,7 +833,7 @@ const herbs = document.getElementById('ras2').querySelectorAll('.herb')
 					img.src = 'assets/key-ras.png'
 					img.alt = 'A key-shaped chunk of citrine'
 					img.style.cssText = 'transform:translateX(-12%'
-					img.setAttribute('onclick', "addCollectible(this, 'a key-shaped chunk of citrine');this.parentElement.remove()")
+					img.setAttribute('onclick', "addCollectible(this, 'a key-shaped chunk of citrine', `You found a`, `Key-shaped Chunk of Citrine!`);this.parentElement.remove()")
 					tooltip.className = 'tooltip'
 					tooltip.textContent = 'A key-shaped chunk of citrine'
 					key.append(img)
@@ -859,7 +870,7 @@ const herbs = document.getElementById('ras2').querySelectorAll('.herb')
 		addCollectible(herb, herb.alt)
 		herbs.forEach(e => e.classList.add('locked'))
 	}
-	function teaBrewed() {
+	function teaBrewed(name) {
 		const cauldron = document.getElementById('pal').querySelector('#cauldron-clickbox')
 		const wrapper = document.createElement('div')
 		const tea = document.createElement('img')
@@ -873,7 +884,7 @@ const herbs = document.getElementById('ras2').querySelectorAll('.herb')
 		wrapper.append(tea)
 		cauldron.append(wrapper)
 		setTimeout(() => {
-			toScreenCenter(tea)
+			toScreenCenter(tea, 'You have brewed some', name+'!')
 			wrapper.remove()
 		}, 10)
 		const herbsPicked = getSavedData('herbs-picked').data
@@ -966,18 +977,18 @@ setTimeout(() => player.updatePlaylist(), 1000)
 // setTimeout(() => document.getElementById('retroModal').style.display = 'block', 3000)
 //? Load saved ingredients
 {
-	const spentIngredients = getSavedData('ingredients-spent')
 	getSavedData('collectibles', {
 		pack: (data) => JSON.stringify(data),
 		unpack: (data) => JSON.parse(data)
 	}).data
-		.filter(e => !!e.html.match(/class="[^"]*?ingredient[^"]*?"/) && !spentIngredients.find(e.key))
+		.filter(e => !!e.html.match(/class="[^"]*?ingredient[^"]*?"/))
 		.forEach(e => {
 			const surrogate = document.createElement('div')
 			surrogate.innerHTML = e.html
 			surrogate.firstElementChild.firstElementChild.setAttribute('onclick', 'Alchemy.add(this)')
 			ingredients.append(surrogate.firstElementChild)
 		})
+	Alchemy.filterIngredients()
 }
 //? Load caught pokemon
 getSavedData('Pokemon-caught').data.forEach(e => document.getElementById('pokedex').querySelector(`[src*="${e}"]`)?.classList.add('caught'))
@@ -1035,9 +1046,9 @@ function goToPage(id, skipAnimation=false) {
 	if (document.currentPage.id === 'lef')
 		Playlist.playSong('leafy', true)
 }
-function addCollectible(element, key) {
+function addCollectible(element, key, toptext='', bottomtext='') {
 	element.removeAttribute('onclick')
-	toScreenCenter(element)
+	toScreenCenter(element, toptext, bottomtext)
 	if (element.tagName === 'img')
 		element.parentElement.style.cssText = ''
 	const collectibles = getSavedData('collectibles', {
@@ -1069,17 +1080,25 @@ function DropTempText(element, string, seconds=5, post) {
 		post(text)
 	setTimeout(() => text.remove(), seconds*1000)
 }
-async function toScreenCenter(element) {
+async function toScreenCenter(element, toptext='', bottomtext='') {
 	const rect = element.getBoundingClientRect()
 	const clone = element.cloneNode(true)
 	const div = document.createElement('div')
+	const tt = document.createElement('div')
+	const bt = document.createElement('div')
 	div.style.position = 'absolute'
 	div.style.top = rect.top+'px'
 	div.style.left = rect.left+'px'
 	clone.style.height = element.clientHeight+'px'
 	clone.style.width = element.clientWidth+'px'
 	clone.style.transform = getComputedStyle(element).transform
+	tt.textContent = toptext
+	bt.textContent = bottomtext
 	div.append(clone)
+	if (toptext.length)
+		div.prepend(tt)
+	if (bottomtext.length)
+		div.append(bt)
 	document.body.append(div)
 	await new Promise(r => setTimeout(r, 10))
 	div.classList.add('toscreencenter')
@@ -1111,7 +1130,7 @@ function dialogueAdvance(button, type='slime') {
 				const key = document.createElement('div')
 				key.classList.add('hastooltip')
 				key.classList.add('hidden')
-				key.innerHTML = `<img src="assets/key-kaboom.png" alt="A key-shaped blob of chromatic slime" onclick="addCollectible(this,'a key-shaped blob of chromatic slime');slimeSteptext.targetElement=document.querySelector('#kaboom #slime-dialogue .text');document.querySelector('#pal #slime-dialogue').remove()"><span class="tooltip">A key-shaped blob of chromatic slime</span>`
+				key.innerHTML = `<img src="assets/key-kaboom.png" alt="A key-shaped blob of chromatic slime" onclick="addCollectible(this,'a key-shaped blob of chromatic slime', "Chroma gave you a", "Key-shaped Blob of Chromatic Slime!");slimeSteptext.targetElement=document.querySelector('#kaboom #slime-dialogue .text');document.querySelector('#pal #slime-dialogue').remove()"><span class="tooltip">A key-shaped blob of chromatic slime</span>`
 				button.before(key)
 			} else {
 				const blob = document.createElement('div')
@@ -1156,6 +1175,7 @@ function resetCollectibles() {
 }
 function resetAlchemy() {
 	window.localStorage.removeItem('ingredients-spent')
+	window.localStorage.removeItem('recipes-brewed')
 }
 function resetDialogues() {
 	window.localStorage.removeItem('Kowabi-flags')
