@@ -73,10 +73,10 @@
 	<div class="fullpage hidden" id="home">
 		<div class="floor"></div>
 		<div class="window">
-			<img src="assets/home/window.png" alt="Window to a starry sky."/>
+			<img src="assets/home/window.png" alt="Window to a starry sky"/>
 		</div>
 		<div class="bookshelf" id="bookshelf-left" style="left: calc(50% - 25rem)">
-			<img src="assets/home/bookshelf.png" alt="Left bookshelf."/>
+			<img src="assets/home/bookshelf.png" alt="Left bookshelf"/>
 			<div class="hastooltip bookshelf-item" id="slimepedia">
 				<img src="assets/home/book-kaboom.png" alt="A Slimepedia" onclick="goToPage('kaboom')">
 				<span class="tooltip">A Slimepedia.</span>
@@ -91,17 +91,17 @@
 			</div>
 		</div>
 		<div class="bookshelf" id="bookshelf-right" style="right: calc(50% - 25rem)">
-			<img src="assets/home/bookshelf.png" alt="Right bookshelf."/>
+			<img src="assets/home/bookshelf.png" alt="Right bookshelf"/>
 			<div class="hastooltip bookshelf-item" id="universal-translator">
 				<img src="assets/universal-translator.png" alt="A Starfleet-issue Universal Translator" onclick="addCollectible(this, 'a Starfleet-issue Universal Translator', `You've found a`, `Starfleet-issue Universal Translator!`); this.parentElement.remove(); Kowabi.playNode('intro-en')">
 				<span class="tooltip">A Starfleet-issue Universal Translator</span>
 			</div>
 		</div>
-		<img src="assets/home/balloons.png" alt="Party balloons in black, white and red." id="balloons"/>
+		<img src="assets/home/balloons.png" alt="Party balloons in black, white and red" id="balloons"/>
 		<!--# Basement level -->
 		<div class="floor ceiling"></div>
 		<div class="basement-wall">
-			<img src="assets/home/special-door.png" alt="A fancy-looking door." id="finaldoor">
+			<img src="assets/home/special-door.png" alt="A fancy-looking door" id="finaldoor">
 			<img src="assets/home/lock.png" alt="A lock" class="lock">
 			<img src="assets/home/lock.png" alt="A lock" class="lock">
 			<img src="assets/home/lock.png" alt="A lock" class="lock">
@@ -126,7 +126,7 @@
 	</div>
 	<div class="fullpage hidden" id="ras">
 		<div class="content">
-			<img class="enterprise" src="assets/ras/enterprise-blast.gif" alt="USS Enterprise-C phaser firing." style="margin-block: 6rem -17rem;margin-right: -39rem" onclick="document.h_phaser.play()">
+			<img class="enterprise" src="assets/ras/enterprise-blast.gif" alt="USS Enterprise-C phaser firing" style="margin-block: 6rem -17rem;margin-right: -39rem" onclick="document.h_phaser.play()">
 			<img class="bust" src="assets/ras/ras-nobg.png" alt="Rasutei, the Gentle Kitsune">
 			<img class="header" src="assets/ras/header.gif" alt="Ras, the Royal Enchanter">
 			<br>
@@ -298,13 +298,25 @@
 					<img src="assets/pal/header.png" alt="Pal's Tower">
 				</div>
 				<div id="wiz-1">
-					<img src="assets/pal/wizard-cast.gif" alt="Wizard casting a spell." style="margin-top: 0rem">
+					<img src="assets/pal/wizard-cast.gif" alt="Wizard casting a spell" style="margin-top: 0rem">
 				</div>
 				<img src="assets/portal.gif" class="portal" onclick="goToPage('home')"></i>
 			</div>
 			<!-- Alchemy-->
 			<div class="room">
-				<div id="ingredients"></div>
+				<div class="shelf">
+					<img src="assets/pal/shelf.png" alt="An ingredient shelf">
+					<div class="container">
+						<div class="hastooltip">
+							<img src="assets/pal/potion-base.png" class="ingredient" alt="Potion base" onclick="Alchemy.add(this)">
+							<span class="tooltip">Potion base (water)</span>
+						</div>
+					</div>
+				</div>
+				<div class="shelf">
+					<img src="assets/pal/shelf.png" alt="An ingredient shelf">
+					<div class="container"></div>
+				</div>
 				<img src="assets/pal/cauldron1.gif" alt="Boiling cauldron" id="cauldron">
 				<div id="cauldron-clickbox" onclick="Alchemy.brew()"></div>
 			</div>
@@ -322,9 +334,9 @@
 					<span>by order of the</span>
 					<span>Royal Enchanter.</span>
 				</div>
-				<img src="assets/home/bookshelf.png" alt="Empty bookshelf." class="empty-bookshelf">
-				<img src="assets/home/bookshelf.png" alt="Empty bookshelf." class="empty-bookshelf" style="left: 70.4%">
-				<img src="assets/pal/desk.png" alt="A desk." id="desk" style="filter: drop-shadow(0 2rem 1rem rgb(0 0 0 / 70%))">
+				<img src="assets/home/bookshelf.png" alt="Empty bookshelf" class="empty-bookshelf">
+				<img src="assets/home/bookshelf.png" alt="Empty bookshelf" class="empty-bookshelf" style="left: 70.4%">
+				<img src="assets/pal/desk.png" alt="A desk" id="desk" style="filter: drop-shadow(0 2rem 1rem rgb(0 0 0 / 70%))">
 				<a href="https://oldgoogle.neocities.org/1998/" target="_blank" onclick="document.h_paper.play()">
 					<div class="hastooltip" id="psych">
 						<img src="assets/pal/book.png" alt="Compendium of Pal's Knowledge of Psychology">
@@ -346,22 +358,22 @@
 					<div class="owl right flying flyaway"></div>
 				</div>
 				<div class="painting hastooltip" style="height:18.8%;left:14.7%;top:35%">
-					<img src="assets/pal/gob-fingerguns.png" alt="The Goblin Queen throwing finger guns.">
+					<img src="assets/pal/gob-fingerguns.png" alt="The Goblin Queen throwing finger guns">
 					<span class="tooltip">The Goblin Queen throwing finger guns</span>
 				</div>
 				<div class="painting hastooltip" style="top:61%;left:15.7%;width:6%">
-					<img src="assets/pal/gob-blep.png" alt="The Goblin Queen throwing finger guns.">
+					<img src="assets/pal/gob-blep.png" alt="The Goblin Queen throwing finger guns">
 					<span class="tooltip">The Goblin Queen throwing finger guns</span>
 				</div>
 				<div class="painting hastooltip" style="height:18.8%;left:73.9%;top:35%">
-					<img src="assets/pal/gob-wave.png" alt="The Goblin Queen waving hello.">
+					<img src="assets/pal/gob-wave.png" alt="The Goblin Queen waving hello">
 					<span class="tooltip">The Goblin Queen waving hello</span>
 				</div>
 				<div class="painting hastooltip" style="height:18.8%;left:73.9%;top:61%">
 					<span class="tooltip">The Goblin Queen's very sexy legs</span>
-					<img src="assets/pal/gob-legs.png" alt="The Goblin Queen's very sexy legs.">
+					<img src="assets/pal/gob-legs.png" alt="The Goblin Queen's very sexy legs">
 				</div>
-				<img src="assets/pal/easel.png" alt="An easel." style="position:absolute;height:50%;bottom:0;right:31%;pointer-events:none">
+				<img src="assets/pal/easel.png" alt="An easel" style="position:absolute;height:50%;bottom:0;right:31%;pointer-events:none">
 			</div>
 			<!-- Bed room-->
 			<div class="room">
@@ -369,10 +381,10 @@
 					<div class="owl left flying flyaway"></div>
 					<div class="owl right flying flyaway"></div>
 				</div>
-				<img src="assets/pal/fireplace.png" alt="A fireplace." style="position:absolute;height:45%;bottom:2.6%;left: 7.6%">
-				<img src="assets/pal/palade.png" alt="A Pal-Ade poster." style="position:absolute;height:12.9%;top:40%;left: 11.6%">
-				<img src="assets/pal/rocking-chair.png" alt="A rocking chair." style="position:absolute;height:40%;bottom:3%;right: 37%;pointer-events:none">
-				<img src="assets/pal/spades.png" alt="Spades, the wizard's familiar." style="position:absolute;height:20%;bottom:5%;right: 17%">
+				<img src="assets/pal/fireplace.png" alt="A fireplace" style="position:absolute;height:45%;bottom:2.6%;left: 7.6%">
+				<img src="assets/pal/palade.png" alt="A Pal-Ade poster" style="position:absolute;height:12.9%;top:40%;left: 11.6%">
+				<img src="assets/pal/rocking-chair.png" alt="A rocking chair" style="position:absolute;height:40%;bottom:3%;right: 37%;pointer-events:none">
+				<img src="assets/pal/spades.png" alt="Spades, the wizard's familiar" style="position:absolute;height:20%;bottom:5%;right: 17%">
 			</div>
 			<dialog id="lettertogob">
 				Letter of appreciation written in overly strategic language.<br>
@@ -467,8 +479,8 @@
 	</div>
 	<div id="music-player">
 		<div id="icon" onclick="player.togglePanel()">
-			<img src="assets/radio.gif" alt="Radio playing music." class="hidden"/>
-			<img src="assets/radio.png" alt="Radio turned off."/>
+			<img src="assets/radio.gif" alt="Radio playing music" class="hidden"/>
+			<img src="assets/radio.png" alt="Radio turned off"/>
 		</div>
 		<div id="panel" class="hidden">
 			<div id="playlist">

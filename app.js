@@ -457,7 +457,8 @@ const slimeInfo = {
 
 //# Alchemy
 class Alchemy {
-	static ingredients = document.querySelector('#pal #ingredients')
+	static shelfLeft = document.getElementById('pal').querySelector('.shelf .container')
+	static shelfRight = document.getElementById('pal').querySelector('.shelf:nth-child(2) .container')
 	static room = document.querySelector('#pal .room:nth-child(2)')
 	static cauldron = document.querySelector('#pal #cauldron')
 	static picked = []
@@ -584,14 +585,14 @@ class Alchemy {
 
 	static add(ingredient) {
 		this.picked.push(ingredient.nextElementSibling.textContent)
-		ingredient.parentElement.style.display = 'none'
+		ingredient.parentElement.classList.add('hidden')
 		document.h_sploop.play()
 
 		//* Splash
 		const splash = document.createElement('div')
 		splash.classList.add('splash')
 		splash.style.transform = `translateX(${Math.random() * 100 - 90}%) scale(1.5)`
-		this.ingredients.nextElementSibling.after(splash)
+		this.cauldron.after(splash)
 		setTimeout(() => splash.remove(), 1000)
 		this.validate()
 	}
@@ -613,7 +614,8 @@ class Alchemy {
 			puff.classList.add('black')
 			let hasNonSlime = false
 			for (const ingredient of this.picked) {
-				this.ingredients.querySelector(`[alt="${ingredient}"]`).parentElement.style.display = ''
+				const ingredientElement = this.shelfLeft.querySelector(`[alt="${ingredient}"]`) || this.shelfRight.querySelector(`[alt="${ingredient}"]`)
+				ingredientElement.parentElement.classList.remove('hidden')
 				if (!ingredient.match('slime'))
 					hasNonSlime = true
 			}
@@ -648,15 +650,16 @@ class Alchemy {
 		this.matchedRecipe = undefined
 	}
 	static filterIngredients() {
-		this.ingredients.querySelectorAll('.hastooltip').forEach(e => e.style.display = 'none')
+		this.shelfLeft.querySelectorAll('.hastooltip').forEach(e => e.classList.add('hidden'))
+		this.shelfRight.querySelectorAll('.hastooltip').forEach(e => e.classList.add('hidden'))
 		const recipesBrewed = getSavedData('recipes-brewed').data
 		const ingredientsLeft = new Set()
 		Alchemy.recipes
 			.filter(e => !recipesBrewed.includes(e.name))
 			.forEach(unusedRecipe => unusedRecipe.ingredients.forEach(ingredient => ingredientsLeft.add(ingredient)))
 		ingredientsLeft.forEach(e => {
-			const ingredient = this.ingredients.querySelector(`[alt*="${e}"]`)
-			if (ingredient) ingredient.parentElement.style.display = ''
+			const ingredient = this.shelfLeft.querySelector(`[alt*="${e}"]`) || this.shelfRight.querySelector(`[alt*="${e}"]`)
+			if (ingredient) ingredient.parentElement.classList.remove('hidden')
 		})
 	}
 }
@@ -1063,7 +1066,10 @@ getSavedData('collectibles', {
 		const surrogate = document.createElement('div')
 		surrogate.innerHTML = e.html
 		surrogate.firstElementChild.firstElementChild.setAttribute('onclick', 'Alchemy.add(this)')
-		ingredients.append(surrogate.firstElementChild)
+		if (e.html.match(/alt="[^"]*?slime[^"]*?"/))
+			Alchemy.shelfRight.append(surrogate.firstElementChild)
+		else
+			Alchemy.shelfLeft.append(surrogate.firstElementChild)
 	})
 Alchemy.filterIngredients()
 //? Load keys
@@ -1149,7 +1155,10 @@ function addCollectible(element, key, toptext='', bottomtext='') {
 	if (element.classList.contains('ingredient')) {
 		const clone = element.parentElement.cloneNode(true)
 		clone.firstElementChild.setAttribute('onclick', 'Alchemy.add(this)')
-		document.querySelector('#pal #ingredients').append(clone)
+		if (element.alt.includes('slime'))
+			Alchemy.shelfRight.append(clone)
+		else
+			Alchemy.shelfLeft.append(clone)
 	}
 	if (element.tagName === 'IMG' && element.src.includes('key'))
 		hangKey(element.parentElement)
