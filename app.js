@@ -578,7 +578,7 @@ class Alchemy {
 			.forEach(unusedRecipe => unusedRecipe.ingredients.forEach(ingredient => ingredientsLeft.add(ingredient)))
 		ingredientsLeft.forEach(e => {
 			const ingredient = this.ingredients.querySelector(`[alt*="${e}"]`)
-			if (ingredient) ingredient.style.display = ''
+			if (ingredient) ingredient.parentElement.style.display = ''
 		})
 	}
 }
@@ -989,7 +989,6 @@ getSavedData('collectibles', {
 	})
 Alchemy.filterIngredients()
 //? Load keys
-
 getSavedData('collectibles', {
 	pack: (data) => JSON.stringify(data),
 	unpack: (data) => JSON.parse(data)
