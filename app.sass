@@ -488,7 +488,6 @@ dialog::backdrop
 				[alt*='slime']
 					height: 4rem
 					transform: translate(5%, 93%) rotate(90deg) !important
-
 		#finaldoor
 			position: absolute
 			bottom: 0
@@ -577,8 +576,8 @@ dialog::backdrop
 		.owl-container
 			position: absolute
 			bottom: 15%
-			left: 15.7%
-			right: 15.6%
+			left: 45.5%
+			right: 45.3%
 			height: 38%
 			border-radius: 2.6rem 2.8rem 0 0
 			overflow: hidden
@@ -602,9 +601,9 @@ dialog::backdrop
 					transform: translate(-100%, -100%)
 					transition: transform 1s ease-in
 				&.left
-					left: -4%
+					left: -45%
 				&.right
-					right: -4%
+					right: -45%
 					transform: rotateY(180deg)
 					&.flyaway
 						transform: rotateY(180deg) translate(-100%, -100%)
@@ -622,7 +621,7 @@ dialog::backdrop
 		//? Top room
 		.portal
 			position: absolute
-			left: 51%
+			right: -9%
 			bottom: 0
 			height: 70%
 			transform: translateX(-50%)
@@ -634,15 +633,15 @@ dialog::backdrop
 			position: absolute
 			height: 70%
 			bottom: 0
-			left: -2%
+			left: 10%
 			&::before
 				content: ''
 				display: block
 				position: absolute
 				bottom: 0
-				right: 20%
+				right: 35%
 				width: 50%
-				height: 10%
+				height: 20%
 			img
 				position: relative
 				height: 100%
@@ -1268,17 +1267,15 @@ body
 		filter: drop-shadow(0 0 .2rem #ff004c) drop-shadow(0 0 .2rem #0011ff) drop-shadow(0 1rem .5rem black)
 #pal
 	background-color: #2e58ae
-	background-image: url('assets/pal/sky-bg-top.jpg'), url('assets/pal/sky-bg-bottom.jpg')
+	background-image: url('assets/pal/bg-top.png'), url('assets/pal/bg-bottom.jpg')
 	background-repeat: repeat-x
 	background-position: top center, bottom center
-	background-size: auto 6rem, auto 6rem
+	background-size: auto 10vh, auto 10vh
 	.content
 		color: white
 		.room
-			background-image: url('assets/pal/wall.png')
+			background-image: url('assets/pal/wall-010.png')
 			background-size: 100% auto
-			&.windowed
-				background-image: url('assets/pal/wall-windowed.png')
 		.painting
 			border: solid 2vmin
 			border-image: url('assets/pal/picture-frame.png')

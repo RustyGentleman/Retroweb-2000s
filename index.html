@@ -90,7 +90,7 @@
 				<span class="tooltip">A pop-up book.</span>
 			</div>
 		</div>
-		<div class="bookshelf" id="bookshelf-right" style="right: calc(50% - 25rem);">
+		<div class="bookshelf" id="bookshelf-right" style="right: calc(50% - 25rem)">
 			<img src="assets/home/bookshelf.png" alt="Right bookshelf."/>
 			<div class="hastooltip bookshelf-item" id="universal-translator">
 				<img src="assets/universal-translator.png" alt="A Starfleet-issue Universal Translator" onclick="addCollectible(this, 'a Starfleet-issue Universal Translator', `You've found a`, `Starfleet-issue Universal Translator!`); this.parentElement.remove(); Kowabi.playNode('intro-en')">
@@ -126,7 +126,7 @@
 	</div>
 	<div class="fullpage hidden" id="ras">
 		<div class="content">
-			<img class="enterprise" src="assets/ras/enterprise-blast.gif" alt="USS Enterprise-C phaser firing." style="margin-block: 6rem -17rem;margin-right: -39rem;" onclick="document.h_phaser.play()">
+			<img class="enterprise" src="assets/ras/enterprise-blast.gif" alt="USS Enterprise-C phaser firing." style="margin-block: 6rem -17rem;margin-right: -39rem" onclick="document.h_phaser.play()">
 			<img class="bust" src="assets/ras/ras-nobg.png" alt="Rasutei, the Gentle Kitsune">
 			<img class="header" src="assets/ras/header.gif" alt="Ras, the Royal Enchanter">
 			<br>
@@ -176,7 +176,7 @@
 	<div class="fullpage hidden" id="ras2">
 		<div class="treeline"></div>
 		<div class="background"></div>
-		<div class="grass-2" style="bottom:-6vh;height:15vh;transform:translateZ(-20rem);background-position-x:-30vh;"></div>
+		<div class="grass-2" style="bottom:-6vh;height:15vh;transform:translateZ(-20rem);background-position-x:-30vh"></div>
 		<div class="grass"></div>
 		<div class="porch">
 			<img src="assets/ras2/porch-t.png">
@@ -262,7 +262,7 @@
 		<div class="ras">
 			<img src="assets/ras2/ras-standing-lit.png" alt="Ras">
 		</div>
-		<svg width="0" height="0" style="position: absolute;">
+		<svg width="0" height="0" style="position: absolute">
 			<filter id="WispyEdges" filterUnits="objectBoundingBox" x="0" y="0" width="1" height="1">
 				<!-- Step 4: Second turbulence for wobble -->
 				<feTurbulence 0type="turbulence" numOctaves="6" seed="2" result="displaceNoise">
@@ -288,35 +288,42 @@
 	<div class="fullpage hidden" id="pal">
 		<div class="content">
 			<!-- Top-->
-			<div class="room windowed">
+			<div class="room">
 				<div class="owl-container">
 					<!-- <div class="owl left"></div> -->
 					<div class="owl right"></div>
+					<div class="owl left flying flyaway"></div>
 				</div>
 				<div id="header" style="margin-top: 2%">
 					<img src="assets/pal/header.png" alt="Pal's Tower">
 				</div>
 				<div id="wiz-1">
-					<img src="assets/pal/wizard-pew.gif" alt="Wizard shooting magic in multiple directions." style="margin-top: 0rem;">
+					<img src="assets/pal/wizard-cast.gif" alt="Wizard casting a spell." style="margin-top: 0rem">
 				</div>
 				<img src="assets/portal.gif" class="portal" onclick="goToPage('home')"></i>
 			</div>
 			<!-- Alchemy-->
-			<div class="room windowed" style="background-image:url('assets/pal/wall-101.png')">
-				<div class="owl-container">
-					<div class="owl left flying flyaway"></div>
-					<div class="owl right flying flyaway"></div>
-				</div>
+			<div class="room">
 				<div id="ingredients"></div>
 				<img src="assets/pal/cauldron1.gif" alt="Boiling cauldron" id="cauldron">
 				<div id="cauldron-clickbox" onclick="Alchemy.brew()"></div>
 			</div>
 			<!-- Writing-->
-			<div class="room" style="background-image:url('assets/pal/wall-101.png')">
+			<div class="room">
 				<div class="owl-container">
 					<div class="owl left flying flyaway"></div>
 					<div class="owl right flying flyaway"></div>
 				</div>
+				<div id="notice" onclick="this.classList.toggle('open'); document.h_paper.play()">
+					<span>Collection</span>
+					<span>en-route to</span>
+					<span>the kingdom's</span>
+					<span>central library</span>
+					<span>by order of the</span>
+					<span>Royal Enchanter.</span>
+				</div>
+				<img src="assets/home/bookshelf.png" alt="Empty bookshelf." class="empty-bookshelf">
+				<img src="assets/home/bookshelf.png" alt="Empty bookshelf." class="empty-bookshelf" style="left: 70.4%">
 				<img src="assets/pal/desk.png" alt="A desk." id="desk" style="filter: drop-shadow(0 2rem 1rem rgb(0 0 0 / 70%))">
 				<a href="https://oldgoogle.neocities.org/1998/" target="_blank" onclick="document.h_paper.play()">
 					<div class="hastooltip" id="psych">
@@ -332,26 +339,40 @@
 					<img src="assets/pal/letter.png">
 					<span class="tooltip">A letter to the Goblin Queen</span>
 				</div>
-				<div class="painting" style="height: 24.2%">
-					<img src="assets/pal/gob-blep.png" alt="The Goblin Queen throwing finger guns.">
-				</div>
 			</div>
-			<!-- Library-->
+			<!-- Art room-->
 			<div class="room">
-				<img src="assets/pal/wizard-pc.gif" alt="Wizard browsing the web." id="wiz-2">
-				<img src="assets/home/bookshelf.png" alt="Empty bookshelf." class="empty-bookshelf">
-				<img src="assets/home/bookshelf.png" alt="Empty bookshelf." class="empty-bookshelf" style="left: 40.8%">
-				<div id="notice" onclick="this.classList.toggle('open'); document.h_paper.play()">
-					<span>Collection</span>
-					<span>en-route to</span>
-					<span>the kingdom's</span>
-					<span>central library</span>
-					<span>by order of the</span>
-					<span>Royal Enchanter.</span>
+				<div class="owl-container">
+					<div class="owl right flying flyaway"></div>
 				</div>
-				<div class="painting" style="height:18.8%;right:14.3%">
+				<div class="painting hastooltip" style="height:18.8%;left:14.7%;top:35%">
 					<img src="assets/pal/gob-fingerguns.png" alt="The Goblin Queen throwing finger guns.">
+					<span class="tooltip">The Goblin Queen throwing finger guns</span>
 				</div>
+				<div class="painting hastooltip" style="top:61%;left:15.7%;width:6%">
+					<img src="assets/pal/gob-blep.png" alt="The Goblin Queen throwing finger guns.">
+					<span class="tooltip">The Goblin Queen throwing finger guns</span>
+				</div>
+				<div class="painting hastooltip" style="height:18.8%;left:73.9%;top:35%">
+					<img src="assets/pal/gob-wave.png" alt="The Goblin Queen waving hello.">
+					<span class="tooltip">The Goblin Queen waving hello</span>
+				</div>
+				<div class="painting hastooltip" style="height:18.8%;left:73.9%;top:61%">
+					<span class="tooltip">The Goblin Queen's very sexy legs</span>
+					<img src="assets/pal/gob-legs.png" alt="The Goblin Queen's very sexy legs.">
+				</div>
+				<img src="assets/pal/easel.png" alt="An easel." style="position:absolute;height:50%;bottom:0;right:31%;pointer-events:none">
+			</div>
+			<!-- Bed room-->
+			<div class="room">
+				<div class="owl-container">
+					<div class="owl left flying flyaway"></div>
+					<div class="owl right flying flyaway"></div>
+				</div>
+				<img src="assets/pal/fireplace.png" alt="A fireplace." style="position:absolute;height:45%;bottom:2.6%;left: 7.6%">
+				<img src="assets/pal/palade.png" alt="A Pal-Ade poster." style="position:absolute;height:12.9%;top:40%;left: 11.6%">
+				<img src="assets/pal/rocking-chair.png" alt="A rocking chair." style="position:absolute;height:40%;bottom:3%;right: 37%;pointer-events:none">
+				<img src="assets/pal/spades.png" alt="Spades, the wizard's familiar." style="position:absolute;height:20%;bottom:5%;right: 17%">
 			</div>
 			<dialog id="lettertogob">
 				Letter of appreciation written in overly strategic language.<br>

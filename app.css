@@ -824,10 +824,10 @@ dialog::backdrop {
   transform: translate(calc(-50% + 7.7rem), -4rem) rotate(19deg);
 }
 #home .basement-wall .lock:nth-child(3) {
-  transform: translateX(calc(-50% - 7.7rem)) rotate(-3deg);
+  transform: translateX(calc(-50% - 7.7rem)) rotate(-12deg);
 }
 #home .basement-wall .lock:nth-child(4) {
-  transform: translate(calc(-50% + 7.7rem), 4rem) rotate(-8deg);
+  transform: translate(calc(-50% + 7.7rem), 4rem) rotate(-9deg);
 }
 #home .basement-wall .wallhook {
   position: absolute;
@@ -970,8 +970,8 @@ dialog::backdrop {
 #pal .content .owl-container {
   position: absolute;
   bottom: 15%;
-  left: 15.7%;
-  right: 15.6%;
+  left: 45.5%;
+  right: 45.3%;
   height: 38%;
   border-radius: 2.6rem 2.8rem 0 0;
   overflow: hidden;
@@ -999,10 +999,10 @@ dialog::backdrop {
   transition: transform 1s ease-in;
 }
 #pal .content .owl-container .owl.left {
-  left: -4%;
+  left: -45%;
 }
 #pal .content .owl-container .owl.right {
-  right: -4%;
+  right: -45%;
   transform: rotateY(180deg);
 }
 #pal .content .owl-container .owl.right.flyaway {
@@ -1024,7 +1024,7 @@ dialog::backdrop {
 }
 #pal .content .portal {
   position: absolute;
-  left: 51%;
+  right: -9%;
   bottom: 0;
   height: 70%;
   transform: translateX(-50%);
@@ -1039,16 +1039,16 @@ dialog::backdrop {
   position: absolute;
   height: 70%;
   bottom: 0;
-  left: -2%;
+  left: 10%;
 }
 #pal .content #wiz-1::before {
   content: "";
   display: block;
   position: absolute;
   bottom: 0;
-  right: 20%;
+  right: 35%;
   width: 50%;
-  height: 10%;
+  height: 20%;
 }
 #pal .content #wiz-1 img {
   position: relative;
@@ -1846,20 +1846,17 @@ body {
 
 #pal {
   background-color: #2e58ae;
-  background-image: url("assets/pal/sky-bg-top.jpg"), url("assets/pal/sky-bg-bottom.jpg");
+  background-image: url("assets/pal/bg-top.png"), url("assets/pal/bg-bottom.jpg");
   background-repeat: repeat-x;
   background-position: top center, bottom center;
-  background-size: auto 6rem, auto 6rem;
+  background-size: auto 10vh, auto 10vh;
 }
 #pal .content {
   color: white;
 }
 #pal .content .room {
-  background-image: url("assets/pal/wall.png");
+  background-image: url("assets/pal/wall-010.png");
   background-size: 100% auto;
-}
-#pal .content .room.windowed {
-  background-image: url("assets/pal/wall-windowed.png");
 }
 #pal .content .painting {
   border: solid 2vmin;

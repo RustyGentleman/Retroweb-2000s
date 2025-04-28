@@ -1048,7 +1048,7 @@ else {
 	Kowabi.setExpression(3, 2)
 }
 //? Start on home page
-goToPage('home', true)
+goToPage('pal', true)
 //? First playlist update
 setTimeout(() => player.updatePlaylist(), 1000)
 //? Trigger first visitor popup
