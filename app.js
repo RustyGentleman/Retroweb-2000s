@@ -634,7 +634,9 @@ class Alchemy {
 	static validate() {
 		this.cauldron.classList.remove('valid')
 		this.cauldron.classList.remove('invalid')
-		for (const recipe of this.recipes)
+		const recipesBrewed = getSavedData('recipes-brewed').data
+		const unusedRecipes = Alchemy.recipes.filter(e => !recipesBrewed.includes(e.name))
+		for (const recipe of unusedRecipes)
 			if (
 				recipe.ingredients.every(ing => this.picked.includes(ing))
 				&& recipe.ingredients.length === this.picked.length
