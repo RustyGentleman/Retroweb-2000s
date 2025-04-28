@@ -462,7 +462,7 @@ class Alchemy {
 	static cauldron = document.querySelector('#pal #cauldron')
 	static picked = []
 	static recipes = [
-		{name: 'Chroma', ingredients: [ //? Chroma
+		{name: 'Chroma', ingredients: [
 			'A blob of red slime',
 			'A blob of orange slime',
 			'A blob of yellow slime',
@@ -497,10 +497,88 @@ class Alchemy {
 				].join('|')
 				button.click()
 		}},
-		{name: 'Heartgleam Tea', ingredients: ['Heartgleam'], result: () => teaBrewed("Heartgleam Tea")},
-		{name: 'Crimson Regalia Tea', ingredients: ['Crimson Regalia'], result: () => teaBrewed("Crimson Regalia Tea")},
-		{name: 'Moonlace Tea', ingredients: ['Moonlace'], result: () => teaBrewed("Moonlace Tea")},
-		{name: "Sun's Favor Tea", ingredients: ["Sun's Favor"], result: () => teaBrewed("Sun's Favor Tea")},
+		{name: 'Heartgleam Tea', ingredients: [
+			'Potion base',
+			'Heartgleam'
+			], result: () => teaBrewed("Heartgleam Tea")},
+		{name: 'Crimson Regalia Tea', ingredients: [
+			'Potion base',
+			'Crimson Regalia'
+			], result: () => teaBrewed("Crimson Regalia Tea")},
+		{name: 'Moonlace Tea', ingredients: [
+			'Potion base',
+			'Moonlace'
+			], result: () => teaBrewed("Moonlace Tea")},
+		{name: "Sun's Favor Tea", ingredients: [
+			'Potion base',
+			"Sun's Favor"
+			], result: () => teaBrewed("Sun's Favor Tea")},
+		{name: 'Little Witch in the Woods', ingredients: [
+			'Moonlace',
+			'A blob of blue slime',
+			// 'A magic-looking mushroom',
+			], result: () => {
+				const cauldron = document.getElementById('pal').querySelector('#cauldron-clickbox')
+				const wrapper = document.createElement('div')
+				const item = document.createElement('img')
+				item.src = 'assets/pal/littlewitchinthewoods.png'
+				item.style.height = '100%'
+				wrapper.style.height = '20%'
+				wrapper.style.position = 'absolute'
+				wrapper.style.left = '50%'
+				wrapper.style.top = '30%'
+				wrapper.style.transform = 'translateX(-50%)'
+				wrapper.append(item)
+				cauldron.append(wrapper)
+				setTimeout(() => {
+					toScreenCenter(item, 'Found secret gift:', 'Little Bitch in the Woods!')
+					wrapper.remove()
+				}, 10)
+			}},
+		{name: 'Tavern Talk', ingredients: [
+			'Potion base',
+			'Heartgleam',
+			// 'A magic-looking mushroom',
+			], result: () => {
+				const cauldron = document.getElementById('pal').querySelector('#cauldron-clickbox')
+				const wrapper = document.createElement('div')
+				const item = document.createElement('img')
+				item.src = 'assets/pal/littlewitchinthewoods.png'
+				item.style.height = '100%'
+				wrapper.style.height = '20%'
+				wrapper.style.position = 'absolute'
+				wrapper.style.left = '50%'
+				wrapper.style.top = '30%'
+				wrapper.style.transform = 'translateX(-50%)'
+				wrapper.append(item)
+				cauldron.append(wrapper)
+				setTimeout(() => {
+					toScreenCenter(item, 'Found secret gift:', 'Tavern Talk!')
+					wrapper.remove()
+				}, 10)
+			}},
+		{name: 'Coffee Talk', ingredients: [
+			'Potion base',
+			'A blob of yellow slime',
+			"Sun's Favor",
+			], result: () => {
+				const cauldron = document.getElementById('pal').querySelector('#cauldron-clickbox')
+				const wrapper = document.createElement('div')
+				const item = document.createElement('img')
+				item.src = 'assets/pal/littlewitchinthewoods.png'
+				item.style.height = '100%'
+				wrapper.style.height = '20%'
+				wrapper.style.position = 'absolute'
+				wrapper.style.left = '50%'
+				wrapper.style.top = '30%'
+				wrapper.style.transform = 'translateX(-50%)'
+				wrapper.append(item)
+				cauldron.append(wrapper)
+				setTimeout(() => {
+					toScreenCenter(item, 'Found secret gift:', 'Coffee Talk!')
+					wrapper.remove()
+				}, 10)
+			}},
 	]
 	static matchedRecipe
 
