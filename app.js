@@ -563,7 +563,7 @@ class Alchemy {
 				const cauldron = document.getElementById('pal').querySelector('#cauldron-clickbox')
 				const wrapper = document.createElement('div')
 				const item = document.createElement('img')
-				item.src = 'assets/pal/littlewitchinthewoods.png'
+				item.src = 'assets/pal/taverntalk.png'
 				item.style.height = '100%'
 				wrapper.style.height = '20%'
 				wrapper.style.position = 'absolute'
@@ -585,7 +585,7 @@ class Alchemy {
 				const cauldron = document.getElementById('pal').querySelector('#cauldron-clickbox')
 				const wrapper = document.createElement('div')
 				const item = document.createElement('img')
-				item.src = 'assets/pal/littlewitchinthewoods.png'
+				item.src = 'assets/pal/coffeetalk.png'
 				item.style.height = '100%'
 				wrapper.style.height = '20%'
 				wrapper.style.position = 'absolute'
@@ -661,10 +661,7 @@ class Alchemy {
 				&& recipe.ingredients.length === this.picked.length
 			) {
 				this.cauldron.classList.add('valid')
-				this.matchedRecipe = this.recipes.find(recipe =>
-					recipe.ingredients.length === this.picked.length &&
-					recipe.ingredients.every(ing => this.picked.includes(ing))
-				)
+				this.matchedRecipe = recipe
 				return
 			}
 		this.cauldron.classList.add('invalid')
