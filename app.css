@@ -821,13 +821,13 @@ dialog::backdrop {
   height: 4rem;
 }
 #home .basement-wall .lock:nth-child(2) {
-  transform: translate(calc(-50% + 7.7rem), -4rem) rotate(15deg);
+  transform: translate(calc(-50% + 7.7rem), -4rem) rotate(-3deg);
 }
 #home .basement-wall .lock:nth-child(3) {
-  transform: translateX(calc(-50% - 7.7rem)) rotate(-11deg);
+  transform: translateX(calc(-50% - 7.7rem)) rotate(-8deg);
 }
 #home .basement-wall .lock:nth-child(4) {
-  transform: translate(calc(-50% + 7.7rem), 4rem) rotate(12deg);
+  transform: translate(calc(-50% + 7.7rem), 4rem) rotate(-3deg);
 }
 #home .basement-wall .wallhook {
   position: absolute;
@@ -1213,14 +1213,16 @@ dialog::backdrop {
   position: relative;
   min-width: 100vmin;
   padding-top: 5rem;
+  overflow-y: visible;
 }
 #lef .content .header {
-  width: 100%;
+  height: 30vmin;
 }
 #lef .content #leafeon {
   position: absolute;
   left: 50%;
-  top: 30vmin;
+  top: calc(5rem + 14vmin);
+  height: 15vmin;
   transform: translate(-50%, -50%);
 }
 #lef #pokefield {
@@ -1229,7 +1231,7 @@ dialog::backdrop {
   aspect-ratio: 2;
   overflow: visible;
 }
-#lef .tall-grass {
+#lef #pokefield .tall-grass {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -1237,7 +1239,7 @@ dialog::backdrop {
   width: 5vmin;
   transform-origin: bottom center;
 }
-#lef .tall-grass > img {
+#lef #pokefield .tall-grass > img {
   height: 100%;
   width: 100%;
   -webkit-mask-image: url("assets/lef/tallgrass.png");
@@ -1246,7 +1248,7 @@ dialog::backdrop {
           mask-size: 100% 100%;
   transform: scale(1.3);
 }
-#lef .tall-grass .pokemon {
+#lef #pokefield .tall-grass .pokemon {
   position: absolute;
   bottom: 0%;
   width: 100%;
@@ -1255,11 +1257,27 @@ dialog::backdrop {
   z-index: -1;
   cursor: pointer;
 }
-#lef .tall-grass .pokemon img {
+#lef #pokefield .tall-grass .pokemon img {
   height: 100%;
 }
-#lef .tall-grass .pokemon.popup {
+#lef #pokefield .tall-grass .pokemon.popup {
   bottom: 70%;
+}
+#lef #funnydownload {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 0.2rem;
+  margin: 2rem auto;
+  border: dashed 2px #31635a;
+  font-family: "VT323", monospace;
+  font-size: 1.3rem;
+  transition: 0.1s ease;
+  transition-property: top, left;
+  z-index: 100;
 }
 #lef #catch-attempt {
   position: absolute;

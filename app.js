@@ -1086,6 +1086,21 @@ document.getElementById('home').addEventListener('scroll', () => {
 		threshold: [0],
 	}).observe(gob)
 }
+//# Leafy's fleeing download button
+{
+	const funnibutton = document.getElementById('funnydownload')
+	const dist = 100
+	funnibutton.addEventListener('mousemove', flee, {once: true})
+	async function flee() {
+		const delay = Math.random() * 100
+		const style = getComputedStyle(funnibutton)
+		await new Promise(r => setTimeout(r, delay))
+		funnibutton.style.left = (+style.left.match(/\d+/)[0] + Math.random()*dist - dist/2) + 'px'
+		funnibutton.style.top = (+style.top.match(/\d+/)[0] + Math.random()*dist - dist/2) + 'px'
+		await new Promise(r => setTimeout(r, 100))
+		funnibutton.addEventListener('mousemove', flee, {once: true})
+	}
+}
 
 //# Starting setup
 //? Set player volume
@@ -1098,7 +1113,7 @@ else {
 	Kowabi.setExpression(3, 2)
 }
 //? Start on home page
-goToPage('home', true)
+goToPage('lef', true)
 //? First playlist update
 setTimeout(() => player.updatePlaylist(), 1000)
 //? Trigger first visitor popup

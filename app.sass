@@ -779,44 +779,59 @@ dialog::backdrop
 		position: relative
 		min-width: 100vmin
 		padding-top: 5rem
+		overflow-y: visible
 		.header
-			width: 100%
+			height: 30vmin
 		#leafeon
 			position: absolute
 			left: 50%
-			top: 30vmin
+			top: calc(5rem + 14vmin)
+			height: 15vmin
 			transform: translate(-50%, -50%)
 	#pokefield
 		position: relative
 		min-width: 100vmin
 		aspect-ratio: 2
 		overflow: visible
-	.tall-grass
-		position: absolute
-		left: 50%
-		top: 50%
-		height: 5vmin
-		width: 5vmin
-		transform-origin: bottom center
-		> img
-			height: 100%
-			width: 100%
-			mask-image: url('assets/lef/tallgrass.png')
-			mask-size: 100% 100%
-			transform: scale(1.3)
-		.pokemon
+		.tall-grass
 			position: absolute
-			bottom: 0%
-			width: 100%
-			height: 100%
-			transition: bottom .6s linear
-			z-index: -1
-			cursor: pointer
-			// background-color: purple
-			img
+			left: 50%
+			top: 50%
+			height: 5vmin
+			width: 5vmin
+			transform-origin: bottom center
+			> img
 				height: 100%
-			&.popup
-				bottom: 70%
+				width: 100%
+				mask-image: url('assets/lef/tallgrass.png')
+				mask-size: 100% 100%
+				transform: scale(1.3)
+			.pokemon
+				position: absolute
+				bottom: 0%
+				width: 100%
+				height: 100%
+				transition: bottom .6s linear
+				z-index: -1
+				cursor: pointer
+				img
+					height: 100%
+				&.popup
+					bottom: 70%
+	#funnydownload
+		$spacing: .5rem
+		position: relative
+		top: 0
+		left: 0
+		width: fit-content
+		padding: .2rem
+		margin: 2rem auto
+		border: dashed 2px #31635a
+		font-family: "VT323", monospace
+		font-size: 1.3rem
+		transition: .1s ease
+		transition-property: top, left
+		z-index: 100
 	#catch-attempt
 		position: absolute
 		left: 50%
