@@ -132,7 +132,7 @@ class Playlist {
 	static playlist = []
 	static songs = new Map()
 	static current
-static volume
+	static volume
 	static playtimeUpdateInterval
 
 	static addSong(filename, title) {
@@ -161,20 +161,20 @@ static volume
 		const song = this.songs.get(key)
 		if (!song)
 			return console.warn(`Song with key "${key}" not found.`)
-				if (this.current) {
+		if (this.current) {
 			this.fadeVolume(0, 1000)
 			console.log('Prepause')
 			player.playlist.querySelector('.'+this.current.key).classList.remove('playing')
-await new Promise(r => setTimeout(r, 1000))
+			await new Promise(r => setTimeout(r, 1000))
 			console.log('Postpause')
 			this.current.howl.stop()
 		}
 		if (unlock)
 			this.unlockSong(key)
 		this.current = song
-this.current.howl.volume(0)
+		this.current.howl.volume(0)
 		this.current.howl.play()
-this.fadeVolume(this.volume)
+		this.fadeVolume(this.volume)
 		player.playlist.querySelector('.'+key)?.classList.add('playing')
 		player.setTitle(song.title)
 		if (this.playtimeUpdateInterval)
@@ -197,7 +197,7 @@ this.fadeVolume(this.volume)
 		this.playlist.forEach(e => e.howl.volume(volume))
 		window.localStorage.setItem('player-volume', volume)
 		player.querySelector('#volume').value = volume
-this.volume = volume
+		this.volume = volume
 	}
 	static fadeVolume(to, duration=500) {
 		if (!this.current) return
@@ -211,15 +211,15 @@ this.volume = volume
 			return
 		}
 		if (this.current.howl.playing()) {
-this.fadeVolume(0, 1000)
+			this.fadeVolume(0, 1000)
 			setTimeout(() => {
-			this.current.howl.pause()
-			player.toggleIcon(false)
-}, 1000)
+				this.current.howl.pause()
+				player.toggleIcon(false)
+			}, 1000)
 		} else {
-this.current.howl.volume(0)
+			this.current.howl.volume(0)
 			this.current.howl.play()
-this.fadeVolume(this.volume, 1000)
+			this.fadeVolume(this.volume, 1000)
 			player.toggleIcon(true)
 		}
 	}
@@ -313,7 +313,7 @@ Playlist.addSongs([
 	['pal', 'Jonah Senzel - The Temple of Magicks'],
 	['gobdance', 'Sam Westphalen - The Goblin Dance'],
 	['ent', 'Russell Watson - Where My Heart Will Take Me'],
-['ras', 'Yvette Young - Odessa (Acoustic Version)'],
+	['ras', 'Yvette Young - Odessa (Acoustic Version)'],
 ])
 
 //# Slimes
@@ -1043,6 +1043,7 @@ document.h_amethyst = [
 document.h_faith = new Howl({src: ['assets/ras2/faith.mp3']})
 document.h_wiggle = new Howl({src: ['assets/lef/wiggle.mp3']})
 document.h_caught = new Howl({src: ['assets/lef/caught.mp3']})
+document.h_snap = new Howl({src: ['assets/home/snap.mp3']})
 //# Goblin dance
 const home = document.getElementById('home')
 const bottom = window.visualViewport.height * 7
@@ -1059,7 +1060,35 @@ document.getElementById('home').addEventListener('scroll', () => {
 			player.updatePlaylist()
 		}
 	}
-})
+}, {passive: true})
+//# Goblin head snap
+{
+	const gob = document.querySelector('#home .singular-gob')
+	new IntersectionObserver(([entry]) => {
+		const centerY = window.innerHeight / 2
+
+		if (entry.isIntersecting) {
+			document.getElementById('home').addEventListener('scroll', onScroll, {passive: true})
+			onScroll()
+		} else {
+			Array.from(gob.children).forEach(e => e.classList.toggle('hidden'))
+			document.getElementById('home').removeEventListener('scroll', onScroll)
+			onScroll = null
+		}
+
+		function onScroll() {
+			const r = gob.getBoundingClientRect()
+			if (r.top < centerY && r.bottom > centerY) {
+				if (document.h_snap.playing()) return
+				document.h_snap.play()
+				Array.from(gob.children).forEach(e => e.classList.toggle('hidden'))
+				document.getElementById('home').removeEventListener('scroll', onScroll)
+			}
+		}
+	}, {
+		threshold: [0],
+	}).observe(gob)
+}
 
 //# Starting setup
 //? Set player volume
@@ -1072,7 +1101,7 @@ else {
 	Kowabi.setExpression(3, 2)
 }
 //? Start on home page
-goToPage('pal', true)
+goToPage('home', true)
 //? First playlist update
 setTimeout(() => player.updatePlaylist(), 1000)
 //? Trigger first visitor popup
@@ -1150,7 +1179,7 @@ function goToPage(id, skipAnimation=false) {
 	else
 		clearTimeout(pokemonTimeoutID)
 	//? Nav triggers
-const collectibles = getSavedData('collectibles', {
+	const collectibles = getSavedData('collectibles', {
 		pack: (data) => JSON.stringify(data),
 		unpack: (data) => JSON.parse(data)
 	}).data
@@ -1159,13 +1188,13 @@ const collectibles = getSavedData('collectibles', {
 		if (collectibles.find(e => e.key == 'a Starfleet-issue Universal Translator') && !getSavedData('Kowabi-flags').find('kaboom-intro-done'))
 			Kowabi.playNode('kaboom-intro')
 	}
-else if (document.currentPage.id === 'ras2')
+	else if (document.currentPage.id === 'ras2')
 		Playlist.playSong('ras', true)
 	else if (document.currentPage.id === 'pal')
 		Playlist.playSong('pal', true)
-else if (document.currentPage.id === 'lef')
+	else if (document.currentPage.id === 'lef')
 		Playlist.playSong('leafy', true)
-else if (Playlist.current?.howl.playing())
+	else if (Playlist.current?.howl.playing())
 		Playlist.play()
 }
 function addCollectible(element, key, toptext='', bottomtext='') {
