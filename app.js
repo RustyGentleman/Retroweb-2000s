@@ -326,47 +326,47 @@ const slimeSteptext = new Steptext(document.querySelector('#kaboom #slime-dialog
 	st.pause()
 }})
 const slimeInfo = {
-	jerome	: {cur: 0, trig: 1, color: 'red', dialogue: [
+	jerome	: {cur: 0, trig: 1, color: 'red', 		post: 'H-H-Hey...', dialogue: [
 		`Y-Y-Y... Uhm... Y...`,
 		`!!Y-.. You're very pretty\\!\\! BYE\\!!!`,
 		`_Jerome lobs **a blob of red slime** at you before quickly wobbling away, seeming flustered._`]},
-	roosevelt: {cur: 0, trig: 1, color: 'orange', dialogue: [
+	roosevelt: {cur: 0, trig: 1, color: 'orange', 	post: 'Howdy', dialogue: [
 		`~Howdy there~, pardner... How goes yer travels?\nWell, I hope...`,
 		`I don't much know what you might use it for, friend, but uh...`,
 		`Here, take some slime for the road. I suppose you _never_ know, huh?`,
 		`_Roosevelt passes you a **blob of orange slime**._`]},
-	samantha	: {cur: 0, trig: 1, color: 'yellow', dialogue: [
+	samantha	: {cur: 0, trig: 1, color: 'yellow', 	post: 'YIPPEE!', dialogue: [
 		`**Hi hi hI HI HI!!!!** How's it going? _~Good?~_ I hope good! It's so nice to meet you, do you want some ~sliiiime~? Here here here, !!HAVE SOME SLIME\\!\\!\\!\\!\\!!!"\n_Before you even get a chance to say anything, Samantha passes you **a blob of yellow slime** and wobbles off to do... something.._`]},
-	jared		: {cur: 0, trig: 1, color: 'green', dialogue: [
+	jared		: {cur: 0, trig: 1, color: 'green', 	post: 'Friend.', dialogue: [
 		`Hi there, you're ~green~.`,
 		`I'm _also_ ~green...~ We're !!best friends!!, now.`,
 		`Here, have a !!best friend!! gift.`,
 		`_Jared hands you... **a ~gift-wrapped~ blob of green slime**..._\n<span style="font-size:.8rem">_When did they have a chance to..?... Nevermind._</span>`]},
-	jeremy	: {cur: 0, trig: 1, color: 'blue', dialogue: [
+	jeremy	: {cur: 0, trig: 1, color: 'blue', 		post: 'Happy Birthday!', dialogue: [
 		`Hi! You're **Gob**, right..?\nKaboom has told all of us so much about you!`,
 		`~All~ of us slimes have been looking forward to meeting you for !!AGES!!, so go introduce yourself!`,
 		`Oh, and here's ~some slime~, as a welcoming gift!`,
 		`_Jeremy gives you **a blob of blue slime** - and ~a beaming smile!~_`]},
-	michael	: {cur: 0, trig: 1, color: 'purple', dialogue: [
+	michael	: {cur: 0, trig: 1, color: 'purple', 	post: '*Nom*', dialogue: [
 		`Hey there, lady...\nDo you have any snacks..?`,
 		`_Awww..._ you don't?`,
 		`Nobody should go without snacks...\nHere...`,
 		`_Michael gives you a piece of ~the chocolate bar~ sticking out of them...\nIt's... buried in **a blob of purple slime**._`,
 		]},
-	aurora	: {cur: 0, trig: 1, color: 'pink', dialogue: [
+	aurora	: {cur: 0, trig: 1, color: 'pink', 		post: 'Oh ho ho~', dialogue: [
 		`~Oh my!~ Another royal! It's ~ever so wonderful~ to make your acquaintance at last!`,
 		`Here, as a welcome to my fair queendom, have a gift.`,
 		`_Aurora holds out **a blob of pink slime**...\nAs you lean down to grab it, you see her ~crown~ is...\na cardboard burger king crown.\n<span style="font-size:.8rem">~~she might not actually be a queen...~~</span>_`]},
-	salt		: {cur: 0, trig: 1, color: 'white', dialogue: [
+	salt		: {cur: 0, trig: 1, color: 'white', 	post: ':]', dialogue: [
 		`<span style="font-size:.8rem">Hi.</span>`,
 		`<span style="font-size:.8rem">Welcome to our field.</span>`,
 		`_Salt seems happy to see you... but also not big on conversation...\nYou sit with them for a short bit and they hand you **a blob of white slime...**\n<span style="font-size:.8rem">You feel like you should wash your hands after this one...</span>_`]},
-	flint		: {cur: 0, trig: 1, color: 'grey', dialogue: [
+	flint		: {cur: 0, trig: 1, color: 'grey', 		post: 'Much to do...', dialogue: [
 		`Hello, I'd love to talk but I have ~so much to do...~`,
 		`I've got to negotiate a deal with the Royal Wizard, ask for continued permission to consume the foliage surrounding his tower, and then.. ugh... I have to do our Slime Taxes...`,
 		`Nobody else here is serious enough to do it... so much to do... !!so much to do...!!`,
 		`_You see Flint sweat intensely...\nPossibly from the fire, possibly from the stress...\nAs he wobbles away to get to work on the Slime 1040s and Slime W-2s, his sweat coalesces into **a blob of grey slime**._`]},
-	pepper	: {cur: 0, trig: 1, color: 'black', dialogue: [
+	pepper	: {cur: 0, trig: 1, color: 'black', 	post: 'B-bye now...', dialogue: [
 		`U-u-uhm... h.. _h-hi there..._ goblin lady...`,
 		`I-It's.. uhm... uhh... a-a pleasure to m-meet you...`,
 		`Y-Y.. Y-You aren't... gonna e-eat me are you..? I... I heard people put _!!Pepper!!_... o-on their food...`,
@@ -376,16 +376,7 @@ const slimeInfo = {
 		`_Pepper nervously hands you **a blob of black slime**._`]},
 }
 {
-	const save = getSavedData('slimeCounter',{
-		initial: {},
-		pack: (data) => JSON.stringify(data),
-		unpack: (data) => JSON.parse(data)
-	})
 	document.querySelectorAll('#kaboom #field .slime').forEach((slime) => {
-		//* Set up counter
-		if (save.data[slime.id])
-			slimeInfo[slime.id].cur = save.data[slime.id]
-
 		//* Click interaction
 		slime.addEventListener('click', () => {
 			if (slime.classList.contains('boing')) return
@@ -394,6 +385,7 @@ const slimeInfo = {
 			DropTempText(slime, 'Boing!', 1, (text) => {
 				const inner = document.createElement('div')
 				inner.textContent = text.textContent
+				inner.classList.add('boing')
 				text.textContent = ''
 				text.append(inner)
 			})
@@ -402,12 +394,36 @@ const slimeInfo = {
 			setTimeout(() => slime.classList.remove('boing'), 800)
 
 			//? Counter increase
-			slimeInfo[slime.id].cur += 1
-			save.data[slime.id] = slimeInfo[slime.id].cur
+			if (slime.id != 'chroma') {
+				const counters = getSavedData('slimeCounter',{
+					initial: {},
+					pack: (data) => JSON.stringify(data),
+					unpack: (data) => JSON.parse(data)
+				})
+				if (!counters.data[slime.id])
+					counters.data[slime.id] = 1
+				else ++counters.data[slime.id]
+				slimeInfo[slime.id].cur = counters.data[slime.id]
+				counters.save()
+			}
 
-			//? Trigger dialogue
+			const alreadyGotten = getSavedData('collectibles', {
+				pack: (data) => JSON.stringify(data),
+				unpack: (data) => JSON.parse(data)
+			}).data.find(e => e.key.includes(slimeInfo[slime.id]?.color+' slime'))
 			const dialogue = document.querySelector('#kaboom #slime-dialogue')
-			if (slimeInfo[slime.id] != -1 && dialogue.classList.contains('hidden'))
+
+			//? Trigger post-dialogue line
+			if (alreadyGotten || slime.id == 'chroma') {
+				DropTempText(slime, '', 5, (text) => {
+					const inner = document.createElement('div')
+					inner.innerHTML = slimeInfo[slime.id]?.post || '<span class="chromatic-text">Rainbow!</span>'
+					text.textContent = ''
+					text.append(inner)
+				})
+			}
+			//? Trigger dialogue
+			else if (slimeInfo[slime.id] != -1 && dialogue.classList.contains('hidden'))
 				if (slimeInfo[slime.id].cur >= slimeInfo[slime.id].trig) {
 					const clone = slime.cloneNode(true)
 					clone.style.cssText = ''
@@ -417,7 +433,7 @@ const slimeInfo = {
 					const button = dialogue.querySelector('.message button')
 					button.dataset.dialogue = slimeInfo[slime.id].dialogue.join('|')
 					button.click()
-				}
+				} 
 		})
 
 		//* Motion
@@ -1149,6 +1165,12 @@ getSavedData('collectibles', {
 getSavedData('Pokemon-caught').data.forEach(e => document.getElementById('pokedex').querySelector(`[src*="${e}"]`)?.classList.add('caught'))
 //? Load Ras dialogue progress
 getSavedData('Ras-flags').data.forEach(e => document.rasDialogueNodes[e].endtrigger())
+//? Show Chroma if key gotten
+if (getSavedData('collectibles', {
+	pack: (data) => JSON.stringify(data),
+	unpack: (data) => JSON.parse(data)
+}).data.find(e => e.key.includes('chromatic slime')))
+	document.querySelector('#kaboom #field #chroma').style.display = ''
 
 //# Debug
 const nav = document.getElementById('debug-nav')

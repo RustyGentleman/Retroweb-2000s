@@ -821,13 +821,13 @@ dialog::backdrop {
   height: 4rem;
 }
 #home .basement-wall .lock:nth-child(2) {
-  transform: translate(calc(-50% + 7.7rem), -4rem) rotate(-3deg);
+  transform: translate(calc(-50% + 7.7rem), -4rem) rotate(13deg);
 }
 #home .basement-wall .lock:nth-child(3) {
-  transform: translateX(calc(-50% - 7.7rem)) rotate(-8deg);
+  transform: translateX(calc(-50% - 7.7rem)) rotate(-7deg);
 }
 #home .basement-wall .lock:nth-child(4) {
-  transform: translate(calc(-50% + 7.7rem), 4rem) rotate(-3deg);
+  transform: translate(calc(-50% + 7.7rem), 4rem) rotate(19deg);
 }
 #home .basement-wall .wallhook {
   position: absolute;
@@ -2041,7 +2041,7 @@ body {
   transform: rotate(var(--angle));
   transform-origin: bottom center;
 }
-#kaboom .temptext > div {
+#kaboom .temptext > div.boing {
   -webkit-animation: boingText 1s ease-in-out;
           animation: boingText 1s ease-in-out;
 }
