@@ -302,7 +302,7 @@ Kowabi.addNodes([
 			['Continue', 'kaboom-slimes-2'],
 		]],
 	['kaboom-slimes-2', "Reminds me of ~someone...~", [4, 2], [
-			['End', null, () => {Kowabi.setToEmpty(); getSavedData('Kowabi-flags').push('kaboom-intro-done').save()}],
+			['End', '', () => {Kowabi.setToNeutral(); getSavedData('Kowabi-flags').push('kaboom-intro-done').save()}],
 		]],
 ])
 
