@@ -821,13 +821,13 @@ dialog::backdrop {
   height: 4rem;
 }
 #home .basement-wall .lock:nth-child(2) {
-  transform: translate(calc(-50% + 7.7rem), -4rem) rotate(13deg);
+  transform: translate(calc(-50% + 7.7rem), -4rem) rotate(19deg);
 }
 #home .basement-wall .lock:nth-child(3) {
-  transform: translateX(calc(-50% - 7.7rem)) rotate(-7deg);
+  transform: translateX(calc(-50% - 7.7rem)) rotate(-14deg);
 }
 #home .basement-wall .lock:nth-child(4) {
-  transform: translate(calc(-50% + 7.7rem), 4rem) rotate(19deg);
+  transform: translate(calc(-50% + 7.7rem), 4rem) rotate(-2deg);
 }
 #home .basement-wall .wallhook {
   position: absolute;
@@ -1452,6 +1452,9 @@ dialog::backdrop {
   perspective: 50rem;
   image-rendering: auto;
 }
+#ras2:not(.hidden) .porch .portal-wrapper .portal {
+  pointer-events: auto;
+}
 #ras2 .porch img, #ras2 .garden img, #ras2 .ras img {
   height: 100%;
   width: auto;
@@ -1475,7 +1478,6 @@ dialog::backdrop {
 #ras2 .porch .portal-wrapper .portal {
   margin-left: -40vh;
   transform: scale(2, 3) translateY(-5vh);
-  pointer-events: auto;
 }
 #ras2 .treeline {
   position: absolute;

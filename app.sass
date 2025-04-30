@@ -967,6 +967,8 @@ dialog::backdrop
 	overflow: auto hidden
 	perspective: 50rem
 	image-rendering: auto
+	&:not(.hidden) .porch .portal-wrapper .portal
+		pointer-events: auto
 	.porch, .garden, .ras
 		img
 			height: 100%
@@ -988,7 +990,6 @@ dialog::backdrop
 			.portal
 				margin-left: -40vh
 				transform: scale(2, 3) translateY(-5vh)
-				pointer-events: auto
 	.treeline
 		position: absolute
 		top: -50vh
