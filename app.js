@@ -132,6 +132,7 @@ class Playlist {
 	static playlist = []
 	static songs = new Map()
 	static current
+static volume
 	static playtimeUpdateInterval
 
 	static addSong(filename, title) {
@@ -156,17 +157,24 @@ class Playlist {
 			for (const [filename, title] of song)
 				this.addSong(filename, title)
 	}
-	static playSong(key, unlock=false) {
+	static async playSong(key, unlock=false) {
 		const song = this.songs.get(key)
 		if (!song)
 			return console.warn(`Song with key "${key}" not found.`)
-		this.current?.howl.stop()
-		if (this.current)
+				if (this.current) {
+			this.fadeVolume(0, 1000)
+			console.log('Prepause')
 			player.playlist.querySelector('.'+this.current.key).classList.remove('playing')
+await new Promise(r => setTimeout(r, 1000))
+			console.log('Postpause')
+			this.current.howl.stop()
+		}
 		if (unlock)
 			this.unlockSong(key)
 		this.current = song
+this.current.howl.volume(0)
 		this.current.howl.play()
+this.fadeVolume(this.volume)
 		player.playlist.querySelector('.'+key)?.classList.add('playing')
 		player.setTitle(song.title)
 		if (this.playtimeUpdateInterval)
@@ -189,6 +197,11 @@ class Playlist {
 		this.playlist.forEach(e => e.howl.volume(volume))
 		window.localStorage.setItem('player-volume', volume)
 		player.querySelector('#volume').value = volume
+this.volume = volume
+	}
+	static fadeVolume(to, duration=500) {
+		if (!this.current) return
+		this.current.howl.fade(this.current.howl.volume(), to, duration)
 	}
 	static play() {
 		if (!this.current) {
@@ -198,10 +211,15 @@ class Playlist {
 			return
 		}
 		if (this.current.howl.playing()) {
+this.fadeVolume(0, 1000)
+			setTimeout(() => {
 			this.current.howl.pause()
 			player.toggleIcon(false)
+}, 1000)
 		} else {
+this.current.howl.volume(0)
 			this.current.howl.play()
+this.fadeVolume(this.volume, 1000)
 			player.toggleIcon(true)
 		}
 	}
