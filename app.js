@@ -295,6 +295,7 @@ Playlist.addSongs([
 	['pal', 'Jonah Senzel - The Temple of Magicks'],
 	['gobdance', 'Sam Westphalen - The Goblin Dance'],
 	['ent', 'Russell Watson - Where My Heart Will Take Me'],
+['ras', 'Yvette Young - Odessa (Acoustic Version)'],
 ])
 
 //# Slimes
@@ -994,7 +995,7 @@ const herbs = document.getElementById('ras2').querySelectorAll('.herb')
 function Rickroll() {
 	window.open('https://youtu.be/p7I-hPab3qo?si=VwK3N7QaI9k0ofAI&t=3', '_blank', 'width=1,height=1,left=99999,top=99999')
 }
-//? Sound effects
+//# Sound effects
 document.h_phaser = new Howl({src: ['assets/ras/phaser.mp3']})
 document.h_paper = new Howl({src: ['assets/pal/paper.mp3']})
 document.h_write = new Howl({src: ['assets/pal/write.mp3']})
@@ -1024,7 +1025,7 @@ document.h_amethyst = [
 document.h_faith = new Howl({src: ['assets/ras2/faith.mp3']})
 document.h_wiggle = new Howl({src: ['assets/lef/wiggle.mp3']})
 document.h_caught = new Howl({src: ['assets/lef/caught.mp3']})
-//? Goblin dance
+//# Goblin dance
 const home = document.getElementById('home')
 const bottom = window.visualViewport.height * 7
 document.getElementById('home').addEventListener('scroll', () => {
@@ -1131,15 +1132,23 @@ function goToPage(id, skipAnimation=false) {
 	else
 		clearTimeout(pokemonTimeoutID)
 	//? Nav triggers
+const collectibles = getSavedData('collectibles', {
+		pack: (data) => JSON.stringify(data),
+		unpack: (data) => JSON.parse(data)
+	}).data
 	if (document.currentPage.id === 'kaboom') {
 		Playlist.playSong('kaboom', true)
-		if (!getSavedData('Kowabi-flags').find('kaboom-intro-done'))
-			Kowabi.playNode('intro-kaboom')
+		if (collectibles.find(e => e.key == 'a Starfleet-issue Universal Translator') && !getSavedData('Kowabi-flags').find('kaboom-intro-done'))
+			Kowabi.playNode('kaboom-intro')
 	}
-	if (document.currentPage.id === 'pal')
+else if (document.currentPage.id === 'ras2')
+		Playlist.playSong('ras', true)
+	else if (document.currentPage.id === 'pal')
 		Playlist.playSong('pal', true)
-	if (document.currentPage.id === 'lef')
+else if (document.currentPage.id === 'lef')
 		Playlist.playSong('leafy', true)
+else if (Playlist.current?.howl.playing())
+		Playlist.play()
 }
 function addCollectible(element, key, toptext='', bottomtext='') {
 	element.removeAttribute('onclick')

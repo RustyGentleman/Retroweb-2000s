@@ -957,15 +957,30 @@ dialog::backdrop
 			height: 100%
 			width: auto
 	.porch
+		position: relative
 		height: 100vh
 		pointer-events: none
+		perspective: 20rem
+		.portal-wrapper
+			position: absolute
+			top: 0
+			left: 0
+			height: 100%
+			width: 10%
+			transform-origin: center left
+			transform: rotateY(141deg)
+			z-index: -1
+			.portal
+				margin-left: -40vh
+				transform: scale(2, 3) translateY(-5vh)
+				pointer-events: auto
 	.treeline
 		position: absolute
 		top: -50vh
 		bottom: -65vh
 		left: -100vw
 		right: -200vw
-		z-index: -3
+		z-index: -4
 		transform: translateZ(-100rem)
 		background-image: url('assets/ras2/midground.png')
 		background-size: auto 100%
@@ -975,7 +990,7 @@ dialog::backdrop
 		inset: 0
 		top: 100vh
 		bottom: -50vh
-		z-index: -4
+		z-index: -5
 		transform: translateZ(-300rem) scale(9)
 		background-image: url('assets/ras2/background.png')
 		background-size: auto 100%
@@ -994,6 +1009,7 @@ dialog::backdrop
 		bottom:-6vh
 		transform:translateZ(-20rem)
 		background-position-x:-30vh
+		z-index: -3
 	.garden
 		position: relative
 		height: 40vh
