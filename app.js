@@ -10,6 +10,7 @@ Kowabi.toggle = () => {
 	} else {
 		Kowabi.querySelector('#msg').style.display = ''
 		setTimeout(() => msg.classList.toggle('hidden'))
+		Kowabi.steptext.stepTimeoutID = undefined
 		Kowabi.steptext.step()
 	}
 }
