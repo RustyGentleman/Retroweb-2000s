@@ -821,13 +821,13 @@ dialog::backdrop {
   height: 4rem;
 }
 #home .basement-wall .lock:nth-child(2) {
-  transform: translate(calc(-50% + 7.7rem), -4rem) rotate(-10deg);
+  transform: translate(calc(-50% + 7.7rem), -4rem) rotate(15deg);
 }
 #home .basement-wall .lock:nth-child(3) {
-  transform: translateX(calc(-50% - 7.7rem)) rotate(1deg);
+  transform: translateX(calc(-50% - 7.7rem)) rotate(-11deg);
 }
 #home .basement-wall .lock:nth-child(4) {
-  transform: translate(calc(-50% + 7.7rem), 4rem) rotate(1deg);
+  transform: translate(calc(-50% + 7.7rem), 4rem) rotate(12deg);
 }
 #home .basement-wall .wallhook {
   position: absolute;
@@ -1037,9 +1037,9 @@ dialog::backdrop {
 }
 #pal .content #wiz-1 {
   position: absolute;
-  height: 70%;
+  height: 60%;
   bottom: 0;
-  left: 10%;
+  left: 12%;
 }
 #pal .content #wiz-1::before {
   content: "";
