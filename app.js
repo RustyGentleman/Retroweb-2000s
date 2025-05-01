@@ -783,6 +783,8 @@ let pokemonTimeoutID
 		pokemonTimeoutID = setTimeout(spawnPokemon, Math.random() * 4000 + 1000)
 	}
 	async function attemptToCatch(element) {
+		if (!document.querySelector('#lef #catch-attempt').classList.contains('hidden'))
+			return
 		const throwball = document.getElementById('throwball')
 		const rect = element.getBoundingClientRect()
 		throwball.style.display = ''
