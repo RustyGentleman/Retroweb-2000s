@@ -821,13 +821,13 @@ dialog::backdrop {
   height: 4rem;
 }
 #home .basement-wall .lock:nth-child(2) {
-  transform: translate(calc(-50% + 7.7rem), -4rem) rotate(19deg);
+  transform: translate(calc(-50% + 7.7rem), -4rem) rotate(-3deg);
 }
 #home .basement-wall .lock:nth-child(3) {
-  transform: translateX(calc(-50% - 7.7rem)) rotate(-14deg);
+  transform: translateX(calc(-50% - 7.7rem)) rotate(10deg);
 }
 #home .basement-wall .lock:nth-child(4) {
-  transform: translate(calc(-50% + 7.7rem), 4rem) rotate(-2deg);
+  transform: translate(calc(-50% + 7.7rem), 4rem) rotate(11deg);
 }
 #home .basement-wall .wallhook {
   position: absolute;
@@ -1594,6 +1594,44 @@ dialog::backdrop {
   opacity: 0.3;
 }
 
+#credits {
+  --bgo: 0;
+  background-image: url("assets/credits/star-bg.gif");
+  background-position-y: calc(var(--bgo) * 0.8px);
+  background-attachment: local;
+}
+#credits .content {
+  font-family: "Grenze";
+  color: white;
+}
+#credits .content > div, #credits .content .ras-text {
+  filter: drop-shadow(0 0 0.2rem rgb(0, 30, 255)) drop-shadow(0 0 0.1rem rgba(0, 30, 255, 0.8)) drop-shadow(0 0 0.1rem rgba(0, 30, 255, 0.5)) drop-shadow(0 0 0.1rem rgb(255, 0, 76));
+}
+#credits .content .ras-text {
+  margin-top: -10rem;
+}
+#credits .content .spacer {
+  height: 5lh;
+}
+#credits .content .title, #credits .content .subtitle {
+  font-family: "Comic Sans MS";
+}
+#credits .content .title {
+  font-size: 5rem;
+  font-weight: bold;
+}
+#credits .content .subtitle {
+  font-size: 1.5rem;
+  font-style: italic;
+}
+#credits .content .work {
+  font-size: 1.2rem;
+}
+#credits .content .author {
+  font-size: 2rem;
+  font-weight: 900;
+}
+
 #ras-dialogue {
   display: flex;
   align-items: center;
@@ -1828,7 +1866,7 @@ body {
   inset: 0;
   -webkit-clip-path: polygon(10% 95%, 12% 23%, 24% 7%, 51% 0%, 74% 8%, 87% 23%, 88% 95%);
           clip-path: polygon(10% 95%, 12% 23%, 24% 7%, 51% 0%, 74% 8%, 87% 23%, 88% 95%);
-  background-image: url("assets/ras/star-bg.gif");
+  background-image: url("assets/credits/star-bg.gif");
   background-repeat: no-repeat;
   background-size: 98% 98%;
   background-position-x: 30%;

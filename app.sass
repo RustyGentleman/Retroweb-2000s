@@ -148,6 +148,7 @@
 	src: url('assets/kaboom/AndyBoldIT.OTF')
 	font-weight: bold
 	font-style: italic
+
 //# Debugging
 #debug-nav
 	position: fixed
@@ -1088,6 +1089,33 @@ dialog::backdrop
 			transform-origin: 38% 96%
 			filter: brightness(0) blur(0.5rem)
 			opacity: 0.3
+#credits
+	--bgo: 0
+	background-image: url('assets/credits/star-bg.gif')
+	background-position-y: calc(var(--bgo) * .8px)
+	background-attachment: local
+	.content
+		font-family: 'Grenze'
+		color: white
+		>div, .ras-text
+			filter: drop-shadow(0 0 .2rem rgb(0 30 255 / 100%)) drop-shadow(0 0 .1rem rgb(0 30 255 / 80%)) drop-shadow(0 0 .1rem rgb(0 30 255 / 50%)) drop-shadow(0 0 .1rem rgb(255 0 76 / 100%))
+		.ras-text
+			margin-top: -10rem
+		.spacer
+			height: 5lh
+		.title, .subtitle
+			font-family: 'Comic Sans MS'
+		.title
+			font-size: 5rem
+			font-weight: bold
+		.subtitle
+			font-size: 1.5rem
+			font-style: italic
+		.work
+			font-size: 1.2rem
+		.author
+			font-size: 2rem
+			font-weight: 900
 #ras-dialogue
 	display: flex
 	align-items: center
@@ -1258,7 +1286,7 @@ body
 			position: absolute
 			inset: 0
 			clip-path: polygon(10% 95%, 12% 23%, 24% 7%, 51% 0%, 74% 8%, 87% 23%, 88% 95%)
-			background-image: url('assets/ras/star-bg.gif')
+			background-image: url('assets/credits/star-bg.gif')
 			background-repeat: no-repeat
 			background-size: 98% 98%
 			background-position-x: 30%

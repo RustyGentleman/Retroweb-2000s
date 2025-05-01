@@ -1120,6 +1120,14 @@ document.getElementById('home').addEventListener('scroll', () => {
 		funnibutton.addEventListener('mousemove', flee, {once: true})
 	}
 }
+//# Credits false parallax
+{
+	const credits = document.getElementById('credits')
+	credits.addEventListener('scroll', throttle(set), {passive: true})
+	function set() {
+		credits.style.setProperty('--bgo', credits.scrollTop)
+	}
+}
 
 //# Starting setup
 //? Set player volume
@@ -1132,7 +1140,7 @@ else {
 	Kowabi.setExpression(3, 2)
 }
 //? Start on home page
-goToPage('lef', true)
+goToPage('credits', true)
 //? First playlist update
 setTimeout(() => player.updatePlaylist(), 1000)
 //? Trigger first visitor popup
@@ -1405,5 +1413,17 @@ function getSavedData(key, options={initial:[], unpack:(data)=>data.split(';'), 
 		find: function(element){return this.data.find(e => e === element)},
 		save: function(){window.localStorage.setItem(this.key, (this.pack(this.data)));return this},
 		clear: function(){window.localStorage.removeItem(this.key); return this},
+	}
+}
+function throttle(fn) {
+	let ticking = false
+	return (...args) => {
+		if (!ticking) {
+			requestAnimationFrame(() => {
+				fn(...args)
+				ticking = false
+			})
+			ticking = true
+		}
 	}
 }
