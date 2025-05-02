@@ -1060,7 +1060,7 @@ document.h_faith = new Howl({src: ['assets/ras2/faith.mp3']})
 document.h_wiggle = new Howl({src: ['assets/lef/wiggle.mp3']})
 document.h_caught = new Howl({src: ['assets/lef/caught.mp3']})
 document.h_snap = new Howl({src: ['assets/home/snap.mp3']})
-document.h_chain = new Howl({src: ['assets/home/chain.mp3']})
+document.h_unlock = new Howl({src: ['assets/home/unlock.mp3']})
 //# Goblin dance
 const home = document.getElementById('home')
 const bottom = window.visualViewport.height * 7
@@ -1198,6 +1198,14 @@ if (getSavedData('collectibles', {
 	unpack: (data) => JSON.parse(data)
 }).data.find(e => e.key.includes('chromatic slime')))
 	document.querySelector('#kaboom #field #chroma').style.display = ''
+//? Load opened locks
+{
+	const locksOpened = getSavedData('locks-opened')
+	document.getElementById('home').querySelectorAll('.lock').forEach(e => {
+		if (locksOpened.find(e.dataset.number))
+			e.classList.add('hidden')
+	})
+}
 
 //# Debug
 const nav = document.getElementById('debug-nav')
@@ -1394,7 +1402,7 @@ function hangKey(element) {
 	})
 	function openLock(key) {
 		const locksOpened = getSavedData('locks-opened')
-		const locks = Array.from(document.getElementById('home').querySelectorAll('.lock'))
+		const locks = Array.from(document.getElementById('home').querySelectorAll('.lock:not(.hidden)'))
 			.filter((e) => !locksOpened.data.includes(+e.dataset.number))
 		const picked = locks[Math.floor(Math.random()*locks.length)]
 		picked.classList.add('hidden')
@@ -1403,7 +1411,7 @@ function hangKey(element) {
 		key.removeAttribute('onclick')
 		getSavedData('keys-used').push(key.alt).save()
 
-		document.h_chain.play()
+		document.h_unlock.play()
 	}
 }
 function resetUnlockedSongs() {
@@ -1426,6 +1434,10 @@ function resetDialogues() {
 }
 function resetPokedex() {
 	getSavedData('Pokemon-caught').clear()
+}
+function resetDoor() {
+	getSavedData('locks-opened').clear()
+	getSavedData('keys-used').clear()
 }
 function logVolume(x) {
 	x = Math.min(Math.max(x, 0), 1)
