@@ -605,13 +605,13 @@ dialog::backdrop {
   z-index: 2;
 }
 #home .basement-wall .lock:nth-child(1) {
-  transform: translate(calc(-50% + 7.7rem), -4rem) rotate(-17deg);
+  transform: translate(calc(-50% + 7.7rem), -4rem) rotate(0deg);
 }
 #home .basement-wall .lock:nth-child(2) {
-  transform: translateX(calc(-50% - 7.7rem)) rotate(-14deg);
+  transform: translateX(calc(-50% - 7.7rem)) rotate(8deg);
 }
 #home .basement-wall .lock:nth-child(3) {
-  transform: translate(calc(-50% + 7.7rem), 4rem) rotate(-13deg);
+  transform: translate(calc(-50% + 7.7rem), 4rem) rotate(-15deg);
 }
 #home .basement-wall .wallhook {
   position: absolute;
@@ -1488,6 +1488,26 @@ dialog::backdrop {
 #end {
   transition: opacity 3s ease-out;
   background-color: black;
+  image-rendering: auto;
+  z-index: 10001;
+}
+#end > div {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-family: "Comic Sans MS";
+  font-size: 3rem;
+  filter: drop-shadow(-2px -2px 2px black) drop-shadow(-2px -2px 2px black) drop-shadow(2px 2px 2px black) drop-shadow(2px 2px 2px black);
+}
+#end img {
+  position: absolute;
+  height: 25vh;
+}
+#end img.centered {
+  top: 40%;
+  left: 50%;
 }
 
 body {

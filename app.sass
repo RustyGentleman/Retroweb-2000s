@@ -1167,6 +1167,26 @@ dialog::backdrop
 		filter: url(#WispyEdges)
 	button
 		margin-top: 1rem
+#end
+	transition: opacity 3s ease-out
+	background-color: black
+	image-rendering: auto
+	z-index: 10001
+	>div
+		position: absolute
+		top: 40%
+		left: 50%
+		transform: translate(-50%, -50%)
+		color: white
+		font-family: 'Comic Sans MS'
+		font-size: 3rem
+		filter: drop-shadow(-2px -2px 2px black) drop-shadow(-2px -2px 2px black) drop-shadow(2px 2px 2px black) drop-shadow(2px 2px 2px black)
+	img
+		position: absolute
+		height: 25vh
+		&.centered
+			top: 40%
+			left: 50%
 
 //# Colors, Text & Appearance
 body
