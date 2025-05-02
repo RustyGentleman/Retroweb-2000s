@@ -445,6 +445,7 @@ dialog::backdrop
 		height: 80vh
 		z-index: -10
 		transform: translateZ(-5rem)
+		perspective: 50rem
 		&::before
 			content: ''
 			position: absolute
@@ -457,11 +458,12 @@ dialog::backdrop
 			$rand1: random(41) - 21
 			$rand2: random(41) - 21
 			$rand3: random(41) - 21
-			&:nth-child(2)
+			z-index: 2
+			&:nth-child(1)
 				transform: translate(calc(-50% + 7.7rem), -4rem) rotate(#{$rand1}deg)
-			&:nth-child(3)
+			&:nth-child(2)
 				transform: translateX(calc(-50% - 7.7rem)) rotate(#{$rand2}deg)
-			&:nth-child(4)
+			&:nth-child(3)
 				transform: translate(calc(-50% + 7.7rem), 4rem) rotate(#{$rand3}deg)
 		.wallhook
 			position: absolute
@@ -474,9 +476,9 @@ dialog::backdrop
 				height: 3rem
 				&:first-child
 					z-index: 1
-			&:nth-child(5)
+			&:nth-child(8)
 				transform: translate(-10rem, 3rem)
-			&:nth-child(7)
+			&:nth-child(9)
 				transform: translate(10rem, 3rem)
 			.hastooltip
 				transform: translateX(-50%)
@@ -489,11 +491,22 @@ dialog::backdrop
 				[alt*='slime']
 					height: 4rem
 					transform: translate(5%, 93%) rotate(90deg) !important
-		#finaldoor
+		#finaldoor, #finaldoor-frame, #finaldoor-void
 			position: absolute
-			bottom: 0
+			bottom: 2.6%
 			left: 50%
 			transform: translateX(-50%)
+			pointer-events: none
+			z-index: 1
+		#finaldoor-void
+			z-index: 0
+		#finaldoor
+			transform-origin: center left
+			transition: transform 3s cubic-bezier(0.72, 0.03, 0.48, 1)
+		#finaldoor.open
+			transform: translateX(-50%) rotateY(90deg)
+		.lock.hidden + .lock.hidden + .lock.hidden + #finaldoor
+			pointer-events: auto
 	.ground
 		position: absolute
 		top: 168.8vh
@@ -1023,9 +1036,9 @@ dialog::backdrop
 		background-size: auto 100%
 		z-index: -2
 	.grass-2
-		bottom:-6vh
-		transform:translateZ(-20rem)
-		background-position-x:-30vh
+		bottom: -6vh
+		transform: translateZ(-20rem)
+		background-position-x: -30vh
 		z-index: -3
 	.garden
 		position: relative
@@ -1306,7 +1319,7 @@ body
 	.basement-wall
 		&::before
 			filter: brightness(0.3)
-		#finaldoor
+		#finaldoor, #finaldoor-frame
 			filter: brightness(0.4)
 		.lock, .wallhook > img
 			filter: brightness(0.5)

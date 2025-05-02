@@ -1,29 +1,10 @@
 @charset "UTF-8";
-@-webkit-keyframes ras-bgscroll {
-  0% {
-    background-position-y: 0%;
-  }
-  100% {
-    background-position-y: 100%;
-  }
-}
 @keyframes ras-bgscroll {
   0% {
     background-position-y: 0%;
   }
   100% {
     background-position-y: 100%;
-  }
-}
-@-webkit-keyframes vis1-borderflash {
-  0% {
-    border-color: yellow;
-  }
-  50% {
-    border-color: lime;
-  }
-  100% {
-    border-color: yellow;
   }
 }
 @keyframes vis1-borderflash {
@@ -37,17 +18,6 @@
     border-color: yellow;
   }
 }
-@-webkit-keyframes vis1-flash {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
 @keyframes vis1-flash {
   0% {
     opacity: 1;
@@ -59,14 +29,6 @@
     opacity: 1;
   }
 }
-@-webkit-keyframes blink {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
 @keyframes blink {
   0% {
     opacity: 1;
@@ -75,54 +37,21 @@
     opacity: 0;
   }
 }
-@-webkit-keyframes boing {
-  0%, 60% {
-    transform: translateY(0) scale(0.6, 1.2);
-    -webkit-animation-timing-function: ease-out;
-            animation-timing-function: ease-out;
-  }
-  30% {
-    transform: translateY(-5rem) scale(1.2, 0.6);
-    -webkit-animation-timing-function: ease-in;
-            animation-timing-function: ease-in;
-  }
-  80% {
-    transform: translateY(0) scale(1.2, 0.6);
-    -webkit-animation-timing-function: ease-in;
-            animation-timing-function: ease-in;
-  }
-  100% {
-    transform: translateY(0) scale(1);
-  }
-}
 @keyframes boing {
   0%, 60% {
     transform: translateY(0) scale(0.6, 1.2);
-    -webkit-animation-timing-function: ease-out;
-            animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
   }
   30% {
     transform: translateY(-5rem) scale(1.2, 0.6);
-    -webkit-animation-timing-function: ease-in;
-            animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
   }
   80% {
     transform: translateY(0) scale(1.2, 0.6);
-    -webkit-animation-timing-function: ease-in;
-            animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
   }
   100% {
     transform: translateY(0) scale(1);
-  }
-}
-@-webkit-keyframes boingShadow {
-  0%, 60% {
-    opacity: 0.8;
-    transform: translateX(-50%) scale(1);
-  }
-  30% {
-    opacity: 0.2;
-    transform: translateX(-50%) scale(0.7);
   }
 }
 @keyframes boingShadow {
@@ -135,16 +64,6 @@
     transform: translateX(-50%) scale(0.7);
   }
 }
-@-webkit-keyframes boingText {
-  0% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-3rem);
-    opacity: 0;
-  }
-}
 @keyframes boingText {
   0% {
     transform: translateY(0);
@@ -153,17 +72,6 @@
   100% {
     transform: translateY(-3rem);
     opacity: 0;
-  }
-}
-@-webkit-keyframes woah {
-  0% {
-    transform: translateX(-50%) scale(2) rotate(0deg);
-  }
-  50% {
-    transform: translateX(-50%) scale(2) rotate(180deg);
-  }
-  100% {
-    transform: translateX(-50%) scale(2) rotate(360deg);
   }
 }
 @keyframes woah {
@@ -177,14 +85,6 @@
     transform: translateX(-50%) scale(2) rotate(360deg);
   }
 }
-@-webkit-keyframes splash {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: -3400% 0;
-  }
-}
 @keyframes splash {
   0% {
     background-position: 0 0;
@@ -193,42 +93,12 @@
     background-position: -3400% 0;
   }
 }
-@-webkit-keyframes puff {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: -900% 0;
-  }
-}
 @keyframes puff {
   0% {
     background-position: 0 0;
   }
   100% {
     background-position: -900% 0;
-  }
-}
-@-webkit-keyframes splat {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: -4200% 0;
-  }
-  20% {
-    transform: translateX(-50%) scaleY(1);
-  }
-  60% {
-    transform: translateX(-50%) scaleY(1.5);
-  }
-  80% {
-    transform: translateX(-50%) translateY(10%) scaleY(1.5);
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(-50%) translateY(30%) scaleY(1.5);
-    opacity: 0;
   }
 }
 @keyframes splat {
@@ -253,30 +123,12 @@
     opacity: 0;
   }
 }
-@-webkit-keyframes chroma-scroll {
-  0% {
-    background-position: 0ch;
-  }
-  100% {
-    background-position: 7ch;
-  }
-}
 @keyframes chroma-scroll {
   0% {
     background-position: 0ch;
   }
   100% {
     background-position: 7ch;
-  }
-}
-@-webkit-keyframes page-turn {
-  0% {
-    transform: rotateY(90deg);
-    filter: brightness(0);
-  }
-  100% {
-    transform: rotateY(0deg);
-    filter: brightness(1);
   }
 }
 @keyframes page-turn {
@@ -287,19 +139,6 @@
   100% {
     transform: rotateY(0deg);
     filter: brightness(1);
-  }
-}
-@-webkit-keyframes nx01 {
-  0% {
-    transform: translateZ(-400rem) translate(-900%, -800%) scale(10);
-    opacity: 1;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateZ(-400rem) translate(250%, 150%) scale(0);
-    opacity: 0;
   }
 }
 @keyframes nx01 {
@@ -315,31 +154,12 @@
     opacity: 0;
   }
 }
-@-webkit-keyframes pokeball {
-  0% {
-    background-position-x: 0;
-  }
-  100% {
-    background-position-x: 100%;
-  }
-}
 @keyframes pokeball {
   0% {
     background-position-x: 0;
   }
   100% {
     background-position-x: 100%;
-  }
-}
-@-webkit-keyframes pokeballWiggle {
-  0%, 60% {
-    transform: translateX(0) rotate(0);
-  }
-  15% {
-    transform: translateX(-30%) rotate(-45deg);
-  }
-  45% {
-    transform: translateX(30%) rotate(45deg);
   }
 }
 @keyframes pokeballWiggle {
@@ -353,17 +173,6 @@
     transform: translateX(30%) rotate(45deg);
   }
 }
-@-webkit-keyframes throwball {
-  0% {
-    transform: rotate(0deg);
-  }
-  50% {
-    transform: rotate(180deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
 @keyframes throwball {
   0% {
     transform: rotate(0deg);
@@ -373,17 +182,6 @@
   }
   100% {
     transform: rotate(360deg);
-  }
-}
-@-webkit-keyframes throwballArc {
-  0% {
-    transform: translateX(-50%) translateY(-50%) scale(1);
-  }
-  50% {
-    transform: translateX(-50%) translateY(calc(-50% - 30vh)) scale(0.6);
-  }
-  100% {
-    transform: translateX(-50%) translateY(-50%) scale(0.2);
   }
 }
 @keyframes throwballArc {
@@ -452,8 +250,7 @@ body {
   transform-origin: right center;
 }
 .fullpage.turning {
-  -webkit-animation: page-turn 2s cubic-bezier(0, 0, 0, 1) forwards;
-          animation: page-turn 2s cubic-bezier(0, 0, 0, 1) forwards;
+  animation: page-turn 2s cubic-bezier(0, 0, 0, 1) forwards;
   z-index: 1;
 }
 .fullpage .content {
@@ -469,9 +266,7 @@ body {
 }
 
 .win95-btn, #kowabi #msg #options button {
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
+  appearance: none;
   background: #C0C0C0;
   color: black;
   border: solid 1px;
@@ -534,20 +329,16 @@ body {
   background: repeating-conic-gradient(gold 0deg 10deg, transparent 10deg 20deg);
   background-size: cover;
   border-radius: 50%;
-  -webkit-mask-image: radial-gradient(circle, black 0%, transparent 70%);
-          mask-image: radial-gradient(circle, black 0%, transparent 70%);
-  -webkit-animation: woah 10s linear infinite;
-          animation: woah 10s linear infinite;
+  mask-image: radial-gradient(circle, black 0%, transparent 70%);
+  animation: woah 10s linear infinite;
   z-index: -1;
 }
 
 .chromatic-text {
   background: repeating-linear-gradient(90deg, rgb(255, 0, 0) 0, rgb(252, 119, 0) 1ch, rgb(252, 216, 0) 2ch, rgb(8, 252, 0) 3ch, rgb(0, 180, 254) 4ch, rgb(133, 0, 254) 5ch, rgb(255, 167, 231) 6ch, rgb(255, 0, 0) 7ch);
-  -webkit-background-clip: text;
-          background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
-  -webkit-animation: chroma-scroll 2s linear infinite;
-          animation: chroma-scroll 2s linear infinite;
+  animation: chroma-scroll 2s linear infinite;
 }
 
 .splat {
@@ -558,16 +349,11 @@ body {
   aspect-ratio: 1;
   background-image: url("assets/pal/splat.png");
   background-size: auto 100%;
-  -webkit-animation: splat 3s steps(42) forwards;
-          animation: splat 3s steps(42) forwards;
+  animation: splat 3s steps(42) forwards;
   transform: translateX(-50%);
   transform-origin: top center;
   z-index: 1000000;
   pointer-events: none;
-}
-
-dialog::-webkit-backdrop {
-  background: rgba(0, 0, 0, 0.5);
 }
 
 dialog::backdrop {
@@ -625,8 +411,6 @@ dialog::backdrop {
   pointer-events: none;
 }
 #kowabi #msg {
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
   height: fit-content;
   min-width: 15rem;
   max-width: 25rem;
@@ -750,8 +534,6 @@ dialog::backdrop {
   left: 50%;
   top: 20rem;
   height: 20rem;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
   width: fit-content;
   transform: translateX(-50%) translateZ(-0.8rem);
 }
@@ -808,6 +590,7 @@ dialog::backdrop {
   height: 80vh;
   z-index: -10;
   transform: translateZ(-5rem);
+  perspective: 50rem;
 }
 #home .basement-wall::before {
   content: "";
@@ -819,15 +602,16 @@ dialog::backdrop {
   top: 70%;
   left: 50%;
   height: 4rem;
+  z-index: 2;
+}
+#home .basement-wall .lock:nth-child(1) {
+  transform: translate(calc(-50% + 7.7rem), -4rem) rotate(-17deg);
 }
 #home .basement-wall .lock:nth-child(2) {
-  transform: translate(calc(-50% + 7.7rem), -4rem) rotate(-3deg);
+  transform: translateX(calc(-50% - 7.7rem)) rotate(-14deg);
 }
 #home .basement-wall .lock:nth-child(3) {
-  transform: translateX(calc(-50% - 7.7rem)) rotate(10deg);
-}
-#home .basement-wall .lock:nth-child(4) {
-  transform: translate(calc(-50% + 7.7rem), 4rem) rotate(11deg);
+  transform: translate(calc(-50% + 7.7rem), 4rem) rotate(-13deg);
 }
 #home .basement-wall .wallhook {
   position: absolute;
@@ -843,10 +627,10 @@ dialog::backdrop {
 #home .basement-wall .wallhook > img:first-child {
   z-index: 1;
 }
-#home .basement-wall .wallhook:nth-child(5) {
+#home .basement-wall .wallhook:nth-child(8) {
   transform: translate(-10rem, 3rem);
 }
-#home .basement-wall .wallhook:nth-child(7) {
+#home .basement-wall .wallhook:nth-child(9) {
   transform: translate(10rem, 3rem);
 }
 #home .basement-wall .wallhook .hastooltip {
@@ -864,11 +648,26 @@ dialog::backdrop {
   height: 4rem;
   transform: translate(5%, 93%) rotate(90deg) !important;
 }
-#home .basement-wall #finaldoor {
+#home .basement-wall #finaldoor, #home .basement-wall #finaldoor-frame, #home .basement-wall #finaldoor-void {
   position: absolute;
-  bottom: 0;
+  bottom: 2.6%;
   left: 50%;
   transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 1;
+}
+#home .basement-wall #finaldoor-void {
+  z-index: 0;
+}
+#home .basement-wall #finaldoor {
+  transform-origin: center left;
+  transition: transform 3s cubic-bezier(0.72, 0.03, 0.48, 1);
+}
+#home .basement-wall #finaldoor.open {
+  transform: translateX(-50%) rotateY(90deg);
+}
+#home .basement-wall .lock.hidden + .lock.hidden + .lock.hidden + #finaldoor {
+  pointer-events: auto;
 }
 #home .ground {
   position: absolute;
@@ -1102,7 +901,6 @@ dialog::backdrop {
 }
 #pal .content .shelf:nth-child(2) {
   right: 10%;
-  image-rendering: -moz-crisp-edges;
   image-rendering: pixelated;
 }
 #pal .content .shelf > img {
@@ -1242,10 +1040,8 @@ dialog::backdrop {
 #lef #pokefield .tall-grass > img {
   height: 100%;
   width: 100%;
-  -webkit-mask-image: url("assets/lef/tallgrass.png");
-          mask-image: url("assets/lef/tallgrass.png");
-  -webkit-mask-size: 100% 100%;
-          mask-size: 100% 100%;
+  mask-image: url("assets/lef/tallgrass.png");
+  mask-size: 100% 100%;
   transform: scale(1.3);
 }
 #lef #pokefield .tall-grass .pokemon {
@@ -1267,8 +1063,6 @@ dialog::backdrop {
   position: relative;
   top: 0;
   left: 0;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
   width: fit-content;
   padding: 0.2rem;
   margin: 2rem auto;
@@ -1306,16 +1100,14 @@ dialog::backdrop {
   margin-block: -2rem;
 }
 #lef #catch-attempt .pokeball.open {
-  -webkit-animation: pokeball 0.3s steps(2) 0.15s forwards;
-          animation: pokeball 0.3s steps(2) 0.15s forwards;
+  animation: pokeball 0.3s steps(2) 0.15s forwards;
 }
 #lef #catch-attempt .pokeball.closed {
   background-position-x: 100%;
   animation: pokeball 0.3s steps(2) 0.15s reverse forwards;
 }
 #lef #catch-attempt .pokeball.wiggle {
-  -webkit-animation: pokeballWiggle 1s ease infinite;
-          animation: pokeballWiggle 1s ease infinite;
+  animation: pokeballWiggle 1s ease infinite;
 }
 #lef #throwball {
   position: absolute;
@@ -1327,13 +1119,11 @@ dialog::backdrop {
 #lef #throwball.thrown {
   transition: top 0.5s ease-out;
   transition-property: top, left;
-  -webkit-animation: throwballArc 0.5s linear forwards;
-          animation: throwballArc 0.5s linear forwards;
+  animation: throwballArc 0.5s linear forwards;
 }
 #lef #throwball img {
   height: 100%;
-  -webkit-animation: throwball 0.6s steps(4) infinite;
-          animation: throwball 0.6s steps(4) infinite;
+  animation: throwball 0.6s steps(4) infinite;
 }
 #lef #pokedex {
   position: absolute;
@@ -1515,6 +1305,7 @@ dialog::backdrop {
 }
 #ras2 .grass-2 {
   bottom: -6vh;
+  transform: translateZ(-20rem);
   background-position-x: -30vh;
   z-index: -3;
 }
@@ -1530,8 +1321,7 @@ dialog::backdrop {
 }
 #ras2 .garden .boulder-hitbox {
   inset: 0;
-  -webkit-clip-path: polygon(39% 52%, 44% 17%, 56% 0, 61% 13%, 64% 36%, 60% 37%, 56% 49%, 47% 45%);
-          clip-path: polygon(39% 52%, 44% 17%, 56% 0, 61% 13%, 64% 36%, 60% 37%, 56% 49%, 47% 45%);
+  clip-path: polygon(39% 52%, 44% 17%, 56% 0, 61% 13%, 64% 36%, 60% 37%, 56% 49%, 47% 45%);
 }
 #ras2 .garden .herb {
   width: 5vmin;
@@ -1549,7 +1339,7 @@ dialog::backdrop {
   right: -2200vw;
   left: -2200vw;
   transform: translateZ(-2000rem);
-  background-image: linear-gradient(to top, hsl(210.4deg, 44.91%, 32.75%) 40%, hsla(217.98deg, 100%, 50%, 0.24) 55%, hsla(236.44deg, 100%, 50%, 0.18) 60%, transparent 100%), url(assets/ras/star-bg.gif);
+  background-image: linear-gradient(to top, hsl(210.4, 44.91%, 32.75%) 40%, hsla(217.98, 100%, 50%, 0.24) 55%, hsla(236.44, 100%, 50%, 0.18) 60%, transparent 100%), url(assets/ras/star-bg.gif);
   background-size: 1000vh;
   z-index: -6;
 }
@@ -1570,8 +1360,7 @@ dialog::backdrop {
   height: 100vh;
   z-index: -5;
   transform: translateZ(-400rem);
-  -webkit-animation: nx01 5s cubic-bezier(0, 1.09, 0.67, 1) forwards;
-          animation: nx01 5s cubic-bezier(0, 1.09, 0.67, 1) forwards;
+  animation: nx01 5s cubic-bezier(0, 1.09, 0.67, 1) forwards;
 }
 #ras2 .ras {
   position: absolute;
@@ -1650,8 +1439,7 @@ dialog::backdrop {
   display: none;
   height: 100%;
   width: auto;
-  -webkit-mask-image: linear-gradient(to top, transparent, black 30%);
-          mask-image: linear-gradient(to top, transparent, black 30%);
+  mask-image: linear-gradient(to top, transparent, black 30%);
 }
 #ras-dialogue .portrait.laugh-closed [src*=laugh-closed] {
   display: initial;
@@ -1697,11 +1485,15 @@ dialog::backdrop {
   margin-top: 1rem;
 }
 
+#end {
+  transition: opacity 3s ease-out;
+  background-color: black;
+}
+
 body {
   background: #111;
   font-family: Tahoma;
   text-rendering: optimizeSpeed;
-  image-rendering: -moz-crisp-edges;
   image-rendering: pixelated;
   perspective: 50rem;
 }
@@ -1721,12 +1513,11 @@ body {
 #kowabi #icon #expression {
   position: relative;
   z-index: 1;
-  filter: drop-shadow(0 0 0.3rem hsl(199deg, 100%, 50%)) drop-shadow(0 0 0.1rem hsl(199deg, 100%, 50%));
+  filter: drop-shadow(0 0 0.3rem hsl(199, 100%, 50%)) drop-shadow(0 0 0.1rem hsl(199, 100%, 50%));
   background-image: url("assets/kowabi-expressions.png");
   background-repeat: no-repeat;
   background-position: -1.6rem 8rem;
-  -webkit-clip-path: inset(19% 0 0 0);
-          clip-path: inset(19% 0 0 0);
+  clip-path: inset(19% 0 0 0);
 }
 #kowabi #icon #expression.col-1 {
   background-position-x: -1.6rem;
@@ -1763,17 +1554,16 @@ body {
   cursor: pointer;
 }
 #music-player #panel {
-  background: linear-gradient(to bottom, hsl(220deg, 10%, 30%) 0%, hsl(220deg, 10%, 30%) 5px, #2e3138 calc(100% - 5px), #2e3138 100%);
+  background: linear-gradient(to bottom, hsl(220, 10%, 30%) 0%, hsl(220, 10%, 30%) 5px, #2e3138 calc(100% - 5px), #2e3138 100%);
   border: solid 2px;
-  -o-border-image: linear-gradient(to bottom, hsl(220deg, 10%, 30%) 0%, hsl(220deg, 10%, 30%) 5px, #17191c calc(100% - 5px), #17191c 100%);
-     border-image: linear-gradient(to bottom, hsl(220deg, 10%, 30%) 0%, hsl(220deg, 10%, 30%) 5px, #17191c calc(100% - 5px), #17191c 100%);
+  border-image: linear-gradient(to bottom, hsl(220, 10%, 30%) 0%, hsl(220, 10%, 30%) 5px, #17191c calc(100% - 5px), #17191c 100%);
   border-image-slice: 1;
   border-radius: 5px;
   font-family: "VT323", monospace;
 }
 #music-player #panel #controls > * {
   height: 1.5rem;
-  background: linear-gradient(to bottom, hsl(220deg, 15%, 70%) 0%, hsl(220deg, 15%, 70%) 5px, #4c5567 calc(100% - 5px), #4c5567 100%);
+  background: linear-gradient(to bottom, hsl(220, 15%, 70%) 0%, hsl(220, 15%, 70%) 5px, #4c5567 calc(100% - 5px), #4c5567 100%);
 }
 #music-player #panel #controls > * img {
   height: 100%;
@@ -1786,10 +1576,9 @@ body {
 #music-player #panel #title {
   background-color: #00aaff;
   border: solid 0.4rem;
-  -o-border-image: linear-gradient(to bottom, hsl(220deg, 15%, 70%) 0%, hsl(220deg, 15%, 70%) 5px, #4c5567 calc(100% - 5px), #4c5567 100%);
-     border-image: linear-gradient(to bottom, hsl(220deg, 15%, 70%) 0%, hsl(220deg, 15%, 70%) 5px, #4c5567 calc(100% - 5px), #4c5567 100%);
+  border-image: linear-gradient(to bottom, hsl(220, 15%, 70%) 0%, hsl(220, 15%, 70%) 5px, #4c5567 calc(100% - 5px), #4c5567 100%);
   border-image-slice: 1;
-  outline: solid 1px hsl(220deg, 15%, 50%);
+  outline: solid 1px hsl(220, 15%, 50%);
   outline-offset: -0.4rem;
   text-align: center;
 }
@@ -1806,10 +1595,10 @@ body {
   opacity: 0;
 }
 #music-player #panel #playlist #toggle {
-  background-color: hsl(220deg, 10%, 60%);
+  background-color: hsl(220, 10%, 60%);
   font-size: 0.4rem;
   text-align: center;
-  border: solid 2px hsl(220deg, 10%, 30%);
+  border: solid 2px hsl(220, 10%, 30%);
 }
 #music-player #panel #playlist #toggle span {
   display: block;
@@ -1818,15 +1607,14 @@ body {
 #music-player #panel #playlist #list {
   display: flex;
   flex-direction: column;
-  border: solid 1rem hsl(220deg, 10%, 60%);
+  border: solid 1rem hsl(220, 10%, 60%);
   border-width: 0.5rem 1rem;
-  -o-border-image: linear-gradient(to bottom, hsl(220deg, 15%, 70%) 0%, hsl(220deg, 15%, 70%) 5px, #7b879d calc(100% - 5px), #7b879d 100%);
-     border-image: linear-gradient(to bottom, hsl(220deg, 15%, 70%) 0%, hsl(220deg, 15%, 70%) 5px, #7b879d calc(100% - 5px), #7b879d 100%);
+  border-image: linear-gradient(to bottom, hsl(220, 15%, 70%) 0%, hsl(220, 15%, 70%) 5px, #7b879d calc(100% - 5px), #7b879d 100%);
   border-image-slice: 1;
   border-bottom: none;
   box-sizing: border-box;
-  outline: solid 2px hsl(220deg, 10%, 30%);
-  background: linear-gradient(to right, hsl(220deg, 15%, 50%), hsl(220deg, 15%, 50%) 1px, transparent 1px, transparent calc(100% - 1px), hsl(220deg, 15%, 50%) calc(100% - 1px), hsl(220deg, 15%, 50%) 100%), linear-gradient(to bottom, hsl(220deg, 15%, 50%), hsl(220deg, 15%, 50%) 1px, transparent 1px, transparent calc(100% - 1px), hsl(220deg, 15%, 50%) calc(100% - 1px), hsl(220deg, 15%, 50%) 100%), repeating-linear-gradient(to bottom, #00aaff, #00aaff 1rem, #0077aa 1rem, #0077aa 2rem);
+  outline: solid 2px hsl(220, 10%, 30%);
+  background: linear-gradient(to right, hsl(220, 15%, 50%), hsl(220, 15%, 50%) 1px, transparent 1px, transparent calc(100% - 1px), hsl(220, 15%, 50%) calc(100% - 1px), hsl(220, 15%, 50%) 100%), linear-gradient(to bottom, hsl(220, 15%, 50%), hsl(220, 15%, 50%) 1px, transparent 1px, transparent calc(100% - 1px), hsl(220, 15%, 50%) calc(100% - 1px), hsl(220, 15%, 50%) 100%), repeating-linear-gradient(to bottom, #00aaff, #00aaff 1rem, #0077aa 1rem, #0077aa 2rem);
 }
 #music-player #panel #playlist #list > * {
   display: flex;
@@ -1843,8 +1631,7 @@ body {
 #music-player #panel #playlist #list > *.playing::before {
   content: "●";
   transform: translateY(-2px);
-  -webkit-animation: blink 0.4s linear infinite alternate;
-          animation: blink 0.4s linear infinite alternate;
+  animation: blink 0.4s linear infinite alternate;
 }
 
 #home {
@@ -1864,8 +1651,7 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  -webkit-clip-path: polygon(10% 95%, 12% 23%, 24% 7%, 51% 0%, 74% 8%, 87% 23%, 88% 95%);
-          clip-path: polygon(10% 95%, 12% 23%, 24% 7%, 51% 0%, 74% 8%, 87% 23%, 88% 95%);
+  clip-path: polygon(10% 95%, 12% 23%, 24% 7%, 51% 0%, 74% 8%, 87% 23%, 88% 95%);
   background-image: url("assets/credits/star-bg.gif");
   background-repeat: no-repeat;
   background-size: 98% 98%;
@@ -1892,7 +1678,7 @@ body {
 #home .basement-wall::before {
   filter: brightness(0.3);
 }
-#home .basement-wall #finaldoor {
+#home .basement-wall #finaldoor, #home .basement-wall #finaldoor-frame {
   filter: brightness(0.4);
 }
 #home .basement-wall .lock, #home .basement-wall .wallhook > img {
@@ -1911,8 +1697,7 @@ body {
 #home .ground::before {
   background-image: url("assets/home/dirt.jpg");
   background-size: 10rem;
-  -webkit-mask-image: linear-gradient(to bottom, black, black 50%, transparent);
-          mask-image: linear-gradient(to bottom, black, black 50%, transparent);
+  mask-image: linear-gradient(to bottom, black, black 50%, transparent);
 }
 #home .singular-gob {
   position: absolute;
@@ -1947,8 +1732,7 @@ body {
 }
 #ras .content::before {
   background-image: url("assets/ras/star-bg.gif");
-  -webkit-animation: ras-bgscroll 60s linear infinite;
-          animation: ras-bgscroll 60s linear infinite;
+  animation: ras-bgscroll 60s linear infinite;
 }
 #ras .vbig {
   font-size: 4rem;
@@ -1976,8 +1760,7 @@ body {
 }
 #pal .content .painting {
   border: solid 2vmin;
-  -o-border-image: url("assets/pal/picture-frame.png");
-     border-image: url("assets/pal/picture-frame.png");
+  border-image: url("assets/pal/picture-frame.png");
   border-image-slice: 38 38 38 38;
   border-image-repeat: repeat;
   filter: drop-shadow(0vmin -0.5vmin 0.5vmin rgba(0, 0, 0, 0.7));
@@ -1994,8 +1777,7 @@ body {
   transform: rotate(-10deg);
 }
 #pal .content #cauldron {
-  -webkit-mask-image: linear-gradient(to bottom, transparent 10%, white 20%);
-          mask-image: linear-gradient(to bottom, transparent 10%, white 20%);
+  mask-image: linear-gradient(to bottom, transparent 10%, white 20%);
   filter: drop-shadow(0 0 2px var(--color)) drop-shadow(0 0 2px var(--color));
 }
 #pal .content #cauldron.invalid {
@@ -2006,20 +1788,17 @@ body {
 }
 #pal .content #ingredients {
   border: inset 5px rgba(0, 0, 0, 0.7);
-  -webkit-backdrop-filter: blur(3px);
-          backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
 }
 #pal .content .splash {
   background-image: url("assets/pal/splash.png");
   background-size: auto 100%;
-  -webkit-animation: splash 1s steps(34) forwards;
-          animation: splash 1s steps(34) forwards;
+  animation: splash 1s steps(34) forwards;
 }
 #pal .content .puff {
   background-image: url("assets/pal/puff.png");
   background-size: auto 100%;
-  -webkit-animation: puff 1s steps(9) forwards;
-          animation: puff 1s steps(9) forwards;
+  animation: puff 1s steps(9) forwards;
 }
 #pal .content .puff.black {
   filter: brightness(0.3) contrast(1.5);
@@ -2067,12 +1846,10 @@ body {
   background-image: radial-gradient(closest-side, black, transparent);
 }
 #kaboom .slime.boing img {
-  -webkit-animation: boing 0.8s ease;
-          animation: boing 0.8s ease;
+  animation: boing 0.8s ease;
 }
 #kaboom .slime.boing::before {
-  -webkit-animation: boingShadow 0.8s ease;
-          animation: boingShadow 0.8s ease;
+  animation: boingShadow 0.8s ease;
 }
 #kaboom .temptext {
   --angle: 0deg;
@@ -2082,13 +1859,11 @@ body {
   transform-origin: bottom center;
 }
 #kaboom .temptext > div.boing {
-  -webkit-animation: boingText 1s ease-in-out;
-          animation: boingText 1s ease-in-out;
+  animation: boingText 1s ease-in-out;
 }
 
 #slime-dialogue {
-  -webkit-backdrop-filter: blur(10px);
-          backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   background-image: url("assets/kaboom/dialogue-bg.png"), url("assets/kaboom/notice.png");
   background-size: 100% 100%, 100% 100%;
   background-color: #947845;
@@ -2098,8 +1873,7 @@ body {
 }
 #slime-dialogue::before {
   border: solid 48px;
-  -o-border-image: url("assets/kaboom/terraria-minimap-border.png");
-     border-image: url("assets/kaboom/terraria-minimap-border.png");
+  border-image: url("assets/kaboom/terraria-minimap-border.png");
   border-image-slice: 12 12 12;
   border-image-repeat: stretch;
 }
@@ -2128,17 +1902,14 @@ body {
   box-shadow: 0 0 20px red;
   font-family: "Comic Sans MS", cursive, sans-serif;
   text-align: center;
-  -webkit-animation: vis1-borderflash 1s infinite;
-          animation: vis1-borderflash 1s infinite;
+  animation: vis1-borderflash 1s infinite;
 }
 #retroModal .flashing-text {
   font-size: 32px;
   font-weight: bold;
   color: red;
-  -webkit-animation: vis1-flash 0.5s infinite;
-          animation: vis1-flash 0.5s infinite;
+  animation: vis1-flash 0.5s infinite;
 }
 #retroModal span {
   color: gold;
-}
-/*# sourceMappingURL=app.css.map */
+}/*# sourceMappingURL=app.css.map */

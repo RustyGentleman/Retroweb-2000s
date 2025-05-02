@@ -1060,6 +1060,7 @@ document.h_faith = new Howl({src: ['assets/ras2/faith.mp3']})
 document.h_wiggle = new Howl({src: ['assets/lef/wiggle.mp3']})
 document.h_caught = new Howl({src: ['assets/lef/caught.mp3']})
 document.h_snap = new Howl({src: ['assets/home/snap.mp3']})
+document.h_chain = new Howl({src: ['assets/home/chain.mp3']})
 //# Goblin dance
 const home = document.getElementById('home')
 const bottom = window.visualViewport.height * 7
@@ -1128,6 +1129,21 @@ document.getElementById('home').addEventListener('scroll', () => {
 		credits.style.setProperty('--bgo', credits.scrollTop)
 	}
 }
+//# Nonagon Infinity: opens the door
+async function NonagonInfinity(door) {
+	door.classList.add('open')
+	const home = door.closest('.fullpage')
+	home.scrollTo({
+		top: home.scrollTop + home.querySelector('.floor.ceiling').getBoundingClientRect().top,
+		behavior: 'smooth'
+	})
+	await new Promise(r => setTimeout(r, 2000))
+	const end = document.getElementById('end')
+	end.classList.remove('hidden')
+	await new Promise(r => setTimeout(r, 3010))
+	if (document.h_gobdance.playing())
+		document.h_gobdance.pause()
+}
 
 //# Starting setup
 //? Set player volume
@@ -1140,7 +1156,7 @@ else {
 	Kowabi.setExpression(3, 2)
 }
 //? Start on home page
-goToPage('credits', true)
+goToPage('home', true)
 //? First playlist update
 setTimeout(() => player.updatePlaylist(), 1000)
 //? Trigger first visitor popup
@@ -1366,12 +1382,29 @@ function dialogueAdvance(button, type='slime') {
 	}
 }
 function hangKey(element) {
+	if (!getSavedData('keys-used').find(element.firstElementChild.alt)) {
+		element.firstElementChild.addEventListener('click', function(){openLock(this)}, {once: true})
+		element.firstElementChild.setAttribute('onclick', '')
+	}
 	let done = false
 	document.querySelectorAll('#home .basement-wall .wallhook').forEach(e => {
 		if (done || e.childElementCount > 2) return
 		e.append(element)
 		done = true
 	})
+	function openLock(key) {
+		const locksOpened = getSavedData('locks-opened')
+		const locks = Array.from(document.getElementById('home').querySelectorAll('.lock'))
+			.filter((e) => !locksOpened.data.includes(+e.dataset.number))
+		const picked = locks[Math.floor(Math.random()*locks.length)]
+		picked.classList.add('hidden')
+		locksOpened.push(+picked.dataset.number).save()
+
+		key.removeAttribute('onclick')
+		getSavedData('keys-used').push(key.alt).save()
+
+		document.h_chain.play()
+	}
 }
 function resetUnlockedSongs() {
 	window.localStorage.removeItem('songsUnlocked')
