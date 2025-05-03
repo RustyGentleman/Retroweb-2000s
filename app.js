@@ -67,7 +67,6 @@ Kowabi.setToNeutral = () => {
 	Kowabi.resetOptions()
 	Kowabi.setExpression(4, 3)
 }
-
 //# Music player
 const player = document.getElementById('music-player')
 player.iconOn = player.querySelector('#icon img:first-of-type')
@@ -127,7 +126,6 @@ player.updatePlaylist = (skipUnlock=false) => {
 		player.togglePlaylist()
 	}
 }
-
 //# Playlist
 class Playlist {
 	static playlist = []
@@ -306,7 +304,6 @@ Kowabi.addNodes([
 			['End', '', () => {Kowabi.setToNeutral(); getSavedData('Kowabi-flags').push('kaboom-intro-done').save()}],
 		]],
 ])
-
 //# Playlist songs
 Playlist.addSongs([
 	['kaboom', 'Terraria OST - Day'],
@@ -316,7 +313,6 @@ Playlist.addSongs([
 	['ent', 'Russell Watson - Where My Heart Will Take Me'],
 	['ras', 'Yvette Young - Odessa (Acoustic Version)'],
 ])
-
 //# Slimes
 const slimeSteptext = new Steptext(document.querySelector('#kaboom #slime-dialogue .text'), {
 	stepInterval: 40,
@@ -490,7 +486,6 @@ const slimeInfo = {
 		}, updateInterval)
 	})
 }
-
 //# Alchemy
 class Alchemy {
 	static shelfLeft = document.getElementById('pal').querySelector('.shelf .container')
@@ -698,7 +693,6 @@ class Alchemy {
 		})
 	}
 }
-
 //# Owl
 document.querySelectorAll('#pal .owl').forEach(e => {
 	e.addEventListener('click', () => {
@@ -717,7 +711,6 @@ function owlLand(not) {
 	picked.classList.remove('flyaway')
 	setTimeout(() => picked.classList.remove('flyin'), 1000)
 }
-
 //# Pokémon
 let pokemonTimeoutID
 {
@@ -859,7 +852,6 @@ let pokemonTimeoutID
 		}
 	}
 }
-
 //# Ras quest
 const rasSteptext = new Steptext(document.querySelector('#ras-dialogue .text'), {
 	stepInterval: 40,
@@ -1022,6 +1014,28 @@ const herbs = document.getElementById('ras2').querySelectorAll('.herb')
 		await new Promise(r => setTimeout(r, 5000))
 		nx01.remove()
 	}
+}
+//# Key combos
+{
+	let typed = ''
+	let timeoutID
+	const combos = [
+		{trigger: 'credits', callback: () => goToPage('credits', true)}
+	]
+
+	document.addEventListener('keydown', (e) => {
+		if (e.key.length === 1 && e.key.match(/\w{1}/)) {
+			typed += e.key.toLowerCase()
+			for (const combo of combos)
+				if (typed === combo.trigger)
+					combo.callback()
+		}
+		if (timeoutID) clearTimeout(timeoutID)
+		timeoutID = setTimeout(() => {
+			typed = ''
+			timeoutID = undefined
+		}, 1000)
+	})
 }
 
 //! Effects setup
