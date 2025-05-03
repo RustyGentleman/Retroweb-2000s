@@ -1,10 +1,7 @@
 Preface: This personal/group project was a hell of a marathon, and others aided in procuring assets; not all sources were noted down, sadly. If one of your assets was used and not credited, or there's some other issue, please contact me!
 
 # GIFs and Images
-neurons.gif - https://theworldofghibli.tumblr.com/post/161705821335 (from Spirited Away)
-blueflowers.gif - https://imgur.com/gallery/blue-flowers-qHPerPC (from When the Promised Flower Blooms)
 star-bg.gif - https://gifer.com/en/WBVk
-enterprise-blast.gif - https://gifer.com/pt/EJhX
 castlebricks.jpg - https://www.filterforge.com/filters/2897.html
 woodfloor.jpg - https://www.filterforge.com/filters/13205.html
 owl-rocker.gif - https://www.woo-uk.com/Woo-Mid/advertising.html
@@ -15,11 +12,10 @@ letter.png - https://clipart-library.com/clipart/LTdoy7jAc.htm
 universal-translator.jpg - https://memory-alpha.fandom.com/wiki/Universal_translator
 ceiling.jpg - https://www.filterforge.com/filters/9241-v1.html
 porch.jpg - https://www.artstation.com/artwork/d8NOeJ
-oak.png - https://www.cleanpng.com/png-oak-tree-drawing-digital-artwork-of-lush-oak-tree-7967513/9.html
 
 # Sound Effects
-phaser.mp3 - https://www.trekcore.com/audio/ (TNG Phaser 11)
 paper.mp3 - https://pixabay.com/sound-effects/paper-flutter-5933/
 write.mp3 - https://pixabay.com/sound-effects/pencil-writing-32447/
 takeoff.mp3 - https://freesound.org/s/414671/
 ent-overhead.mp3 - uses sound from https://freesound.org/s/637149/
+ambiance.mp3 - https://freesound.org/s/662095/

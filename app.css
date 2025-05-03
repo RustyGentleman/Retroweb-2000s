@@ -203,6 +203,14 @@
     transform: translateX(0);
   }
 }
+@keyframes bob {
+  0%, 100% {
+    transform: scale(0.95);
+  }
+  50% {
+    transform: scale(1);
+  }
+}
 @font-face {
   font-family: "Andy";
   src: url("assets/kaboom/AndyRegular.OTF");
@@ -307,6 +315,10 @@ body {
   opacity: 0;
   transition: opacity 0.1s ease;
   pointer-events: none;
+}
+
+.temptext {
+  position: absolute;
 }
 
 .toscreencenter {
@@ -613,16 +625,16 @@ dialog::backdrop {
   z-index: 2;
 }
 #home .basement-wall .lock:nth-child(1) {
-  transform: translate(calc(-50% + 7.7rem), -8rem) rotate(10deg);
+  transform: translate(calc(-50% + 7.7rem), -8rem) rotate(-1deg);
 }
 #home .basement-wall .lock:nth-child(2) {
-  transform: translate(calc(-50% - 7.7rem), -4rem) rotate(-1deg);
+  transform: translate(calc(-50% - 7.7rem), -4rem) rotate(1deg);
 }
 #home .basement-wall .lock:nth-child(3) {
-  transform: translate(calc(-50% + 7.7rem), 0rem) rotate(-1deg);
+  transform: translate(calc(-50% + 7.7rem), 0rem) rotate(13deg);
 }
 #home .basement-wall .lock:nth-child(4) {
-  transform: translate(calc(-50% - 7.7rem), 4rem) rotate(-10deg);
+  transform: translate(calc(-50% - 7.7rem), 4rem) rotate(3deg);
 }
 #home .basement-wall .wallhook {
   position: absolute;
@@ -1200,9 +1212,6 @@ dialog::backdrop {
   height: 70px;
   width: 70px;
 }
-#kaboom #field .temptext {
-  position: absolute;
-}
 #kaboom .portal {
   position: absolute;
   bottom: 5rem;
@@ -1398,6 +1407,7 @@ dialog::backdrop {
   transform-origin: 38% 96%;
   filter: brightness(0) blur(0.5rem);
   opacity: 0.3;
+  pointer-events: none;
 }
 
 #credits {
@@ -1446,6 +1456,7 @@ dialog::backdrop {
   top: 50%;
   transform: translate(-50%, -50%);
   color: white;
+  font-family: "Grenze", serif;
 }
 #ras-dialogue .portrait {
   position: relative;
@@ -1617,6 +1628,46 @@ dialog::backdrop {
 #ras-curses.fade > div > img:nth-child(3) {
   opacity: 0;
   transition: opacity 3s ease 1s;
+}
+
+#owl-dialogue {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  border: solid 16px;
+  border-image: url("assets/pal/owl-border.png");
+  border-image-slice: 8;
+}
+#owl-dialogue fadein span {
+  animation: blink 0.5s ease reverse;
+}
+#owl-dialogue::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(4px);
+}
+#owl-dialogue > img {
+  height: 20vh;
+  animation: bob 3s ease infinite;
+}
+#owl-dialogue .wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 20vh;
+  padding: 1rem;
+  box-sizing: border-box;
+  filter: drop-shadow(-2px -2px 2px black) drop-shadow(-2px -2px 2px black) drop-shadow(2px 2px 2px black) drop-shadow(2px 2px 2px black);
+}
+#owl-dialogue .text {
+  width: 50vmin;
+  max-height: 20vh;
 }
 
 body {

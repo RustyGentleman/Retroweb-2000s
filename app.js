@@ -694,22 +694,59 @@ class Alchemy {
 	}
 }
 //# Owl
-document.querySelectorAll('#pal .owl').forEach(e => {
-	e.addEventListener('click', () => {
-		e.classList.add('flying')
-		e.classList.add('flyaway')
-		document.h_takeoff.play()
-		setTimeout(() => owlLand(e), 2000)
+{
+	const clues = [
+		{answer: `**Moonlace** + **Blue Blob** + **Magic Mushroom**`,
+			clue:`Under the **night**, through witches' flight\nadd goo so **sweet**, could make a treat\ntouch of **magic**, cure wounds tragic.`},
+		{answer: `**Potion Base** + **Heartgleam** + **Magic Mushroom**`,
+			clue:`Brew a **drink**, with which to dink\nherb which starts, lift patrons' **hearts**\ntouch of **shroom**, bring end all gloom.`},
+		{answer: `**Potion Base** + **Yellow Blob** + **Sun's Favor**`,
+			clue:`Another **drink**, which one serves,\none that could raise all one's nerves\nSlime to **energize**, makes you exercise\nHerb of the **morning**, new day aborning.`},
+	]
+	let clueIndex = 0
+	const dbox = document.getElementById('owl-dialogue')
+	const okay = dbox.querySelector('span[onclick]')
+	const what = dbox.querySelector('span[onclick]:last-of-type')
+	const steptext = new Steptext(dbox.querySelector('.text'), {stepInterval: 32, onFinished: () => {
+		okay.classList.remove('hidden')
+		what.classList.remove('hidden')
+	}})
+	Steptext.encodings.set('\\+\\+', ['fadein', 2])
+	Steptext.tagsWithWrappedChars.push('fadein')
+	okay.addEventListener('click', () => {
+		dbox.classList.add('hidden')
+		okay.classList.add('hidden')
+		what.classList.add('hidden')
+		what.style.display = ''
+		clueIndex = (clueIndex+1) % clues.length
+		steptext.targetElement.innerHTML = ''
 	})
-})
-function owlLand(not) {
-	console.log('Owl land')
-	const owls = Array.from(document.querySelectorAll('#pal .owl')).filter(e => e !== not)
-	const picked = owls[Math.floor(Math.random() * owls.length)]
-	picked.classList.remove('flying')
-	picked.classList.add('flyin')
-	picked.classList.remove('flyaway')
-	setTimeout(() => picked.classList.remove('flyin'), 1000)
+	what.addEventListener('click', () => {
+		okay.classList.add('hidden')
+		what.style.display = 'none'
+		steptext.queue('\n\n++' + clues[clueIndex].answer + '++')
+	})
+	document.querySelectorAll('#pal .owl').forEach(owl => {
+		owl.addEventListener('click', () => {
+			owl.classList.add('flying')
+			owl.classList.add('flyaway')
+			document.h_takeoff.play()
+			setTimeout(() => owlLand(owl), 2000)
+			if (Math.random() > .5) {
+				steptext.queue('++' + clues[clueIndex].clue + '++')
+				dbox.classList.remove('hidden')
+			}
+		})
+	})
+	function owlLand(not) {
+		console.log('Owl land')
+		const owls = Array.from(document.querySelectorAll('#pal .owl')).filter(e => e !== not)
+		const picked = owls[Math.floor(Math.random() * owls.length)]
+		picked.classList.remove('flying')
+		picked.classList.add('flyin')
+		picked.classList.remove('flyaway')
+		setTimeout(() => picked.classList.remove('flyin'), 1000)
+	}
 }
 //# Pokémon
 let pokemonTimeoutID
@@ -1190,6 +1227,7 @@ document.h_unlock = new Howl({src: ['assets/home/unlock.mp3']})
 document.h_open = new Howl({src: ['assets/home/open-door.mp3']})
 document.h_curse = new Howl({src: ['assets/ras2/curse-woosh.mp3']})
 document.h_chosen = new Howl({src: ['assets/ras2/choice-made.mp3']})
+document.h_rasambiance = new Howl({src: ['assets/ras2/ambiance.mp3'], volume:.3, loop:true})
 //# Goblin dance
 const home = document.getElementById('home')
 const bottom = window.visualViewport.height * 7
@@ -1354,7 +1392,7 @@ function goToPage(id, skipAnimation=false) {
 	const animationLength = 2
 	let previous
 	if (!document.currentPage)
-		document.currentPage = document.querySelector(`.fullpage#${id}`)
+		document.currentPage = document.querySelector('.fullpage:not(.hidden)') || document.querySelector(`.fullpage#${id}`)
 	else
 		previous = document.currentPage
 	document.currentPage = document.querySelector(`.fullpage#${id}`)
@@ -1371,12 +1409,8 @@ function goToPage(id, skipAnimation=false) {
 	//? State management
 	if (previous?.id === 'home' && document.h_gobdance.playing())
 		document.h_gobdance.pause()
-	if (document.currentPage.id === 'home')
-		document.currentPage.dispatchEvent(new Event('scroll'))
-	if (document.currentPage.id === 'lef')
-		pokemonTimeoutID = setTimeout(spawnPokemon, Math.random() * 4000 + 1000)
-	else
-		clearTimeout(pokemonTimeoutID)
+	if (previous?.id === 'ras2')
+		document.h_rasambiance.pause()
 	//? Nav triggers
 	const collectibles = getSavedData('collectibles', {
 		pack: (data) => JSON.stringify(data),
@@ -1387,14 +1421,20 @@ function goToPage(id, skipAnimation=false) {
 		if (collectibles.find(e => e.key == 'a Starfleet-issue Universal Translator') && !getSavedData('Kowabi-flags').find('kaboom-intro-done'))
 			Kowabi.playNode('kaboom-intro')
 	}
-	else if (document.currentPage.id === 'ras2')
+	else if (document.currentPage.id === 'home')
+		document.currentPage.dispatchEvent(new Event('scroll'))
+	else if (document.currentPage.id === 'ras2') {
 		Playlist.playSong('ras', true)
-	else if (document.currentPage.id === 'pal')
+		document.h_rasambiance.play()
+	} else if (document.currentPage.id === 'pal')
 		Playlist.playSong('pal', true)
-	else if (document.currentPage.id === 'lef')
+	else if (document.currentPage.id === 'lef') {
 		Playlist.playSong('leafy', true)
-	else if (Playlist.current?.howl.playing())
+		pokemonTimeoutID = setTimeout(spawnPokemon, Math.random() * 4000 + 1000)
+	} else if (Playlist.current?.howl.playing())
 		Playlist.play()
+	if (document.currentPage.id !== 'lef')
+		clearTimeout(pokemonTimeoutID)
 }
 function addCollectible(element, key, toptext='', bottomtext='') {
 	element.removeAttribute('onclick')
@@ -1427,8 +1467,8 @@ function DropTempText(element, string, seconds=5, post) {
 	const text = document.createElement('div')
 	text.textContent = string
 	text.className = 'temptext'
-	text.style.top = element.style.top
-	text.style.left = element.style.left
+	text.style.top = getComputedStyle(element).top
+	text.style.left = getComputedStyle(element).left
 	text.style.setProperty('--angle', Math.random()*40-20+'deg')
 	element.parentElement.append(text)
 	if (post)

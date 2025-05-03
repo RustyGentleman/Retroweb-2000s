@@ -133,6 +133,11 @@
 		transform: translateX(100vw)
 	100%
 		transform: translateX(0)
+@keyframes bob
+	0%, 100%
+		transform: scale(.95)
+	50%
+		transform: scale(1)
 @font-face
 	font-family: 'Andy'
 	src: url('assets/kaboom/AndyRegular.OTF')
@@ -221,6 +226,8 @@ body
 		opacity: 0
 		transition: opacity .1s ease
 		pointer-events: none
+.temptext
+	position: absolute
 .toscreencenter
 	top: 50% !important
 	left: 50% !important
@@ -947,8 +954,6 @@ dialog::backdrop
 			img
 				height: 70px
 				width: 70px
-		.temptext
-			position: absolute
 	.portal
 		position: absolute
 		bottom: 5rem
@@ -1116,6 +1121,7 @@ dialog::backdrop
 			transform-origin: 38% 96%
 			filter: brightness(0) blur(0.5rem)
 			opacity: 0.3
+			pointer-events: none
 #credits
 	--bgo: 0
 	background-image: url('assets/credits/star-bg.gif')
@@ -1151,6 +1157,7 @@ dialog::backdrop
 	top: 50%
 	transform: translate(-50%, -50%)
 	color: white
+	font-family: 'Grenze', serif
 	.portrait
 		position: relative
 		height: 70vmin
@@ -1279,6 +1286,39 @@ dialog::backdrop
 		> div > img:nth-child(3)
 			opacity: 0
 			transition: opacity 3s ease 1s
+#owl-dialogue
+	display: flex
+	align-items: center
+	text-align: center
+	position: fixed
+	left: 50%
+	top: 50%
+	transform: translate(-50%, -50%)
+	color: white
+	border: solid 16px
+	border-image: url('assets/pal/owl-border.png')
+	border-image-slice: 8
+	fadein span
+		animation: blink .5s ease reverse
+	&::before
+		content: ''
+		position: absolute
+		inset: 0
+		backdrop-filter: blur(4px)
+	> img
+		height: 20vh
+		animation: bob 3s ease infinite
+	.wrapper
+		display: flex
+		flex-direction: column
+		justify-content: space-between
+		height: 20vh
+		padding: 1rem
+		box-sizing: border-box
+		filter: drop-shadow(-2px -2px 2px black) drop-shadow(-2px -2px 2px black) drop-shadow(2px 2px 2px black) drop-shadow(2px 2px 2px black)
+	.text
+		width: 50vmin
+		max-height: 20vh
 
 //# Colors, Text & Appearance
 body
