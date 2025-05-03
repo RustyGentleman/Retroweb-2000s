@@ -548,7 +548,7 @@ class Alchemy {
 		{name: 'Little Witch in the Woods', ingredients: [
 			'Moonlace',
 			'A blob of blue slime',
-			// 'A magic-looking mushroom',
+			'A magic-looking mushroom',
 			], result: () => {
 				const cauldron = document.getElementById('pal').querySelector('#cauldron-clickbox')
 				const wrapper = document.createElement('div')
@@ -570,7 +570,7 @@ class Alchemy {
 		{name: 'Tavern Talk', ingredients: [
 			'Potion base',
 			'Heartgleam',
-			// 'A magic-looking mushroom',
+			'A magic-looking mushroom',
 			], result: () => {
 				const cauldron = document.getElementById('pal').querySelector('#cauldron-clickbox')
 				const wrapper = document.createElement('div')
@@ -1020,15 +1020,34 @@ const herbs = document.getElementById('ras2').querySelectorAll('.herb')
 	let typed = ''
 	let timeoutID
 	const combos = [
-		{trigger: 'credits', callback: () => goToPage('credits', true)}
+		{trigger: 'credits', callback: () => goToPage('credits', true)},
+		{trigger: 'gohome', callback: () => goToPage('home', true)},
+		{trigger: 'pissbag', callback: () => {
+			const key = document.createElement('div')
+			const img = document.createElement('img')
+			const tooltip = document.createElement('span')
+			key.className = 'hastooltip key'
+			key.style.cssText = "position:absolute;top:50%;left:50%;height:5vh;"
+			img.src = 'assets/key-luna.png'
+			img.alt = 'A floppy key'
+			img.setAttribute('onclick', "addCollectible(this, 'a floppy key', `You earned a`, `Floppy Key!`);this.parentElement.remove()")
+			tooltip.className = 'tooltip'
+			tooltip.textContent = 'A floppy key'
+			key.append(img)
+			key.append(tooltip)
+			document.getElementById('home').querySelector('.basement-wall').append(key)
+			setTimeout(() => img.click())
+		}},
 	]
 
 	document.addEventListener('keydown', (e) => {
 		if (e.key.length === 1 && e.key.match(/\w{1}/)) {
 			typed += e.key.toLowerCase()
 			for (const combo of combos)
-				if (typed === combo.trigger)
+				if (typed === combo.trigger) {
 					combo.callback()
+					typed = ''
+				}
 		}
 		if (timeoutID) clearTimeout(timeoutID)
 		timeoutID = setTimeout(() => {

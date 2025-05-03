@@ -18,6 +18,7 @@
 	<link rel="preload" as="image" href="assets/pal/coffeetalk.png">
 	<link rel="preload" as="image" href="assets/pal/taverntalk.png">
 	<link rel="preload" as="image" href="assets/key-ras.png">
+	<link rel="preload" as="image" href="assets/key-luna.png">
 	<style>
 		/*********** Baseline, reset styles ***********/
 		input[type="range"] {
@@ -81,15 +82,29 @@
 			<img src="assets/home/bookshelf.png" alt="Left bookshelf"/>
 			<div class="hastooltip bookshelf-item" id="slimepedia">
 				<img src="assets/home/book-kaboom.png" alt="A Slimepedia" onclick="goToPage('kaboom')">
-				<span class="tooltip">A Slimepedia.</span>
+				<span class="tooltip">A Slimepedia</span>
 			</div>
 			<div class="hastooltip bookshelf-item" id="grimoire">
 				<img src="assets/home/book-pal.png" alt="A grimoire" onclick="goToPage('pal')">
-				<span class="tooltip">A grimoire.</span>
+				<span class="tooltip">A grimoire</span>
 			</div>
 			<div class="hastooltip bookshelf-item" id="popupbook">
 				<img src="assets/home/book-lef.png" alt="A pop-up book" onclick="goToPage('lef')">
-				<span class="tooltip">A pop-up book.</span>
+				<span class="tooltip">A pop-up book</span>
+			</div>
+			<div class="hastooltip bookshelf-item" id="progfordums">
+				<a href="https://lunadream354.github.io/amy-birthday-2025/" target="_blank"><img src="assets/home/book-luna.png" alt="A programming book for dummies" onclick></a>
+				<span class="tooltip">A programming book for dummies</span>
+			</div>
+			<div class="hastooltip bookshelf-item" id="herbalistjournal">
+				<img src="assets/home/book-ras.png" alt="An herbalist's journal" onclick="goToPage('ras2')">
+				<span class="tooltip">An herbalist's journal</span>
+			</div>
+			<div class="bookshelf-item" style="top:10.7rem;right:.6rem">
+				<img src="assets/home/row-of-books.png">
+			</div>
+			<div class="bookshelf-item" style="top:6rem;left:.6rem">
+				<img src="assets/home/row-of-books3.png">
 			</div>
 		</div>
 		<div class="bookshelf" id="bookshelf-right" style="right: calc(50% - 25rem)">
@@ -97,6 +112,9 @@
 			<div class="hastooltip bookshelf-item" id="universal-translator">
 				<img src="assets/universal-translator.png" alt="A Starfleet-issue Universal Translator" onclick="addCollectible(this, 'a Starfleet-issue Universal Translator', `You've found a`, `Starfleet-issue Universal Translator!`); this.parentElement.remove(); Kowabi.playNode('intro-en')">
 				<span class="tooltip">A Starfleet-issue Universal Translator</span>
+			</div>
+			<div class="bookshelf-item" style="top:15.3rem;right:.5rem">
+				<img src="assets/home/row-of-books2.png">
 			</div>
 		</div>
 		<img src="assets/home/balloons.png" alt="Party balloons in black, white and red" id="balloons"/>
@@ -106,9 +124,14 @@
 			<img src="assets/home/lock.png" alt="A lock" class="lock" data-number="1">
 			<img src="assets/home/lock.png" alt="A lock" class="lock" data-number="2">
 			<img src="assets/home/lock.png" alt="A lock" class="lock" data-number="3">
+			<img src="assets/home/lock.png" alt="A lock" class="lock" data-number="4">
 			<img src="assets/home/door-door.png" alt="A fancy-looking door" id="finaldoor" onclick="NonagonInfinity(this)">
 			<img src="assets/home/door-frame.png" id="finaldoor-frame">
 			<img src="assets/home/door-void.png" id="finaldoor-void">
+			<div class="wallhook">
+				<img src="assets/home/wallhook-over.png">
+				<img src="assets/home/wallhook.png" alt="Wall hook">
+			</div>
 			<div class="wallhook">
 				<img src="assets/home/wallhook-over.png">
 				<img src="assets/home/wallhook.png" alt="Wall hook">
@@ -129,6 +152,10 @@
 			<img src="assets/home/gob-back-headback.png" class="hidden">
 			<img src="assets/home/gob-back-headfront.png">
 		</div>
+		<div class="hastooltip" id="magic-mushroom">
+			<img class="ingredient" src="assets/home/magic-shroom.png" alt="A magic-looking mushroom" onclick="addCollectible(this, 'a magic-looking mushroom', `You've hesitantly taken a`, `Magic Mushroom!`); this.parentElement.remove()">
+			<span class="tooltip">A magic-looking mushroom</span>
+		</div>
 		<div class="gobs"></div>
 	</div>
 	<div class="fullpage hidden" id="ras2">
@@ -138,11 +165,11 @@
 		<div class="grass"></div>
 		<div class="porch">
 			<img src="assets/ras2/porch-t.png">
-			<div class="hastooltip" style="position:absolute;top:32.9vh;left:33.8vh;height:34.6vh;pointer-events:auto">
+			<div class="hastooltip" style="position:absolute;top:32.9vh;left:33.8vh;height:34.6vh">
 				<img src="assets/ras2/porch-lute.png" alt="Ras' lute">
 				<span class="tooltip">Ras' lute</span>
 			</div>
-			<div class="hastooltip" style="position:absolute;top:60.7vh;left:57.8vh;height:5.6vh;pointer-events:auto">
+			<div class="hastooltip" style="position:absolute;top:60.7vh;left:57.8vh;height:5.6vh">
 				<img src="assets/ras2/louie-porch.png" alt="Ras' lute">
 				<span class="tooltip">Louie, the Twisty</span>
 			</div>
@@ -371,6 +398,7 @@
 			<img src="assets/lef/header.png" alt="Leafy's Forest" class="header">
 			<img src="assets/lef/leafeon.gif" alt="Leafeon" id="leafeon">
 			<div id="funnydownload"><a href="assets/songs/yearningheart.mp3" download>CLICK HERE TO DOWNLOAD A COOL SONG :)</a></div>
+			<img src="assets/portal.gif" style="margin-block:-5rem -2rem" onclick="goToPage('home')"/>
 			<div id="pokefield"></div>
 		</div>
 		<div id="catch-attempt" class="hidden">
@@ -397,7 +425,8 @@
 		</div>
 	</div>
 	<div class="fullpage hidden" id="kaboom">
-		<div id="field">
+			<img src="assets/portal.gif" class="portal" onclick="goToPage('home')"/>
+			<div id="field">
 			<div class="slime" id="jerome"><img src="assets/kaboom/jerome.gif"/></div>
 			<div class="slime" id="roosevelt"><img src="assets/kaboom/roosevelt.gif"/></div>
 			<div class="slime" id="samantha"><img src="assets/kaboom/samantha.gif"/></div>

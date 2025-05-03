@@ -605,13 +605,16 @@ dialog::backdrop {
   z-index: 2;
 }
 #home .basement-wall .lock:nth-child(1) {
-  transform: translate(calc(-50% + 7.7rem), -4rem) rotate(0deg);
+  transform: translate(calc(-50% + 7.7rem), -8rem) rotate(-18deg);
 }
 #home .basement-wall .lock:nth-child(2) {
-  transform: translateX(calc(-50% - 7.7rem)) rotate(8deg);
+  transform: translate(calc(-50% - 7.7rem), -4rem) rotate(-2deg);
 }
 #home .basement-wall .lock:nth-child(3) {
-  transform: translate(calc(-50% + 7.7rem), 4rem) rotate(-15deg);
+  transform: translate(calc(-50% + 7.7rem), 0rem) rotate(13deg);
+}
+#home .basement-wall .lock:nth-child(4) {
+  transform: translate(calc(-50% - 7.7rem), 4rem) rotate(14deg);
 }
 #home .basement-wall .wallhook {
   position: absolute;
@@ -628,10 +631,16 @@ dialog::backdrop {
   z-index: 1;
 }
 #home .basement-wall .wallhook:nth-child(8) {
-  transform: translate(-10rem, 3rem);
+  transform: translate(-15rem, 5rem);
 }
 #home .basement-wall .wallhook:nth-child(9) {
-  transform: translate(10rem, 3rem);
+  transform: translateX(-5rem);
+}
+#home .basement-wall .wallhook:nth-child(10) {
+  transform: translateX(5rem);
+}
+#home .basement-wall .wallhook:nth-child(11) {
+  transform: translate(15rem, 5rem);
 }
 #home .basement-wall .wallhook .hastooltip {
   transform: translateX(-50%);
@@ -645,6 +654,10 @@ dialog::backdrop {
   transform: translate(8%, 107%) rotate(90deg) !important;
 }
 #home .basement-wall .wallhook .hastooltip [alt*=slime] {
+  height: 4rem;
+  transform: translate(5%, 93%) rotate(90deg) !important;
+}
+#home .basement-wall .wallhook .hastooltip [alt*=floppy] {
   height: 4rem;
   transform: translate(5%, 93%) rotate(90deg) !important;
 }
@@ -721,6 +734,14 @@ dialog::backdrop {
 }
 #home #popupbook img {
   max-height: 3rem;
+}
+#home #progfordums {
+  top: 15.3rem;
+  right: 0.5rem;
+}
+#home #herbalistjournal {
+  top: 15.3rem;
+  right: 3rem;
 }
 
 #ras {
@@ -1175,8 +1196,9 @@ dialog::backdrop {
 }
 #kaboom #field {
   position: relative;
-  width: 100vw;
+  width: 93vw;
   height: 25vh;
+  left: 7vw;
   margin-top: 75vh;
   overflow: visible;
 }
@@ -1191,6 +1213,11 @@ dialog::backdrop {
 }
 #kaboom #field .temptext {
   position: absolute;
+}
+#kaboom .portal {
+  position: absolute;
+  bottom: 5rem;
+  left: -1rem;
 }
 
 #slime-dialogue {
@@ -1242,7 +1269,8 @@ dialog::backdrop {
   perspective: 50rem;
   image-rendering: auto;
 }
-#ras2:not(.hidden) .porch .portal-wrapper .portal {
+#ras2:not(.hidden) .porch .portal-wrapper .portal,
+#ras2:not(.hidden) .porch .hastooltip {
   pointer-events: auto;
 }
 #ras2 .porch img, #ras2 .garden img, #ras2 .ras img {
@@ -1729,12 +1757,21 @@ body {
   background-size: cover;
   transform: translateZ(4.8rem);
 }
-#home .singular-gob img {
+#home .singular-gob > img {
   position: absolute;
   top: 0;
   left: 0;
   height: 100%;
   width: auto;
+}
+#home #magic-mushroom {
+  position: absolute;
+  top: 625vh;
+  right: calc(50% - 27rem);
+  transform: translateZ(4.8rem);
+}
+#home #magic-mushroom img {
+  height: 3rem;
 }
 #home .gobs {
   background: url("assets/home/gobdance.gif") no-repeat;

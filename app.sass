@@ -458,13 +458,16 @@ dialog::backdrop
 			$rand1: random(41) - 21
 			$rand2: random(41) - 21
 			$rand3: random(41) - 21
+			$rand4: random(41) - 21
 			z-index: 2
 			&:nth-child(1)
-				transform: translate(calc(-50% + 7.7rem), -4rem) rotate(#{$rand1}deg)
+				transform: translate(calc(-50% + 7.7rem), -8rem) rotate(#{$rand1}deg)
 			&:nth-child(2)
-				transform: translateX(calc(-50% - 7.7rem)) rotate(#{$rand2}deg)
+				transform: translate(calc(-50% - 7.7rem), -4rem) rotate(#{$rand2}deg)
 			&:nth-child(3)
-				transform: translate(calc(-50% + 7.7rem), 4rem) rotate(#{$rand3}deg)
+				transform: translate(calc(-50% + 7.7rem), 0rem) rotate(#{$rand3}deg)
+			&:nth-child(4)
+				transform: translate(calc(-50% - 7.7rem), 4rem) rotate(#{$rand4}deg)
 		.wallhook
 			position: absolute
 			top: 3rem
@@ -477,9 +480,13 @@ dialog::backdrop
 				&:first-child
 					z-index: 1
 			&:nth-child(8)
-				transform: translate(-10rem, 3rem)
+				transform: translate(-15rem, 5rem)
 			&:nth-child(9)
-				transform: translate(10rem, 3rem)
+				transform: translateX(-5rem)
+			&:nth-child(10)
+				transform: translateX(5rem)
+			&:nth-child(11)
+				transform: translate(15rem, 5rem)
 			.hastooltip
 				transform: translateX(-50%)
 				[alt*='leaf']
@@ -489,6 +496,9 @@ dialog::backdrop
 					height: 4rem
 					transform: translate(8%, 107%) rotate(90deg) !important
 				[alt*='slime']
+					height: 4rem
+					transform: translate(5%, 93%) rotate(90deg) !important
+				[alt*='floppy']
 					height: 4rem
 					transform: translate(5%, 93%) rotate(90deg) !important
 		#finaldoor, #finaldoor-frame, #finaldoor-void
@@ -550,6 +560,12 @@ dialog::backdrop
 		right: .3rem
 		img
 			max-height: 3rem
+	#progfordums
+		top: 15.3rem
+		right: .5rem
+	#herbalistjournal
+		top: 15.3rem
+		right: 3rem
 #ras
 	overflow-x: hidden
 	.content
@@ -928,8 +944,9 @@ dialog::backdrop
 			z-index: 2
 	#field
 		position: relative
-		width: 100vw
+		width: 93vw
 		height: 25vh
+		left: 7vw
 		margin-top: 75vh
 		overflow: visible
 		.slime
@@ -941,6 +958,10 @@ dialog::backdrop
 				width: 70px
 		.temptext
 			position: absolute
+	.portal
+		position: absolute
+		bottom: 5rem
+		left: -1rem
 #slime-dialogue
 	display: flex
 	position: fixed
@@ -981,8 +1002,10 @@ dialog::backdrop
 	overflow: auto hidden
 	perspective: 50rem
 	image-rendering: auto
-	&:not(.hidden) .porch .portal-wrapper .portal
-		pointer-events: auto
+	&:not(.hidden)
+		.porch .portal-wrapper .portal,
+		.porch .hastooltip
+			pointer-events: auto
 	.porch, .garden, .ras
 		img
 			height: 100%
@@ -1364,12 +1387,19 @@ body
 		background: url('assets/home/gob-back.png') no-repeat
 		background-size: cover
 		transform: translateZ(4.8rem)
-		img
+		> img
 			position: absolute
 			top: 0
 			left: 0
 			height: 100%
 			width: auto
+	#magic-mushroom
+		position: absolute
+		top: 625vh
+		right: calc(50% - 27rem)
+		transform: translateZ(4.8rem)
+		img
+			height: 3rem
 	.gobs
 		background: url('assets/home/gobdance.gif') no-repeat
 		background-size: contain
