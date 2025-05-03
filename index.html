@@ -80,6 +80,17 @@
 		</div>
 		<div class="bookshelf" id="bookshelf-left" style="left: calc(50% - 25rem)">
 			<img src="assets/home/bookshelf.png" alt="Left bookshelf"/>
+			<div class="hastooltip bookshelf-item" id="popupbook">
+				<img src="assets/home/book-lef.png" alt="A pop-up book" onclick="goToPage('lef')">
+				<span class="tooltip">A pop-up book</span>
+			</div>
+			<div class="bookshelf-item" style="top:10.7rem;right:.6rem">
+				<img src="assets/home/row-of-books.png">
+			</div>
+			<div class="bookshelf-item" style="top:6rem;left:.6rem">
+				<img src="assets/home/row-of-books3.png">
+			</div>
+			<img src="assets/home/chunk-of-citrine.png" style="position:absolute;height:4rem;width:auto;top:10.7rem;left:1rem">
 			<div class="hastooltip bookshelf-item" id="slimepedia">
 				<img src="assets/home/book-kaboom.png" alt="A Slimepedia" onclick="goToPage('kaboom')">
 				<span class="tooltip">A Slimepedia</span>
@@ -87,10 +98,6 @@
 			<div class="hastooltip bookshelf-item" id="grimoire">
 				<img src="assets/home/book-pal.png" alt="A grimoire" onclick="goToPage('pal')">
 				<span class="tooltip">A grimoire</span>
-			</div>
-			<div class="hastooltip bookshelf-item" id="popupbook">
-				<img src="assets/home/book-lef.png" alt="A pop-up book" onclick="goToPage('lef')">
-				<span class="tooltip">A pop-up book</span>
 			</div>
 			<div class="hastooltip bookshelf-item" id="progfordums">
 				<a href="https://lunadream354.github.io/amy-birthday-2025/" target="_blank"><img src="assets/home/book-luna.png" alt="A programming book for dummies" onclick></a>
@@ -100,13 +107,6 @@
 				<img src="assets/home/book-ras.png" alt="An herbalist's journal" onclick="goToPage('ras2')">
 				<span class="tooltip">An herbalist's journal</span>
 			</div>
-			<div class="bookshelf-item" style="top:10.7rem;right:.6rem">
-				<img src="assets/home/row-of-books.png">
-			</div>
-			<div class="bookshelf-item" style="top:6rem;left:.6rem">
-				<img src="assets/home/row-of-books3.png">
-			</div>
-			<img src="assets/home/chunk-of-citrine.png" style="position:absolute;height:4rem;width:auto;top:10.7rem;left:1rem">
 		</div>
 		<div class="bookshelf" id="bookshelf-right" style="right: calc(50% - 25rem)">
 			<img src="assets/home/bookshelf.png" alt="Right bookshelf"/>
@@ -534,6 +534,17 @@
 		<div class="message">
 			<div class="text">This is some sample text</div>
 			<button class="win95-btn" onclick="dialogueAdvance(this, 'ras')">Continue</button>
+		</div>
+	</div>
+	<div id="ras-curses" class="fullpage hidden">
+		<div>
+			<img src="assets/ras-curse-void.png">
+			<img src="assets/ras-curse.png" alt="Ras looking creepy" style="margin-left: -40vh">
+			<img src="assets/ras-curse-eyes.png" style="margin-left: -40vh">
+			<div class="wrapper">
+				<div class="text"></div>
+				<span onclick="this.classList.add('hidden')" class="hidden">I accept my fate</span>
+			</div>
 		</div>
 	</div>
 	<div id="kowabi">

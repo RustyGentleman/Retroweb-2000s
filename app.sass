@@ -1,9 +1,9 @@
 //# Keyframes & Fonts
 @keyframes ras-bgscroll
 	0%
-		background-position-y: 0%
+		background-position-y: 0px
 	100%
-		background-position-y: 100%
+		background-position-y: 234px
 @keyframes vis1-borderflash
 	0%
 		border-color: yellow
@@ -128,6 +128,11 @@
 		transform: translateX(-50%) translateY(calc(-50% - 30vh)) scale(.6)
 	100%
 		transform: translateX(-50%) translateY(-50%) scale(.2)
+@keyframes flyintext
+	0%
+		transform: translateX(100vw)
+	100%
+		transform: translateX(0)
 @font-face
 	font-family: 'Andy'
 	src: url('assets/kaboom/AndyRegular.OTF')
@@ -566,27 +571,6 @@ dialog::backdrop
 	#herbalistjournal
 		top: 15.3rem
 		right: 3rem
-#ras
-	overflow-x: hidden
-	.content
-		display: flex
-		flex-direction: column
-		align-items: center
-		text-align: center
-		padding-block: 5rem
-		overflow: visible
-		&::before
-			content: ''
-			position: absolute
-			top: 0
-			bottom: 0
-			width: 100vw
-			z-index: -1
-	.bust
-		margin-bottom: -13rem
-	.header
-		height: 189px
-		width: 604px
 #pal
 	.content
 		display: flex
@@ -1217,6 +1201,84 @@ dialog::backdrop
 		&.centered
 			top: 40%
 			left: 50%
+#ras-curses
+	display: flex
+	align-items: center
+	background-color: rgb(0 0 0 / 80%)
+	z-index: 999999999999999999999999
+	image-rendering: auto
+	transition: background-color 1s ease
+	overflow: hidden
+	flyin span
+		display: inline-block
+		animation: flyintext .5s cubic-bezier(0, 0.75, 0, 1)
+	> div
+		position: relative
+		display: flex
+		align-items: center
+		justify-content: center
+		width: 100vw
+		height: 15vh
+		padding: 2vh
+		font-style: italic
+		font-family: 'Grenze', serif
+		font-size: 1.5rem
+		color: white
+		&::before
+			content: ''
+			position: absolute
+			inset: 0
+			background-color: black
+			border-image: url('assets/ras-curses-border.png')
+			border-image-slice: 9
+			border-image-repeat: repeat
+			border-block: solid 1vh
+			background-image: url('assets/credits/star-bg.gif')
+			animation: ras-bgscroll 1s linear infinite
+			transform: translateX(0)
+			transition: transform .3s ease-out
+			mask-image: linear-gradient(to left, transparent calc(50% - 50vh - 20vw), black calc(50% - 30vh))
+			z-index: -1
+		> img
+			position: relative
+			top: -10vh
+			width: 40vh
+			mask-image: linear-gradient(to top, transparent, black 10%)
+			margin-left: -10%
+		> img:nth-child(2)
+			opacity: 1
+			transition: opacity 3s ease .5s
+		.wrapper
+			position: relative
+			width: 60vh
+			height: 100%
+			> span
+				margin-left: 3rem
+				text-decoration: underline
+				font-weight: 900
+				font-style: normal
+				font-size: 1rem
+				transition: opacity 2s ease
+	&.hidden
+		background-color: rgb(0 0 0 / 0%)
+		transition: none
+		> div::before
+			transform: translateX(-100%)
+			transition: none
+		> div > img:nth-child(2)
+			opacity: 0
+			transition: none
+	&.fade
+		background-color: rgb(0 0 0 / 0%)
+		transition: background-color 1s ease
+		pointer-events: none
+		> div
+			img, div, &::before
+				opacity: 0
+				transition: none
+		> div > img:nth-child(3)
+			opacity: 0
+			transition: opacity 3s ease 1s
 
 //# Colors, Text & Appearance
 body
@@ -1411,21 +1473,6 @@ body
 		background: url('assets/home/gobdance.gif') no-repeat
 		background-size: contain
 		background-position: center center
-#ras
-	font-family: 'Comic Sans MS'
-	color: white
-	text-shadow: 0 0 .5rem #0044ff, 0 0 .5rem #0044ff, 0 0 .7rem #ff004c
-	.content
-		filter: drop-shadow(0 0 3rem rgb(0 68 255 / 40%)) drop-shadow(0 0 15rem rgb(255 0 76 / 10%))
-		&::before
-			background-image: url('assets/ras/star-bg.gif')
-			animation: ras-bgscroll 60s linear infinite
-	.vbig
-		font-size: 4rem
-	.big
-		font-size: 2rem
-	.header
-		filter: drop-shadow(0 0 .2rem #ff004c) drop-shadow(0 0 .2rem #0011ff) drop-shadow(0 1rem .5rem black)
 #pal
 	background-color: #2e58ae
 	background-image: url('assets/pal/bg-top.png'), url('assets/pal/bg-bottom.jpg')

@@ -1,10 +1,10 @@
 @charset "UTF-8";
 @keyframes ras-bgscroll {
   0% {
-    background-position-y: 0%;
+    background-position-y: 0px;
   }
   100% {
-    background-position-y: 100%;
+    background-position-y: 234px;
   }
 }
 @keyframes vis1-borderflash {
@@ -193,6 +193,14 @@
   }
   100% {
     transform: translateX(-50%) translateY(-50%) scale(0.2);
+  }
+}
+@keyframes flyintext {
+  0% {
+    transform: translateX(100vw);
+  }
+  100% {
+    transform: translateX(0);
   }
 }
 @font-face {
@@ -605,16 +613,16 @@ dialog::backdrop {
   z-index: 2;
 }
 #home .basement-wall .lock:nth-child(1) {
-  transform: translate(calc(-50% + 7.7rem), -8rem) rotate(-20deg);
+  transform: translate(calc(-50% + 7.7rem), -8rem) rotate(10deg);
 }
 #home .basement-wall .lock:nth-child(2) {
-  transform: translate(calc(-50% - 7.7rem), -4rem) rotate(0deg);
+  transform: translate(calc(-50% - 7.7rem), -4rem) rotate(-1deg);
 }
 #home .basement-wall .lock:nth-child(3) {
-  transform: translate(calc(-50% + 7.7rem), 0rem) rotate(-18deg);
+  transform: translate(calc(-50% + 7.7rem), 0rem) rotate(-1deg);
 }
 #home .basement-wall .lock:nth-child(4) {
-  transform: translate(calc(-50% - 7.7rem), 4rem) rotate(-4deg);
+  transform: translate(calc(-50% - 7.7rem), 4rem) rotate(-10deg);
 }
 #home .basement-wall .wallhook {
   position: absolute;
@@ -742,33 +750,6 @@ dialog::backdrop {
 #home #herbalistjournal {
   top: 15.3rem;
   right: 3rem;
-}
-
-#ras {
-  overflow-x: hidden;
-}
-#ras .content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding-block: 5rem;
-  overflow: visible;
-}
-#ras .content::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 100vw;
-  z-index: -1;
-}
-#ras .bust {
-  margin-bottom: -13rem;
-}
-#ras .header {
-  height: 189px;
-  width: 604px;
 }
 
 #pal .content {
@@ -1546,6 +1527,98 @@ dialog::backdrop {
   left: 50%;
 }
 
+#ras-curses {
+  display: flex;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1000000000000000000000000;
+  image-rendering: auto;
+  transition: background-color 1s ease;
+  overflow: hidden;
+}
+#ras-curses flyin span {
+  display: inline-block;
+  animation: flyintext 0.5s cubic-bezier(0, 0.75, 0, 1);
+}
+#ras-curses > div {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 15vh;
+  padding: 2vh;
+  font-style: italic;
+  font-family: "Grenze", serif;
+  font-size: 1.5rem;
+  color: white;
+}
+#ras-curses > div::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: black;
+  border-image: url("assets/ras-curses-border.png");
+  border-image-slice: 9;
+  border-image-repeat: repeat;
+  border-block: solid 1vh;
+  background-image: url("assets/credits/star-bg.gif");
+  animation: ras-bgscroll 1s linear infinite;
+  transform: translateX(0);
+  transition: transform 0.3s ease-out;
+  mask-image: linear-gradient(to left, transparent calc(50% - 50vh - 20vw), black calc(50% - 30vh));
+  z-index: -1;
+}
+#ras-curses > div > img {
+  position: relative;
+  top: -10vh;
+  width: 40vh;
+  mask-image: linear-gradient(to top, transparent, black 10%);
+  margin-left: -10%;
+}
+#ras-curses > div > img:nth-child(2) {
+  opacity: 1;
+  transition: opacity 3s ease 0.5s;
+}
+#ras-curses > div .wrapper {
+  position: relative;
+  width: 60vh;
+  height: 100%;
+}
+#ras-curses > div .wrapper > span {
+  margin-left: 3rem;
+  text-decoration: underline;
+  font-weight: 900;
+  font-style: normal;
+  font-size: 1rem;
+  transition: opacity 2s ease;
+}
+#ras-curses.hidden {
+  background-color: rgba(0, 0, 0, 0);
+  transition: none;
+}
+#ras-curses.hidden > div::before {
+  transform: translateX(-100%);
+  transition: none;
+}
+#ras-curses.hidden > div > img:nth-child(2) {
+  opacity: 0;
+  transition: none;
+}
+#ras-curses.fade {
+  background-color: rgba(0, 0, 0, 0);
+  transition: background-color 1s ease;
+  pointer-events: none;
+}
+#ras-curses.fade > div img, #ras-curses.fade > div div, #ras-curses.fade > div::before {
+  opacity: 0;
+  transition: none;
+}
+#ras-curses.fade > div > img:nth-child(3) {
+  opacity: 0;
+  transition: opacity 3s ease 1s;
+}
+
 body {
   background: #111;
   font-family: Tahoma;
@@ -1785,28 +1858,6 @@ body {
   background: url("assets/home/gobdance.gif") no-repeat;
   background-size: contain;
   background-position: center center;
-}
-
-#ras {
-  font-family: "Comic Sans MS";
-  color: white;
-  text-shadow: 0 0 0.5rem #0044ff, 0 0 0.5rem #0044ff, 0 0 0.7rem #ff004c;
-}
-#ras .content {
-  filter: drop-shadow(0 0 3rem rgba(0, 68, 255, 0.4)) drop-shadow(0 0 15rem rgba(255, 0, 76, 0.1));
-}
-#ras .content::before {
-  background-image: url("assets/ras/star-bg.gif");
-  animation: ras-bgscroll 60s linear infinite;
-}
-#ras .vbig {
-  font-size: 4rem;
-}
-#ras .big {
-  font-size: 2rem;
-}
-#ras .header {
-  filter: drop-shadow(0 0 0.2rem #ff004c) drop-shadow(0 0 0.2rem #0011ff) drop-shadow(0 1rem 0.5rem black);
 }
 
 #pal {

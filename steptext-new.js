@@ -83,7 +83,7 @@ class Steptext {
 		else {
 			if (dis.onFinished)
 				dis.onFinished(dis, dis.targetElement)
-			// dis.pause()
+			dis.pause()
 		}
 		if (dis.stepTimeoutID !== null)
 			dis.stepTimeoutID = setTimeout(() => dis.step(dis), dis.stepInterval * (dis.fastEnabled? 1/3 : 1))
@@ -124,7 +124,7 @@ class Steptext {
 				span.innerHTML = withSpaces[0].replaceAll(' ', '&nbsp;')
 				this.textQueue = this.textQueue.slice(withSpaces[0].length-1)
 			} else
-				span.innerHTML = this.textQueue[0]
+				span.innerHTML = this.textQueue[0].replace(' ', '&nbsp;')
 			this.getInnermostChild().appendChild(span)
 		} else {
 			if (this.getInnermostChild()?.lastChild?.nodeType === 3) {

@@ -950,7 +950,19 @@ const herbs = document.getElementById('ras2').querySelectorAll('.herb')
 					key.append(tooltip)
 					document.getElementById('ras2').querySelector('.boulder-hitbox').append(key)
 					setTimeout(() => img.click())
+					setTimeout(() => rasDialogue(final), 3000)
 				}, {once: true})
+			}
+		}, final: {
+			lines: [
+				{expression: 'smile-halfopen', text: `Oh, and to make your further travels just _a bit_ more ~interesting...~`},
+				{expression: 'smirk', text: `I'll _periodically_ cast a few !!curses!! on you...`},
+			], endtrigger: () => {
+				trigger()
+				function trigger() {
+					castCurse()
+					setTimeout(trigger, (Math.random()*2 + 3) * 60000)
+				}
 			}
 		}
 	}
@@ -1056,6 +1068,84 @@ const herbs = document.getElementById('ras2').querySelectorAll('.herb')
 		}, 1000)
 	})
 }
+//# Ras' Curses
+{
+	const rasCurses = [
+		[//* Spells/curses
+			{id: 'CRSPALE', once: false, text: `You have been inflicted by the **Curse of Pale Skin**.<span class="small">Wait... That's redundant.</span>`},
+			{id: 'CRSPIGN', once: false, text: `You have been inflicted by the **Curse of Pigeon Remembrance**.`},
+			{id: 'CRSFART', once: false, text: `You have been inflicted by the **Curse of Public Assripping**.`},
+			{id: 'CRSBRTH', once: false, text: `You have been inflicted by the **Curse of Manual Breathing**`},
+			{id: 'PWDCOCK', once: false, text: `Power-word: **cockroach**`},
+			{id: 'PWDPIGN', once: false, text: `Power-word: **pigeon**`},
+			{id: 'PWDPIGN', once: false, text: `Power-word: **Gregg**`},
+			{id: 'PWDPIGN', once: false, text: `Power-word: **wizeahd**`},
+			{id: 'PWDPIGN', once: false, text: `Power-word: **tenagra**`},
+		], [//* Stream/server stuff
+			{id: 'DMBTINC', once:  true, text: `Your **dumbitude** has been permanently increased by 10%.`},
+			{id: 'MAXDUMB', once:  true, text: `Your **maximum dumbitude** has been permanently increased by 10%.`},
+		], [//* Books
+			{id: 'BKPRINT', once:  true, text: `Your next physical book will have printing errors all over.`},
+			{id: 'BKSORTD', once: false, text: `Your books have been alphabetically sorted.`},
+			{id: 'LISTRST', once: false, text: `Your reading list has been reset.`},
+			{id: 'GRMLNTP', once:  true, text: `A book-eating gremlin has been teleported into your weird hollow paper walls.`},
+			{id: 'GRMLNOP', once:  true, req: 'GRMLNTP', text: `The gremlin in your walls has learned to read. **He thinks your taste sucks.**`},
+		], [//* Physical
+			{id: 'PISSBAG', once: false, text: `Your piss bag privileges have been revoked.`},
+			{id: 'KIDNAPD', once: false, text: `One of your plague doctor plushies has been kidnapped.<span class="small">To have it returned, you must say "meal" correctly.</span>`},
+			{id: 'LESSELF', once: false, text: `You are now **only 10%** elf.`},
+		], [//* Psychic
+			{id: 'WALKING', once: false, text: `Your internal monologue is now voiced by **Stephen Walking**.`},
+			{id: 'NUDJOSH', once: false, text: `A nude picture of you has been sent to **Josh Homme**.`},
+			{id: 'IPATEXT', once: false, text: `/ju kən naʊ ˈoʊnli ɹid tɛkst ɪn aɪ pi eɪ/`},
+			{id: 'CANTSAY', once: false, text: `You have been rendered unable to pronounce [insert funny word].`},
+			{id: 'THTWEET', once: false, text: `Your last two thoughts have been **tweeted** without your consent.`},
+			{id: 'THUNFIN', once: false, text: `You can no longer finish your th`},
+			{id: 'BORGW11', once: false, text: `Your computer is being updated to **Windows 11**. Resistance is futile.`},
+			{id: 'THELIST', once: false, text: `Your name has been added to **The List**.`},
+			{id: 'THEGAME', once: false, text: `You have lost The Game.`},
+		], [//* Eldritch/weird
+			{id: 'TMSWAYS', once: false, text: `You now perceive time **sideways**.`},
+			{id: 'PNK2PRG', once: false, text: `All your favorite punk rock bands have been **existentially converted** to prog.`},
+			{id: 'MEMBTMP', once: false, text: `All your favorite memories have been **converted** to bitmap format.<span class="small">Sadly, most of them didn't fit and have been **excised** in the process.</span>`},
+		],
+	]
+	const screen = document.getElementById('ras-curses')
+	const accept = screen.querySelector('.wrapper > span')
+	const steptext = new Steptext(screen.querySelector('.text'), {
+		stepInterval: 64,
+		onFinished: () => {
+			accept.classList.remove('hidden')
+			steptext.pause()
+		}
+	})
+	accept.addEventListener('click', async function(){
+		screen.classList.add('fade')
+		this.classList.add('hidden')
+		console.log(this)
+		await new Promise(r => setTimeout(r, 4000))
+		screen.classList.remove('fade')
+		screen.classList.add('hidden')
+		this.previousElementSibling.innerHTML = ''
+	})
+	Steptext.encodings.set('==', ['flyin', 2])
+	Steptext.tagsWithWrappedChars.push('flyin')
+	function castCurse() {
+		const curse = pickCurse()
+		screen.classList.remove('hidden')
+		setTimeout(() => steptext.queue('==' + curse.text + '=='), 1000)
+	}
+	function pickCurse() {
+		const cast = getSavedData('curses-cast')
+		const filtered = rasCurses
+			.map(list => list.filter(entry => (entry.once? !cast.find(entry.id) : true) && (entry.req? cast.find(entry.req) : true)))
+			.filter(list => list.length > 0)
+		let picked = filtered[Math.floor(Math.random()*filtered.length)]
+		picked = picked[Math.floor(Math.random()*picked.length)]
+		cast.push(picked.id).save()
+		return picked
+	}
+}
 
 //! Effects setup
 //# Stealth Rickroll
@@ -1094,6 +1184,7 @@ document.h_wiggle = new Howl({src: ['assets/lef/wiggle.mp3']})
 document.h_caught = new Howl({src: ['assets/lef/caught.mp3']})
 document.h_snap = new Howl({src: ['assets/home/snap.mp3']})
 document.h_unlock = new Howl({src: ['assets/home/unlock.mp3']})
+document.h_open = new Howl({src: ['assets/home/open-door.mp3']})
 //# Goblin dance
 const home = document.getElementById('home')
 const bottom = window.visualViewport.height * 7
@@ -1179,7 +1270,7 @@ async function NonagonInfinity(door) {
 		document.h_gobdance.pause()
 }
 
-//# Starting setup
+//! Starting setup
 //? Set player volume
 Playlist.setVolume(window.localStorage.getItem('player-volume') || 1)
 //? Trigger Kowabi's intro
@@ -1190,7 +1281,7 @@ else {
 	Kowabi.setExpression(3, 2)
 }
 //? Start on home page
-goToPage('kaboom', true)
+goToPage('home', true)
 //? First playlist update
 setTimeout(() => player.updatePlaylist(), 1000)
 //? Trigger first visitor popup
