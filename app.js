@@ -1072,7 +1072,7 @@ const herbs = document.getElementById('ras2').querySelectorAll('.herb')
 {
 	const rasCurses = [
 		[//* Spells/curses
-			{id: 'CRSPALE', once: false, text: `You have been inflicted by the **Curse of Pale Skin**.<span class="small">Wait... That's redundant.</span>`},
+			{id: 'CRSPALE', once: false, text: `You have been inflicted by the **Curse of Pale Skin**.\n<span style="font-size:.6em">Wait... That's redundant.</span>`},
 			{id: 'CRSPIGN', once: false, text: `You have been inflicted by the **Curse of Pigeon Remembrance**.`},
 			{id: 'CRSFART', once: false, text: `You have been inflicted by the **Curse of Public Assripping**.`},
 			{id: 'CRSBRTH', once: false, text: `You have been inflicted by the **Curse of Manual Breathing**`},
@@ -1092,7 +1092,7 @@ const herbs = document.getElementById('ras2').querySelectorAll('.herb')
 			{id: 'GRMLNOP', once:  true, req: 'GRMLNTP', text: `The gremlin in your walls has learned to read. **He thinks your taste sucks.**`},
 		], [//* Physical
 			{id: 'PISSBAG', once: false, text: `Your piss bag privileges have been revoked.`},
-			{id: 'KIDNAPD', once: false, text: `One of your plague doctor plushies has been kidnapped.<span class="small">To have it returned, you must say "meal" correctly.</span>`},
+			{id: 'KIDNAPD', once: false, text: `One of your plague doctor plushies has been kidnapped.\n<span style="font-size:.6em">To have it returned, you must say "meal" correctly.</span>`},
 			{id: 'LESSELF', once: false, text: `You are now **only 10%** elf.`},
 		], [//* Psychic
 			{id: 'WALKING', once: false, text: `Your internal monologue is now voiced by **Stephen Walking**.`},
@@ -1107,7 +1107,7 @@ const herbs = document.getElementById('ras2').querySelectorAll('.herb')
 		], [//* Eldritch/weird
 			{id: 'TMSWAYS', once: false, text: `You now perceive time **sideways**.`},
 			{id: 'PNK2PRG', once: false, text: `All your favorite punk rock bands have been **existentially converted** to prog.`},
-			{id: 'MEMBTMP', once: false, text: `All your favorite memories have been **converted** to bitmap format.<span class="small">Sadly, most of them didn't fit and have been **excised** in the process.</span>`},
+			{id: 'MEMBTMP', once: false, text: `All your favorite memories have been **converted** to bitmap format.\n<span style="font-size:.6em">Sadly, most of them didn't fit and have been **excised** in the process.</span>`},
 		],
 	]
 	const screen = document.getElementById('ras-curses')
@@ -1122,7 +1122,7 @@ const herbs = document.getElementById('ras2').querySelectorAll('.herb')
 	accept.addEventListener('click', async function(){
 		screen.classList.add('fade')
 		this.classList.add('hidden')
-		console.log(this)
+		document.h_chosen.play()
 		await new Promise(r => setTimeout(r, 4000))
 		screen.classList.remove('fade')
 		screen.classList.add('hidden')
@@ -1132,8 +1132,11 @@ const herbs = document.getElementById('ras2').querySelectorAll('.herb')
 	Steptext.tagsWithWrappedChars.push('flyin')
 	function castCurse() {
 		const curse = pickCurse()
-		screen.classList.remove('hidden')
-		setTimeout(() => steptext.queue('==' + curse.text + '=='), 1000)
+		document.h_curse.play()
+		setTimeout(() => {
+			screen.classList.remove('hidden')
+			setTimeout(() => steptext.queue('==' + curse.text + '=='), 1000)
+		}, 300)
 	}
 	function pickCurse() {
 		const cast = getSavedData('curses-cast')
@@ -1185,6 +1188,8 @@ document.h_caught = new Howl({src: ['assets/lef/caught.mp3']})
 document.h_snap = new Howl({src: ['assets/home/snap.mp3']})
 document.h_unlock = new Howl({src: ['assets/home/unlock.mp3']})
 document.h_open = new Howl({src: ['assets/home/open-door.mp3']})
+document.h_curse = new Howl({src: ['assets/ras2/curse-woosh.mp3']})
+document.h_chosen = new Howl({src: ['assets/ras2/choice-made.mp3']})
 //# Goblin dance
 const home = document.getElementById('home')
 const bottom = window.visualViewport.height * 7
