@@ -1170,6 +1170,7 @@ async function NonagonInfinity(door) {
 		top: home.scrollTop + home.querySelector('.floor.ceiling').getBoundingClientRect().top,
 		behavior: 'smooth'
 	})
+	document.h_open.play()
 	await new Promise(r => setTimeout(r, 2000))
 	const end = document.getElementById('end')
 	end.classList.remove('hidden')
