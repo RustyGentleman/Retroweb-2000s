@@ -867,7 +867,6 @@ class Alchemy {
 		okay.classList.add('hidden')
 		what.classList.add('hidden')
 		what.style.display = ''
-		clueIndex = (clueIndex+1) % clues.length
 		steptext.targetElement.innerHTML = ''
 	})
 	what.addEventListener('click', () => {
@@ -883,6 +882,7 @@ class Alchemy {
 			document.h_takeoff.play()
 			setTimeout(() => owlLand(owl), 2000)
 			if (Math.random() > .5) {
+				clueIndex = Math.floor(Math.random() * clues.length)
 				steptext.queue('++' + clues[clueIndex].clue + '++')
 				dbox.classList.remove('hidden')
 			}
