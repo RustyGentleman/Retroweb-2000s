@@ -83,7 +83,7 @@ class Steptext {
 		else {
 			if (dis.onFinished)
 				dis.onFinished(dis, dis.targetElement)
-			dis.pause()
+			// dis.pause()
 		}
 		if (dis.stepTimeoutID !== null)
 			dis.stepTimeoutID = setTimeout(() => dis.step(dis), dis.stepInterval * (dis.fastEnabled? 1/3 : 1))
