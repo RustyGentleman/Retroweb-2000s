@@ -1033,7 +1033,7 @@ const herbs = document.getElementById('ras2').querySelectorAll('.herb')
 					key.append(img)
 					key.append(tooltip)
 					document.getElementById('ras2').querySelector('.boulder-hitbox').append(key)
-					setTimeout(() => img.click())
+					setTimeout(() => img.click(), 100)
 					ras.setAttribute('onclick', "rasDialogue('final')")
 				}, {once: true})
 			}
@@ -1406,7 +1406,7 @@ getSavedData('collectibles', {
 //? Load caught pokemon
 getSavedData('Pokemon-caught').data.forEach(e => document.getElementById('pokedex').querySelector(`[src*="${e}"]`)?.classList.add('caught'))
 //? Load Ras dialogue progress
-getSavedData('Ras-flags').data.forEach(e => document.rasDialogueNodes[e].endtrigger())
+// getSavedData('Ras-flags').data.forEach(e => document.rasDialogueNodes[e].endtrigger())
 //? Show Chroma if key gotten
 if (getSavedData('collectibles', {
 	pack: (data) => JSON.stringify(data),
@@ -1578,6 +1578,13 @@ function dialogueAdvance(button, type='slime') {
 				key.classList.add('hastooltip')
 				key.classList.add('hidden')
 				key.innerHTML = `<img src="assets/key-kaboom.png" alt="A key-shaped blob of chromatic slime" onclick="addCollectible(this,'a key-shaped blob of chromatic slime', 'Chroma gave you a', 'Key-shaped Blob of Chromatic Slime!');slimeSteptext.targetElement=document.querySelector('#kaboom #slime-dialogue .text');document.querySelector('#pal #slime-dialogue').remove()"><span class="tooltip">A key-shaped blob of chromatic slime</span>`
+				key.querySelector('img').addEventListener('click', () => {
+					if (getSavedData('collectibles', {
+						pack: (data) => JSON.stringify(data),
+						unpack: (data) => JSON.parse(data)
+					}).data.find(e => e.key.includes('chromatic slime')))
+						document.querySelector('#kaboom #field #chroma').style.display = ''
+				})
 				button.before(key)
 			} else {
 				const blob = document.createElement('div')
