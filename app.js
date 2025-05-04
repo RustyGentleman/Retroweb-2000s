@@ -1035,6 +1035,7 @@ const herbs = document.getElementById('ras2').querySelectorAll('.herb')
 					document.getElementById('ras2').querySelector('.boulder-hitbox').append(key)
 					setTimeout(() => img.click(), 1000)
 					ras.setAttribute('onclick', "rasDialogue('final')")
+					window.localStorage.setItem('Ras-currentdialogue', 'final')
 				}, {once: true})
 			}
 		}, final: {
@@ -1094,10 +1095,13 @@ const herbs = document.getElementById('ras2').querySelectorAll('.herb')
 			wrapper.remove()
 		}, 10)
 		const herbsPicked = getSavedData('herbs-picked').data
-		if (herbsPicked.length > 3)
+		if (herbsPicked.length > 3) {
 			ras.setAttribute('onclick', "rasDialogue('goodtea')")
-		else
+			window.localStorage.setItem('Ras-currentdialogue', 'goodtea')
+		} else {
 			ras.setAttribute('onclick', `rasDialogue('tea${herbsPicked.length}')`)
+			window.localStorage.setItem('Ras-currentdialogue', `tea${herbsPicked.length}`)
+		}
 	}
 	async function faith() {
 		const nx01 = document.createElement('img')
@@ -1406,7 +1410,14 @@ getSavedData('collectibles', {
 //? Load caught pokemon
 getSavedData('Pokemon-caught').data.forEach(e => document.getElementById('pokedex').querySelector(`[src*="${e}"]`)?.classList.add('caught'))
 //? Load Ras dialogue progress
-// getSavedData('Ras-flags').data.forEach(e => document.rasDialogueNodes[e].endtrigger())
+{
+	const currentDialogue = window.localStorage.getItem('Ras-currentdialogue') || 'intro'
+	for (const key of Object.keys(document.rasDialogueNodes)) {
+		if (key === currentDialogue) break
+		document.rasDialogueNodes[key].endtrigger()
+	}
+	document.getElementById('ras2').querySelector('.ras').setAttribute('onclick', `rasDialogue('${currentDialogue}')`)
+}
 //? Show Chroma if key gotten
 if (getSavedData('collectibles', {
 	pack: (data) => JSON.stringify(data),
