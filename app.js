@@ -278,28 +278,28 @@ Kowabi.addNodes([
 			['Of course', 'assistance2', () => getSavedData('Kowabi-flags').push('intro-done').save()],
 		]],
 	['assistance1', 'Of course. What do you need help with?', [4, 2], [
-			['Life', 'life'],
-			['Navigation', 'navigation'],
+			['Life', 'life', () => Kowabi.classList.add('passive-ok')],
+			['Navigation', 'navigation', () => Kowabi.classList.add('passive-ok')],
 		]],
 	['assistance2', '_Of !!course!!..._ Of _course_. What do you need help with?', [6, 2], [
-			['Life', 'life'],
-			['Navigation', 'navigation'],
+			['Life', 'life', () => Kowabi.classList.add('passive-ok')],
+			['Navigation', 'navigation', () => Kowabi.classList.add('passive-ok')],
 		]],
 	['assistance3', 'Anything else?', [1, 1], [
-			['Life', 'life'],
-			['Navigation', 'navigation'],
+			['Life', 'life', () => Kowabi.classList.add('passive-ok')],
+			['Navigation', 'navigation', () => Kowabi.classList.add('passive-ok')],
 		]],
 	['assistance0', 'Welcome back! Need any help?', [1, 1], [
-			['Life', 'life'],
-			['Navigation', 'navigation'],
+			['Life', 'life', () => Kowabi.classList.add('passive-ok')],
+			['Navigation', 'navigation', () => Kowabi.classList.add('passive-ok')],
 		]],
 	['life', "_~Don't we all...~_", [1, 4], [
-			['Back', 'assistance3'],
+			['Back', 'assistance3', () => Kowabi.classList.add('passive-ok')],
 		]],
-	['navigation', "Well, there's not much to navigate for now, but I'm sure this place will be full of life in no time.", [4, 2], [
-			['Back', 'assistance3'],
+	['navigation', "Well, see ~those books~ on the left shelf? You should take a peek at those.", [4, 2], [
+			['Back', 'assistance3', () => Kowabi.classList.add('passive-ok')],
 		]],
-	//* Kaboom page intro
+	//* Kaboom page
 	['kaboom-intro', "This is the field outside the wizard's tower.\n~Check out that sunset!~", [6, 3], [
 			['Slimes!', 'kaboom-slimes-0'],
 		]],
@@ -310,6 +310,47 @@ Kowabi.addNodes([
 			['Continue', 'kaboom-slimes-2'],
 		]],
 	['kaboom-slimes-2', "Reminds me of ~someone...~", [4, 2], [
+			['End', '', () => {Kowabi.setToNeutral(); getSavedData('Kowabi-flags').push('kaboom-intro-done').save()}],
+		]],
+	//* Pal page
+	['pal-intro', "This is ~the wizard's tower~.", [4, 3], [
+			['Continue', 'pal-intro-1'],
+		]],
+	['pal-intro-1', "Well... I think he _was_ a paladin at some point...", [3, 4], [
+			['Continue', 'pal-intro-2'],
+		]],
+	['pal-intro-2', "Perhaps he's had a change of profession, I suppose.", [5, 1], [
+			['Continue', 'pal-intro-3'],
+		]],
+	['pal-intro-3', "I've a feeling you'll spent ~a fair bit of time~ here...", [4, 1], [
+			['Continue', 'pal0', () => {
+				getSavedData('Kowabi-flags').push('pal-intro-done').save()
+				Kowabi.classList.add('passive-ok')
+			}],
+		]],
+	['pal0', "If you need any assistance, let me know!", [1, 1], [
+			['Owl', 'owl-1', () => Kowabi.classList.remove('passive-ok')],
+			['Cauldron', 'cauldron-1', () => Kowabi.classList.remove('passive-ok')],
+		]],
+	['owl-1', "Yeah, that's uhh... a !!weird!! owl...", [3, 4], [
+			['Continue', 'owl-2'],
+		]],
+	['owl-2', "You should ~totally~ poke it.", [4, 1], [
+			['Back', 'pal0', () => Kowabi.classList.add('passive-ok')],
+		]],
+	['cauldron-1', "I don't know _how_ that cauldron works, exactly...", [4, 3], [
+			['Continue', 'cauldron-2'],
+		]],
+	['cauldron-2', "But I know there's **~a lot~ of things** you can do with it!", [1, 3], [
+			['Continue', 'cauldron-3'],
+		]],
+	['cauldron-3', "...I also know that that _~potion base~_ is really just water.", [4, 2], [
+			['Back', 'pal0', () => Kowabi.classList.add('passive-ok')],
+		]],
+	['drawer', "_~Oh my...~_", [1, 2], [
+			['Back', '', () => Kowabi.playNode(Kowabi.current || 'pal0')],
+		]],
+	['', "", [], [
 			['End', '', () => {Kowabi.setToNeutral(); getSavedData('Kowabi-flags').push('kaboom-intro-done').save()}],
 		]],
 ])
