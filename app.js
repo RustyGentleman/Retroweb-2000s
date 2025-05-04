@@ -611,6 +611,28 @@ class Alchemy {
 					wrapper.remove()
 				}, 10)
 			}},
+		{name: 'A Short Hike', ingredients: [
+			'An owl feather',
+			"Sun's Favor",
+			'A blob of green slime',
+			], result: () => {
+				const cauldron = document.getElementById('pal').querySelector('#cauldron-clickbox')
+				const wrapper = document.createElement('div')
+				const item = document.createElement('img')
+				item.src = 'assets/pal/ashorthike.png'
+				item.style.height = '100%'
+				wrapper.style.height = '20%'
+				wrapper.style.position = 'absolute'
+				wrapper.style.left = '50%'
+				wrapper.style.top = '30%'
+				wrapper.style.transform = 'translateX(-50%)'
+				wrapper.append(item)
+				cauldron.append(wrapper)
+				setTimeout(() => {
+					toScreenCenter(item, 'Found secret gift:', 'A Short Hike!')
+					wrapper.remove()
+				}, 10)
+			}},
 	]
 	static matchedRecipe
 
@@ -726,6 +748,7 @@ class Alchemy {
 		what.style.display = 'none'
 		steptext.queue('\n\n++' + clues[clueIndex].answer + '++')
 	})
+	let owlClicked = +(window.localStorage.getItem('owl-clicked') || 0)
 	document.querySelectorAll('#pal .owl').forEach(owl => {
 		owl.addEventListener('click', () => {
 			owl.classList.add('flying')
@@ -736,10 +759,31 @@ class Alchemy {
 				steptext.queue('++' + clues[clueIndex].clue + '++')
 				dbox.classList.remove('hidden')
 			}
+			owlClicked++
+			window.localStorage.setItem('owl-clicked', owlClicked)
+			if (owlClicked == 3) {
+				const item = document.createElement('div')
+				const img = document.createElement('img')
+				const tooltip = document.createElement('span')
+				item.className = 'hastooltip key'
+				item.style.cssText = "position:absolute;top:50%;left:50%;height:5vh"
+				img.src = 'assets/pal/owl-feather.png'
+				img.alt = 'An owl feather'
+				img.classList.add('ingredient')
+				img.setAttribute('onclick', "addCollectible(this, 'an owl feather', `You snatched an`, `Owl Feather!`);this.parentElement.remove()")
+				tooltip.className = 'tooltip'
+				tooltip.textContent = 'An owl feather'
+				item.append(img)
+				item.append(tooltip)
+				DropTempText(owl, '', 10, (e) => {
+					e.innerHTML = ''
+					e.append(item)
+				})
+				setTimeout(() => img.click())
+			}
 		})
 	})
 	function owlLand(not) {
-		console.log('Owl land')
 		const owls = Array.from(document.querySelectorAll('#pal .owl')).filter(e => e !== not)
 		const picked = owls[Math.floor(Math.random() * owls.length)]
 		picked.classList.remove('flying')
