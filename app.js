@@ -59,15 +59,17 @@ Kowabi.playNode = (key, passive=false) => {
 	const node = Kowabi.dialogueNodes[key]
 	if (!node) return console.warn(`Dialogue node "${key}" not found.`)
 
-	if (passive && (Kowabi.text.textContent.length > 0 || !Kowabi.classList.contains('passive-ok')))
-		return false
+	if (passive)
+		if (!(Kowabi.classList.contains('passive-ok') || Kowabi.text.textContent.length == 0))
+			return false
 
 	Kowabi.steptext.reset()
 	Kowabi.setText(node.text)
 	Kowabi.setExpression(...node.expression)
 	Kowabi.resetOptions()
 	Kowabi.addOptions(...node.options)
-	Kowabi.current = key
+	if (!passive)
+		Kowabi.current = key
 	return true
 }
 Kowabi.setExpression = (col, row) => Kowabi.expression.className = `col-${col} row-${row}`
