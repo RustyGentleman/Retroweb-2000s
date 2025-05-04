@@ -1434,6 +1434,9 @@ setTimeout(() => {
 
 //# Functions
 function goToPage(id, skipAnimation=false) {
+	if (document.body.classList.contains('turning'))
+		return
+	document.body.classList.add('turning')
 	const animationLength = 2
 	let previous
 	if (!document.currentPage)
@@ -1444,12 +1447,14 @@ function goToPage(id, skipAnimation=false) {
 	document.currentPage.classList.remove('hidden')
 	if (skipAnimation) {
 		previous?.classList.add('hidden')
+		document.body.classList.remove('turning')
 	} else {
 		document.currentPage.classList.add('turning')
 		setTimeout(() => {
 			document.currentPage.classList.remove('turning')
 			previous?.classList.add('hidden')
-	}, 1000 * animationLength + 100)
+			document.body.classList.remove('turning')
+		}, 1000 * animationLength + 100)
 	}
 	//? State management
 	if (previous?.id === 'home' && document.h_gobdance.playing())
