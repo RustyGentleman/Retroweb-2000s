@@ -1520,7 +1520,7 @@ function addCollectible(element, key, toptext='', bottomtext='') {
 		else
 			Alchemy.shelfLeft.append(clone)
 	}
-	if (element.tagName === 'IMG' && element.src.includes('key'))
+	if (element.src.includes('key'))
 		hangKey(element.parentElement)
 }
 function secondsToTime(seconds) {
@@ -1630,6 +1630,7 @@ function dialogueAdvance(button, type='slime') {
 	}
 }
 function hangKey(element) {
+	element = element.cloneNode(true)
 	if (!getSavedData('keys-used').find(element.firstElementChild.alt)) {
 		element.firstElementChild.addEventListener('click', function(){openLock(this)}, {once: true})
 		element.firstElementChild.setAttribute('onclick', '')
