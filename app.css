@@ -631,16 +631,16 @@ dialog::backdrop {
   z-index: 2;
 }
 #home .basement-wall .lock:nth-child(1) {
-  transform: translate(calc(-50% + 7.7rem), -8rem) rotate(-13deg);
+  transform: translate(calc(-50% + 7.7rem), -8rem) rotate(14deg);
 }
 #home .basement-wall .lock:nth-child(2) {
-  transform: translate(calc(-50% - 7.7rem), -4rem) rotate(-7deg);
+  transform: translate(calc(-50% - 7.7rem), -4rem) rotate(18deg);
 }
 #home .basement-wall .lock:nth-child(3) {
-  transform: translate(calc(-50% + 7.7rem), 0rem) rotate(-18deg);
+  transform: translate(calc(-50% + 7.7rem), 0rem) rotate(-12deg);
 }
 #home .basement-wall .lock:nth-child(4) {
-  transform: translate(calc(-50% - 7.7rem), 4rem) rotate(5deg);
+  transform: translate(calc(-50% - 7.7rem), 4rem) rotate(-2deg);
 }
 #home .basement-wall .wallhook {
   position: absolute;
@@ -840,6 +840,13 @@ dialog::backdrop {
 #pal .content .painting::before {
   content: "";
   position: absolute;
+}
+#pal .content .temptext {
+  background-color: #fcfacf;
+  color: black;
+  border: solid 2px;
+  border-radius: 1rem;
+  padding: 0.3rem 0.5rem;
 }
 #pal .content .portal {
   position: absolute;

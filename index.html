@@ -310,7 +310,7 @@
 					<img src="assets/pal/header.png" alt="Pal's Tower">
 				</div>
 				<div id="wiz-1">
-					<img src="assets/pal/wizard-cast.gif" alt="Wizard casting a spell" style="margin-top: 0rem">
+					<img src="assets/pal/wizard-cast.gif" alt="Wizard casting a spell" style="margin-top: 0rem" onclick="DropTempText(this, `The Queen of Goblins herself! My pleasure. This Lightning Text is a concentration spell, and presentation is important, so I must stay here as you give yourself a tour of my tower. Feel free to explore, and try not to snoop too much!`, 12, (e) => {e.style.left=`calc(${e.style.left}+70%)`;e.style.top=`calc(${e.style.top}-20%)`;e.style.width='100%'})">
 				</div>
 				<img src="assets/portal.gif" class="portal" onclick="goToPage('home')"/>
 			</div>
@@ -418,7 +418,7 @@
 				<img src="assets/pal/fireplace.png" alt="A fireplace" style="position:absolute;height:45%;bottom:2.6%;left: 7.6%">
 				<img src="assets/pal/palade.png" alt="A Pal-Ade poster" style="position:absolute;height:12.9%;top:40%;left: 11.6%">
 				<img src="assets/pal/rocking-chair.png" alt="A rocking chair" style="position:absolute;height:40%;bottom:3%;right: 37%;pointer-events:none">
-				<img src="assets/pal/spades.png" alt="Spades, the wizard's familiar" style="position:absolute;height:20%;bottom:5%;right: 17%">
+				<img src="assets/pal/spades.png" alt="Spades, the wizard's familiar" style="position:absolute;height:20%;bottom:5%;right: 17%" onclick="DropTempText(this, `Meow. (Father is a cruel father. My bowl, bottom visible in its center, my day’s rations meager, represents the hole in my stomach. My water, practically sewage, as it is still compared to the hand-held waterfalls father drinks from. No pets when I need pets, pets when I need not pets. This “home” is my prison, father my tormenter.)`, 20, e => {e.style.top='20%';e.style.left='70%';e.style.right='10%'})">
 			</div>
 			<dialog id="lettertogob">
 				Letter of appreciation written in overly strategic language.<br>
