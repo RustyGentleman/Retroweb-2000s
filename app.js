@@ -404,6 +404,9 @@ Kowabi.addNodes([
 	['nx01-4', "...I'm.. sorry... I don't know what's come over me...", [2, 4], [
 			['Back', '', () => Kowabi.playNode(Kowabi.current || 'ras0')],
 		]],
+	['louie', "He _really_ is quite ~twisty~...", [4, 3], [
+			['Back', '', () => Kowabi.playNode(Kowabi.current || 'ras0')],
+		]],
 ])
 //# Playlist songs
 Playlist.addSongs([
