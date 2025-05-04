@@ -23,7 +23,7 @@ Kowabi.setText = (string) => {
 	Kowabi.steptext.textQueue = string
 
 	Kowabi.querySelector('#msg').style.display = ''
-	setTimeout(() => msg.classList.toggle('hidden'))
+	setTimeout(() => msg.classList.remove('hidden'))
 	Kowabi.steptext.stepTimeoutID = undefined
 	Kowabi.steptext.step()
 }
