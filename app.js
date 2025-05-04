@@ -25,8 +25,11 @@ Kowabi.setText = (string) => {
 
 	Kowabi.querySelector('#msg').style.display = ''
 	setTimeout(() => msg.classList.remove('hidden'))
-	Kowabi.steptext.stepTimeoutID = undefined
-	Kowabi.steptext.step()
+	if (Kowabi.steptext.stepTimeoutID === null) {
+		Kowabi.steptext.stepTimeoutID = undefined
+	}
+	if (!Kowabi.steptext.stepTimeoutID)
+		Kowabi.steptext.step()
 }
 Kowabi.resetOptions = () => Array.from(Kowabi.options.children).forEach(e => e.remove())
 Kowabi.addOption = (text, nextKey=null, callback=null, condition=null) => {
