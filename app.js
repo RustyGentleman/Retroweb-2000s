@@ -734,6 +734,28 @@ class Alchemy {
 					wrapper.remove()
 				}, 10)
 			}},
+		{name: 'Inscryption', ingredients: [
+			'An owl feather',
+			'A blob of green slime',
+			'A magic-looking mushroom',
+			], result: () => {
+				const cauldron = document.getElementById('pal').querySelector('#cauldron-clickbox')
+				const wrapper = document.createElement('div')
+				const item = document.createElement('img')
+				item.src = 'assets/pal/inscryption.png'
+				item.style.height = '100%'
+				wrapper.style.height = '20%'
+				wrapper.style.position = 'absolute'
+				wrapper.style.left = '50%'
+				wrapper.style.top = '30%'
+				wrapper.style.transform = 'translateX(-50%)'
+				wrapper.append(item)
+				cauldron.append(wrapper)
+				setTimeout(() => {
+					toScreenCenter(item, 'Found secret gift:', 'Inscryption!', 10000)
+					wrapper.remove()
+				}, 10)
+			}},
 	]
 	static matchedRecipe
 
@@ -825,6 +847,10 @@ class Alchemy {
 			clue:`Brew a **drink**, with which to dink\nherb which starts, lift patrons' **hearts**\ntouch of **shroom**, bring end all gloom.`},
 		{answer: `**Potion Base** + **Yellow Blob** + **Sun's Favor**`,
 			clue:`Another **drink**, which one serves,\none that could raise all one's nerves\nSlime to **energize**, makes you exercise\nHerb of the **morning**, new day aborning.`},
+		{answer: `**Owl Feather** + **Sun's Favor** + **Green Slime**`,
+			clue:`Chase **feather** in fine weather\nunder **sun**, through mountains, run\nAnd through **greens**, all pleasant scenes.`},
+		{answer: `**Owl Feather** + **Green Blob** + **Mushroom**`,
+			clue:`**Quill** in hand, cards inscribed,\ngame not quite as described.\nMeet a slime, **green** as lime;\ntwo head doctor, **mushroom** hocker.`},
 	]
 	let clueIndex = 0
 	const dbox = document.getElementById('owl-dialogue')
