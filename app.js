@@ -15,7 +15,7 @@ Kowabi.toggle = () => {
 	}
 }
 Kowabi.text = Kowabi.querySelector('#text')
-Kowabi.steptext = new Steptext(Kowabi.text)
+Kowabi.steptext = new Steptext(Kowabi.text, {stepInterval: 40})
 Kowabi.options = Kowabi.querySelector('#options')
 Kowabi.expression = Kowabi.querySelector('#expression')
 Kowabi.current
@@ -1610,21 +1610,39 @@ function goToPage(id, skipAnimation=false) {
 		pack: (data) => JSON.stringify(data),
 		unpack: (data) => JSON.parse(data)
 	}).data
+	const translator = collectibles.find(e => e.key == 'a Starfleet-issue Universal Translator')
 	if (document.currentPage.id === 'kaboom') {
 		Playlist.playSong('kaboom', true)
-		if (collectibles.find(e => e.key == 'a Starfleet-issue Universal Translator') && !getSavedData('Kowabi-flags').find('kaboom-intro-done'))
+		if (translator && !getSavedData('Kowabi-flags').find('kaboom-intro-done'))
 			Kowabi.playNode('kaboom-intro')
 	}
-	else if (document.currentPage.id === 'home')
+	else if (document.currentPage.id === 'home') {
 		document.currentPage.dispatchEvent(new Event('scroll'))
-	else if (document.currentPage.id === 'ras2') {
+		if (Playlist.current?.howl.playing())
+			Playlist.play()
+	} else if (document.currentPage.id === 'ras2') {
 		Playlist.playSong('ras', true)
 		document.h_rasambiance.play()
-	} else if (document.currentPage.id === 'pal')
+		if (translator)
+			if (getSavedData('Kowabi-flags').find('ras-intro-done'))
+				Kowabi.playNode('ras0')
+			else
+				Kowabi.playNode('ras-intro')
+	} else if (document.currentPage.id === 'pal') {
 		Playlist.playSong('pal', true)
-	else if (document.currentPage.id === 'lef') {
+		if (translator)
+			if (getSavedData('Kowabi-flags').find('pal-intro-done'))
+				Kowabi.playNode('pal0')
+			else
+				Kowabi.playNode('pal-intro')
+	} else if (document.currentPage.id === 'lef') {
 		Playlist.playSong('leafy', true)
 		pokemonTimeoutID = setTimeout(spawnPokemon, Math.random() * 4000 + 1000)
+		if (translator)
+			if (getSavedData('Kowabi-flags').find('lef-intro-done'))
+				Kowabi.playNode('lef0')
+			else
+				Kowabi.playNode('lef-intro')
 	} else if (Playlist.current?.howl.playing())
 		Playlist.play()
 	if (document.currentPage.id !== 'lef')
