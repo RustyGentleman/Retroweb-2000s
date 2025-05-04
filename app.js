@@ -550,7 +550,7 @@ class Alchemy {
 			], result: () => teaBrewed("Sun's Favor Tea")},
 		{name: 'Little Witch in the Woods', ingredients: [
 			'Moonlace',
-			'A blob of blue slime',
+			'A blob of purple slime',
 			'A magic-looking mushroom',
 			], result: () => {
 				const cauldron = document.getElementById('pal').querySelector('#cauldron-clickbox')
@@ -566,7 +566,7 @@ class Alchemy {
 				wrapper.append(item)
 				cauldron.append(wrapper)
 				setTimeout(() => {
-					toScreenCenter(item, 'Found secret gift:', 'Little Bitch in the Woods!')
+					toScreenCenter(item, 'Found secret gift:', 'Little Bitch in the Woods!', 10000)
 					wrapper.remove()
 				}, 10)
 			}},
@@ -588,7 +588,7 @@ class Alchemy {
 				wrapper.append(item)
 				cauldron.append(wrapper)
 				setTimeout(() => {
-					toScreenCenter(item, 'Found secret gift:', 'Tavern Talk!')
+					toScreenCenter(item, 'Found secret gift:', 'Tavern Talk!', 10000)
 					wrapper.remove()
 				}, 10)
 			}},
@@ -610,7 +610,7 @@ class Alchemy {
 				wrapper.append(item)
 				cauldron.append(wrapper)
 				setTimeout(() => {
-					toScreenCenter(item, 'Found secret gift:', 'Coffee Talk!')
+					toScreenCenter(item, 'Found secret gift:', 'Coffee Talk!', 10000)
 					wrapper.remove()
 				}, 10)
 			}},
@@ -632,7 +632,7 @@ class Alchemy {
 				wrapper.append(item)
 				cauldron.append(wrapper)
 				setTimeout(() => {
-					toScreenCenter(item, 'Found secret gift:', 'A Short Hike!')
+					toScreenCenter(item, 'Found secret gift:', 'A Short Hike!', 10000)
 					wrapper.remove()
 				}, 10)
 			}},
@@ -1527,7 +1527,7 @@ function DropTempText(element, string, seconds=5, post) {
 		post(text)
 	setTimeout(() => text.remove(), seconds*1000)
 }
-async function toScreenCenter(element, toptext='', bottomtext='') {
+async function toScreenCenter(element, toptext='', bottomtext='', delay=0) {
 	const rect = element.getBoundingClientRect()
 	const clone = element.cloneNode(true)
 	const div = document.createElement('div')
@@ -1553,7 +1553,7 @@ async function toScreenCenter(element, toptext='', bottomtext='') {
 	await new Promise(r => setTimeout(r, 10))
 	clone.style.height = (window.visualViewport.height * .3)+'px'
 	clone.style.width = (clone.clientWidth * ratio)+'px'
-	await new Promise(r => setTimeout(r, 2000))
+	await new Promise(r => setTimeout(r, 2000 + delay))
 	div.classList.add('hidden')
 	await new Promise(r => setTimeout(r, 1000))
 	div.remove()
