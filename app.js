@@ -390,7 +390,7 @@ Kowabi.addNodes([
 	['ras-intro-2', "Take a whiff of that ~fresh air~, though...", [3, 3], [
 			['Moon', 'moon', () => Kowabi.classList.add('passive-ok')],
 		]],
-	['ras0', "~~Ahh... Fresh air...~", [3, 3], [
+	['ras0', "~Ahh... Fresh air...~", [3, 3], [
 			['Moon', 'moon', () => Kowabi.classList.add('passive-ok')],
 		]],
 	['moon', "...Does... that _moon_ look... !!weird!! to you?", [4, 3], [
@@ -1235,8 +1235,9 @@ const herbs = document.getElementById('ras2').querySelectorAll('.herb')
 		nx01.src = 'assets/ras2/nx01.png'
 		nx01.className = 'nx01'
 		document.h_faith.play()
+		await new Promise(r => setTimeout(r, 1250))
 		Kowabi.playNode('nx01-1', true)
-		await new Promise(r => setTimeout(r, 2500))
+		await new Promise(r => setTimeout(r, 1250))
 		page.append(nx01)
 		Playlist.unlockSong('ent')
 		Kowabi.playNode('nx01-2', true)
