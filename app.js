@@ -328,7 +328,7 @@ const slimeInfo = {
 		`!!Y-.. You're very pretty\\!\\! BYE\\!!!`,
 		`_Jerome lobs **a blob of red slime** at you before quickly wobbling away, seeming flustered._`]},
 	roosevelt: {cur: 0, trig: 1, color: 'orange', 	post: 'Howdy', dialogue: [
-		`~Howdy there~, pardner... How goes yer travels?\nWell, I hope...`,
+		`~Howdy there~, pardner... How goes yer travels?\nWell I hope...`,
 		`I don't much know what you might use it for, friend, but uh...`,
 		`Here, take some slime for the road. I suppose you _never_ know, huh?`,
 		`_Roosevelt passes you a **blob of orange slime**._`]},
@@ -1031,7 +1031,8 @@ const herbs = document.getElementById('ras2').querySelectorAll('.herb')
 					key.append(tooltip)
 					document.getElementById('ras2').querySelector('.boulder-hitbox').append(key)
 					setTimeout(() => img.click())
-					setTimeout(() => rasDialogue(final), 3000)
+					ras.removeAttribute('onclick')
+					setTimeout(() => rasDialogue(final), 1000)
 				}, {once: true})
 			}
 		}, final: {
