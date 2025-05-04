@@ -304,8 +304,8 @@ Kowabi.addNodes([
 	['navigation', "Well, see ~those books~ on the left shelf? You should take a peek at those.", [4, 2], [
 			['Back', 'assistance3', () => Kowabi.classList.add('passive-ok')],
 		]],
-	//* Kaboom page
-	['kaboom-intro', "This is the field outside the wizard's tower.\n~Check out that sunset!~", [6, 3], [
+	//* Kaboom's page
+	['kaboom-intro', "This is the field outside the wizard's tower.\n~Check out that sunset!~", [6, 4], [
 			['Slimes!', 'kaboom-slimes-0'],
 		]],
 	['kaboom-slimes-0', "These... !!strange!! creatures seem _fairly_ dumb.", [5, 1], [
@@ -317,7 +317,7 @@ Kowabi.addNodes([
 	['kaboom-slimes-2', "Reminds me of ~someone...~", [4, 2], [
 			['End', '', () => {Kowabi.setToNeutral(); getSavedData('Kowabi-flags').push('kaboom-intro-done').save()}],
 		]],
-	//* Pal page
+	//* Pal's page
 	['pal-intro', "This is ~the wizard's tower~.", [4, 3], [
 			['Continue', 'pal-intro-1'],
 		]],
@@ -355,8 +355,54 @@ Kowabi.addNodes([
 	['drawer', "_~Oh my...~_", [1, 2], [
 			['Back', '', () => Kowabi.playNode(Kowabi.current || 'pal0')],
 		]],
-	['', "", [], [
-			['End', '', () => {Kowabi.setToNeutral(); getSavedData('Kowabi-flags').push('kaboom-intro-done').save()}],
+	//* Leafy's page
+	['lef-intro', "Ahh, look at that ~pixely goodness!~", [4, 3], [
+			['Continue', 'lef-intro-1'],
+		]],
+	['lef-intro-1', "Oh! And those !!cute little critters\\!!!", [5, 4], [
+			['Continue', 'lef-intro-2', () => {
+				Kowabi.classList.add('passive-ok')
+				getSavedData('Kowabi-flags').push('lef-intro-done').save()
+			}],
+		]],
+	['lef-intro-2', "~Gotta pet them all!!~", [3, 3], [
+			['Pokedex', 'pokedex', () => Kowabi.classList.remove('passive-ok')],
+		]],
+	['lef0', "~Gotta pet them all!!~", [2, 2], [
+			['Pokedex', 'pokedex', () => Kowabi.classList.remove('passive-ok')],
+		]],
+	['pokedex', "It seems any ~critters~ you **catch** will be displayed over there.", [2, 2], [
+			['Back', 'lef0', () => Kowabi.classList.add('passive-ok')],
+		]],
+	['coolsong', "!!Op-...!! _Hah!_ That's funny.", [4, 4], [
+			['Back', '', () => Kowabi.playNode(Kowabi.current || 'lef0')],
+		]],
+	//* Ras' page
+	['ras-intro', "Oh boy... That's a bit ~laggy~, isn't it?...", [3, 4], [
+			['Continue', 'ras-intro-1'],
+		]],
+	['ras-intro-1', "I do apologize... My master can be... ~enthusiastic~ about aesthetics...", [5, 1], [
+			['Continue', 'ras-intro-2', () => {
+				Kowabi.classList.add('passive-ok')
+				getSavedData('Kowabi-flags').push('ras-intro-done').save()
+			}],
+		]],
+	['ras-intro-2', "Take a whiff of that ~fresh air~, though...", [3, 3], [
+			['Moon', 'moon', () => Kowabi.classList.add('passive-ok')],
+		]],
+	['ras0', "~~Ahh... Fresh air...~", [3, 3], [
+			['Moon', 'moon', () => Kowabi.classList.add('passive-ok')],
+		]],
+	['moon', "...Does... that _moon_ look... !!weird!! to you?", [4, 3], [
+			['Back', 'ras0', () => Kowabi.classList.add('passive-ok')],
+		]],
+	['nx01-1', "~...What is that-...~", [5, 3], []],
+	['nx01-2', "!!...!!", [6, 3], []],
+	['nx01-3', "!!...I'M GOIN' WHERE MY HEART WILL TAKE ME...!!", [3, 3], [
+			['...', '', () => Kowabi.playNode('nx01-4', true)],
+		]],
+	['nx01-4', "...I'm.. sorry... I don't know what's come over me...", [2, 4], [
+			['Back', '', () => Kowabi.playNode(Kowabi.current || 'ras0')],
 		]],
 ])
 //# Playlist songs
@@ -1160,10 +1206,14 @@ const herbs = document.getElementById('ras2').querySelectorAll('.herb')
 		nx01.src = 'assets/ras2/nx01.png'
 		nx01.className = 'nx01'
 		document.h_faith.play()
+		Kowabi.playNode('nx01-1', true)
 		await new Promise(r => setTimeout(r, 2500))
 		page.append(nx01)
 		Playlist.unlockSong('ent')
-		await new Promise(r => setTimeout(r, 5000))
+		Kowabi.playNode('nx01-2', true)
+		await new Promise(r => setTimeout(r, 3500))
+		Kowabi.playNode('nx01-3', true)
+		await new Promise(r => setTimeout(r, 1500))
 		nx01.remove()
 	}
 }
