@@ -433,6 +433,12 @@ dialog::backdrop
 				max-height: 4rem
 				height: 100%
 				width: auto
+		.book-hitbox
+			position: absolute
+			bottom: .2rem
+			height: 95%
+			width: 1rem
+			// background-color: rgb(255 0 255 / 50%)
 	.floor
 		position: absolute
 		top: 45rem
@@ -1218,7 +1224,7 @@ dialog::backdrop
 	overflow: hidden
 	flyin span
 		display: inline-block
-		animation: flyintext .5s cubic-bezier(0, 0.75, 0, 1)
+		animation: flyintext .5s cubic-bezier(0, 0.75, 0, 1), blink 50ms ease-out reverse
 	> div
 		position: relative
 		display: flex
@@ -1319,6 +1325,51 @@ dialog::backdrop
 	.text
 		width: 50vmin
 		max-height: 20vh
+#book-excerpt
+	display: flex
+	position: absolute
+	left: 50%
+	top: 50%
+	transform: translate(-50%, -50%)
+	background-image: url('assets/home/oldbook.png')
+	background-size: contain
+	background-repeat: no-repeat
+	height: 70vh
+	// width: min(100vh, 100vw)
+	aspect-ratio: 850/550
+	z-index: 100
+	transition: 1s ease-out
+	transition-property: opacity, transform
+	padding: 3rem
+	.title, .excerpt
+		width: 50%
+		height: 100%
+		flex: 1 0
+		box-sizing: border-box
+	.title
+		display: flex
+		flex-direction: column
+		justify-content: center
+		align-items: center
+		transform: rotate(-4deg)
+		padding: 3rem
+		padding-bottom: calc(8rem + 15vh)
+		span:first-child
+			font-size: 2rem
+		span:nth-child(2)
+			font-size: 1rem
+			font-style: italic
+	.excerpt
+		padding: 3rem
+		padding-right: 1rem
+		text-align: center
+		margin-top: 5rem
+	fadein
+		display: inline
+		opacity: 0
+		animation: blink 1s ease reverse 50ms forwards
+	&.hidden
+		transform: translate(-50%, 150%)
 
 //# Colors, Text & Appearance
 body

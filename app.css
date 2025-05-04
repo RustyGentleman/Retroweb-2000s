@@ -583,6 +583,12 @@ dialog::backdrop {
   height: 100%;
   width: auto;
 }
+#home .bookshelf .book-hitbox {
+  position: absolute;
+  bottom: 0.2rem;
+  height: 95%;
+  width: 1rem;
+}
 #home .floor {
   position: absolute;
   top: 45rem;
@@ -625,16 +631,16 @@ dialog::backdrop {
   z-index: 2;
 }
 #home .basement-wall .lock:nth-child(1) {
-  transform: translate(calc(-50% + 7.7rem), -8rem) rotate(-1deg);
+  transform: translate(calc(-50% + 7.7rem), -8rem) rotate(7deg);
 }
 #home .basement-wall .lock:nth-child(2) {
-  transform: translate(calc(-50% - 7.7rem), -4rem) rotate(1deg);
+  transform: translate(calc(-50% - 7.7rem), -4rem) rotate(-9deg);
 }
 #home .basement-wall .lock:nth-child(3) {
-  transform: translate(calc(-50% + 7.7rem), 0rem) rotate(13deg);
+  transform: translate(calc(-50% + 7.7rem), 0rem) rotate(4deg);
 }
 #home .basement-wall .lock:nth-child(4) {
-  transform: translate(calc(-50% - 7.7rem), 4rem) rotate(3deg);
+  transform: translate(calc(-50% - 7.7rem), 4rem) rotate(14deg);
 }
 #home .basement-wall .wallhook {
   position: absolute;
@@ -1549,7 +1555,7 @@ dialog::backdrop {
 }
 #ras-curses flyin span {
   display: inline-block;
-  animation: flyintext 0.5s cubic-bezier(0, 0.75, 0, 1);
+  animation: flyintext 0.5s cubic-bezier(0, 0.75, 0, 1), blink 50ms ease-out reverse;
 }
 #ras-curses > div {
   position: relative;
@@ -1668,6 +1674,59 @@ dialog::backdrop {
 #owl-dialogue .text {
   width: 50vmin;
   max-height: 20vh;
+}
+
+#book-excerpt {
+  display: flex;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-image: url("assets/home/oldbook.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 70vh;
+  aspect-ratio: 850/550;
+  z-index: 100;
+  transition: 1s ease-out;
+  transition-property: opacity, transform;
+  padding: 3rem;
+}
+#book-excerpt .title, #book-excerpt .excerpt {
+  width: 50%;
+  height: 100%;
+  flex: 1 0;
+  box-sizing: border-box;
+}
+#book-excerpt .title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform: rotate(-4deg);
+  padding: 3rem;
+  padding-bottom: calc(8rem + 15vh);
+}
+#book-excerpt .title span:first-child {
+  font-size: 2rem;
+}
+#book-excerpt .title span:nth-child(2) {
+  font-size: 1rem;
+  font-style: italic;
+}
+#book-excerpt .excerpt {
+  padding: 3rem;
+  padding-right: 1rem;
+  text-align: center;
+  margin-top: 5rem;
+}
+#book-excerpt fadein {
+  display: inline;
+  opacity: 0;
+  animation: blink 1s ease reverse 50ms forwards;
+}
+#book-excerpt.hidden {
+  transform: translate(-50%, 150%);
 }
 
 body {

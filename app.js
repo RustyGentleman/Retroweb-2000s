@@ -1494,6 +1494,26 @@ async function NonagonInfinity(door) {
 	if (document.h_gobdance.playing())
 		document.h_gobdance.pause()
 }
+//# Book excerpts
+{
+	const book = document.getElementById('book-excerpt')
+	const title = book.querySelector('.title > span:first-child')
+	const author = book.querySelector('.title > span:nth-child(2)')
+	const steptext = new Steptext(book.querySelector('.excerpt'), {stepInterval: 1})
+
+	Steptext.encodings.set('@', ['fadein', 1])
+	Steptext.tagsWithWrappedChars.push('fadein')
+	function showExcerpt(tit, au, text) {
+		book.classList.remove('hidden')
+		steptext.targetElement.textContent = ''
+		title.textContent = tit
+		author.innerHTML = au
+		// steptext.queue(text.replaceAll(/(?<= |^|$|[\*_~~])([^\*_\s~~]+?)(?= |^|$|[\*_~~])/g, '@$1@'))
+		steptext.queue(text)
+		steptext.skip()
+		book.addEventListener('click', () => book.classList.add('hidden'), {once: true})
+	}
+}
 
 //! Starting setup
 //? Set player volume

@@ -84,11 +84,23 @@
 				<img src="assets/home/book-lef.png" alt="A pop-up book" onclick="goToPage('lef')">
 				<span class="tooltip">A pop-up book</span>
 			</div>
-			<div class="bookshelf-item" style="top:10.7rem;right:.6rem">
-				<img src="assets/home/row-of-books.png">
-			</div>
 			<div class="bookshelf-item" style="top:6rem;left:.6rem">
 				<img src="assets/home/row-of-books3.png">
+				<div class="book-hitbox hastooltip" style="left:1rem;height:3.3rem" onclick="showExcerpt('Magic 101', 'Wizard Pal', `**“Magic”** for the purposes of this class is recognized as the bending and/or splicing of our and/or other hyperplanes _(3-dimensional spaces)_, **“spells”** the replicable effects caused by these spatial manipulations, and **“mana”** the energy which can be used to create them. As an example of Evocation, opening a temporary portal to a plane of fire might produce a spell we call **“Cone of Fire”**. If your first thought is _“shouldn’t 99% of hyperplanar fissures create a portal to outer space, opening a vacuum which would suck all nearby air and loose objects into it?“_, meet me after class.`)">
+					<span class="tooltip">"Magic 101", by Wizard Pal</span>
+				</div>
+			</div>
+			<div class="bookshelf-item" style="top:10.7rem;right:.6rem">
+				<img src="assets/home/row-of-books.png">
+				<div class="book-hitbox hastooltip" onclick="showExcerpt('Slime Biology', 'John Science', `**“Slimes”** are _infuriating_ little bastards to research. You can try to contain them, but they will either _dissolve_ their way out of the container, or flow out through the bars. **If** you manage to contain them, they are some of the most __irritatingly talkative__ creatures to research..... I have no clue how their digestive or synaptic systems work, but I have _all_ the information in the world on their special interests. They seemingly exist solely to confound all theories of modern evolution and life as we know it. In my opinion, slimes are better off being ignored, they are frustratingly difficult to study, and if there is _any_ useful information to be gleaned from them, it is almost certainly worth not knowing in favor of the irritation that studying would require.`)">
+					<span class="tooltip">"Slime Biology", by John Science</span>
+				</div>
+				<div class="book-hitbox hastooltip" style="left:3.3rem;" onclick="showExcerpt('Goblin Sociology', 'Wizard Pal', `Groups of goblins, hereby dubbed “malignities”, vary widely in their societal structures, but there is commonality between most. Their hierarchies tend to be kratocratic and patriarchal: rule of the largest and strongest male. In rare cases, the leadership role is not exclusive to goblinoids. Goblins oft have an antagonistic relationship with literature, rooted in popular mythology which claims that the written word “steals thoughts” from the minds of those who read them. Books are consequently most used as kindling. Due to this, reading and writing are rarely taught. The rare literate goblin may take the role of a mage, making use of looted arcane literature primarily for battle.`)">
+					<span class="tooltip">"Goblin Sociology", by Wizard Pal”</span>
+				</div>
+				<div class="book-hitbox hastooltip" style="right:.8rem;" onclick="showExcerpt('The Innate Magic of Kitsune', 'Wizard Pal<br>(co-authored by Ras Silverleaf)', `The Kitsunes' exceptional magic affinity is innate to their kin, and improves ~~with age/experience~~ with each _“honota”_ (_“tail-splitting”_) they suffer through. Their repertoire resembles that from the many schools of practice you may be familiar with—though, due to their nature, they often gravitate towards the schools of illusory and sensory magic. ~~Their iconic shapeshifting lends itself to transmutation, their foxfire evocation, their enchantments enchantment, their profficiency with illusions... well you get it.~~ While very common, the misconception that they can shapeshift—one born out of folklore and cautionary tales—is not altogether false. It is in their very nature to play with the minds of their prey, and one should falter in trusting their senses when they are concerned. ~~Their true form may be seen through their shapeshifting by their shadow, tail, ears, or general “fox-like” facial features.~~ Seeing through an attentive Kitsune's tricks is often a foolish endeavor for all but the strongest minds.`)">
+					<span class="tooltip">"The Innate Magic of Kitsune", by Wizard Pal</span>
+				</div>
 			</div>
 			<img src="assets/home/chunk-of-citrine.png" style="position:absolute;height:4rem;width:auto;top:10.7rem;left:1rem">
 			<div class="hastooltip bookshelf-item" id="slimepedia">
@@ -560,6 +572,13 @@
 				<span onclick class="hidden">I don't understand</span>
 			</div>
 		</div>
+	</div>
+	<div id="book-excerpt" class="hidden">
+		<div class="title">
+			<span>Title</span>
+			<span>Author</span>
+		</div>
+		<div class="excerpt"></div>
 	</div>
 	<div id="kowabi">
 		<div id="msg" class="hidden">
