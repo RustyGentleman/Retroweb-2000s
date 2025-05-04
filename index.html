@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="steptext.css">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Grenze:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=VT323&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Cookie&family=Grenze:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=VT323&display=swap" rel="stylesheet">
 	<link rel="preload" as="image" href="assets/ras2/tea.png">
 	<link rel="preload" as="image" href="assets/ras2/nx01.png">
 	<link rel="preload" as="image" href="assets/pal/littlewitchinthewoods.png">
@@ -349,6 +349,24 @@
 				<img src="assets/home/bookshelf.png" alt="Empty bookshelf" class="empty-bookshelf">
 				<img src="assets/home/bookshelf.png" alt="Empty bookshelf" class="empty-bookshelf" style="left: 70.4%">
 				<img src="assets/pal/desk.png" alt="A desk" id="desk" style="filter: drop-shadow(0 2rem 1rem rgb(0 0 0 / 70%))">
+				<div style="position:absolute;height:9.5%;top: 58.5%;left: 55%;">
+					<img src="assets/pal/bookrow.png" alt="A row of books" style="height:100%;width:auto">
+					<div class="book-hitbox hastooltip" style="height:70%" onclick="showExcerpt('Letter of Celebration', 'Wizard Pal', `May it please Your Majesty, it would be my utmost pleasure to present to you this letter of appreciation and good wishes on the anniversary of the day the world was graced with your royalty. Our discussions have taught me much, not only on the intricacies of Goblin culture, but of life. I now see a life outside my tower of isolation, and could benefit from a little chaos. Thank you for your friendship, and happy birthday.`)">
+						<span class="tooltip">"Letter of Celebration"</span>
+					</div>
+					<div class="book-hitbox hastooltip" style="height:80%;width:15%;right:70%" onclick="showExcerpt('An Observation of Slimes', 'Wizard Pal', `One of the benefits of my residence's location is the various species of creatures I have the pleasure of viewing. In the fields visible from my study, the most adorable cluster (hive? squish?) of slimes wobble about throughout the day. Despite a simpler biological structure, they are intelligible and hold conversation better than any other cluster I've observed, their relationships reflecting that of any other people, if not more charming. I do wonder what environmental or unnatural factors brought about this intelligence in these organisms.`)">
+						<span class="tooltip">"An Observation of Slimes"</span>
+					</div>
+					<div class="book-hitbox hastooltip" style="height:92%;width:20%;right:50%" onclick="showExcerpt('An Observation of Pocket Monsters', 'Wizard Pal', `A sample of the strand of beasts dubbed _“Pokémon”_ have congregated in the nearby forest town just outside the shadow of my tower. Few but a notable amount of these beasts have been recorded possessing the ability to understand common language. Technological efforts to capture and tame these beasts with spherical holding devices have been successful, a now popularized practice among all walks of people.`)">
+						<span class="tooltip">"An Observation of Pocket Monsters"</span>
+					</div>
+					<div class="book-hitbox hastooltip" style="height:100%;width:25%;right:25%" onclick="showExcerpt('An Observation of Goblin Matriarchy', 'Wizard Pal', `In all my years of observation of goblinoid societal structures, only now have I observed a malignity which values the written word (not just arcane in nature) above all other treasures. Doubly rare is any sort of goblin matriarchy, of which I have too observed of this sample. This “Goblin Matriarch” also seems to have a penchant for luxuries that have not come to be expected of goblins, such as a diet free of animal products. Height and these other more subtle features seem to imply an elven ancestry. I am at fault for attributing any sort of pattern to the nature of those as chaotic as the goblin, and my research might stand to benefit from closer observation of this “Queen of Goblins”—perhaps even conversational engagement, granted I hide my books.`)">
+						<span class="tooltip">"An Observation of Goblin Matriarchy?"</span>
+					</div>
+					<div class="book-hitbox hastooltip" style="height:90%;width:25%;right:0" onclick="showExcerpt('Communications with the Royal Enchanter', 'Wizard Pal', `That Royal Enchanter is quite the charming spellcaster and writer. And yes, I've taken special precautions to ensure my opinion of him is not influenced by any spell or charm; I've made a mental note to teleport straight to my nullification chamber if I were to ever detect such. Illusions make for a fun show, but Senseweaving... unnerves me. No disrespect to Kitsune intended, I just value the thoughts that are my own. Anyways, we have exchanged many a letter, books, and tea—some of the best I've ever tasted.`)">
+						<span class="tooltip">"Communications with the Royal Enchanter"</span>
+					</div>
+				</div>
 				<a href="https://oldgoogle.neocities.org/1998/" target="_blank" onclick="document.h_paper.play()">
 					<div class="hastooltip" id="psych">
 						<img src="assets/pal/book.png" alt="Compendium of Pal's Knowledge of Psychology">

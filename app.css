@@ -631,16 +631,16 @@ dialog::backdrop {
   z-index: 2;
 }
 #home .basement-wall .lock:nth-child(1) {
-  transform: translate(calc(-50% + 7.7rem), -8rem) rotate(7deg);
+  transform: translate(calc(-50% + 7.7rem), -8rem) rotate(-13deg);
 }
 #home .basement-wall .lock:nth-child(2) {
-  transform: translate(calc(-50% - 7.7rem), -4rem) rotate(-9deg);
+  transform: translate(calc(-50% - 7.7rem), -4rem) rotate(-7deg);
 }
 #home .basement-wall .lock:nth-child(3) {
-  transform: translate(calc(-50% + 7.7rem), 0rem) rotate(4deg);
+  transform: translate(calc(-50% + 7.7rem), 0rem) rotate(-18deg);
 }
 #home .basement-wall .lock:nth-child(4) {
-  transform: translate(calc(-50% - 7.7rem), 4rem) rotate(14deg);
+  transform: translate(calc(-50% - 7.7rem), 4rem) rotate(5deg);
 }
 #home .basement-wall .wallhook {
   position: absolute;
@@ -991,6 +991,12 @@ dialog::backdrop {
 }
 #pal .content #drawer img {
   width: 100%;
+}
+#pal .content .book-hitbox {
+  position: absolute;
+  bottom: 0;
+  height: 100%;
+  width: 13%;
 }
 #pal .content #wiz-2 {
   position: absolute;
@@ -1691,6 +1697,12 @@ dialog::backdrop {
   transition: 1s ease-out;
   transition-property: opacity, transform;
   padding: 3rem;
+  text-align: center;
+  font-family: "Cookie", cursive;
+  font-size: 1.5rem;
+}
+#book-excerpt s {
+  text-decoration-thickness: 1px;
 }
 #book-excerpt .title, #book-excerpt .excerpt {
   width: 50%;
@@ -1708,17 +1720,19 @@ dialog::backdrop {
   padding-bottom: calc(8rem + 15vh);
 }
 #book-excerpt .title span:first-child {
-  font-size: 2rem;
+  font-size: 2em;
+  font-weight: bold;
 }
 #book-excerpt .title span:nth-child(2) {
-  font-size: 1rem;
+  font-size: 1em;
   font-style: italic;
 }
 #book-excerpt .excerpt {
   padding: 3rem;
   padding-right: 1rem;
-  text-align: center;
-  margin-top: 5rem;
+  margin-top: 2rem;
+  word-spacing: 3px;
+  font-size: 0.9em;
 }
 #book-excerpt fadein {
   display: inline;
