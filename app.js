@@ -1033,7 +1033,7 @@ const herbs = document.getElementById('ras2').querySelectorAll('.herb')
 					key.append(img)
 					key.append(tooltip)
 					document.getElementById('ras2').querySelector('.boulder-hitbox').append(key)
-					setTimeout(() => img.click(), 100)
+					setTimeout(() => img.click(), 1000)
 					ras.setAttribute('onclick', "rasDialogue('final')")
 				}, {once: true})
 			}
