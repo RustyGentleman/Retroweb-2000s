@@ -18,6 +18,7 @@ Kowabi.text = Kowabi.querySelector('#text')
 Kowabi.steptext = new Steptext(Kowabi.text)
 Kowabi.options = Kowabi.querySelector('#options')
 Kowabi.expression = Kowabi.querySelector('#expression')
+Kowabi.current
 Kowabi.setText = (string) => {
 	Kowabi.text.textContent = ''
 	Kowabi.steptext.textQueue = string
@@ -54,15 +55,20 @@ Kowabi.addNodes = (...nodes) => {
 		for (const [key, text, expression, options] of node)
 			Kowabi.addNode(key, text, expression, options)
 }
-Kowabi.playNode = (key) => {
+Kowabi.playNode = (key, passive=false) => {
 	const node = Kowabi.dialogueNodes[key]
 	if (!node) return console.warn(`Dialogue node "${key}" not found.`)
+
+	if (passive && (Kowabi.text.textContent.length > 0 || !Kowabi.classList.contains('passive-ok')))
+		return false
 
 	Kowabi.steptext.reset()
 	Kowabi.setText(node.text)
 	Kowabi.setExpression(...node.expression)
 	Kowabi.resetOptions()
 	Kowabi.addOptions(...node.options)
+	Kowabi.current = key
+	return true
 }
 Kowabi.setExpression = (col, row) => Kowabi.expression.className = `col-${col} row-${row}`
 Kowabi.setToNeutral = () => {
