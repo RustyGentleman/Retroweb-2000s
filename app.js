@@ -21,8 +21,11 @@ Kowabi.expression = Kowabi.querySelector('#expression')
 Kowabi.setText = (string) => {
 	Kowabi.text.textContent = ''
 	Kowabi.steptext.textQueue = string
-	if (Kowabi.querySelector('#msg').classList.contains('hidden'))
-		Kowabi.toggle()
+
+	Kowabi.querySelector('#msg').style.display = ''
+	setTimeout(() => msg.classList.toggle('hidden'))
+	Kowabi.steptext.stepTimeoutID = undefined
+	Kowabi.steptext.step()
 }
 Kowabi.resetOptions = () => Array.from(Kowabi.options.children).forEach(e => e.remove())
 Kowabi.addOption = (text, nextKey=null, callback=null, condition=null) => {
@@ -1031,8 +1034,7 @@ const herbs = document.getElementById('ras2').querySelectorAll('.herb')
 					key.append(tooltip)
 					document.getElementById('ras2').querySelector('.boulder-hitbox').append(key)
 					setTimeout(() => img.click())
-					ras.removeAttribute('onclick')
-					setTimeout(() => rasDialogue(final), 1000)
+					ras.setAttribute('onclick', "rasDialogue('final')")
 				}, {once: true})
 			}
 		}, final: {
