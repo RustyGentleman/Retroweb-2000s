@@ -414,7 +414,6 @@ Kowabi.addNodes([
 	['gobdance-3', "!!...Okay...!! ~Anyway...", [5, 1], [
 		['...Okay...', '', () => Kowabi.playNode(Kowabi.current || 'ras0')],
 	]],
-	//? Kowabi reacting to gobdance?
 ])
 //# Playlist songs
 Playlist.addSongs([
@@ -1463,20 +1462,14 @@ document.getElementById('home').addEventListener('scroll', () => {
 			player.updatePlaylist()
 		}
 		const kf = getSavedData('Kowabi-flags')
-		if (Kowabi.classList.contains('gobdance-reaction-2') && document.h_gobdance.volume() == 0) {
+		if ((Kowabi.classList.contains('gobdance-reaction-2') && !kf.find('gobdance-2-done')) || Kowabi.classList.contains('gobdance-reaction-1') && document.h_gobdance.volume() <= .00001) {
 			Kowabi.playNode('gobdance-3', true)
 			Kowabi.classList.remove('gobdance-reaction')
 			Kowabi.classList.remove('gobdance-reaction-1')
 			Kowabi.classList.remove('gobdance-reaction-2')
 		}
-		else if (Kowabi.classList.contains('gobdance-reaction-1') && document.h_gobdance.volume() <= .02) {
-			Kowabi.playNode(Kowabi.current)
-			Kowabi.classList.remove('gobdance-reaction')
-			Kowabi.classList.remove('gobdance-reaction-1')
-			Kowabi.classList.remove('gobdance-reaction-2')
-		}
 		else if (!Kowabi.classList.contains('gobdance-reaction-1') && document.h_gobdance.volume() > .02 && document.h_gobdance.volume() < .2) {
-			if (true || !kf.find('gobdance-1-done')) {
+			if (!kf.find('gobdance-2-done')) {
 				Kowabi.playNode('gobdance-1', true)
 			} else Kowabi.playNode('gobdance-1.5', true)
 			Kowabi.classList.add('gobdance-reaction')
@@ -1484,7 +1477,7 @@ document.getElementById('home').addEventListener('scroll', () => {
 		}
 		else if (!Kowabi.classList.contains('gobdance-reaction-2') && document.h_gobdance.volume() > .2) {
 			Kowabi.playNode('gobdance-2', true)
-			kf.push('gobdance-1-done').save()
+			kf.push('gobdance-2-done').save()
 			Kowabi.classList.add('gobdance-reaction')
 			Kowabi.classList.add('gobdance-reaction-2')
 		}
@@ -1592,14 +1585,19 @@ if (getSavedData('Kowabi-flags').find('intro-done')) {
 	Kowabi.setExpression(3, 2)
 }
 //? Start on home page
-goToPage('home', true)
-//? First playlist update
-setTimeout(() => player.updatePlaylist(), 1000)
-//? Trigger first visitor popup
-setTimeout(() => {
+window.addEventListener('load', () => {
+	goToPage('home', true)
+	player.classList.remove('hidden')
+	Kowabi.classList.remove('hidden')
+	//? Trigger first visitor popup
+	window.addEventListener('click', () => {
 		document.getElementById('retroModal').style.display = 'block'
 		document.h_yippee.play()
-	}, 3000)
+	}, {once: true})
+	document.body.scrollTo({top:0,behavior:'instant'})
+})
+//? First playlist update
+setTimeout(() => player.updatePlaylist(), 1000)
 //? Load saved ingredients
 getSavedData('collectibles', {
 	pack: (data) => JSON.stringify(data),
