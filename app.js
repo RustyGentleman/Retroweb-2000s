@@ -1570,11 +1570,12 @@ async function NonagonInfinity(door) {
 	function showExcerpt(tit, au, text) {
 		book.classList.remove('hidden')
 		steptext.targetElement.textContent = ''
-		title.textContent = tit
+		title.innerHTML = tit
 		author.innerHTML = au
 		// steptext.queue(text.replaceAll(/(?<= |^|$|[\*_~~])([^\*_\s~~]+?)(?= |^|$|[\*_~~])/g, '@$1@'))
 		steptext.queue(text)
 		steptext.skip()
+		steptext.targetElement.scrollTo({top:0,behavior:'instant'})
 		book.addEventListener('click', () => book.classList.add('hidden'), {once: true})
 	}
 }
