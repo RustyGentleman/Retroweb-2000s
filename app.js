@@ -301,7 +301,7 @@ Kowabi.addNodes([
 	['life', "_~Don't we all...~_", [1, 4], [
 			['Back', 'assistance3', () => Kowabi.classList.add('passive-ok')],
 		]],
-	['navigation', "Well, see ~those books~ on the left shelf? You should take a peek at those.", [4, 2], [
+	['navigation', "Well, see ~those books~ on the left shelf? You should take a peek at those.", [4, 3], [
 			['Back', 'assistance3', () => Kowabi.classList.add('passive-ok')],
 		]],
 	//* Kaboom's page
@@ -327,7 +327,7 @@ Kowabi.addNodes([
 	['pal-intro-2', "Perhaps he's had a change of profession, I suppose.", [5, 1], [
 			['Continue', 'pal-intro-3'],
 		]],
-	['pal-intro-3', "I've a feeling you'll spent ~a fair bit of time~ here...", [4, 1], [
+	['pal-intro-3', "I've a feeling you'll spend ~a fair bit of time~ here...", [4, 1], [
 			['Continue', 'pal0', () => {
 				getSavedData('Kowabi-flags').push('pal-intro-done').save()
 				Kowabi.classList.add('passive-ok')
@@ -534,6 +534,10 @@ const slimeInfo = {
 			//? Trigger dialogue
 			else if (slimeInfo[slime.id] != -1 && dialogue.classList.contains('hidden'))
 				if (slimeInfo[slime.id].cur >= slimeInfo[slime.id].trig) {
+					if (slime.id == 'salt')
+						document.h_slimespeak.volume(.4)
+					else
+						document.h_slimespeak.volume(1)
 					const clone = slime.cloneNode(true)
 					clone.style.cssText = ''
 					clone.classList.remove('boing')
@@ -1169,7 +1173,7 @@ const herbs = document.getElementById('ras2').querySelectorAll('.herb')
 					key.append(tooltip)
 					document.getElementById('ras2').querySelector('.boulder-hitbox').append(key)
 					setTimeout(() => img.click(), 1000)
-					ras.setAttribute('onclick', "rasDialogue('final')")
+					document.querySelector("#ras2 .ras").setAttribute('onclick', "rasDialogue('final')")
 					window.localStorage.setItem('Ras-currentdialogue', 'final')
 				}, {once: true})
 			}
@@ -1262,6 +1266,17 @@ const herbs = document.getElementById('ras2').querySelectorAll('.herb')
 	const combos = [
 		{trigger: 'credits', callback: () => goToPage('credits', true)},
 		{trigger: 'gohome', callback: () => goToPage('home', true)},
+		{trigger: 'fasttext', callback: () => Steptext.instances.forEach(e => e.stepInterval = 1)},
+		{trigger: 'ifuckedup', callback: () => {
+			resetUnlockedSongs()
+			resetSlimes()
+			resetCollectibles()
+			resetAlchemy()
+			resetDialogues()
+			resetPokedex()
+			resetDoor()
+		}},
+		{trigger: 'icantread', callback: () => document.body.classList.toggle('cantread')},
 		{trigger: 'pissbag', callback: () => {
 			const key = document.createElement('div')
 			const img = document.createElement('img')
@@ -1419,6 +1434,19 @@ document.h_open = new Howl({src: ['assets/home/open-door.mp3']})
 document.h_curse = new Howl({src: ['assets/ras2/curse-woosh.mp3']})
 document.h_chosen = new Howl({src: ['assets/ras2/choice-made.mp3']})
 document.h_rasambiance = new Howl({src: ['assets/ras2/ambiance.mp3'], volume:.3, loop:true})
+document.h_yippee = new Howl({src: ['assets/home/yippee.mp3']})
+document.h_clap = new Howl({src: ['assets/end/clap.mp3']})
+document.h_youknowwhatthissoundis = new Howl({src: ['assets/home/youknowwhatthissoundis.mp3']})
+document.h_borf = [
+	new Howl({src: ['assets/home/borf1.mp3']}),
+	new Howl({src: ['assets/home/borf2.mp3']}),
+	new Howl({src: ['assets/home/borf3.mp3']}),
+	new Howl({src: ['assets/home/borf4.mp3']}),
+	new Howl({src: ['assets/home/borf5.mp3']}),
+	new Howl({src: ['assets/home/borf6.mp3']}),
+	new Howl({src: ['assets/home/borf7.mp3']}),
+	new Howl({src: ['assets/home/borf8.mp3']}),
+]
 //# Goblin dance
 const home = document.getElementById('home')
 const bottom = window.visualViewport.height * 7
@@ -1525,6 +1553,7 @@ async function NonagonInfinity(door) {
 	await new Promise(r => setTimeout(r, 2000))
 	const end = document.getElementById('end')
 	end.classList.remove('hidden')
+	document.h_clap.play()
 	await new Promise(r => setTimeout(r, 3010))
 	if (document.h_gobdance.playing())
 		document.h_gobdance.pause()
@@ -1566,7 +1595,10 @@ goToPage('home', true)
 //? First playlist update
 setTimeout(() => player.updatePlaylist(), 1000)
 //? Trigger first visitor popup
-setTimeout(() => document.getElementById('retroModal').style.display = 'block', 3000)
+setTimeout(() => {
+		document.getElementById('retroModal').style.display = 'block'
+		document.h_yippee.play()
+	}, 3000)
 //? Load saved ingredients
 getSavedData('collectibles', {
 	pack: (data) => JSON.stringify(data),

@@ -176,6 +176,10 @@ body
 	margin: 0
 	height: 100vh
 	overflow: hidden
+body.cantread
+	#book-excerpt
+		font-family: 'Comic Sans MS', sans-serif
+		font-size: 1rem
 [onclick]
 	cursor: pointer
 
@@ -1643,6 +1647,7 @@ body
 			color: black
 			text-shadow: 0 0 .5rem white
 		dialog#lettertogob
+			max-width: 80vh
 			background-image: url('assets/pal/letter-bg.jpg')
 			color: black
 			border: none

@@ -254,6 +254,11 @@ body {
   overflow: hidden;
 }
 
+body.cantread #book-excerpt {
+  font-family: "Comic Sans MS", sans-serif;
+  font-size: 1rem;
+}
+
 [onclick] {
   cursor: pointer;
 }
@@ -631,16 +636,16 @@ dialog::backdrop {
   z-index: 2;
 }
 #home .basement-wall .lock:nth-child(1) {
-  transform: translate(calc(-50% + 7.7rem), -8rem) rotate(-1deg);
+  transform: translate(calc(-50% + 7.7rem), -8rem) rotate(2deg);
 }
 #home .basement-wall .lock:nth-child(2) {
-  transform: translate(calc(-50% - 7.7rem), -4rem) rotate(-10deg);
+  transform: translate(calc(-50% - 7.7rem), -4rem) rotate(-15deg);
 }
 #home .basement-wall .lock:nth-child(3) {
-  transform: translate(calc(-50% + 7.7rem), 0rem) rotate(-14deg);
+  transform: translate(calc(-50% + 7.7rem), 0rem) rotate(-18deg);
 }
 #home .basement-wall .lock:nth-child(4) {
-  transform: translate(calc(-50% - 7.7rem), 4rem) rotate(-12deg);
+  transform: translate(calc(-50% - 7.7rem), 4rem) rotate(16deg);
 }
 #home .basement-wall .wallhook {
   position: absolute;
@@ -2063,6 +2068,7 @@ body {
   text-shadow: 0 0 0.5rem white;
 }
 #pal .content dialog#lettertogob {
+  max-width: 80vh;
   background-image: url("assets/pal/letter-bg.jpg");
   color: black;
   border: none;

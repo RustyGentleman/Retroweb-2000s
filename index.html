@@ -80,7 +80,7 @@
 		</div>
 		<div class="bookshelf" id="bookshelf-left" style="left: calc(50% - 25rem)">
 			<img src="assets/home/bookshelf.png" alt="Left bookshelf"/>
-			<img src="assets/home/gob-pic.png" alt="A picture of the Goblin Queen at the beach" class="bookshelf-item" style="height:5rem;width:auto;top:5.6rem;right:1rem;transform:rotate(-6deg)">
+			<img src="assets/home/gob-pic.png" alt="A picture of the Goblin Queen at the beach" class="bookshelf-item" style="height:5rem;width:auto;top:5.6rem;right:1rem;transform:rotate(-6deg)" onclick="document.h_youknowwhatthissoundis.play()">
 			<div class="bookshelf-item" style="top:20.3rem;right:.55rem">
 				<img src="assets/home/row-of-books6.png">
 			</div>
@@ -98,11 +98,11 @@
 				<div class="book-hitbox hastooltip" style="left:3.3rem;" onclick="showExcerpt('Goblin Sociology', 'Wizard Pal', `Groups of goblins, hereby dubbed “malignities”, vary widely in their societal structures, but there is commonality between most. Their hierarchies tend to be kratocratic and patriarchal: rule of the largest and strongest male. In rare cases, the leadership role is not exclusive to goblinoids. Goblins oft have an antagonistic relationship with literature, rooted in popular mythology which claims that the written word “steals thoughts” from the minds of those who read them. Books are consequently most used as kindling. Due to this, reading and writing are rarely taught. The rare literate goblin may take the role of a mage, making use of looted arcane literature primarily for battle.`)">
 					<span class="tooltip">"Goblin Sociology", by Wizard Pal”</span>
 				</div>
-				<div class="book-hitbox hastooltip" style="right:.8rem;" onclick="showExcerpt('The Innate Magic of Kitsune', 'Wizard Pal<br>(co-authored by Ras Silverleaf)', `The Kitsunes' exceptional magic affinity is innate to their kin, and improves ~~with age/experience~~ with each _“honota”_ (_“tail-splitting”_) they suffer through. Their repertoire resembles that from the many schools of practice you may be familiar with—though, due to their nature, they often gravitate towards the schools of illusory and sensory magic. ~~Their iconic shapeshifting lends itself to transmutation, their foxfire evocation, their enchantments enchantment, their profficiency with illusions... well you get it.~~ While very common, the misconception that they can shapeshift—one born out of folklore and cautionary tales—is not altogether false. It is in their very nature to play with the minds of their prey, and one should falter in trusting their senses when they are concerned. ~~Their true form may be seen through their shapeshifting by their shadow, tail, ears, or general “fox-like” facial features.~~ Seeing through an attentive Kitsune's tricks is often a foolish endeavor for all but the strongest minds.`)">
+				<div class="book-hitbox hastooltip" style="right:.8rem;" onclick="showExcerpt('The Innate Magic of Kitsune', 'Wizard Pal<br>(co-authored by Ras Silverleaf)', `The Kitsunes' exceptional magic affinity is innate to their kin, and improves ~~with age/experience~~ with each _“honota”_ (_“tail-splitting”_) they suffer through. Their repertoire resembles that from the many schools of practice you may be familiar with—though, due to their nature, they often gravitate towards the schools of illusory and sensory magic. ~~Their iconic shapeshifting lends itself to transmutation, their foxfire evocation, their enchantments, their profficiency with illusions... well you get it.~~ While very common, the misconception that they can shapeshift—one born out of folklore and cautionary tales—is not altogether false. It is in their very nature to play with the minds of their prey, and one should falter in trusting their senses when they are concerned. ~~Their true form may be seen through their shapeshifting by their shadow, tail, ears, or general “fox-like” facial features.~~ Seeing through an attentive Kitsune's tricks is often a foolish endeavor for all but the strongest minds.`)">
 					<span class="tooltip">"The Innate Magic of Kitsune", by Wizard Pal</span>
 				</div>
 			</div>
-			<img src="assets/home/chunk-of-citrine.png" style="position:absolute;height:4rem;width:auto;top:10.7rem;left:1rem">
+			<img src="assets/home/chunk-of-citrine.png" style="position:absolute;height:4rem;width:auto;top:10.7rem;left:1rem" onclick="document.h_amethyst[Math.floor(Math.random()*document.h_amethyst.length)].play()">
 			<div class="hastooltip bookshelf-item" id="slimepedia">
 				<img src="assets/home/book-kaboom.png" alt="A Slimepedia" onclick="goToPage('kaboom')">
 				<span class="tooltip">A Slimepedia</span>
@@ -135,7 +135,7 @@
 			<div class="bookshelf-item" style="top:15.3rem;left:.6rem">
 				<img src="assets/home/row-of-books5.png">
 			</div>
-			<img src="assets/home/bond.png" style="position:absolute;height:4.4rem;width:auto;top:19.8rem;right:.6rem;transform:rotateY(0);image-rendering:auto;">
+			<img src="assets/home/bond.png" style="position:absolute;height:4.4rem;width:auto;top:19.8rem;right:.6rem;transform:rotateY(0);image-rendering:auto;" onclick="document.h_borf[Math.floor(Math.random() * document.h_borf.length)].play()">
 			<img src="assets/home/plague-doctors.png" style="position:absolute;height:3.5rem;width:auto;top:2rem;left:.6rem;image-rendering:auto;">
 			<img src="assets/home/cock-monkey.png" style="position:absolute;height:4.7rem;width:auto;bottom:1rem;left:4rem;image-rendering:auto;">
 			<img src="assets/home/cheese-puff-tiger.png" style="position:absolute;height:3rem;width:auto;bottom:1rem;left:1rem;image-rendering:auto;transform:rotate(-8deg)">
@@ -364,9 +364,6 @@
 				<img src="assets/pal/desk.png" alt="A desk" id="desk" style="filter: drop-shadow(0 2rem 1rem rgb(0 0 0 / 70%))">
 				<div style="position:absolute;height:9.5%;top: 58.5%;left: 55%;">
 					<img src="assets/pal/bookrow.png" alt="A row of books" style="height:100%;width:auto">
-					<div class="book-hitbox hastooltip" style="height:70%" onclick="showExcerpt('Letter of Celebration', 'Wizard Pal', `May it please Your Majesty, it would be my utmost pleasure to present to you this letter of appreciation and good wishes on the anniversary of the day the world was graced with your royalty. Our discussions have taught me much, not only on the intricacies of Goblin culture, but of life. I now see a life outside my tower of isolation, and could benefit from a little chaos. Thank you for your friendship, and happy birthday.`)">
-						<span class="tooltip">"Letter of Celebration"</span>
-					</div>
 					<div class="book-hitbox hastooltip" style="height:80%;width:15%;right:70%" onclick="showExcerpt('An Observation of Slimes', 'Wizard Pal', `One of the benefits of my residence's location is the various species of creatures I have the pleasure of viewing. In the fields visible from my study, the most adorable cluster (hive? squish?) of slimes wobble about throughout the day. Despite a simpler biological structure, they are intelligible and hold conversation better than any other cluster I've observed, their relationships reflecting that of any other people, if not more charming. I do wonder what environmental or unnatural factors brought about this intelligence in these organisms.`)">
 						<span class="tooltip">"An Observation of Slimes"</span>
 					</div>
@@ -434,12 +431,7 @@
 				<img src="assets/pal/spades.png" alt="Spades, the wizard's familiar" style="position:absolute;height:20%;bottom:5%;right: 17%" onclick="DropTempText(this, `Meow. (Father is a cruel father. My bowl, bottom visible in its center, my day’s rations meager, represents the hole in my stomach. My water, practically sewage, as it is still compared to the hand-held waterfalls father drinks from. No pets when I need pets, pets when I need not pets. This “home” is my prison, father my tormenter.)`, 20, e => {e.style.top='20%';e.style.left='70%';e.style.right='10%'})">
 			</div>
 			<dialog id="lettertogob">
-				Letter of appreciation written in overly strategic language.<br>
-				It feels like it can be translated.<br>
-				<br>
-				<button class="win95-btn" onclick="const t = document.createElement('span'); t.textContent = 'Short and sweet language i.e. “I love you”'; this.after(t); this.remove(); document.h_write.play()">Translate</button>
-				<br>
-				<br>
+				May it please Your Majesty, it would be my utmost pleasure to present to you this letter of appreciation and good wishes on the anniversary of the day the world was graced with your royalty. Our discussions have taught me much, not only on the intricacies of Goblin culture, but of life. I now see a life outside my tower of isolation, and could benefit from a little chaos. Thank you for your friendship, and happy birthday.<br>
 				<button class="win95-btn" onclick="this.parentElement.close()">Close</button>
 			</dialog>
 		</div>
@@ -476,20 +468,21 @@
 		</div>
 	</div>
 	<div class="fullpage hidden" id="kaboom">
-			<img src="assets/kaboom/header.png" alt="Kaboom's Slime Field" class="header">
-			<img src="assets/portal.gif" class="portal" onclick="goToPage('home')"/>
-			<div id="field">
-			<div class="slime" id="jerome"><img src="assets/kaboom/jerome.gif"/></div>
-			<div class="slime" id="roosevelt"><img src="assets/kaboom/roosevelt.gif"/></div>
-			<div class="slime" id="samantha"><img src="assets/kaboom/samantha.gif"/></div>
-			<div class="slime" id="jared"><img src="assets/kaboom/jared.gif"/></div>
-			<div class="slime" id="jeremy"><img src="assets/kaboom/jeremy.gif"/></div>
-			<div class="slime" id="michael"><img src="assets/kaboom/michael.gif"/></div>
-			<div class="slime" id="aurora"><img src="assets/kaboom/aurora.gif"/></div>
-			<div class="slime" id="salt"><img src="assets/kaboom/salt.gif"/></div>
-			<div class="slime" id="flint"><img src="assets/kaboom/flint.gif"/></div>
-			<div class="slime" id="pepper"><img src="assets/kaboom/pepper.gif"/></div>
-			<div class="slime" id="chroma" style="display:none"><img src="assets/kaboom/chroma.gif"/></div>
+		<div style="position:absolute;top:0;right:0"><a href="https://1800simpcentral.tumblr.com/commissionspage" style="color:white!important">Art by Jay</a></div>
+		<img src="assets/kaboom/header.png" alt="Kaboom's Slime Field" class="header">
+		<img src="assets/portal.gif" class="portal" onclick="goToPage('home')"/>
+		<div id="field">
+		<div class="slime" id="jerome"><img src="assets/kaboom/jerome.gif"/></div>
+		<div class="slime" id="roosevelt"><img src="assets/kaboom/roosevelt.gif"/></div>
+		<div class="slime" id="samantha"><img src="assets/kaboom/samantha.gif"/></div>
+		<div class="slime" id="jared"><img src="assets/kaboom/jared.gif"/></div>
+		<div class="slime" id="jeremy"><img src="assets/kaboom/jeremy.gif"/></div>
+		<div class="slime" id="michael"><img src="assets/kaboom/michael.gif"/></div>
+		<div class="slime" id="aurora"><img src="assets/kaboom/aurora.gif"/></div>
+		<div class="slime" id="salt"><img src="assets/kaboom/salt.gif"/></div>
+		<div class="slime" id="flint"><img src="assets/kaboom/flint.gif"/></div>
+		<div class="slime" id="pepper"><img src="assets/kaboom/pepper.gif"/></div>
+		<div class="slime" id="chroma" style="display:none"><img src="assets/kaboom/chroma.gif"/></div>
 		</div>
 		<div id="slime-dialogue" class="hidden">
 			<div class="message">
@@ -569,7 +562,7 @@
 	</div>
 	<div id="retroModal">
 		<img width="400" src="assets/home/number1visitor.gif" alt="OHMYGODDD!! YOU'RE OUR NUMBER 1 VISITOR!!!!!">
-		<button class="win95-btn" onclick="document.getElementById('retroModal').style.display = 'none'">YAY!!!!</button>
+		<button class="win95-btn" onclick="Rickroll();this.setAttribute('onclick', `document.getElementById('retroModal').style.display = 'none'`)">YAY!!!!</button>
  	</div>
 	<div id="ras-dialogue" class="hidden">
 		<div class="portrait smile-closed">
