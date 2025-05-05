@@ -631,16 +631,16 @@ dialog::backdrop {
   z-index: 2;
 }
 #home .basement-wall .lock:nth-child(1) {
-  transform: translate(calc(-50% + 7.7rem), -8rem) rotate(14deg);
+  transform: translate(calc(-50% + 7.7rem), -8rem) rotate(-1deg);
 }
 #home .basement-wall .lock:nth-child(2) {
-  transform: translate(calc(-50% - 7.7rem), -4rem) rotate(18deg);
+  transform: translate(calc(-50% - 7.7rem), -4rem) rotate(-10deg);
 }
 #home .basement-wall .lock:nth-child(3) {
-  transform: translate(calc(-50% + 7.7rem), 0rem) rotate(-12deg);
+  transform: translate(calc(-50% + 7.7rem), 0rem) rotate(-14deg);
 }
 #home .basement-wall .lock:nth-child(4) {
-  transform: translate(calc(-50% - 7.7rem), 4rem) rotate(-2deg);
+  transform: translate(calc(-50% - 7.7rem), 4rem) rotate(-12deg);
 }
 #home .basement-wall .wallhook {
   position: absolute;
@@ -736,8 +736,8 @@ dialog::backdrop {
 }
 #home #universal-translator {
   height: 4rem;
-  bottom: 6rem;
-  left: 1rem;
+  top: 6.1rem;
+  left: 0.8rem;
 }
 #home #universal-translator img {
   transform: rotate(-20deg);
@@ -754,11 +754,11 @@ dialog::backdrop {
   transform: rotateY(180deg);
   max-height: 4.3rem;
 }
-#home #popupbook {
-  top: 7rem;
-  right: 0.3rem;
+#home #leafeonbook {
+  top: 16.3rem;
+  right: 6.2rem;
 }
-#home #popupbook img {
+#home #leafeonbook img {
   max-height: 3rem;
 }
 #home #progfordums {
