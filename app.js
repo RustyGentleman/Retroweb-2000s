@@ -407,6 +407,14 @@ Kowabi.addNodes([
 	['louie', "He _really_ is quite ~twisty~...", [4, 3], [
 			['Back', '', () => Kowabi.playNode(Kowabi.current || 'ras0')],
 		]],
+	//* Other
+	['gobdance-1', "Is that... **music**?...", [5, 3], []],
+	['gobdance-1.5', "!!Not again...!!", [6, 3], []],
+	['gobdance-2', "", [6, 3], []],
+	['gobdance-3', "!!...Okay...!! ~Anyway...", [5, 1], [
+		['...Okay...', '', () => Kowabi.playNode(Kowabi.current || 'ras0')],
+	]],
+	//? Kowabi reacting to gobdance?
 ])
 //# Playlist songs
 Playlist.addSongs([
@@ -1426,6 +1434,32 @@ document.getElementById('home').addEventListener('scroll', () => {
 			Playlist.unlockSong('gobdance')
 			player.updatePlaylist()
 		}
+		const kf = getSavedData('Kowabi-flags')
+		if (Kowabi.classList.contains('gobdance-reaction-2') && document.h_gobdance.volume() == 0) {
+			Kowabi.playNode('gobdance-3', true)
+			Kowabi.classList.remove('gobdance-reaction')
+			Kowabi.classList.remove('gobdance-reaction-1')
+			Kowabi.classList.remove('gobdance-reaction-2')
+		}
+		else if (Kowabi.classList.contains('gobdance-reaction-1') && document.h_gobdance.volume() <= .02) {
+			Kowabi.playNode(Kowabi.current)
+			Kowabi.classList.remove('gobdance-reaction')
+			Kowabi.classList.remove('gobdance-reaction-1')
+			Kowabi.classList.remove('gobdance-reaction-2')
+		}
+		else if (!Kowabi.classList.contains('gobdance-reaction-1') && document.h_gobdance.volume() > .02 && document.h_gobdance.volume() < .2) {
+			if (true || !kf.find('gobdance-1-done')) {
+				Kowabi.playNode('gobdance-1', true)
+			} else Kowabi.playNode('gobdance-1.5', true)
+			Kowabi.classList.add('gobdance-reaction')
+			Kowabi.classList.add('gobdance-reaction-1')
+		}
+		else if (!Kowabi.classList.contains('gobdance-reaction-2') && document.h_gobdance.volume() > .2) {
+			Kowabi.playNode('gobdance-2', true)
+			kf.push('gobdance-1-done').save()
+			Kowabi.classList.add('gobdance-reaction')
+			Kowabi.classList.add('gobdance-reaction-2')
+		}
 	}
 }, {passive: true})
 //# Goblin head snap
@@ -1520,9 +1554,10 @@ async function NonagonInfinity(door) {
 //? Set player volume
 Playlist.setVolume(window.localStorage.getItem('player-volume') || 1)
 //? Trigger Kowabi's intro
-if (getSavedData('Kowabi-flags').find('intro-done'))
+if (getSavedData('Kowabi-flags').find('intro-done')) {
 	Kowabi.playNode('assistance0')
-else {
+	Kowabi.classList.add('passive-ok')
+} else {
 	Kowabi.playNode('intro-kt')
 	Kowabi.setExpression(3, 2)
 }
@@ -1531,7 +1566,7 @@ goToPage('home', true)
 //? First playlist update
 setTimeout(() => player.updatePlaylist(), 1000)
 //? Trigger first visitor popup
-// setTimeout(() => document.getElementById('retroModal').style.display = 'block', 3000)
+setTimeout(() => document.getElementById('retroModal').style.display = 'block', 3000)
 //? Load saved ingredients
 getSavedData('collectibles', {
 	pack: (data) => JSON.stringify(data),
@@ -1586,15 +1621,15 @@ if (getSavedData('collectibles', {
 }
 
 //# Debug
-const nav = document.getElementById('debug-nav')
-setTimeout(() => {
-	for (const page of Array.from(document.querySelectorAll('.fullpage'))) {
-		const button = document.createElement('button')
-		button.textContent = page.id
-		button.addEventListener('click', function(){goToPage(this.textContent)})
-		nav.append(button)
-	}
-}, 500)
+// const nav = document.getElementById('debug-nav')
+// setTimeout(() => {
+// 	for (const page of Array.from(document.querySelectorAll('.fullpage'))) {
+// 		const button = document.createElement('button')
+// 		button.textContent = page.id
+// 		button.addEventListener('click', function(){goToPage(this.textContent)})
+// 		nav.append(button)
+// 	}
+// }, 500)
 // Steptext.instances.forEach(st => st.stepInterval = 1)
 
 //# Functions
