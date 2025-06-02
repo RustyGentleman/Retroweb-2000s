@@ -1,0 +1,22 @@
+Preface: This personal/group project was a hell of a marathon, and others aided in procuring assets; not all sources were noted down, sadly. If one of your assets was used and not credited, or there's some other issue, please contact me!
+
+# GIFs and Images
+star-bg.gif - https://gifer.com/en/WBVk
+castlebricks.jpg - https://www.filterforge.com/filters/2897.html
+woodfloor.jpg - https://www.filterforge.com/filters/13205.html
+owl-rocker.gif - https://www.woo-uk.com/Woo-Mid/advertising.html
+window.png - https://pngimg.com/image/17659
+balloons.png - https://gallery.yopriceville.com/Free-Clipart-Pictures/Balloons-PNG/Balloons_Decoration_Transparent_PNG_Clip_Art_Image
+book.png - https://pngimg.com/image/51108
+letter.png - https://clipart-library.com/clipart/LTdoy7jAc.htm
+universal-translator.jpg - https://memory-alpha.fandom.com/wiki/Universal_translator
+ceiling.jpg - https://www.filterforge.com/filters/9241-v1.html
+porch.jpg - https://www.artstation.com/artwork/d8NOeJ
+oldbook.png - https://www.deviantart.com/elissakarminakria/art/Old-book-305168655
+
+# Sound Effects
+paper.mp3 - https://pixabay.com/sound-effects/paper-flutter-5933/
+write.mp3 - https://pixabay.com/sound-effects/pencil-writing-32447/
+takeoff.mp3 - https://freesound.org/s/414671/
+ent-overhead.mp3 - uses sound from https://freesound.org/s/637149/
+ambiance.mp3 - https://freesound.org/s/662095/

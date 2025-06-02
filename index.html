@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Gobfest 2025</title>
+	<script defer src="app.js"></script>
+	<script src="steptext-new.js"></script>
+	<script src="howler.min.js"></script>
+	<link rel="stylesheet" href="app.css">
+	<link rel="stylesheet" href="steptext.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Cookie&family=Grenze:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=VT323&display=swap" rel="stylesheet">
+	<link rel="preload" as="image" href="assets/ras2/tea.png">
+	<link rel="preload" as="image" href="assets/ras2/nx01.png">
+	<link rel="preload" as="image" href="assets/pal/littlewitchinthewoods.png">
+	<link rel="preload" as="image" href="assets/pal/coffeetalk.png">
+	<link rel="preload" as="image" href="assets/pal/taverntalk.png">
+	<link rel="preload" as="image" href="assets/key-ras.png">
+	<link rel="preload" as="image" href="assets/key-luna.png">
+	<style>
+		/*********** Baseline, reset styles ***********/
+		input[type="range"] {
+			-webkit-appearance: none;
+			appearance: none;
+			background: transparent;
+			cursor: pointer;
+		}
+		/* Removes default focus */
+		input[type="range"]:focus {
+			outline: none;
+		}
+		/******** Chrome, Safari, Opera and Edge Chromium styles ********/
+		/* slider track */
+		input[type="range"]::-webkit-slider-runnable-track {
+			background-color: #080808;
+			border-radius: 0.5rem;
+			height: 0.2rem;
+		}
+		/* slider thumb */
+		input[type="range"]::-webkit-slider-thumb {
+			-webkit-appearance: none; /* Override default look */
+			appearance: none;
+			margin-top: -4px; /* Centers thumb on the track */
+			background-image: linear-gradient(to bottom, hsl(220deg, 15%, 85%), transparent, transparent, hsl(220deg, 15%, 50%)), repeating-linear-gradient(to right,  hsl(220deg, 15%, 60%), hsl(220deg, 15%, 80%) 10%,  hsl(220deg, 15%, 60%) 20%);
+			border-radius: 0rem;
+			height: .8rem;
+			width: 1.5rem;
+		}
+		input[type="range"]:focus::-webkit-slider-thumb {
+			outline: none
+		}
+		/*********** Firefox styles ***********/
+		/* slider track */
+		input[type="range"]::-moz-range-track {
+			background-color: #000000;
+			border-radius: 0.5rem;
+			height: 0.2rem;
+		}
+		/* slider thumb */
+		input[type="range"]::-moz-range-thumb {
+			background-image: linear-gradient(to left,  #626d84, hsl(220deg, 15%, 80%),  #626d84);
+			border: none; /*Removes extra border that FF applies*/
+			border-radius: 0rem;
+			height: .8rem;
+			width: 1.5rem;
+		}
+		input[type="range"]:focus::-moz-range-thumb{
+			outline: none
+		}
+	</style>
+</head>
+<body>
+	<div id="debug-nav"></div>
+	<div class="fullpage hidden" id="home">
+		<div class="floor"></div>
+		<div class="window">
+			<img src="assets/home/window.png" alt="Window to a starry sky"/>
+		</div>
+		<div class="bookshelf" id="bookshelf-left" style="left: calc(50% - 25rem)">
+			<img src="assets/home/bookshelf.png" alt="Left bookshelf"/>
+			<img src="assets/home/gob-pic.png" alt="A picture of the Goblin Queen at the beach" class="bookshelf-item" style="height:5rem;width:auto;top:5.6rem;right:1rem;transform:rotate(-6deg)" onclick="document.h_youknowwhatthissoundis.play()">
+			<div class="bookshelf-item" style="top:6rem;left:.6rem">
+				<img src="assets/home/row-of-books3.png">
+				<div class="book-hitbox hastooltip" style="left:1rem;height:3.3rem" onclick="showExcerpt('Magic 101', 'Wizard Pal', `**“Magic”** for the purposes of this class is recognized as the bending and/or splicing of our and/or other hyperplanes _(3-dimensional spaces)_, **“spells”** the replicable effects caused by these spatial manipulations, and **“mana”** the energy which can be used to create them. As an example of Evocation, opening a temporary portal to a plane of fire might produce a spell we call **“Cone of Fire”**. If your first thought is _“shouldn’t 99% of hyperplanar fissures create a portal to outer space, opening a vacuum which would suck all nearby air and loose objects into it?“_, meet me after class.`)">
+					<span class="tooltip">"Magic 101", by Wizard Pal</span>
+				</div>
+			</div>
+			<div class="bookshelf-item" style="top:10.7rem;right:.6rem">
+				<img src="assets/home/row-of-books.png">
+				<div class="book-hitbox hastooltip" onclick="showExcerpt('Slime Biology', 'John Science', `**“Slimes”** are _infuriating_ little bastards to research. You can try to contain them, but they will either _dissolve_ their way out of the container, or flow out through the bars. **If** you manage to contain them, they are some of the most __irritatingly talkative__ creatures to research..... I have no clue how their digestive or synaptic systems work, but I have _all_ the information in the world on their special interests. They seemingly exist solely to confound all theories of modern evolution and life as we know it. In my opinion, slimes are better off being ignored, they are frustratingly difficult to study, and if there is _any_ useful information to be gleaned from them, it is almost certainly worth not knowing in favor of the irritation that studying would require.`)">
+					<span class="tooltip">"Slime Biology", by John Science</span>
+				</div>
+				<div class="book-hitbox hastooltip" style="left:3.3rem;" onclick="showExcerpt('Goblin Sociology', 'Wizard Pal', `Groups of goblins, hereby dubbed “malignities”, vary widely in their societal structures, but there is commonality between most. Their hierarchies tend to be kratocratic and patriarchal: rule of the largest and strongest male. In rare cases, the leadership role is not exclusive to goblinoids. Goblins oft have an antagonistic relationship with literature, rooted in popular mythology which claims that the written word “steals thoughts” from the minds of those who read them. Books are consequently most used as kindling. Due to this, reading and writing are rarely taught. The rare literate goblin may take the role of a mage, making use of looted arcane literature primarily for battle.`)">
+					<span class="tooltip">"Goblin Sociology", by Wizard Pal”</span>
+				</div>
+				<div class="book-hitbox hastooltip" style="right:.8rem;" onclick="showExcerpt('The Innate Magic of Kitsune', 'Wizard Pal<br>(co-authored by Ras Silverleaf)', `The Kitsunes' exceptional magic affinity is innate to their kin, and improves ~~with age/experience~~ with each _“honota”_ (_“tail-splitting”_) they suffer through. Their repertoire resembles that from the many schools of practice you may be familiar with—though, due to their nature, they often gravitate towards the schools of illusory and sensory magic. ~~Their iconic shapeshifting lends itself to transmutation, their foxfire evocation, their enchantments, their profficiency with illusions... well you get it.~~ While very common, the misconception that they can shapeshift—one born out of folklore and cautionary tales—is not altogether false. It is in their very nature to play with the minds of their prey, and one should falter in trusting their senses when they are concerned. ~~Their true form may be seen through their shapeshifting by their shadow, tail, ears, or general “fox-like” facial features.~~ Seeing through an attentive Kitsune's tricks is often a foolish endeavor for all but the strongest minds.`)">
+					<span class="tooltip">"The Innate Magic of Kitsune", by Wizard Pal</span>
+				</div>
+			</div>
+			<img src="assets/home/chunk-of-citrine.png" style="position:absolute;height:4rem;width:auto;top:10.7rem;left:1rem" onclick="document.h_amethyst[Math.floor(Math.random()*document.h_amethyst.length)].play()">
+			<div class="hastooltip bookshelf-item" id="slimepedia">
+				<img src="assets/home/book-kaboom.png" alt="A Slimepedia" onclick="goToPage('kaboom')">
+				<span class="tooltip">A Slimepedia</span>
+			</div>
+			<div class="hastooltip bookshelf-item" id="grimoire">
+				<img src="assets/home/book-pal.png" alt="A grimoire" onclick="goToPage('pal')">
+				<span class="tooltip">A grimoire</span>
+			</div>
+			<div class="hastooltip bookshelf-item" id="progfordums">
+				<a href="" target="_blank"><img src="assets/home/book-luna.png" alt="A programming book for dummies (redacted)" onclick></a>
+				<span class="tooltip">A programming book for dummies</span>
+			</div>
+			<div class="hastooltip bookshelf-item" id="herbalistjournal">
+				<img src="assets/home/book-ras.png" alt="An herbalist's journal" onclick="goToPage('ras2')">
+				<span class="tooltip">An herbalist's journal</span>
+			</div>
+			<div class="hastooltip bookshelf-item" id="leafeonbook">
+				<img src="assets/home/book-lef.png" alt="A Leafeon book" onclick="goToPage('lef')">
+				<span class="tooltip">A Leafeon book</span>
+			</div>
+			<div class="bookshelf-item" style="top:20.3rem;right:.55rem">
+				<img src="assets/home/row-of-books6.png">
+				<div class="book-hitbox hastooltip" style="right:5.4rem" onclick="showExcerpt('Words of a <s>Wise</s> Leader', 'multiple authors', `#235 “PLEASE someone put that as a quote“\n\n#8 “(slurping sounds) (minor coughing fit)“\n#40 “When I'm idle, it goes between my legs“\n#51 “Who doesn't love a lil self-nut?“\n#52 “I can't control my goo∼“\n#63 “Stuffed myself near to bursting with its sticky, syrupy deliciousness“\n#84 “Am I dumb?“\n#94 “Sticking that thing in my mouth was definitelyy a choice... by way.“\n#100 “'Putrid, sexy delinquent', my new title!“\n#111 “Who we are going to breed first?“\n#114 “Why's the cock exploding!?“\n#123 “Is it shreddy mozzarelli?“\n#127 “Bitch, I did not say 'get off!'“\n#134 “Pal why is it so big?! I'm so intimidated...“\n#147 “I always prefer Black, in EVERYTHING“\n#163 “I think I actually don't need Kaboom“\n#177 “*Gasp* I'm nakey!“\n#183 “I'm just proud of you taking it period“\n#187 “Titty hole insertion pictures“\n#191 “I can't beat this fucking kid“\n#192 “I BEAT THE FUCKING KID!“\n#197 “Bitch! I'll fill you“\n#211 “Pal was right“\n#216 “Can I age my mayonnaise?“\n#223 “Kaboom, we had kids“\n#228 “I mean.. Vibration.. does help“\n#242 “Look, some men WANNA be crushed. Okay?“\n#247 “Oh we burning that, okay cool, WAIT, oh it was poor“\n#248 “I said we have one man because the other one is gay“\n#261 “Guys, I'm pooping!“\n#263 “Please don't fuck swiss cheese“\n#267 “Hey, we haven't had DICKS in a while“\n#273 “Yeah, I'll tickle yours bitch“\n#278 “I like how my boobs are saggy“\n#283 “If you were enjoying the Cuckening..“\n#286 “Looks small like an anchovy“\n#292 “Holy shit, it's bigger than I thought“\n#293 “But also the farts and dicks scare me“\n\n#237 “OMG y'all need to stop *wheeze/chortle* STOP quoting ME!“`)">
+					<span class="tooltip">"Words of a <s>Wise</s> Leader", by multiple authors</span>
+				</div>
+			</div>
+		</div>
+		<div class="bookshelf" id="bookshelf-right" style="right: calc(50% - 25rem)">
+			<img src="assets/home/bookshelf.png" alt="Right bookshelf"/>
+			<div class="bookshelf-item" style="top:15.3rem;right:.5rem">
+				<img src="assets/home/row-of-books2.png">
+			</div>
+			<div class="bookshelf-item" style="top:10.6rem;right:1rem">
+				<img src="assets/home/row-of-books4.png">
+			</div>
+			<div class="bookshelf-item" style="top:15.3rem;left:.6rem">
+				<img src="assets/home/row-of-books5.png">
+			</div>
+			<img src="assets/home/bond.png" style="position:absolute;height:4.4rem;width:auto;top:19.8rem;right:.6rem;transform:rotateY(0);image-rendering:auto;" onclick="document.h_borf[Math.floor(Math.random() * document.h_borf.length)].play()">
+			<img src="assets/home/plague-doctors.png" style="position:absolute;height:3.5rem;width:auto;top:2rem;left:.6rem;image-rendering:auto;">
+			<img src="assets/home/cock-monkey.png" style="position:absolute;height:4.7rem;width:auto;bottom:1rem;left:4rem;image-rendering:auto;">
+			<img src="assets/home/cheese-puff-tiger.png" style="position:absolute;height:3rem;width:auto;bottom:1rem;left:1rem;image-rendering:auto;transform:rotate(-8deg)">
+			<img src="assets/home/bonsai.png" style="position:absolute;height:4rem;width:auto;top:6rem;left:5rem;image-rendering:auto;">
+			<img src="assets/home/paper-gob.png" style="position:absolute;height:2.2rem;width:auto;top:17.1rem;left:6.9rem;image-rendering:auto;">
+			<div class="hastooltip bookshelf-item" id="universal-translator">
+				<img src="assets/universal-translator.png" alt="A Starfleet-issue Universal Translator" onclick="addCollectible(this, 'a Starfleet-issue Universal Translator', `You've found a`, `Starfleet-issue Universal Translator!`); this.parentElement.remove(); Kowabi.playNode('intro-en')">
+				<span class="tooltip">A Starfleet-issue Universal Translator</span>
+			</div>
+		</div>
+		<img src="assets/home/balloons.png" alt="Party balloons in black, white and red" id="balloons"/>
+		<!--# Basement level -->
+		<div class="floor ceiling"></div>
+		<div class="basement-wall">
+			<img src="assets/home/lock.png" alt="A lock" class="lock" data-number="1">
+			<img src="assets/home/lock.png" alt="A lock" class="lock" data-number="2">
+			<img src="assets/home/lock.png" alt="A lock" class="lock" data-number="3">
+			<img src="assets/home/lock.png" alt="A lock" class="lock" data-number="4">
+			<img src="assets/home/door-door.png" alt="A fancy-looking door" id="finaldoor" onclick="NonagonInfinity(this)">
+			<img src="assets/home/door-frame.png" id="finaldoor-frame">
+			<img src="assets/home/door-void.png" id="finaldoor-void">
+			<div class="wallhook">
+				<img src="assets/home/wallhook-over.png">
+				<img src="assets/home/wallhook.png" alt="Wall hook">
+			</div>
+			<div class="wallhook">
+				<img src="assets/home/wallhook-over.png">
+				<img src="assets/home/wallhook.png" alt="Wall hook">
+			</div>
+			<div class="wallhook">
+				<img src="assets/home/wallhook-over.png">
+				<img src="assets/home/wallhook.png" alt="Wall hook">
+			</div>
+			<div class="wallhook">
+				<img src="assets/home/wallhook-over.png">
+				<img src="assets/home/wallhook.png" alt="Wall hook">
+			</div>
+		</div>
+		<div class="basement floor"></div>
+		<!--# Underground level -->
+		<div class="ground"></div>
+		<div class="singular-gob">
+			<img src="assets/home/gob-back-headback.png" class="hidden">
+			<img src="assets/home/gob-back-headfront.png">
+		</div>
+		<div class="hastooltip" id="magic-mushroom">
+			<img class="ingredient" src="assets/home/magic-shroom.png" alt="A magic-looking mushroom" onclick="addCollectible(this, 'a magic-looking mushroom', `You've hesitantly taken a`, `Magic Mushroom!`); this.parentElement.remove()">
+			<span class="tooltip">A magic-looking mushroom</span>
+		</div>
+		<div class="gobs"></div>
+	</div>
+	<div class="fullpage hidden" id="ras2">
+		<div class="treeline"></div>
+		<div class="background"></div>
+		<div class="grass-2" style="bottom:-6vh;height:15vh;transform:translateZ(-20rem);background-position-x:-30vh"></div>
+		<div class="grass"></div>
+		<div class="porch">
+			<img src="assets/ras2/porch-t.png">
+			<div class="hastooltip" style="position:absolute;top:32.9vh;left:33.8vh;height:34.6vh">
+				<img src="assets/ras2/porch-lute.png" alt="Ras' lute">
+				<span class="tooltip">Ras' lute</span>
+			</div>
+			<div class="hastooltip" style="position:absolute;top:60.7vh;left:57.8vh;height:5.6vh">
+				<img src="assets/ras2/louie-porch.png" alt="Ras' lute" onclick="Kowabi.playNode('louie', true)">
+				<span class="tooltip">Louie, the Twisty</span>
+			</div>
+			<div class="portal-wrapper">
+				<img src="assets/portal.gif" class="portal" onclick="goToPage('home')">
+			</div>
+		</div>
+		<div class="garden">
+			<div class="boulder-hitbox" onclick="document.h_amethyst[Math.floor(Math.random()*document.h_amethyst.length)].play()"></div>
+			<img src="assets/ras2/garden.png">
+			<div class="herb locked" style="left:6vh;top:25vh">
+				<div class="hastooltip">
+					<img src="assets/ras2/herb3.png" class="ingredient" alt="Moonlace" onclick="pickHerb(this)">
+					<span class="tooltip">Moonlace</span>
+				</div>
+			</div>
+			<div class="herb locked" style="left:22vh;top:20vh">
+				<div class="hastooltip">
+					<img src="assets/ras2/herb3.png" class="ingredient" alt="Moonlace" onclick="pickHerb(this)">
+					<span class="tooltip">Moonlace</span>
+				</div>
+			</div>
+			<div class="herb locked" style="left:36vh;top:16vh">
+				<div class="hastooltip">
+					<img src="assets/ras2/herb1.png" class="ingredient" alt="Heartgleam" onclick="pickHerb(this)">
+					<span class="tooltip">Heartgleam</span>
+				</div>
+			</div>
+			<div class="herb locked" style="left:47vh;top:11vh">
+				<div class="hastooltip">
+					<img src="assets/ras2/herb1.png" class="ingredient" alt="Heartgleam" onclick="pickHerb(this)">
+					<span class="tooltip">Heartgleam</span>
+				</div>
+			</div>
+			<div class="herb locked" style="left:40vh;top:29vh">
+				<div class="hastooltip">
+					<img src="assets/ras2/herb3.png" class="ingredient" alt="Moonlace" onclick="pickHerb(this)">
+					<span class="tooltip">Moonlace</span>
+				</div>
+			</div>
+			<div class="herb locked" style="left:55vh;top:24vh">
+				<div class="hastooltip">
+					<img src="assets/ras2/herb1.png" class="ingredient" alt="Heartgleam" onclick="pickHerb(this)">
+					<span class="tooltip">Heartgleam</span>
+				</div>
+			</div>
+			<div class="herb locked" style="left:69vh;top:20vh">
+				<div class="hastooltip">
+					<img src="assets/ras2/herb2.png" class="ingredient" alt="Crimson Regalia" onclick="pickHerb(this)">
+					<span class="tooltip">Crimson Regalia</span>
+				</div>
+			</div>
+			<div class="herb locked" style="left:89vh;top:16vh">
+				<div class="hastooltip">
+					<img src="assets/ras2/herb4.png" class="ingredient" alt="Sun's Favor" onclick="pickHerb(this)">
+					<span class="tooltip">Sun's Favor</span>
+				</div>
+			</div>
+			<div class="herb locked" style="left:83vh;top:27vh">
+				<div class="hastooltip">
+					<img src="assets/ras2/herb2.png" class="ingredient" alt="Crimson Regalia" onclick="pickHerb(this)">
+					<span class="tooltip">Crimson Regalia</span>
+				</div>
+			</div>
+			<div class="herb locked" style="left:97vh;top:26vh">
+				<div class="hastooltip">
+					<img src="assets/ras2/herb2.png" class="ingredient" alt="Crimson Regalia" onclick="pickHerb(this)">
+					<span class="tooltip">Crimson Regalia</span>
+				</div>
+			</div>
+			<div class="herb locked" style="left:110vh;top:21vh">
+				<div class="hastooltip">
+					<img src="assets/ras2/herb4.png" class="ingredient" alt="Sun's Favor" onclick="pickHerb(this)">
+					<span class="tooltip">Sun's Favor</span>
+				</div>
+			</div>
+			<div class="herb locked" style="left:126vh;top:20vh">
+				<div class="hastooltip">
+					<img src="assets/ras2/herb4.png" class="ingredient" alt="Sun's Favor" onclick="pickHerb(this)">
+					<span class="tooltip">Sun's Favor</span>
+				</div>
+			</div>
+		</div>
+		<div class="sky"></div>
+		<img src="assets/ras2/moon.png" alt="Moon" class="moon">
+		<div class="ras">
+			<img src="assets/ras2/ras-standing-lit.png" alt="Ras">
+		</div>
+		<svg width="0" height="0" style="position: absolute">
+			<filter id="WispyEdges" filterUnits="objectBoundingBox" x="0" y="0" width="1" height="1">
+				<!-- Step 4: Second turbulence for wobble -->
+				<feTurbulence 0type="turbulence" numOctaves="6" seed="2" result="displaceNoise">
+					<animate attributeName="baseFrequency" dur="60s" keyTimes="0;0.5;1" values=".03 .06; .06 .12; .03 .06" repeatCount="indefinite" />
+				</feTurbulence>
+				<!-- Step 3: Morphology erosion to further push in the alpha -->
+				<feMorphology in="SourceAlpha" operator="erode" radius="7" result="erodedAlpha" />
+				<!-- Step 2: Use the noise to blend with alpha for wispy edge erosion -->
+				<feDisplacementMap in="erodedAlpha" in2="displaceNoise" scale="10" xChannelSelector="R" yChannelSelector="G" result="wispyAlpha" />
+				<!-- Step 5: Apply second displacement -->
+				<feDisplacementMap in="wispyAlpha" in2="displaceNoise" scale="12" xChannelSelector="R" yChannelSelector="G" result="displacedAlpha" />
+				<!-- Step 6: Feather the final edge -->
+				<feGaussianBlur in="displacedAlpha" stdDeviation="2" result="softAlpha" />
+				<!-- Step 7: Use soft, displaced alpha as mask -->
+				<feComposite in="SourceGraphic" in2="softAlpha" operator="in" result="maskedGraphic" />
+				<!-- Output -->
+				<feMerge>
+					<feMergeNode in="maskedGraphic" />
+				</feMerge>
+			</filter>
+		</svg>
+	</div>
+	<div class="fullpage hidden" id="pal">
+		<div class="content">
+			<!-- Top-->
+			<div class="room">
+				<div class="owl-container">
+					<!-- <div class="owl left"></div> -->
+					<div class="owl right"></div>
+					<div class="owl left flying flyaway"></div>
+				</div>
+				<div id="header" style="margin-top: 2%">
+					<img src="assets/pal/header.png" alt="Pal's Tower">
+				</div>
+				<div id="wiz-1">
+					<img src="assets/pal/wizard-cast.gif" alt="Wizard casting a spell" style="margin-top: 0rem" onclick="DropTempText(this, `The Queen of Goblins herself! My pleasure. This Lightning Text is a concentration spell, and presentation is important, so I must stay here as you give yourself a tour of my tower. Feel free to explore, and try not to snoop too much!`, 12, (e) => {e.style.left=`calc(${e.style.left}+70%)`;e.style.top=`calc(${e.style.top}-20%)`;e.style.width='100%'})">
+				</div>
+				<img src="assets/portal.gif" class="portal" onclick="goToPage('home')"/>
+			</div>
+			<!-- Alchemy-->
+			<div class="room">
+				<div class="shelf">
+					<img src="assets/pal/shelf.png" alt="An ingredient shelf">
+					<div class="container">
+						<div class="hastooltip">
+							<img src="assets/pal/potion-base.png" class="ingredient" alt="Potion base" onclick="Alchemy.add(this)">
+							<span class="tooltip">Potion base</span>
+						</div>
+					</div>
+				</div>
+				<div class="shelf">
+					<img src="assets/pal/shelf.png" alt="An ingredient shelf">
+					<div class="container"></div>
+				</div>
+				<img src="assets/pal/cauldron1.gif" alt="Boiling cauldron" id="cauldron">
+				<div id="cauldron-clickbox" onclick="Alchemy.brew()"></div>
+			</div>
+			<!-- Writing-->
+			<div class="room">
+				<div class="owl-container">
+					<div class="owl left flying flyaway"></div>
+					<div class="owl right flying flyaway"></div>
+				</div>
+				<div id="notice" onclick="this.classList.toggle('open'); document.h_paper.play()">
+					<span>Collection</span>
+					<span>en-route to</span>
+					<span>the kingdom's</span>
+					<span>central library</span>
+					<span>by order of the</span>
+					<span>Royal Enchanter.</span>
+				</div>
+				<img src="assets/home/bookshelf.png" alt="Empty bookshelf" class="empty-bookshelf">
+				<img src="assets/home/bookshelf.png" alt="Empty bookshelf" class="empty-bookshelf" style="left: 70.4%">
+				<img src="assets/pal/desk.png" alt="A desk" id="desk" style="filter: drop-shadow(0 2rem 1rem rgb(0 0 0 / 70%))">
+				<div style="position:absolute;height:9.5%;top: 58.5%;left: 55%;">
+					<img src="assets/pal/bookrow.png" alt="A row of books" style="height:100%;width:auto">
+					<div class="book-hitbox hastooltip" style="height:80%;width:15%;right:70%" onclick="showExcerpt('An Observation of Slimes', 'Wizard Pal', `One of the benefits of my residence's location is the various species of creatures I have the pleasure of viewing. In the fields visible from my study, the most adorable cluster (hive? squish?) of slimes wobble about throughout the day. Despite a simpler biological structure, they are intelligible and hold conversation better than any other cluster I've observed, their relationships reflecting that of any other people, if not more charming. I do wonder what environmental or unnatural factors brought about this intelligence in these organisms.`)">
+						<span class="tooltip">"An Observation of Slimes"</span>
+					</div>
+					<div class="book-hitbox hastooltip" style="height:92%;width:20%;right:50%" onclick="showExcerpt('An Observation of Pocket Monsters', 'Wizard Pal', `A sample of the strand of beasts dubbed _“Pokémon”_ have congregated in the nearby forest town just outside the shadow of my tower. Few but a notable amount of these beasts have been recorded possessing the ability to understand common language. Technological efforts to capture and tame these beasts with spherical holding devices have been successful, a now popularized practice among all walks of people.`)">
+						<span class="tooltip">"An Observation of Pocket Monsters"</span>
+					</div>
+					<div class="book-hitbox hastooltip" style="height:100%;width:25%;right:25%" onclick="showExcerpt('An Observation of Goblin Matriarchy', 'Wizard Pal', `In all my years of observation of goblinoid societal structures, only now have I observed a malignity which values the written word (not just arcane in nature) above all other treasures. Doubly rare is any sort of goblin matriarchy, of which I have too observed of this sample. This “Goblin Matriarch” also seems to have a penchant for luxuries that have not come to be expected of goblins, such as a diet free of animal products. Height and these other more subtle features seem to imply an elven ancestry. I am at fault for attributing any sort of pattern to the nature of those as chaotic as the goblin, and my research might stand to benefit from closer observation of this “Queen of Goblins”—perhaps even conversational engagement, granted I hide my books.`)">
+						<span class="tooltip">"An Observation of Goblin Matriarchy?"</span>
+					</div>
+					<div class="book-hitbox hastooltip" style="height:90%;width:25%;right:0" onclick="showExcerpt('Communications with the Royal Enchanter', 'Wizard Pal', `That Royal Enchanter is quite the charming spellcaster and writer. And yes, I've taken special precautions to ensure my opinion of him is not influenced by any spell or charm; I've made a mental note to teleport straight to my nullification chamber if I were to ever detect such. Illusions make for a fun show, but Senseweaving... unnerves me. No disrespect to Kitsune intended, I just value the thoughts that are my own. Anyways, we have exchanged many a letter, books, and tea—some of the best I've ever tasted.`)">
+						<span class="tooltip">"Communications with the Royal Enchanter"</span>
+					</div>
+				</div>
+				<a href="https://oldgoogle.neocities.org/1998/" target="_blank" onclick="document.h_paper.play()">
+					<div class="hastooltip" id="psych">
+						<img src="assets/pal/book.png" alt="Compendium of Pal's Knowledge of Psychology">
+						<span class="tooltip">Compendium of Pal's<br>Knowledge of Psychology</span>
+					</div>
+				</a>
+				<div class="hastooltip" id="drawer" onmouseenter="getSavedData('Kowabi-flags').push('pal-drawerfound').save(); Kowabi.playNode('drawer', true)">
+					<img src="assets/pal/desk-drawer.png" alt="Open drawer">
+					<span class="tooltip">Many photos of muscular goth babes</span>
+				</div>
+				<div class="hastooltip" id="letter" onclick="document.getElementById('lettertogob').showModal();document.h_paper.play()">
+					<img src="assets/pal/letter.png">
+					<span class="tooltip">A letter to the Goblin Queen</span>
+				</div>
+			</div>
+			<!-- Art room-->
+			<div class="room">
+				<div class="owl-container">
+					<div class="owl right flying flyaway"></div>
+				</div>
+				<div class="painting hastooltip" style="height:18.8%;left:14.7%;top:35%">
+					<img src="assets/pal/gob-fingerguns.png" alt="The Goblin Queen throwing finger guns">
+					<span class="tooltip">The Goblin Queen throwing finger guns</span>
+				</div>
+				<div class="painting hastooltip" style="top:61%;left:15.7%;width:6%">
+					<img src="assets/pal/gob-blep.png" alt="The Goblin Queen showing her tongue.">
+					<span class="tooltip">The Goblin Queen showing her tongue.</span>
+				</div>
+				<div class="painting hastooltip" style="height:18.8%;left:73.9%;top:35%">
+					<img src="assets/pal/gob-wave.png" alt="The Goblin Queen waving hello">
+					<span class="tooltip">The Goblin Queen waving hello</span>
+				</div>
+				<div class="painting hastooltip" style="height:18.8%;left:73.9%;top:61%">
+					<span class="tooltip">The Goblin Queen's very sexy legs</span>
+					<img src="assets/pal/gob-legs.png" alt="The Goblin Queen's very sexy legs">
+				</div>
+				<img src="assets/pal/easel.png" alt="An easel" style="position:absolute;height:50%;bottom:0;right:31%;pointer-events:none">
+			</div>
+			<!-- Bed room-->
+			<div class="room">
+				<div class="owl-container">
+					<div class="owl left flying flyaway"></div>
+					<div class="owl right flying flyaway"></div>
+				</div>
+				<div class="painting hastooltip" style="height:13.8%;width:13.6%;right:11.7%;top:48%;">
+					<img src="assets/pal/theponderer.png" alt="'The Orb-Ponderer' painting">
+					<span class="tooltip">'The Orb-Ponderer' painting</span>
+				</div>
+				<img src="assets/pal/fireplace.png" alt="A fireplace" style="position:absolute;height:45%;bottom:2.6%;left: 7.6%">
+				<img src="assets/pal/palade.png" alt="A Pal-Ade poster" style="position:absolute;height:12.9%;top:40%;left: 11.6%">
+				<img src="assets/pal/rocking-chair.png" alt="A rocking chair" style="position:absolute;height:40%;bottom:3%;right: 37%;pointer-events:none">
+				<img src="assets/pal/spades.png" alt="Spades, the wizard's familiar" style="position:absolute;height:20%;bottom:5%;right: 17%" onclick="DropTempText(this, `Meow. (Father is a cruel father. My bowl, bottom visible in its center, my day’s rations meager, represents the hole in my stomach. My water, practically sewage, as it is still compared to the hand-held waterfalls father drinks from. No pets when I need pets, pets when I need not pets. This “home” is my prison, father my tormenter.)`, 20, e => {e.style.top='20%';e.style.left='70%';e.style.right='10%'})">
+			</div>
+			<dialog id="lettertogob">
+				May it please Your Majesty, it would be my utmost pleasure to present to you this letter of appreciation and good wishes on the anniversary of the day the world was graced with your royalty. Our discussions have taught me much, not only on the intricacies of Goblin culture, but of life. I now see a life outside my tower of isolation, and could benefit from a little chaos. Thank you for your friendship, and happy birthday.<br>
+				<button class="win95-btn" onclick="this.parentElement.close()">Close</button>
+			</dialog>
+		</div>
+	</div>
+	<div class="fullpage hidden" id="lef">
+		<div class="content">
+			<img src="assets/lef/header.png" alt="Leafy's Forest" class="header">
+			<img src="assets/lef/leafeon.gif" alt="Leafeon" id="leafeon">
+			<div id="funnydownload"><a href="" download>CLICK HERE TO DOWNLOAD A COOL SONG :) (redacted)</a></div>
+			<img src="assets/portal.gif" style="margin-block:-5rem -2rem" onclick="goToPage('home')"/>
+			<div id="pokefield"></div>
+		</div>
+		<div id="catch-attempt" class="hidden">
+			<span>You caught</span>
+			<div class="pokeball"></div>
+			<span>Pokemon!</span>
+		</div>
+		<div id="throwball" style="display: none">
+			<img src="assets/lef/throwball.png">
+		</div>
+		<div id="pokedex">
+			<img src="assets/lef/pokedex.png" alt="Pokedex" class="overlay">
+			<div class="screen">
+				<img class="" src="assets/lef/furret.png">
+				<img class="" src="assets/lef/ampharos.png">
+				<img class="" src="assets/lef/skitty.png">
+				<img class="" src="assets/lef/delcatty.png">
+				<img class="" src="assets/lef/shinx.png">
+				<img class="" src="assets/lef/glameow.png">
+				<img class="" src="assets/lef/leafeon.png">
+				<img class="" src="assets/lef/tailmon.png">
+				<img class="" src="assets/lef/pigeon.png">
+			</div>
+		</div>
+	</div>
+	<div class="fullpage hidden" id="kaboom">
+		<div style="position:absolute;top:0;right:0"><a href="https://1800simpcentral.tumblr.com/commissionspage" style="color:white!important">Art by Jay</a></div>
+		<img src="assets/kaboom/header.png" alt="Kaboom's Slime Field" class="header">
+		<img src="assets/portal.gif" class="portal" onclick="goToPage('home')"/>
+		<div id="field">
+		<div class="slime" id="jerome"><img src="assets/kaboom/jerome.gif"/></div>
+		<div class="slime" id="roosevelt"><img src="assets/kaboom/roosevelt.gif"/></div>
+		<div class="slime" id="samantha"><img src="assets/kaboom/samantha.gif"/></div>
+		<div class="slime" id="jared"><img src="assets/kaboom/jared.gif"/></div>
+		<div class="slime" id="jeremy"><img src="assets/kaboom/jeremy.gif"/></div>
+		<div class="slime" id="michael"><img src="assets/kaboom/michael.gif"/></div>
+		<div class="slime" id="aurora"><img src="assets/kaboom/aurora.gif"/></div>
+		<div class="slime" id="salt"><img src="assets/kaboom/salt.gif"/></div>
+		<div class="slime" id="flint"><img src="assets/kaboom/flint.gif"/></div>
+		<div class="slime" id="pepper"><img src="assets/kaboom/pepper.gif"/></div>
+		<div class="slime" id="chroma" style="display:none"><img src="assets/kaboom/chroma.gif"/></div>
+		</div>
+		<div id="slime-dialogue" class="hidden">
+			<div class="message">
+				<div class="text"></div>
+				<button class="win95-btn" onclick="dialogueAdvance(this, 'slime')">Continue</button>
+			</div>
+		</div>
+	</div>
+	<div class="fullpage hidden" id="end">
+		<img src="assets/end/sturdy-bbq-sturdy.gif">
+		<img src="assets/end/onimaki-dance-goblin-dance.gif" style="top:25vh">
+		<img src="assets/end/subrote-star-trek.gif" style="top:50vh">
+		<img src="assets/end/trek-crew-car.gif" style="top:75vh">
+		<img src="assets/end/fox-foxes.gif" class="centered" style="transform:translate(-27rem,-2rem)">
+		<img src="assets/end/putting-a-party-hat-worf.gif" style="bottom:0;left:35.1vh">
+		<img src="assets/end/birthday-happy.gif" style="bottom:0;left:60.1vh">
+		<img src="assets/end/pigeons-spinning.gif" style="bottom:0;right:34.9vh;height:35vh">
+		<img src="assets/end/pigeon-falls-through-ground.gif" style="right:0;bottom:0;height:35vh">
+		<img src="assets/end/dungeon-people-anime-embarrassed.gif" style="right:0;top:30vh">
+		<img src="assets/end/gobelino-studia.gif" style="right:3vh;top:3vh;transform:rotate(-10deg)">
+		<img src="assets/end/hytale-pigeon.gif" style="bottom:35vh;right:0;height:10vh">
+		<img src="assets/end/pondering-orb.gif" style="top:0;left:26vh">
+		<img src="assets/end/sammy-amy.png" style="right:70vh">
+		<img src="assets/end/sammy-message.png" style="right:28vh;top:3vh;transform:rotate(6deg)">
+		<img src="assets/ras2/ras-standing-lit.png" class="centered" style="transform:translate(-21rem,-9rem);height:35vh">
+		<img src="assets/pal/wizard-cast.gif" class="centered" style="transform:translate(-14rem,-20rem);height:30vh">
+		<img src="assets/end/leafy-cat.png" class="centered" style="transform:translate(-50%,-7rem);height:5vh">
+		<img src="assets/lef/leafeon.gif" class="centered" style="transform:translate(3rem,-12rem);height:15vh">
+		<img src="assets/end/jeremy.png" class="centered" style="transform:translate(9rem,-9rem);height:30vh">
+		<img src="assets/end/anime-sceptic.gif" class="centered" style="transform:translate(-50%,4rem)rotate(-10deg);height:20vh">
+		<div>
+			<wave class="wave"><span>h</span><span>a</span><span>p</span><span>y</span><span> </span><span>b</span><span>i</span><span>r</span><span>t</span><span>d</span><span>d</span><span>a</span><span>y</span><span>!</span><span>!</span><span>!</span></wave>
+		</div>
+	</div>
+	<div class="fullpage hidden" id="credits">
+		<div class="content">
+			<div class="spacer"></div>
+			<div class="spacer"></div>
+			<div class="title">Retrowave 2000s</div>
+			<div class="subtitle">
+				A group project created by the<br>
+				Royal Goblin Celebratory Committee of 2025
+			</div>
+			<br>
+			<div class="spacer"></div>
+			<div class="spacer"></div>
+			<div class="work">This year's Head of Committee & Head Webcrafter</div>
+			<div class="author">Rasutei, Royal Architect & Enchanter</div>
+			<!-- <img class="ras-bust" src="assets/ras/ras-nobg.png" alt="Rasutei, the Gentle Kitsune">
+			<img class="ras-text" src="assets/ras/header.gif" alt="Ras, the Royal Enchanter"> -->
+			<br>
+			<div class="spacer"></div>
+			<div class="work">Assistant, Head Scribe & Asset-finder</div>
+			<div class="author">Pal, Resident Psychology Major</div>
+			<br>
+			<div class="spacer"></div>
+			<div class="work">Bughunter & Asset-finder</div>
+			<div class="author">Kaboom, Slime Enthusiast</div>
+			<br>
+			<div class="spacer"></div>
+			<div class="work">Assistant Scribe</div>
+			<div class="author">Leafy, Resident Catgirl</div>
+			<br>
+			<div class="spacer"></div>
+			<div class="work">Rogue Webcrafter</div>
+			<div class="author">LunaDream</div>
+			<br>
+			<div class="spacer"></div>
+			<div class="work">Honorary Artist</div>
+			<div class="author">SammyCute</div>
+			<br>
+			<div class="spacer"></div>
+			<div class="work">Regional Manager</div>
+			<div class="author">FuzzyGoblinoid, Horde Overseer</div>
+			<div class="spacer"></div>
+			<div class="spacer"></div>
+		</div>
+	</div>
+	<div id="retroModal">
+		<img width="400" src="assets/home/number1visitor.gif" alt="OHMYGODDD!! YOU'RE OUR NUMBER 1 VISITOR!!!!!">
+		<button class="win95-btn" onclick="Rickroll();this.setAttribute('onclick', `document.getElementById('retroModal').style.display = 'none'`)">YAY!!!!</button>
+ 	</div>
+	<div id="ras-dialogue" class="hidden">
+		<div class="portrait smile-closed">
+			<img src="assets/ras2/ras-laugh-closed.png">
+			<img src="assets/ras2/ras-laugh-open.png">
+			<img src="assets/ras2/ras-smile-closed.png">
+			<img src="assets/ras2/ras-smile-halfopen.png">
+			<img src="assets/ras2/ras-smile-open.png">
+			<img src="assets/ras2/ras-smirk.png">
+			<img src="assets/ras2/ras-think.png">
+			<img src="assets/ras2/ras-disgust.png">
+		</div>
+		<div class="message">
+			<div class="text">This is some sample text</div>
+			<button class="win95-btn" onclick="dialogueAdvance(this, 'ras')">Continue</button>
+		</div>
+	</div>
+	<div id="ras-curses" class="fullpage hidden">
+		<div>
+			<img src="assets/ras-curse-void.png">
+			<img src="assets/ras-curse.png" alt="Ras looking creepy" style="margin-left: -40vh">
+			<img src="assets/ras-curse-eyes.png" style="margin-left: -40vh">
+			<div class="wrapper">
+				<div class="text"></div>
+				<span onclick="this.classList.add('hidden')" class="hidden">I accept my fate</span>
+			</div>
+		</div>
+	</div>
+	<div id="owl-dialogue" class="hidden">
+		<img src="assets/pal/stare.png" alt="Staring owl">
+		<div class="wrapper">
+			<div class="text"></div>
+			<div>
+				<span onclick class="hidden">I understand</span><br>
+				<span onclick class="hidden">I don't understand</span>
+			</div>
+		</div>
+	</div>
+	<div id="book-excerpt" class="hidden">
+		<div class="title">
+			<span>Title</span>
+			<span>Author</span>
+		</div>
+		<div class="excerpt"></div>
+	</div>
+	<div id="kowabi" class="hidden">
+		<div id="msg" class="hidden">
+			<span id="text">Are you a little stupid?</span>
+			<div id="options"></div>
+		</div>
+		<div id="icon" onclick="Kowabi.toggle()">
+			<img src="assets/foxfire.gif" alt="Kowabi">
+			<div id="expression"></div>
+		</div>
+	</div>
+	<div id="music-player" class="hidden">
+		<div id="icon" onclick="player.togglePanel()">
+			<img src="assets/radio.gif" alt="Radio playing music" class="hidden"/>
+			<img src="assets/radio.png" alt="Radio turned off"/>
+		</div>
+		<div id="panel" class="hidden">
+			<div id="playlist">
+				<div id="toggle" onclick="player.togglePlaylist()"><span>▲</span></div>
+				<div id="list"></div>
+			</div>
+			<div id="title"><marquee>start collecting songs now!!!</marquee><span></span></div>
+			<div id="controls">
+				<div id="prev" onclick="Playlist.prev()"><img src="assets/home/media-previous.png" alt="⏮"></div>
+				<div id="back" onclick="Playlist.back()"><img src="assets/home/media-back.png" alt="⏪"></div>
+				<div id="play" onclick="Playlist.play()"><img src="assets/home/media-playpause.png" alt="⏯"></div>
+				<div id="fwrd" onclick="Playlist.fwrd()"><img src="assets/home/media-forward.png" alt="⏩"></div>
+				<div id="next" onclick="Playlist.next()"><img src="assets/home/media-next.png" alt="⏭"></div>
+				<input type="range" id="volume" min="0" max="1" step=".01" value="100" oninput="Playlist.setVolume(this.value)">
+			</div>
+		</div>
+	</div>
+</body>
+</html>
